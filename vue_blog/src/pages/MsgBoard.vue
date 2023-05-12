@@ -1,25 +1,22 @@
 <template>
     <div>
-        <TitleArea class="title-area" :info="info"></TitleArea>
+        <TitleArea class="title-area" :info="info">
+        </TitleArea>
         <div class="main">
-            <transition appear
-                        name="animate__animated animate__bounce animate__slow"
-                        enter-active-class="animate__slideInLeft"
-            >
+            <transition appear name="animate__animated animate__bounce animate__slow"
+                enter-active-class="animate__slideInLeft">
                 <div class="center-area">
-                    <div class="comments">
-                        <div class="total">
-                            <span>—— 收到{{ total }}条评论 ——</span>
-                            <a href="#rp">我有话说！</a></div>
-                        <GroupMessageItem :key="item.myself.id" v-for="item in messages" :groupMsg="item"></GroupMessageItem>
+                    <div class="total">
+                        <span>回答过的提问({{ total }})</span>
+                        <div class="space"></div>
                     </div>
-                    <LeaveMessagePanel :closeBtn="false" class="leave-message"></LeaveMessagePanel>
-                    <transition name="replay">
-                        <LeaveMessagePanel :closeBtn="true" :msgInfo="msgInfo" v-show="showReplay" class="replay-message"></LeaveMessagePanel>
-                    </transition>
+                    <div class="comments">
+                        <GroupMessageItem :key="item.myself.id" v-for="item in messages" :groupMsg="item">
+                        </GroupMessageItem>
+                    </div>
                 </div>
             </transition>
-            <Pagination @jumpPage="jumpPage" :pageInfo="{pageNum: queryInfo.pageNum, pages: pages}"></Pagination>
+            <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
         </div>
     </div>
 </template>
@@ -38,8 +35,8 @@ export default {
         return {
             showReplay: false,
             info: {
-                title: "留言板",
-                desc: "有啥想说的，来吧！"
+                title: "欢迎向我匿名提问!",
+                desc: "Ask me anything!"
             },
             queryInfo: {
                 pageNum: 1,
@@ -51,15 +48,36 @@ export default {
                 {
                     myself: {
                         id: 1,
-                        avatar: 1,
-                        content: "This is a test.",
+                        question: "为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分为什么要学习数分",
+                        answer: "",
                         createTime: "2022-03-29T13:28:02+08:00",
-                        nickname: "管理员",
                         parentId: 0,
                         topParentId: 0,
                     },
                     children: []
-                }
+                },
+                {
+                    myself: {
+                        id: 2,
+                        question: "为什么要学习数分",
+                        answer: "我哪知道。",
+                        createTime: "2022-04-29T13:28:02+08:00",
+                        parentId: 0,
+                        topParentId: 0,
+                    },
+                    children: []
+                },
+                {
+                    myself: {
+                        id: 3,
+                        question: "为什么要学习数分",
+                        answer: "你也不知道？",
+                        createTime: "2022-05-29T13:28:02+08:00",
+                        parentId: 0,
+                        topParentId: 0,
+                    },
+                    children: []
+                },
             ],
             msgInfo: {
                 parentId: 0,
@@ -71,12 +89,12 @@ export default {
         async getMessageList() {
             // 从缓存中拿数据
             const msg = window.sessionStorage.getItem(`message_page${this.queryInfo.pageNum}`);
-            if(msg !== null) {
+            if (msg !== null) {
                 this.messages = JSON.parse(msg)
                 return
             }
 
-            const {data: res} = await this.$axios.get("/myblog/displayMsg", {params: this.queryInfo})
+            const { data: res } = await this.$axios.get("/myblog/displayMsg", { params: this.queryInfo })
             if (res.status !== 1) {
                 this.$message.error("网络出了点小问题，获取评论失败！")
                 return
@@ -128,7 +146,7 @@ export default {
     },
     created() {
         window.scrollTo(0, 0)
-        // 清空缓存的评论
+        // 清空缓存的提问
         window.sessionStorage.clear()
         this.getMessageList()
     },
@@ -150,17 +168,18 @@ export default {
 </script>
 
 <style scoped>
-
-.title-area {
-    background: url("../assets/images/bg10_2560_534.jpg") 0 0 / cover  no-repeat;
-}
+.title-area {}
 
 .main {
-    background: url("../assets/images/back8.jpg") 0 0 / cover  no-repeat;
+
     background-attachment: fixed;
     width: 100%;
     padding-top: 60px;
     padding-bottom: 150px;
+}
+
+.space {
+    height: 20px;
 }
 
 .center-area {
@@ -185,7 +204,7 @@ export default {
 
 .total span {
     position: absolute;
-    left: 50%;
+    left: 20%;
     transform: translateX(-50%);
 }
 
@@ -228,13 +247,34 @@ export default {
 }
 
 .comments {
-    width: 1070px;
+    width: 850px;
     min-height: 80px;
-    border-radius: 8px;
+    border-radius: 20px;
+    /* 增加 border-radius 值来使框更圆润 */
     background-color: #fff;
-    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgb(0 0 0 / 18%) !important;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgba(80, 225, 28, 0.18) !important;
     margin: 20px auto;
     opacity: 0.8;
 }
 
+.comment-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: inline-block;
+}
+
+.GroupMessageItem {
+    border: 1px solid #ccc;
+    /* 添加边框 */
+    padding: 10px;
+    /* 添加内边距 */
+    background-color: #f9f9f9;
+    /* 添加背景色 */
+    margin-bottom: 10px;
+    /* 添加底部边距，使得各个消息之间有空隙 */
+    border-radius: 5px;
+    /* 使边框呈现圆角 */
+}
 </style>

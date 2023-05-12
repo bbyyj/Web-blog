@@ -1,21 +1,24 @@
 <template>
-    <div class="wapper">
-        <div class="toprow">
-            <div class="avatar" :style="imgObj"></div>
-            <div class="info">
-                <h4 class="nickname">{{ msg.nickname }}</h4>
-                <h5 class="date"> {{ dateFormat() }} </h5>
+    <div>
+        <div class="wapper">
+            <div class="toprow">
+                <div class="info">
+                </div>
             </div>
-            <a @click.prevent="replay">回复</a>
         </div>
-        <p><span v-if="msg.parentName" style="color:#4CBF30;cursor:pointer;font-weight: 500;">@{{ msg.parentName }}&nbsp;</span>
-            {{ msg.content }}</p>
+        <div class="question">
+            {{ msg.question }}
+        </div>
+        <div class="answer">
+            {{ msg.answer }}
+        </div>
+        <h6 class="date"> {{ dateFormat() }} <a @click.prevent="replay" v-if="msg.answer == ''">回复</a></h6>
     </div>
 </template>
-
 <script>
 
 import dayjs from "dayjs";
+import axios from 'axios';
 
 export default {
     name: "MessageItem",
@@ -25,7 +28,7 @@ export default {
             const x = Math.floor((this.msg.avatar - 1) % 7) + 1
             const y = Math.floor((this.msg.avatar - 1) / 7)
             return {
-                backgroundPositionX: x * 48 + 'px' ,
+                backgroundPositionX: x * 48 + 'px',
                 backgroundPositionY: y * 48 + 'px',
             }
         },
@@ -35,10 +38,10 @@ export default {
             return dayjs(this.msg.createTime).format('YYYY-MM-DD HH:mm:ss')
         },
         replay() {
-            this.$bus.$emit("replay", {
-                id: this.msg.id,
-                topParentId: this.msg.topParentId === 0 ? this.msg.id : this.msg.topParentId
-            })
+            //控制是否显示“回复”按钮 并且在点击时跳转到后台管理页面
+            this.$router.push({
+                path: "/login",
+            });
         }
     },
 
@@ -46,13 +49,12 @@ export default {
 </script>
 
 <style scoped>
-
 .wapper {
     overflow: hidden;
 }
 
 .toprow {
-    height: 48px;
+    height: 0px;
     overflow: hidden;
     line-height: 48px;
 }
@@ -63,12 +65,11 @@ export default {
     height: 48px;
     float: left;
     border-radius: 50%;
-    background-image: url("../assets/images/avatars.png");
     transition: all 0.6s linear;
 }
 
 .avatar:hover {
-    transform: rotate(360deg) ;
+    transform: rotate(360deg);
 
 }
 
@@ -102,7 +103,8 @@ a {
 }
 
 a:hover {
-    color: rgb(166, 80, 236) !important;;
+    color: rgb(166, 80, 236) !important;
+    ;
 }
 
 p {
@@ -111,4 +113,22 @@ p {
     line-height: 1.8;
 }
 
+.space {
+    height: 20px;
+}
+
+.question {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.answer {
+    padding: 10px;
+    margin: 10px 0;
+    font-weight: normal;
+    font-weight: 500;
+}
 </style>

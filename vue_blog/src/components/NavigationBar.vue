@@ -3,23 +3,17 @@
     <div class="navi-bar">
         <!-- 小站名字-->
         <p>{{ siteName }}</p>
-
         <!--中间搜索、导航区域-->
+
         <div class="navi-bar-center">
             <div class="navi-bar-item-group">
                 <i @click="fullscreen" class="iconfont icon-quanpingmu fullscreen"></i>
                 <!--搜索框-->
                 <div class="search-warp">
-                    <el-input
-                        class="search-input"
-                        size="mini"
-                        placeholder="请输入内容"
-                        prefix-icon="el-icon-search"
-                        v-model="keyWord"
-                        @keyup.enter.native="search"
-                    >
+                    <el-input class="search-input" size="mini" placeholder="请输入内容" prefix-icon="el-icon-search"
+                        v-model="keyWord" @keyup.enter.native="search">
                     </el-input>
-                    <div @mouseleave="showResult=false;keyWord=''" v-show="showResult" class="search-result">
+                    <div @mouseleave="showResult = false; keyWord = ''" v-show="showResult" class="search-result">
                         <div class="search-content">
                             <ul>
                                 <li>{{ total ? '共' + total + '条记录！' : '没有找到记录！' }}</li>
@@ -32,22 +26,51 @@
                 </div>
                 <!--导航按键-->
                 <ul>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="首页" ico-class="icon-shouye" rout="/home"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="分类" ico-class="icon-fenlei" rout="/types"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="标签" ico-class="icon-biaoqian" rout="/tags"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="归档" ico-class="icon-24gf-hourglass" rout="/timeLine"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="随笔" ico-class="icon-yongyan" rout="/essay"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="留言板" ico-class="icon-liuyanban" rout="/msgBoard"></NaviItem></li>
-                    <li v-if="false"><NaviItem :activeRoute="activeRoute" index-name="照片墙" ico-class="icon-zhaopianxuanzhong" rout="/photoWall"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="资源库" ico-class="icon-ziyuanku" rout="/resourceLib"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="关于我" ico-class="icon-guanyuwomen" rout="/about"></NaviItem></li>
-                    <li><NaviItem :activeRoute="activeRoute" index-name="后台管理" ico-class="icon-houtaiguanli-jifenguanli" rout="/login"></NaviItem></li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="首页" ico-class="icon-shouye" rout="/home">
+                        </NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="分类" ico-class="icon-fenlei" rout="/types">
+                        </NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="标签" ico-class="icon-biaoqian" rout="/tags">
+                        </NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="归档" ico-class="icon-24gf-hourglass"
+                            rout="/timeLine"></NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="随笔" ico-class="icon-yongyan" rout="/essay">
+                        </NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/msgBoard">
+                        </NaviItem>
+                    </li>
+                    <li v-if="false">
+                        <NaviItem :activeRoute="activeRoute" index-name="照片墙" ico-class="icon-zhaopianxuanzhong"
+                            rout="/photoWall"></NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="资源库" ico-class="icon-ziyuanku" rout="/resourceLib">
+                        </NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="关于我" ico-class="icon-guanyuwomen" rout="/about">
+                        </NaviItem>
+                    </li>
+                    <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="后台管理" ico-class="icon-houtaiguanli-jifenguanli"
+                            rout="/login"></NaviItem>
+                    </li>
                 </ul>
             </div>
         </div>
 
     </div>
-
 </template>
 
 <script>
@@ -72,7 +95,7 @@ export default {
     methods: {
         fullscreen() {
             const de = document.documentElement;
-            if(de.requestFullscreen) {
+            if (de.requestFullscreen) {
                 de.requestFullscreen();
             }
             window.scrollTo(0, 1);
@@ -81,7 +104,7 @@ export default {
             if (!this.keyWord) {
                 return
             }
-            const {data:res} = await this.$axios.get("/myblog/search", {params: {keyWord: this.keyWord}})
+            const { data: res } = await this.$axios.get("/myblog/search", { params: { keyWord: this.keyWord } })
             if (res.status !== 1) {
                 this.$message.error("搜索失败，请重试！")
                 return
@@ -119,24 +142,21 @@ export default {
 
 
 <style lang="less">
-    .search-input {
-        width: 200px !important;
-        border: None;
+.search-input {
+    width: 200px !important;
+    border: None;
 
     input {
         width: 200px;
         border: 1px solid #fda085 !important;
         border-radius: 20px;
-        background: rgba(210,249,253,0.3);
+        background: rgba(210, 249, 253, 0.3);
     }
 
 }
-
-
 </style>
 
 <style lang="less" scoped >
-
 ul {
     margin: 0;
     display: inline-block;
@@ -162,7 +182,7 @@ li {
     border-radius: 8px;
 
     .search-content {
-        overflow-y:auto;
+        overflow-y: auto;
         max-height: 300px;
         margin: 8px 0;
     }
@@ -183,7 +203,7 @@ li {
     border-top-left-radius: 3px;
 }
 
-.search-result ul  {
+.search-result ul {
     padding-left: 16px;
     font-size: 14px;
 
@@ -213,7 +233,7 @@ p {
     align-items: center;
     margin: 10px 0 0 50px;
     height: 40px;
-    background: -webkit-linear-gradient(45deg,#70f7fe,#fbd7c6,#fdefac,#bfb5dd,#bed5f5);
+    background: -webkit-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
     -webkit-background-clip: text;
     font-weight: bolder;
     color: transparent;
@@ -225,7 +245,7 @@ p {
     width: 100%;
     height: 60px;
     position: fixed;
-    background: rgba(210,249,253,0.3);
+    background: rgba(210, 249, 253, 0.3);
 }
 
 .navi-bar-center {
@@ -248,5 +268,4 @@ p {
     cursor: pointer;
     margin-right: 20px;
 }
-
 </style>

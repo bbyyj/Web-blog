@@ -1,20 +1,13 @@
 <template>
     <div class="panel" id="rp">
         <div class="wrapper">
-            <div class="info">
-                <input type="text" placeholder="尊姓大名" v-model="postInfo.nickname">
-                <input type="text" placeholder="邮箱 (仅作回复使用)" v-model="postInfo.email">
-                <input type="text" placeholder="个人网站 (选填, 需包含http或https)" v-model="postInfo.url">
-            </div>
-            <textarea name="" id="" cols="30" rows="10" v-model="postInfo.content" placeholder="请输入评论内容..."></textarea>
+            <textarea name="" id="" cols="30" rows="10" v-model="postInfo.content" placeholder="输入你的问题..."></textarea>
             <div class="btn-area">
-                <button @click="commit">提交评论</button>
                 <button @click="clearAll">清空</button>
-                <button v-if="closeBtn" @click="close">关闭</button>
+                <button @click="commit">发送</button>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -46,16 +39,16 @@ export default {
     },
     methods: {
         async commit() {
-            if(!this.validate()) {
+            if (!this.validate()) {
                 return
             }
 
             this.trimSpace()
-            const {data: res} = await this.$axios.post("/myblog/leaveMsg", this.postInfo);
-            if(res.status === 101) {
-                this.$message.success("收到靓仔的评论！")
+            const { data: res } = await this.$axios.post("/myblog/leaveMsg", this.postInfo);
+            if (res.status === 101) {
+                this.$message.success("您的问题已提交,请等待博主的回答！")
                 this.postInfo.content = ""
-                if(this.closeBtn) {
+                if (this.closeBtn) {
                     this.close()
                 }
             } else {
@@ -65,55 +58,54 @@ export default {
         },
         validate() {
             // 评论后，需要等一分钟才能评论，不能重复提交，重复提交次数>3，就清空所有输入的内容
-            if(this.commented) {
+            if (this.commented) {
                 this.$message.error("您的提交太过频繁，请稍后再试！")
                 this.repeatCommitTimes++
-                if(this.repeatCommitTimes > 3) {
+                if (this.repeatCommitTimes > 3) {
                     this.clearAll()
                 }
                 return false
             }
-
-            // 验证昵称
-            if(this.postInfo.nickname.trim() === "") {
-                this.$message.error("请输入您的昵称！")
-                return false
-            } else if(this.postInfo.nickname.length > 28) {
-                this.$message.error("昵称长度限制为28个字符！")
-                return
-            }
-            // 验证邮箱格式
-            const t = /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
-            if(!t.test(this.postInfo.email)) {
-                this.$message.error("邮箱格式错误！")
-                this.postInfo.email = ""
-                return false
-            }
-            // 验证网址格式
-            if(this.postInfo.url !== "") {
-                const reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/;
-                if(!reg.test(this.postInfo.url)) {
-                    this.$message.error("网址格式错误！")
-                    this.postInfo.url = ""
-                    return false
-                }
-            }
+            /*
+                        // 验证昵称
+                        if (this.postInfo.nickname.trim() === "") {
+                            this.$message.error("请输入您的昵称！")
+                            return false
+                        } else if (this.postInfo.nickname.length > 28) {
+                            this.$message.error("昵称长度限制为28个字符！")
+                            return
+                        }
+                        // 验证邮箱格式
+                        const t = /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
+                        if (!t.test(this.postInfo.email)) {
+                            this.$message.error("邮箱格式错误！")
+                            this.postInfo.email = ""
+                            return false
+                        }
+                        // 验证网址格式
+                        if (this.postInfo.url !== "") {
+                            const reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/;
+                            if (!reg.test(this.postInfo.url)) {
+                                this.$message.error("网址格式错误！")
+                                this.postInfo.url = ""
+                                return false
+                            }
+                        }
+            */
 
             // 验证输入内容
-            if(this.postInfo.content == "") {
-                this.$message.error("请输入评论内容！")
+            if (this.postInfo.content == "") {
+                this.$message.error("请输入提问内容！")
                 return false
-            } else if(this.postInfo.content.length > 1500) {
-                this.$message.error("评论内容字符限制最大1500字！")
+            } else if (this.postInfo.content.length > 500) {
+                this.$message.error("提问内容字符限制最大500字！")
                 return false
             }
-
             this.commented = true
             this.repeatCommitTimes = 0
             setTimeout(() => {
                 this.commented = false
             }, 60 * 1000)
-
             return true
         },
         clearAll() {
@@ -130,15 +122,15 @@ export default {
             this.postInfo.content.trim()
             this.postInfo.url.trim()
         },
+        /*
         close() {
             this.$bus.$emit("hideReplay")
-        }
+        }*/
     }
 }
 </script>
 
 <style scoped>
-
 .panel {
     border-radius: 8px;
     box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgb(0 0 0 / 18%) !important;
@@ -152,7 +144,7 @@ export default {
 
 input {
     width: 350px;
-    height: 66px;
+    height: 100px;
     outline: none;
     border: none;
     border-bottom: 1px dashed #dedede;
@@ -175,24 +167,35 @@ textarea {
     resize: none;
     width: 100%;
     border: none;
-    border-bottom: 1px dashed #dedede;
-    background: url("../assets/images/comment_bg.webp") no-repeat top right;
+    border-bottom: 2px dashed #dedede;
+    /*background: url("../assets/images/comment_bg.webp") no-repeat top right;*/
+    font-size: 40px;
+    /* 设置文字大小*/
 }
 
 .btn-area {
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 button {
-    float: right;
+    flex: 1;
+    /* 使得按钮长度均衡 */
+    margin: 0 100px;
+    /* 设置按钮间隔 */
     border: 1px solid rgb(88 80 236);
-    background-color: rgb(240 245 255);
+    background-color: #2ec4b6;
+    /* 将背景颜色改为绿色 */
     font-size: .875rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.25rem;
-    margin-right: 20px;
+    padding: 1rem 1rem;
+    border-radius: 50px;
+    /* 设置为圆角 */
+    color: #ffffff;
+    /* 设置按钮字体颜色为白色 */
+    text-align: center;
+    /* 文字居中 */
 }
 
 button:active {

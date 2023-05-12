@@ -1,6 +1,5 @@
 ## 1、项目介绍
 
-##test
 该项目采用 Vue+MySQL+Golang+Gin 框架编写，目前不支持移动端。
 
 **vue_blog**：该目录是前端相关代码

@@ -4,15 +4,14 @@
         <MessageItem :msg="groupMsg.myself"></MessageItem>
         <div class="count" v-if="groupMsg.children.length">
             <span @click="hideChildren">
-                {{ groupMsg.children.length }}条回复<span class="arrowUp" :class="{arrowDown: !showChildren}"></span>
+                {{ groupMsg.children.length }}条回复<span class="arrowUp" :class="{ arrowDown: !showChildren }"></span>
             </span>
-
         </div>
         <transition name="children">
             <div class="ul-wapper" v-show="showChildren">
                 <ul>
                     <li :key="item.id" v-for="item in groupMsg.children">
-                        <MessageItem  :msg="item"></MessageItem>
+                        <MessageItem :msg="item"></MessageItem>
                     </li>
                 </ul>
             </div>
@@ -27,7 +26,7 @@ import MessageItem from "./MessageItem";
 export default {
     name: "GroupMessageItem",
     components: { MessageItem },
-    props: [ "groupMsg" ],
+    props: ["groupMsg"],
     data() {
         return {
             showChildren: true
@@ -42,21 +41,29 @@ export default {
 </script>
 
 <style scoped>
-
-ul, li {
-    margin: 0;
-    padding: 0;
+ul,
+li {
+    margin: 10px;
+    padding: 0px;
 }
 
 .group-warp {
-    margin: 0 20px;
+    margin: 20px;
+    /* 调整外边距以防止框紧贴 */
+    border: 1px solid #ccc;
+    /* 添加边框 */
+    padding: 20px;
+    /* 添加内边距 */
+    background-color: #f9f9f9;
+    /* 添加背景色 */
+    border-radius: 20px;
+    /* 使边框呈现圆角 */
     border-bottom: 1px dashed rgba(0, 0, 0, .2);
     padding: 20px 30px 3px;
 }
 
 .count {
     overflow: hidden;
-
     padding-bottom: 10px;
     user-select: none;
 }
@@ -89,7 +96,7 @@ ul, li {
     top: 5px;
 }
 
-.ul-wapper{
+.ul-wapper {
     position: relative;
     transition: all 0.5s ease-in;
 }
@@ -127,5 +134,4 @@ li {
     animation: appe 0.5s ease;
     animation-direction: reverse;
 }
-
 </style>

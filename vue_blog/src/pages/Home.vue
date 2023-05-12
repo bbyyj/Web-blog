@@ -1,25 +1,20 @@
 
 <template>
-
     <div>
         <!--上方背景页面-->
-        <div id="bg1" :style="bgObj" >
+        <div id="bg1" :style="bgObj">
             <bubbles-effect :options="options" class="bubble"></bubbles-effect>
             <div id="motto" v-if="showMotto">
-                <transition-group appear
-                name="animate__animated animate__bounce animate__slow"
-                enter-active-class="animate__bounceIn"
-                leave-active-class="animate__bounceOut"
-                >
-                    <h1 key="1">{{firstBGPageInfo.curMotto.ch}}</h1>
-                    <p key="2">{{firstBGPageInfo.curMotto.en}}</p>
+                <transition-group appear name="animate__animated animate__bounce animate__slow"
+                    enter-active-class="animate__bounceIn" leave-active-class="animate__bounceOut">
+                    <h1 key="1">{{ firstBGPageInfo.curMotto.ch }}</h1>
+                    <p key="2">{{ firstBGPageInfo.curMotto.en }}</p>
                 </transition-group>
             </div>
             <div class="scroll-down">
                 <a class="anchor-down" @click.prevent="anchorDown"></a>
             </div>
         </div>
-
 
 
         <!--博客展示区-->
@@ -40,18 +35,16 @@
 
                 <!--右侧博客展示区-->
                 <div class="blog-right">
-                    <BlogCard :key="item.id" v-for="(item, index) in blogDetails"
-                               :item="item" :imgRight="index % 2 === 0"
-                                @click.native="blogDetail(item.id)">
+                    <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
+                        @click.native="blogDetail(item.id)">
                     </BlogCard>
                     <!--分页导航区-->
-                    <Pagination @jumpPage="jumpPage" :pageInfo="{pageNum:queryInfo.pageNum, pages:pages}"></Pagination>
+                    <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
 
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 
@@ -73,7 +66,7 @@ import "animate.css"
 
 export default {
     name: "Home",
-    components: {BackToTop, BlogCard, Pagination, UserInfoCard, RecommendList, TagCloud},
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard, RecommendList, TagCloud },
     data() {
         return {
             options: {
@@ -89,27 +82,27 @@ export default {
                     ch: "奋斗从未停止, 前进永无止境!",
                     en: "Struggle never stops, and progress never ends!"
                 },
-                mottos:[],
+                mottos: [],
             },
             showCat: false,
             showMotto: true,
             pages: 1,              // 页面数量
             blogCount: 66,
             queryInfo: {
-              pageNum: 1,
-              pageSize: 8
+                pageNum: 1,
+                pageSize: 8
             },
             blogDetails: [{
-              id: 1,
-              title: "博客系统开发",
-              description: "本章主要介绍博客系统的开发工作...",
-              firstPicture: img1,
-              createTime: "2021-03-29",
-              views: 1024,
-              nickname: "Jack Ma",
-              typename: "框架底层原理"
-              },
-              {
+                id: 1,
+                title: "博客系统开发",
+                description: "本章主要介绍博客系统的开发工作...",
+                firstPicture: img1,
+                createTime: "2021-03-29",
+                views: 1024,
+                nickname: "Jack Ma",
+                typename: "框架底层原理"
+            },
+            {
                 id: 2,
                 title: "博客系统开发",
                 description: "本章主要介绍博客系统的开发工作...",
@@ -118,8 +111,8 @@ export default {
                 views: 1024,
                 nickname: "Jack Ma",
                 typename: "框架底层原理"
-              },
-              {
+            },
+            {
                 id: 3,
                 title: "博客系统开发",
                 description: "本章主要介绍博客系统的开发工作...",
@@ -128,31 +121,31 @@ export default {
                 views: 1024,
                 nickname: "Jack Ma",
                 typename: "框架底层原理"
-              }],
+            }],
             newRecommend: {
                 title: "最新推荐",
                 icon: "icon-zuixingengxin",
                 list: [
-                    {id: 1, title: "MarkDownit使用"},
-                    {id: 2, title: "Vue日期格式化过滤器"},
-                    {id: 3, title: "前后端分离登录验证"},
-                    {id: 4, title: "MavonEditor上传图片"},
-                    {id: 5, title: "Springboot中PageHelper 分页查询使用方法"},
-                    {id: 6, title: "mybatis根据日期查询、查询日期并返回"},
-                    {id: 7, title: "maven中静态资源的过滤"}
+                    { id: 1, title: "MarkDownit使用" },
+                    { id: 2, title: "Vue日期格式化过滤器" },
+                    { id: 3, title: "前后端分离登录验证" },
+                    { id: 4, title: "MavonEditor上传图片" },
+                    { id: 5, title: "Springboot中PageHelper 分页查询使用方法" },
+                    { id: 6, title: "mybatis根据日期查询、查询日期并返回" },
+                    { id: 7, title: "maven中静态资源的过滤" }
                 ]
             },
             hotBlogs: {
                 title: "热门推荐",
                 icon: "icon-fire",
                 list: [
-                    {id: 1, title: "MarkDownit使用"},
-                    {id: 2, title: "Vue日期格式化过滤器"},
-                    {id: 3, title: "前后端分离登录验证"},
-                    {id: 4, title: "MavonEditor上传图片"},
-                    {id: 5, title: "Springboot中PageHelper 分页查询使用方法"},
-                    {id: 6, title: "mybatis根据日期查询、查询日期并返回"},
-                    {id: 7, title: "maven中静态资源的过滤"}
+                    { id: 1, title: "MarkDownit使用" },
+                    { id: 2, title: "Vue日期格式化过滤器" },
+                    { id: 3, title: "前后端分离登录验证" },
+                    { id: 4, title: "MavonEditor上传图片" },
+                    { id: 5, title: "Springboot中PageHelper 分页查询使用方法" },
+                    { id: 6, title: "mybatis根据日期查询、查询日期并返回" },
+                    { id: 7, title: "maven中静态资源的过滤" }
                 ]
             },
 
@@ -177,14 +170,14 @@ export default {
             if (this.firstBGPageInfo.curBg === "") {
                 return ""
             }
-            return {backgroundImage: 'url(' + this.firstBGPageInfo.curBg + ')'}
+            return { backgroundImage: 'url(' + this.firstBGPageInfo.curBg + ')' }
         }
     },
     methods: {
         // 获取背景图片地址
         async getBackgImage() {
-            const {data: res} = await this.$axios.get("/myblog/bgs")
-            if(res.status === 1) { //查询成功
+            const { data: res } = await this.$axios.get("/myblog/bgs")
+            if (res.status === 1) { //查询成功
                 if (res.data.length > 0) {
                     this.firstBGPageInfo.bgs = res.data[0]
                     const n = Math.round(Math.random() * (res.data[0].length - 1));
@@ -195,8 +188,8 @@ export default {
         },
         // 获取座右铭
         async getMotto() {
-            const {data: res} = await this.$axios.get("/myblog/mottos")
-            if(res.status === 1) {
+            const { data: res } = await this.$axios.get("/myblog/mottos")
+            if (res.status === 1) {
                 if (res.data.length > 0) {
                     this.firstBGPageInfo.mottos = res.data[0]
                     const n = Math.round(Math.random() * (res.data[0].length - 1));
@@ -206,42 +199,42 @@ export default {
         },
         anchorDown() {
             const offsetTop = document.getElementById("area-blow").offsetTop;
-            window.scrollTo({top: offsetTop, behavior: 'smooth'})
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' })
         },
         // 获取博客列表
         async getBlogLists() {
             var keyWord = window.sessionStorage.getItem("keyWord");
-            if(keyWord) {
+            if (keyWord) {
                 window.sessionStorage.removeItem("keyWord");
-                const {data:res} = await this.$axios.get("/myblog/search", {params: {pageNum: this.queryInfo.pageNum, pageSize: this.queryInfo.pageSize, keyWord: keyWord}});
-                if(res.status === 1) {
+                const { data: res } = await this.$axios.get("/myblog/search", { params: { pageNum: this.queryInfo.pageNum, pageSize: this.queryInfo.pageSize, keyWord: keyWord } });
+                if (res.status === 1) {
                     this.blogDetails = res.data.length > 0 ? res.data[0] : this.blogDetails
                     this.blogCount = res.data.length > 1 ? res.data[1] : this.blogCount
                     this.pages = Math.ceil(this.blogCount / this.queryInfo.pageSize)
                     if (this.pages <= 0) {
                         this.pages = 1
                     }
-                }else {
+                } else {
                     this.$message.error("获取博客失败，请重试")
                 }
             } else {
-                const {data:res} = await this.$axios.get("/myblog/blogLists", {params: this.queryInfo});
-                if(res.status === 1) {
+                const { data: res } = await this.$axios.get("/myblog/blogLists", { params: this.queryInfo });
+                if (res.status === 1) {
                     this.blogDetails = res.data.length > 0 ? res.data[0] : this.blogDetails
                     this.blogCount = res.data.length > 1 ? res.data[1] : this.blogCount
                     this.pages = Math.ceil(this.blogCount / this.queryInfo.pageSize)
                     if (this.pages <= 0) {
                         this.pages = 1
                     }
-                }else {
+                } else {
                     this.$message.error("获取博客失败，请重试")
                 }
             }
         },
         // 获取最新推荐博客
         async getNewBlogs() {
-            const {data:res} = await this.$axios.get("/myblog/newBlogs", {params: {countLimit: 10}});
-            if(res.status === 1) {
+            const { data: res } = await this.$axios.get("/myblog/newBlogs", { params: { countLimit: 10 } });
+            if (res.status === 1) {
                 this.newRecommend.list = res.data.length > 0 ? res.data[0] : this.newRecommend.list;
             } else {
                 this.$message.warning("获取最新推荐失败！")
@@ -249,8 +242,8 @@ export default {
         },
         // 获取热门推荐博客
         async getHotBlogs() {
-            const {data:res} = await this.$axios.get("/myblog/hotBlogs", {params: {countLimit: 10}});
-            if(res.status === 1) {
+            const { data: res } = await this.$axios.get("/myblog/hotBlogs", { params: { countLimit: 10 } });
+            if (res.status === 1) {
                 this.hotBlogs.list = res.data.length > 0 ? res.data[0] : this.hotBlogs.list;
             } else {
                 this.$message.warning("获取热门推荐失败！")
@@ -276,8 +269,7 @@ export default {
 
 
 <style lang="less" scoped>
-
-.animate__animated{
+.animate__animated {
     animation-duration: 3s !important;
 }
 
@@ -294,6 +286,7 @@ export default {
     text-align: center;
     position: relative;
     top: 42%;
+
     h1 {
         padding-bottom: 20px;
     }
@@ -352,15 +345,31 @@ export default {
 }
 
 @keyframes bounce-in {
-    0% { transform: translateY(0); }
-    20% { transform: translateY(0); }
-    50% { transform: translateY(-20px);  border-right: #81f5ac; border-top:#81f5ac;}
-    80% { transform: translateY(0); }
-    100% { transform: translateY(0); }
+    0% {
+        transform: translateY(0);
+    }
+
+    20% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+        border-right: #81f5ac;
+        border-top: #81f5ac;
+    }
+
+    80% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 //上方背景图
-#bg1{
+#bg1 {
     width: 100%;
     height: 100vh;
     background: url('~@/assets/images/back4.png') 0 0 / cover no-repeat;
@@ -387,14 +396,15 @@ export default {
     height: 260px;
     position: relative;
     background: #FFF;
-    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
     margin: 1rem 0;
     padding: 0px 24px !important;
     border-radius: .28571429rem;
-    border: 1px solid rgba(34,36,38,.15);
+    border: 1px solid rgba(34, 36, 38, .15);
     //opacity: 0.9;
     padding: 1.5em;
     font-size: 1rem;
+
     img {
         width: 360px !important;
     }
@@ -411,7 +421,4 @@ export default {
     padding: 0 15px;
     border-radius: 6px;
     transition: all 0.3s;
-}
-
-
-</style>
+}</style>
