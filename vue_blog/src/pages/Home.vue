@@ -168,7 +168,6 @@ export default {
         const ap = new APlayer({
             container: document.getElementById('player'),
             fixed: true,
-            lrcType: 3,
             audio: [
                 {
                     name: '借',
