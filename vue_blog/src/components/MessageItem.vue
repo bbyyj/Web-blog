@@ -38,7 +38,7 @@ export default {
             return dayjs(this.msg.createTime).format('YYYY-MM-DD HH:mm:ss')
         },
         replay() {
-            //控制是否显示“回复”按钮 并且在点击时跳转到后台管理页面
+            //控制是否显示"回复按钮" 并且在点击时跳转到后台管理页面
             this.$router.push({
                 path: "/login",
             });

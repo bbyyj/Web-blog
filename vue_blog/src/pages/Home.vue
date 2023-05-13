@@ -31,8 +31,9 @@
                     <TagCloud></TagCloud>
                     <!--热门推荐-->
                     <RecommendList :blogList="hotBlogs"></RecommendList>
-                </div>
 
+                </div>
+                <div id="player"></div>
                 <!--右侧博客展示区-->
                 <div class="blog-right">
                     <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
@@ -44,9 +45,9 @@
                 </div>
             </div>
         </div>
+
     </div>
 </template>
-
 
 
 <script>
@@ -61,10 +62,14 @@ import Pagination from "../components/Pagination";
 import RecommendList from "../components/RecommendList";
 import TagCloud from "../components/TagCloud";
 
+import 'APlayer/dist/APlayer.min.css';
+import APlayer from 'APlayer';
+
 import "animate.css"
 // import "../assets/js/ribbons"
 
 export default {
+
     name: "Home",
     components: { BackToTop, BlogCard, Pagination, UserInfoCard, RecommendList, TagCloud },
     data() {
@@ -157,6 +162,30 @@ export default {
         this.getMotto()
         this.getNewBlogs()
         this.getHotBlogs()
+    },
+    mounted() {
+        //音乐播放器
+        const ap = new APlayer({
+            container: document.getElementById('player'),
+            fixed: true,
+            lrcType: 3,
+            audio: [
+                {
+                    name: '借',
+                    artist: '毛不易',
+                    url: 'http://music.163.com/song/media/outer/url?id=569214250.mp3',
+                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
+                    theme: '#ebd0c2'
+                },
+                {
+                    name: '像我这样的人',
+                    artist: '毛不易',
+                    url: 'http://music.163.com/song/media/outer/url?id=569213220.mp3',
+                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
+                    theme: '#46718b'
+                }
+            ]
+        });
     },
     deactivated() {
         this.showMotto = false
@@ -264,7 +293,10 @@ export default {
         }
     }
 }
+
+
 </script>
+
 
 
 
@@ -421,4 +453,5 @@ export default {
     padding: 0 15px;
     border-radius: 6px;
     transition: all 0.3s;
-}</style>
+}
+</style>
