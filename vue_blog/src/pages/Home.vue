@@ -2,15 +2,15 @@
 <template>
     <div>
         <!--上方背景页面-->
-        <div id="bg1" :style="bgObj">
-            <bubbles-effect :options="options" class="bubble"></bubbles-effect>
-            <div id="motto" v-if="showMotto">
+        <div id="bg1" ref="box">
+            <span ref="space">Blog</span>
+            <!-- <div id="motto" v-if="showMotto">
                 <transition-group appear name="animate__animated animate__bounce animate__slow"
                     enter-active-class="animate__bounceIn" leave-active-class="animate__bounceOut">
                     <h1 key="1">{{ firstBGPageInfo.curMotto.ch }}</h1>
                     <p key="2">{{ firstBGPageInfo.curMotto.en }}</p>
                 </transition-group>
-            </div>
+            </div> -->
             <div class="scroll-down">
                 <a class="anchor-down" @click.prevent="anchorDown"></a>
             </div>
@@ -20,7 +20,6 @@
         <!--博客展示区-->
         <div id="area-blow">
             <div class="blog-area">
-
                 <!--左侧博客信息区-->
                 <div class="blog-left">
                     <!--用户信息栏-->
@@ -66,7 +65,6 @@ import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
 
 import "animate.css"
-// import "../assets/js/ribbons"
 
 export default {
 
@@ -74,12 +72,6 @@ export default {
     components: { BackToTop, BlogCard, Pagination, UserInfoCard, RecommendList, TagCloud },
     data() {
         return {
-            options: {
-                color: 'random', //Bubble color
-                radius: 15, //Bubble radius
-                densety: 0.2, // The larger the bubble density, the greater the density (suggest no more than 1).
-                clearOffset: 0.2 // The larger the bubble disappears [0-1], the longer it disappears.
-            },
             firstBGPageInfo: {
                 curBg: "",
                 bgs: [],
@@ -158,7 +150,6 @@ export default {
     },
     created() {
         this.getBlogLists();
-        this.getBackgImage()
         this.getMotto()
         this.getNewBlogs()
         this.getHotBlogs()
@@ -192,6 +183,7 @@ export default {
                 }
             ]
         });
+        document.addEventListener('scroll',this.parallax,true)
     },
     deactivated() {
         this.showMotto = false
@@ -200,27 +192,8 @@ export default {
         this.showMotto = true
         window.scrollTo(0, 0)
     },
-    computed: {
-        bgObj() {
-            if (this.firstBGPageInfo.curBg === "") {
-                return ""
-            }
-            return { backgroundImage: 'url(' + this.firstBGPageInfo.curBg + ')' }
-        }
-    },
+    
     methods: {
-        // 获取背景图片地址
-        async getBackgImage() {
-            const { data: res } = await this.$axios.get("/myblog/bgs")
-            if (res.status === 1) { //查询成功
-                if (res.data.length > 0) {
-                    this.firstBGPageInfo.bgs = res.data[0]
-                    const n = Math.round(Math.random() * (res.data[0].length - 1));
-                    this.firstBGPageInfo.curBg = this.firstBGPageInfo.bgs[n]
-                }
-
-            }
-        },
         // 获取座右铭
         async getMotto() {
             const { data: res } = await this.$axios.get("/myblog/mottos")
@@ -296,11 +269,18 @@ export default {
         jumpPage(pageNum) {
             this.queryInfo.pageNum = pageNum;
             this.getBlogLists();
+        },
+        //滚轮视差
+        parallax(){
+            const scrollY = window.scrollY
+            if (scrollY !== 0) {
+                this.$refs.box.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`
+             }else{
+                this.$refs.box.style.style.backgroundPosition = ''
+            }
         }
     }
 }
-
-
 </script>
 
 
@@ -309,10 +289,6 @@ export default {
 <style lang="less" scoped>
 .animate__animated {
     animation-duration: 3s !important;
-}
-
-.bubble {
-    width: 100%;
 }
 
 //座右铭部分
@@ -324,11 +300,9 @@ export default {
     text-align: center;
     position: relative;
     top: 42%;
-
     h1 {
         padding-bottom: 20px;
     }
-
     p {
         font-size: 22px;
     }
@@ -348,27 +322,13 @@ export default {
 .anchor-down {
     display: block;
     width: 36px;
-    height: 36px;
+    height: 30px;
     transform: rotate(45deg);
     position: absolute;
     left: 50%;
     margin-left: -18px;
     cursor: pointer;
 }
-
-.anchor-down::before {
-    content: '';
-    width: 28px;
-    height: 28px;
-    position: absolute;
-    right: 14px;
-    bottom: 14px;
-    border-right: 5px solid #fccb90;
-    border-bottom: 5px solid #fccb90;
-    display: block;
-    border-bottom-right-radius: 2px;
-}
-
 .anchor-down::after {
     content: '';
     width: 28px;
@@ -376,10 +336,10 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
-    border-right: 5px solid #84fab0;
-    border-bottom: 5px solid #84fab0;
+    border-right: 5px solid #d2c99a;
+    border-bottom: 5px solid #d2c99a;
     display: block;
-    border-bottom-right-radius: 2px;
+    border-bottom-right-radius: 5px;
 }
 
 @keyframes bounce-in {
@@ -393,8 +353,8 @@ export default {
 
     50% {
         transform: translateY(-20px);
-        border-right: #81f5ac;
-        border-top: #81f5ac;
+        // border-right: #ed1414;
+        // border-top: #0f1110;
     }
 
     80% {
@@ -406,19 +366,115 @@ export default {
     }
 }
 
-//上方背景图
+//上方背景
 #bg1 {
-    width: 100%;
-    height: 100vh;
-    background: url('~@/assets/images/back4.png') 0 0 / cover no-repeat;
+    background-image: url("../assets/images/background03.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
+    font: 600 25rem '';
+    line-height: 95vh;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    text-align: center;
     overflow: hidden;
+
+}
+#bg1::before {
+    content: '';
+    background-size: cover;
+    background-image: inherit;
+    background-position: 50% 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -100;
 }
 
 //下面区域
 #area-blow {
-    //background: url('~@/assets/images/back3.jpg') 0 0 / cover no-repeat;
-    background-image: linear-gradient(to left, rgba(255, 0, 149, 0.2), rgba(0, 247, 255, 0.2));
-    background-attachment: fixed;
+    background-color:#263529;
+    background-image: 
+        radial-gradient(closest-side, #507863, rgba(80, 120, 99, 0)),
+        radial-gradient(closest-side, #5b8463, rgba(132, 157, 133, 0)),
+        radial-gradient(closest-side, #4d7a69, rgba(94, 129, 137, 0)),
+        radial-gradient(closest-side, #d8d0a7, rgba(210, 201, 154, 0)),
+        radial-gradient(closest-side, #98bdc8, rgba(114, 145, 147, 0));
+    background-size: 
+        130vmax 130vmax,
+        80vmax 80vmax,
+        90vmax 90vmax,
+        110vmax 110vmax,
+        90vmax 90vmax;
+    background-position:
+        -80vmax -80vmax,
+        60vmax -30vmax,
+        10vmax 10vmax,
+        -30vmax -10vmax,
+        50vmax 50vmax;
+    background-repeat: no-repeat;
+    animation: 10s movement linear infinite;
+
+    @keyframes movement {
+        0%, 100% {
+            background-size: 
+            130vmax 130vmax,
+            80vmax 80vmax,
+            90vmax 90vmax,
+            110vmax 110vmax,
+            90vmax 90vmax;
+            background-position:
+            -80vmax -80vmax,
+            60vmax -30vmax,
+            10vmax 10vmax,
+            -30vmax -10vmax,
+            50vmax 50vmax;
+        }
+        25% {
+            background-size: 
+            100vmax 100vmax,
+            90vmax 90vmax,
+            100vmax 100vmax,
+            90vmax 90vmax,
+            60vmax 60vmax;
+            background-position:
+            -60vmax -90vmax,
+            50vmax -40vmax,
+            0vmax -20vmax,
+            -40vmax -20vmax,
+            40vmax 60vmax;
+        }
+        50% {
+            background-size: 
+            80vmax 80vmax,
+            110vmax 110vmax,
+            80vmax 80vmax,
+            60vmax 60vmax,
+            80vmax 80vmax;
+            background-position:
+            -50vmax -70vmax,
+            40vmax -30vmax,
+            10vmax 0vmax,
+            20vmax 10vmax,
+            30vmax 70vmax;
+        }
+        75% {
+            background-size: 
+            90vmax 90vmax,
+            90vmax 90vmax,
+            100vmax 100vmax,
+            90vmax 90vmax,
+            70vmax 70vmax;
+            background-position:
+            -50vmax -40vmax,
+            50vmax -30vmax,
+            20vmax 0vmax,
+            -10vmax 10vmax,
+            40vmax 60vmax;
+        }
+    }
 }
 
 // 下面中心区域
@@ -428,24 +484,6 @@ export default {
     padding-top: 36px;
     padding-bottom: 64px;
     overflow: hidden;
-}
-
-.card {
-    height: 260px;
-    position: relative;
-    background: #FFF;
-    box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
-    margin: 1rem 0;
-    padding: 0px 24px !important;
-    border-radius: .28571429rem;
-    border: 1px solid rgba(34, 36, 38, .15);
-    //opacity: 0.9;
-    padding: 1.5em;
-    font-size: 1rem;
-
-    img {
-        width: 360px !important;
-    }
 }
 
 .blog-right {
