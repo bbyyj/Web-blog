@@ -181,3 +181,22 @@
 [2023-05-14 12:02:47][FATAL][main.go:dealSignal:64] Server is going to shutdown...
 [GIN] 2023/05/14 - 12:02:54 | 200 |      6.5461ms |       127.0.0.1 | POST     "/api/admin/addMusic"
 [2023-05-14 12:03:19][FATAL][main.go:dealSignal:64] Server is going to shutdown...
+[GIN] 2023/05/14 - 13:23:58 | 200 |     16.6652ms |             ::1 | GET      "/api/myblog/userInfo"
+[GIN] 2023/05/14 - 13:23:58 | 200 |     14.0953ms |             ::1 | GET      "/api/myblog/hotBlogs?countLimit=10"
+[GIN] 2023/05/14 - 13:23:58 | 200 |     15.1204ms |             ::1 | GET      "/api/myblog/bgs"
+[GIN] 2023/05/14 - 13:23:58 | 200 |     15.6478ms |             ::1 | GET      "/api/myblog/mottos"
+[GIN] 2023/05/14 - 13:23:58 | 200 |     15.1204ms |             ::1 | GET      "/api/myblog/newBlogs?countLimit=10"
+[GIN] 2023/05/14 - 13:23:58 | 200 |     15.6478ms |             ::1 | GET      "/api/myblog/blogLists?pageNum=1&pageSize=8"
+[GIN] 2023/05/14 - 13:23:58 | 200 |       527.5µs |             ::1 | GET      "/api/myblog/tagList"
+[GIN] 2023/05/14 - 13:24:12 | 200 |       1.469ms |             ::1 | GET      "/api/myblog/timeLine"
+[GIN] 2023/05/14 - 13:24:12 | 200 |       523.4µs |             ::1 | GET      "/api/myblog/tagList"
+[GIN] 2023/05/14 - 13:24:12 | 200 |       544.8µs |             ::1 | GET      "/api/myblog/staticsBlog"
+[GIN] 2023/05/14 - 13:24:13 | 200 |        1.53ms |             ::1 | GET      "/api/myblog/essayList"
+[GIN] 2023/05/14 - 13:24:14 | 200 |      3.7842ms |             ::1 | GET      "/api/myblog/displayMsg?pageNum=1&pageSize=10"
+[GIN] 2023/05/14 - 13:24:19 | 404 |            0s |             ::1 | GET      "/favicon.ico"
+[2023-05-14 13:24:45][FATAL][main.go:dealSignal:64] Server is going to shutdown...
+[2023-05-14 19:15:00][FATAL][main.go:dealSignal:64] Server is going to shutdown...
+[GIN] 2023/05/14 - 19:16:29 | 200 |     12.7584ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?id=1"
+[GIN] 2023/05/14 - 19:17:43 | 200 |      7.8496ms |       127.0.0.1 | POST     "/api/admin/addMusic"
+[GIN] 2023/05/14 - 19:18:37 | 200 |       8.382ms |       127.0.0.1 | GET      "/api/admin/musicList"
+[2023-05-14 21:10:39][FATAL][main.go:dealSignal:64] Server is going to shutdown...
