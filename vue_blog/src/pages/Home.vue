@@ -145,7 +145,33 @@ export default {
                     { id: 7, title: "maven中静态资源的过滤" }
                 ]
             },
-
+            //获得歌单
+            musicList: [
+                {
+                    id: 1,
+                    name: '',
+                    artist: '',
+                    url: '',
+                    cover: '',
+                    theme: '#ebd0c2'
+                },
+                {
+                    id: 2,
+                    name: '',
+                    artist: '',
+                    url: '',
+                    cover: '',
+                    theme: '#ebd0c2'
+                },
+                {
+                    id: 3,
+                    name: '',
+                    artist: '',
+                    url: '',
+                    cover: '',
+                    theme: '#ebd0c2'
+                }
+            ]
         }
     },
     created() {
@@ -153,12 +179,15 @@ export default {
         this.getMotto()
         this.getNewBlogs()
         this.getHotBlogs()
+        this.getmusicList()
     },
     mounted() {
         //音乐播放器
         const ap = new APlayer({
             container: document.getElementById('player'),
             fixed: true,
+            audio: this.musicList
+            /*
             audio: [
                 {
                     name: '借',
@@ -181,9 +210,10 @@ export default {
                     cover: 'http://p2.music.126.net/zfr5TThFTC3vedNp3L24Zg==/109951168565381063.jpg?param=130y130',
                     theme: '#46718b'
                 }
-            ]
+            ]*/
+
         });
-        document.addEventListener('scroll',this.parallax,true)
+        document.addEventListener('scroll', this.parallax, true)
     },
     deactivated() {
         this.showMotto = false
@@ -192,7 +222,7 @@ export default {
         this.showMotto = true
         window.scrollTo(0, 0)
     },
-    
+
     methods: {
         // 获取座右铭
         async getMotto() {
@@ -205,6 +235,14 @@ export default {
                 }
             }
         },
+        //获取音乐列表
+        async getmusicList() {
+            const { data: res } = await this.$axios.get("/admin/musicList")
+            if (res.status === 1) {
+                this.musicList = res.data.data;
+            }
+        },
+
         anchorDown() {
             const offsetTop = document.getElementById("area-blow").offsetTop;
             window.scrollTo({ top: offsetTop, behavior: 'smooth' })
@@ -271,11 +309,11 @@ export default {
             this.getBlogLists();
         },
         //滚轮视差
-        parallax(){
+        parallax() {
             const scrollY = window.scrollY
             if (scrollY !== 0) {
                 this.$refs.box.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`
-             }else{
+            } else {
                 this.$refs.box.style.style.backgroundPosition = ''
             }
         }
@@ -300,9 +338,11 @@ export default {
     text-align: center;
     position: relative;
     top: 42%;
+
     h1 {
         padding-bottom: 20px;
     }
+
     p {
         font-size: 22px;
     }
@@ -329,6 +369,7 @@ export default {
     margin-left: -18px;
     cursor: pointer;
 }
+
 .anchor-down::after {
     content: '';
     width: 28px;
@@ -380,6 +421,7 @@ export default {
     overflow: hidden;
 
 }
+
 #bg1::before {
     content: '';
     background-size: cover;
@@ -395,14 +437,14 @@ export default {
 
 //下面区域
 #area-blow {
-    background-color:#263529;
-    background-image: 
+    background-color: #263529;
+    background-image:
         radial-gradient(closest-side, #507863, rgba(80, 120, 99, 0)),
         radial-gradient(closest-side, #5b8463, rgba(132, 157, 133, 0)),
         radial-gradient(closest-side, #4d7a69, rgba(94, 129, 137, 0)),
         radial-gradient(closest-side, #d8d0a7, rgba(210, 201, 154, 0)),
         radial-gradient(closest-side, #98bdc8, rgba(114, 145, 147, 0));
-    background-size: 
+    background-size:
         130vmax 130vmax,
         80vmax 80vmax,
         90vmax 90vmax,
@@ -418,61 +460,66 @@ export default {
     animation: 10s movement linear infinite;
 
     @keyframes movement {
-        0%, 100% {
-            background-size: 
-            130vmax 130vmax,
-            80vmax 80vmax,
-            90vmax 90vmax,
-            110vmax 110vmax,
-            90vmax 90vmax;
+
+        0%,
+        100% {
+            background-size:
+                130vmax 130vmax,
+                80vmax 80vmax,
+                90vmax 90vmax,
+                110vmax 110vmax,
+                90vmax 90vmax;
             background-position:
-            -80vmax -80vmax,
-            60vmax -30vmax,
-            10vmax 10vmax,
-            -30vmax -10vmax,
-            50vmax 50vmax;
+                -80vmax -80vmax,
+                60vmax -30vmax,
+                10vmax 10vmax,
+                -30vmax -10vmax,
+                50vmax 50vmax;
         }
+
         25% {
-            background-size: 
-            100vmax 100vmax,
-            90vmax 90vmax,
-            100vmax 100vmax,
-            90vmax 90vmax,
-            60vmax 60vmax;
+            background-size:
+                100vmax 100vmax,
+                90vmax 90vmax,
+                100vmax 100vmax,
+                90vmax 90vmax,
+                60vmax 60vmax;
             background-position:
-            -60vmax -90vmax,
-            50vmax -40vmax,
-            0vmax -20vmax,
-            -40vmax -20vmax,
-            40vmax 60vmax;
+                -60vmax -90vmax,
+                50vmax -40vmax,
+                0vmax -20vmax,
+                -40vmax -20vmax,
+                40vmax 60vmax;
         }
+
         50% {
-            background-size: 
-            80vmax 80vmax,
-            110vmax 110vmax,
-            80vmax 80vmax,
-            60vmax 60vmax,
-            80vmax 80vmax;
+            background-size:
+                80vmax 80vmax,
+                110vmax 110vmax,
+                80vmax 80vmax,
+                60vmax 60vmax,
+                80vmax 80vmax;
             background-position:
-            -50vmax -70vmax,
-            40vmax -30vmax,
-            10vmax 0vmax,
-            20vmax 10vmax,
-            30vmax 70vmax;
+                -50vmax -70vmax,
+                40vmax -30vmax,
+                10vmax 0vmax,
+                20vmax 10vmax,
+                30vmax 70vmax;
         }
+
         75% {
-            background-size: 
-            90vmax 90vmax,
-            90vmax 90vmax,
-            100vmax 100vmax,
-            90vmax 90vmax,
-            70vmax 70vmax;
+            background-size:
+                90vmax 90vmax,
+                90vmax 90vmax,
+                100vmax 100vmax,
+                90vmax 90vmax,
+                70vmax 70vmax;
             background-position:
-            -50vmax -40vmax,
-            50vmax -30vmax,
-            20vmax 0vmax,
-            -10vmax 10vmax,
-            40vmax 60vmax;
+                -50vmax -40vmax,
+                50vmax -30vmax,
+                20vmax 0vmax,
+                -10vmax 10vmax,
+                40vmax 60vmax;
         }
     }
 }
