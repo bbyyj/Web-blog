@@ -54,7 +54,6 @@ export default {
     props: ["item", "imgRight"],
     data() {
         return {
-
         }
     }
 
@@ -71,7 +70,8 @@ export default {
 
 //博客展示item
 .box {
-    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    background-color: #e4ede8;
     width: 840px;
     padding: 16px 20px;
     overflow: hidden;
@@ -84,7 +84,7 @@ export default {
 
 .box:hover {
     transform:  scale(1.02);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    // box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
 }
 
 //图片区域
@@ -128,7 +128,7 @@ export default {
 .box::after{
     position:absolute;
     content:'';
-    border:3px dashed transparent;
+    // border:3px;
     width:0;
     height:0;
     z-index:-1;
@@ -153,15 +153,15 @@ export default {
 .box:hover::before{
     width:100%;
     height:100%;
-    border-bottom-color:#e4393c;
-    border-left-color:#4e393c;
+    // border-bottom-color:#183f2d;
+    // border-left-color:#183f2d;
     transition:border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
 }
 .box:hover::before{
     width:100%;
     height:100%;
-    border-top-color:#e4933c;
-    border-right-color: purple;
+    // border-top-color:#183f2d;
+    // border-right-color: #183f2d;
     transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
     -webkit-transition:width 0.2s ease-out, height 0.2s ease-out 0.2s;
 }
@@ -178,7 +178,7 @@ export default {
 .box .blog-box .blog-title a {
     font-weight: 500;
     text-decoration: none;
-    color: #242424;
+    color: #183f2d;
     padding-bottom: 5px;
     position: relative;
 }
@@ -201,25 +201,23 @@ export default {
     transition: 0.5s width ease-out;
 }
 
-
 .box .blog-box .blog-title:hover a::before,
 .box .blog-box .blog-title:hover a::after {
     width: 50%;
-    border-bottom: 2px solid #f37d7c;
+    border-bottom: 2px solid #7f948a;
 }
 
 .box .blog-box .blog-title:hover a {
-    color: #f37d7c;
+    color: #7f948a;
 }
 
 .box .blog-box .blog-desc {
     height: 110px;
-
     p {
         padding: 12px 20px;
         font-size: 15px;
         line-height: 1.8;
-        color: rgba(0,0,0,0.6);
+        color: #183f2d;
         max-height: 100px;
     }
 }
@@ -231,9 +229,9 @@ export default {
 
     span {
         margin-left: 10px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
-        color: #3498DB;
+        color: #4b6a5c;
     }
 
     i {
@@ -241,28 +239,25 @@ export default {
     }
 
     .icon-yonghu{
-        color: #ff5f56;
+        color: #98aaa2;
     }
 
     .icon-riqi {
-        color: #ffbd2e;
+        color: #98aaa2;
     }
 
     .icon-yanjing {
-        color: #d26363;
+        color: #98aaa2;
     }
 
     a {
-        font-size: 12px;
+        font-size: 13px;
         text-decoration: none;
         outline: none;
-        border: 1px solid #00B5AD;
+        border: 1px solid #4b6a5c;
+        padding: 2px;
         border-radius: 3px;
-        color: #00B5AD;
-    }
-
-    a:hover {
-        color: #029b96;
+        color: #4b6a5c;
     }
 }
 
