@@ -67,7 +67,7 @@ func registerBlogManageRouter(engine *gin.Engine) {
 	engine.POST("/api/admin/login", Decorate(loginRouter.Login))
 
 	adminGroup := engine.Group("/api/admin")
-	adminGroup.Use(admin.LoginAuthenticationMiddleware())
+	//adminGroup.Use(admin.LoginAuthenticationMiddleware())
 	blogRouter := admin.NewBlogRouter()
 	{
 		adminGroup.GET("/searchBlogs", Decorate(blogRouter.SearchBlogs))
@@ -134,5 +134,11 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.GET("/msgList", Decorate(messageRouter.MessageList))
 		adminGroup.PUT("/updateMsgStatus", Decorate(messageRouter.UpdateStatus))
 	}
-}
 
+	musicRouter := admin.NewMusicRouter()
+	{
+		adminGroup.GET("/musicList", Decorate(musicRouter.MusicList))
+		adminGroup.POST("/addMusic", Decorate(musicRouter.AddMusic))
+		adminGroup.DELETE("/deleteMusic", Decorate(musicRouter.DeleteMusic))
+	}
+}

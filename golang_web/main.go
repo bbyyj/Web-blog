@@ -21,13 +21,12 @@ import (
 	"time"
 )
 
-
 func main() {
 	engine := gin.New()
 	//gin.SetMode(gin.ReleaseMode)
 
 	engine.Use(gin.LoggerWithWriter(utils.Logger().Out), gin.Recovery())
-	engine.Static("/images", viper.GetString("server.imagePath") + "/images")
+	engine.Static("/images", viper.GetString("server.imagePath")+"/images")
 
 	router.Register(engine)
 
@@ -72,5 +71,4 @@ func dealSignal(server *http.Server) {
 			return
 		}
 	}
-
 }
