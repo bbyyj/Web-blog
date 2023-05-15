@@ -25,7 +25,7 @@ Vue.component("bubbles-effect", bubbles);
 
 Vue.use(mavonEditor);
 
-axios.defaults.baseURL = "http://127.0.0.1:12000/api";
+axios.defaults.baseURL = "http://127.0.0.1:8080/api";
 
 //配置请求拦截器，用于在访问后端服务器时携带token令牌
 axios.interceptors.request.use((config) => {
