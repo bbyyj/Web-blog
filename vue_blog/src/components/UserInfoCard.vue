@@ -5,12 +5,12 @@
         <h3 class="nickname">{{ userInfo.nickname }}</h3>
         <div class="blog-info">
             <div>
-                <h3>{{ count }}</h3>
-                <h6>文章</h6>
+                <h3 style="color: #696eae;">{{ count }}</h3>
+                <h6 style="color: #696eae;">文章</h6>
             </div>
             <div>
-                <h3>{{ userInfo.tagCount }}</h3>
-                <h6>标签</h6>
+                <h3 style="color: #696eae;">{{ userInfo.tagCount }}</h3>
+                <h6 style="color: #696eae;">标签</h6>
             </div>
         </div>
         <ul>
@@ -73,7 +73,7 @@ export default {
     height: 300px;
     border-radius: 12px;
     text-align: center;
-    background-image: url("~@/assets/images/beijing.jpg");
+    background-color: #acaed2;
     user-select: none;
 
     img {
@@ -82,7 +82,7 @@ export default {
         border-radius: 50%;
         padding: 3px;
         margin-top: 16px;
-        border: 3px dashed darkorange;
+        border: 3px dashed #696eae;
         cursor: pointer;
     }
 
@@ -119,7 +119,7 @@ export default {
 }
 
 .blog-info div:first-child {
-    border-right: 1px solid black;
+    border-right: 1px solid #696eae;
 }
 
 ul {
@@ -139,12 +139,12 @@ ul {
     }
 
     .icon-github {
-        color: rgb(132, 155, 135);
+        color: #3d3952;
         margin-right: 25px;
     }
 
     .icon-csdn {
-        color: rgb(225, 91, 100);
+        color: #3d3952;
         margin-left: 25px;
     }
 }

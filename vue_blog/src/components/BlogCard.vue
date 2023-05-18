@@ -71,7 +71,7 @@ export default {
 //博客展示item
 .box {
     // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    background-color: #e4ede8;
+    background-color: #d9dbeb;
     width: 840px;
     padding: 16px 20px;
     overflow: hidden;
@@ -115,8 +115,8 @@ export default {
 }
 
 .image-box img {
-    width: 300px;
-    height: 185px;
+    width: 180px;
+    height: 180px;
     border-radius: 6px;
     transition: all 0.5s;
 }
@@ -178,7 +178,7 @@ export default {
 .box .blog-box .blog-title a {
     font-weight: 500;
     text-decoration: none;
-    color: #183f2d;
+    color: #3d3952;
     padding-bottom: 5px;
     position: relative;
 }
@@ -204,20 +204,20 @@ export default {
 .box .blog-box .blog-title:hover a::before,
 .box .blog-box .blog-title:hover a::after {
     width: 50%;
-    border-bottom: 2px solid #7f948a;
+    border-bottom: 2px solid #7c80b8;
 }
 
 .box .blog-box .blog-title:hover a {
-    color: #7f948a;
+    color: #7c80b8;
 }
 
 .box .blog-box .blog-desc {
     height: 110px;
     p {
         padding: 12px 20px;
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.8;
-        color: #183f2d;
+        color: #3d3952;
         max-height: 100px;
     }
 }
@@ -231,7 +231,7 @@ export default {
         margin-left: 10px;
         font-size: 14px;
         font-weight: 700;
-        color: #4b6a5c;
+        color: #696eae;
     }
 
     i {
@@ -239,25 +239,25 @@ export default {
     }
 
     .icon-yonghu{
-        color: #98aaa2;
+        color: #3d3952;
     }
 
     .icon-riqi {
-        color: #98aaa2;
+        color: #3d3952;
     }
 
     .icon-yanjing {
-        color: #98aaa2;
+        color: #3d3952;
     }
 
     a {
         font-size: 13px;
         text-decoration: none;
         outline: none;
-        border: 1px solid #4b6a5c;
+        border: 1px solid #696eae;
         padding: 2px;
         border-radius: 3px;
-        color: #4b6a5c;
+        color: #696eae;
     }
 }
 

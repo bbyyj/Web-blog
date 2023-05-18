@@ -1,21 +1,13 @@
 
 <template>
-    <div>
+    <div >
         <!--上方背景页面-->
         <div id="bg1" ref="box">
-            <span ref="space">Blog</span>
-            <!-- <div id="motto" v-if="showMotto">
-                <transition-group appear name="animate__animated animate__bounce animate__slow"
-                    enter-active-class="animate__bounceIn" leave-active-class="animate__bounceOut">
-                    <h1 key="1">{{ firstBGPageInfo.curMotto.ch }}</h1>
-                    <p key="2">{{ firstBGPageInfo.curMotto.en }}</p>
-                </transition-group>
-            </div> -->
+            <span>Blog</span>
             <div class="scroll-down">
                 <a class="anchor-down" @click.prevent="anchorDown"></a>
             </div>
         </div>
-
 
         <!--博客展示区-->
         <div id="area-blow">
@@ -75,10 +67,6 @@ export default {
             firstBGPageInfo: {
                 curBg: "",
                 bgs: [],
-                curMotto: {
-                    ch: "奋斗从未停止, 前进永无止境!",
-                    en: "Struggle never stops, and progress never ends!"
-                },
                 mottos: [],
             },
             showCat: false,
@@ -194,17 +182,6 @@ export default {
     },
     
     methods: {
-        // 获取座右铭
-        async getMotto() {
-            const { data: res } = await this.$axios.get("/myblog/mottos")
-            if (res.status === 1) {
-                if (res.data.length > 0) {
-                    this.firstBGPageInfo.mottos = res.data[0]
-                    const n = Math.round(Math.random() * (res.data[0].length - 1));
-                    this.firstBGPageInfo.curMotto = this.firstBGPageInfo.mottos[n]
-                }
-            }
-        },
         anchorDown() {
             const offsetTop = document.getElementById("area-blow").offsetTop;
             window.scrollTo({ top: offsetTop, behavior: 'smooth' })
@@ -270,6 +247,7 @@ export default {
             this.queryInfo.pageNum = pageNum;
             this.getBlogLists();
         },
+
         //滚轮视差
         parallax(){
             const scrollY = window.scrollY
@@ -278,7 +256,7 @@ export default {
              }else{
                 this.$refs.box.style.style.backgroundPosition = ''
             }
-        }
+        },
     }
 }
 </script>
@@ -290,24 +268,6 @@ export default {
 .animate__animated {
     animation-duration: 3s !important;
 }
-
-//座右铭部分
-#motto {
-    user-select: none;
-    font-weight: 560;
-    line-height: 1.25;
-    color: white;
-    text-align: center;
-    position: relative;
-    top: 42%;
-    h1 {
-        padding-bottom: 20px;
-    }
-    p {
-        font-size: 22px;
-    }
-}
-
 
 .scroll-down {
     width: 100%;
@@ -336,8 +296,8 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
-    border-right: 5px solid #d2c99a;
-    border-bottom: 5px solid #d2c99a;
+    border-right: 5px solid #fbd5d1;
+    border-bottom: 5px solid #fbd5d1;
     display: block;
     border-bottom-right-radius: 5px;
 }
@@ -368,7 +328,7 @@ export default {
 
 //上方背景
 #bg1 {
-    background-image: url("../assets/images/background03.jpg");
+    background-image: url("../assets/images/forest04.svg");
     background-size: cover;
     background-position: 50% 50%;
     font: 600 25rem '';
@@ -395,86 +355,7 @@ export default {
 
 //下面区域
 #area-blow {
-    background-color:#263529;
-    background-image: 
-        radial-gradient(closest-side, #507863, rgba(80, 120, 99, 0)),
-        radial-gradient(closest-side, #5b8463, rgba(132, 157, 133, 0)),
-        radial-gradient(closest-side, #4d7a69, rgba(94, 129, 137, 0)),
-        radial-gradient(closest-side, #d8d0a7, rgba(210, 201, 154, 0)),
-        radial-gradient(closest-side, #98bdc8, rgba(114, 145, 147, 0));
-    background-size: 
-        130vmax 130vmax,
-        80vmax 80vmax,
-        90vmax 90vmax,
-        110vmax 110vmax,
-        90vmax 90vmax;
-    background-position:
-        -80vmax -80vmax,
-        60vmax -30vmax,
-        10vmax 10vmax,
-        -30vmax -10vmax,
-        50vmax 50vmax;
-    background-repeat: no-repeat;
-    animation: 10s movement linear infinite;
-
-    @keyframes movement {
-        0%, 100% {
-            background-size: 
-            130vmax 130vmax,
-            80vmax 80vmax,
-            90vmax 90vmax,
-            110vmax 110vmax,
-            90vmax 90vmax;
-            background-position:
-            -80vmax -80vmax,
-            60vmax -30vmax,
-            10vmax 10vmax,
-            -30vmax -10vmax,
-            50vmax 50vmax;
-        }
-        25% {
-            background-size: 
-            100vmax 100vmax,
-            90vmax 90vmax,
-            100vmax 100vmax,
-            90vmax 90vmax,
-            60vmax 60vmax;
-            background-position:
-            -60vmax -90vmax,
-            50vmax -40vmax,
-            0vmax -20vmax,
-            -40vmax -20vmax,
-            40vmax 60vmax;
-        }
-        50% {
-            background-size: 
-            80vmax 80vmax,
-            110vmax 110vmax,
-            80vmax 80vmax,
-            60vmax 60vmax,
-            80vmax 80vmax;
-            background-position:
-            -50vmax -70vmax,
-            40vmax -30vmax,
-            10vmax 0vmax,
-            20vmax 10vmax,
-            30vmax 70vmax;
-        }
-        75% {
-            background-size: 
-            90vmax 90vmax,
-            90vmax 90vmax,
-            100vmax 100vmax,
-            90vmax 90vmax,
-            70vmax 70vmax;
-            background-position:
-            -50vmax -40vmax,
-            50vmax -30vmax,
-            20vmax 0vmax,
-            -10vmax 10vmax,
-            40vmax 60vmax;
-        }
-    }
+    background-color:#3A3B55;
 }
 
 // 下面中心区域

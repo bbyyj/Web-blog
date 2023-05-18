@@ -8,7 +8,7 @@
         <div class="content">
             <ul class="clear-fix">
                 <li :key="item.id" v-for="item in tags" @click="itemClicked(item.id)">
-                    <span :style="{color:$randomColor()}">{{ item.name }}</span>
+                    <span>{{ item.name }}</span>
                 </li>
             </ul>
         </div>
@@ -65,12 +65,13 @@ ul,
 li {
     margin: 0;
     padding: 0;
+    color:#696eae;
 }
 
 .wapper {
     width: 270px;
     border-radius: 12px;
-    background-color: #fff;
+    background-color: #d9dbeb;
     margin-top: 30px;
     user-select: none;
 }
@@ -80,7 +81,7 @@ li {
 }
 
 .title i {
-    color: #fb6c28;
+    color: #3d3952;
     font-size: 17px;
     margin-left: 10px;
     margin-right: 5px;

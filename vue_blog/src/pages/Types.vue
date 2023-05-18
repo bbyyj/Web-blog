@@ -184,9 +184,89 @@ export default {
 }
 
 .type-bg {
-    background: url('~@/assets/images/back2.png') 0px 0px / cover no-repeat;
-    background-attachment: fixed;
-    min-height: 1000px;
+    // background: url('~@/assets/images/back2.png') 0px 0px / cover no-repeat;
+    // background-attachment: fixed;
+    // min-height: 1000px;
+    background-color:#3A3B55;
+    background-image: 
+        radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),
+        radial-gradient(closest-side, #a69ec6, rgba(132, 157, 133, 0)),
+        radial-gradient(closest-side, #6c5c74, rgba(94, 129, 137, 0)),
+        radial-gradient(closest-side, #fbd5d1, rgba(210, 201, 154, 0)),
+        radial-gradient(closest-side, #3d3952, rgba(114, 145, 147, 0));
+    background-size: 
+        130vmax 130vmax,
+        80vmax 80vmax,
+        90vmax 90vmax,
+        110vmax 110vmax,
+        90vmax 90vmax;
+    background-position:
+        -80vmax -80vmax,
+        60vmax -30vmax,
+        10vmax 10vmax,
+        -30vmax -10vmax,
+        50vmax 50vmax;
+    background-repeat: no-repeat;
+    animation: 10s movement linear infinite;
+
+    @keyframes movement {
+        0%, 100% {
+            background-size: 
+            130vmax 130vmax,
+            80vmax 80vmax,
+            90vmax 90vmax,
+            110vmax 110vmax,
+            90vmax 90vmax;
+            background-position:
+            -80vmax -80vmax,
+            60vmax -30vmax,
+            10vmax 10vmax,
+            -30vmax -10vmax,
+            50vmax 50vmax;
+        }
+        25% {
+            background-size: 
+            100vmax 100vmax,
+            90vmax 90vmax,
+            100vmax 100vmax,
+            90vmax 90vmax,
+            60vmax 60vmax;
+            background-position:
+            -60vmax -90vmax,
+            50vmax -40vmax,
+            0vmax -20vmax,
+            -40vmax -20vmax,
+            40vmax 60vmax;
+        }
+        50% {
+            background-size: 
+            80vmax 80vmax,
+            110vmax 110vmax,
+            80vmax 80vmax,
+            60vmax 60vmax,
+            80vmax 80vmax;
+            background-position:
+            -50vmax -70vmax,
+            40vmax -30vmax,
+            10vmax 0vmax,
+            20vmax 10vmax,
+            30vmax 70vmax;
+        }
+        75% {
+            background-size: 
+            90vmax 90vmax,
+            90vmax 90vmax,
+            100vmax 100vmax,
+            90vmax 90vmax,
+            70vmax 70vmax;
+            background-position:
+            -50vmax -40vmax,
+            50vmax -30vmax,
+            20vmax 0vmax,
+            -10vmax 10vmax,
+            40vmax 60vmax;
+        }
+    }
 }
 
 .title {
