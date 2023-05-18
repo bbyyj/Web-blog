@@ -1,7 +1,7 @@
 <template>
     <div>
-        <TitleArea class="title-area" :info="info">
-        </TitleArea>
+        <askBoardTitle class="title-area" :info="info">
+        </askBoardTitle>
         <div class="main">
             <transition appear name="animate__animated animate__bounce animate__slow"
                 enter-active-class="animate__slideInLeft">
@@ -24,13 +24,14 @@
 <script>
 
 import TitleArea from "../components/TitleArea";
+import askBoardTitle from "../components/askBoardTitle.vue";
 import LeaveMessagePanel from "../components/LeaveMessagePanel";
 import GroupMessageItem from "../components/GroupMessageItem";
 import Pagination from "../components/Pagination";
 
 export default {
     name: "MsgBoard",
-    components: { TitleArea, LeaveMessagePanel, GroupMessageItem, Pagination },
+    components: { TitleArea, LeaveMessagePanel, GroupMessageItem, Pagination, askBoardTitle },
     data() {
         return {
             showReplay: false,
