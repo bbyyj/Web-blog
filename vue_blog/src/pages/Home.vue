@@ -2,6 +2,11 @@
 <template>
     <div >
         <!--上方背景页面-->
+        <div class='console-container'>
+        <span id='text'></span>
+        <div class='console-underscore' ref="text-style">&#95;</div>
+        </div>
+
         <div id="bg1" ref="box">
             <span>Blog</span>
             <div class="scroll-down">
@@ -11,6 +16,9 @@
 
         <!--博客展示区-->
         <div id="area-blow">
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
             <div class="blog-area">
                 <!--左侧博客信息区-->
                 <div class="blog-left">
@@ -57,7 +65,7 @@ import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
 
 import "animate.css"
-
+import '../assets/css/star.css'
 export default {
 
     name: "Home",
@@ -133,7 +141,6 @@ export default {
                     { id: 7, title: "maven中静态资源的过滤" }
                 ]
             },
-
         }
     },
     created() {
@@ -171,7 +178,9 @@ export default {
                 }
             ]
         });
-        document.addEventListener('scroll',this.parallax,true)
+        
+        document.addEventListener('scroll',this.parallax,true);
+        this.createConsoleText();
     },
     deactivated() {
         this.showMotto = false
@@ -247,7 +256,6 @@ export default {
             this.queryInfo.pageNum = pageNum;
             this.getBlogLists();
         },
-
         //滚轮视差
         parallax(){
             const scrollY = window.scrollY
@@ -256,6 +264,61 @@ export default {
              }else{
                 this.$refs.box.style.style.backgroundPosition = ''
             }
+        },
+
+        createConsoleText(){
+            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '可能还要换个字体', '先意思一下','不过紫色还蛮好看'];
+            var colors = ['#9990bc','#8a84b7','#7b79b1',"#6c6dac","#5d62a7"];
+
+            var visible = true;
+            var con = document.getElementById('console');
+            var letterCount = 1;
+            var x = 1;
+            var waiting = false;
+            var target = document.getElementById('text');
+            target.setAttribute('style', 'color:' + colors[0]);
+            this.consoleText(words, colors, visible, con, letterCount, x, waiting, target);
+        },
+
+        consoleText(words, colors, visible, con, letterCount, x, waiting, target) {
+            if (colors === undefined) colors = ['#black'];
+
+            target.setAttribute('style', 'color:' + colors[0])
+            window.setInterval(function() {
+                if (letterCount === 0 && waiting === false) {
+                waiting = true;
+                target.innerHTML = words[0].substring(0, letterCount)
+                window.setTimeout(function() {
+                    var usedColor = colors.shift();
+                    colors.push(usedColor);
+                    var usedWord = words.shift();
+                    words.push(usedWord);
+                    x = 1;
+                    target.setAttribute('style', 'color:' + colors[0])
+                    letterCount += x;
+                    waiting = false;
+                }, 1000)
+                } else if (letterCount === words[0].length + 1 && waiting === false) {
+                waiting = true;
+                window.setTimeout(function() {
+                    x = -1;
+                    letterCount += x;
+                    waiting = false;
+                }, 1000)
+                } else if (waiting === false) {
+                target.innerHTML = words[0].substring(0, letterCount)
+                letterCount += x;
+                }
+            }, 120)
+            window.setInterval(function() {
+                if (visible === true) {
+                con.className = 'console-underscore hidden'
+                visible = false;
+                } else {
+                con.className = 'console-underscore'
+                visible = true;
+                }
+            }, 400)
         },
     }
 }
@@ -267,6 +330,26 @@ export default {
 <style lang="less" scoped>
 .animate__animated {
     animation-duration: 3s !important;
+}
+ .console-container {
+    font-size:3em;
+    text-align:center;
+    height:560px;
+    width:1000px;
+    display:block;
+    position:absolute;
+    color:#fffcfb;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+}
+.console-underscore {
+    display:inline-block;
+    position:relative;
+    top:-0.05em;
+    left:10px;
 }
 
 .scroll-down {
@@ -313,14 +396,11 @@ export default {
 
     50% {
         transform: translateY(-20px);
-        // border-right: #ed1414;
-        // border-top: #0f1110;
     }
 
     80% {
         transform: translateY(0);
     }
-
     100% {
         transform: translateY(0);
     }
@@ -355,7 +435,7 @@ export default {
 
 //下面区域
 #area-blow {
-    background-color:#3A3B55;
+    background-color:#1d1d2b;
 }
 
 // 下面中心区域
