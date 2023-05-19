@@ -2,7 +2,7 @@
 <template>
     <a class="label" :class="{active: isActive}">
         <span class="item-name">{{ typeinfo.name }}</span>
-        <span :style="{backgroundColor: itemColor}" class="item-count">{{ typeinfo.count }}</span>
+        <span class="item-count">{{ typeinfo.count }}</span>
     </a>
 </template>
 
@@ -14,7 +14,6 @@ export default {
     props: ["typeinfo", "activeId"],
     data() {
         return {
-            itemColor: "#f37d7c",
         }
     },
     computed:{
@@ -36,8 +35,8 @@ export default {
     padding: 8px 14px;
     align-items: center;
     text-align: center;
-    color: #666;
-    background-color: #fff;
+    color:#696eae;
+    background-color: #d9dbeb;
     width: auto;
     border-radius: 0.25rem;
     font-weight: 500;
@@ -50,9 +49,14 @@ export default {
 }
 
 .label:hover, .active {
-    background-color: #F37D7C;
-    color: #fff;
+    background-color: #3d3952;
+    color: #d9dbeb;
+    .item-count{
+        background-color: #d9dbeb;
+        color: #696eae;
+    }
 }
+
 
 .item-name {
     display: inline-block;
@@ -64,13 +68,11 @@ export default {
     display: inline-block;
     text-align: center;
     margin-left: 4px;
-    background-color: #f37d7c;
+    background-color: #696eae;
     border-radius: 0.25rem;
-    color: white;
+    color: #d9dbeb;
     width: 1.2rem;
     height: 1.2rem;
     font-size: 0.7rem;
-
 }
-
 </style>

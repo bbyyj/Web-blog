@@ -1,8 +1,6 @@
 <!--博客标签组件-->
 <template>
-    <a :style="{backgroundColor: $randomColor()}" :class="{active: isActive}">
-        {{ taginfo.name }}
-    </a>
+    <a>{{ taginfo.name }}</a>
 </template>
 
 <script>
@@ -32,7 +30,8 @@ a {
     font-size: 14px;
     font-weight: 600;
     line-height: 32px;
-    color: #fff;
+    color: #696eae;;
+    background-color: #acaed2;
     border-radius: 8px;
     margin: 6px 8px;
     padding: 0 15px;
@@ -50,6 +49,4 @@ a {
 a:hover {
     transform: scale(1.1);
 }
-
-
 </style>

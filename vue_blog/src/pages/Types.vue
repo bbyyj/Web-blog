@@ -54,6 +54,7 @@ import BlogTypeItem from "../components/BlogTypeItem";
 
 
 export default {
+    
     components: { BlogCard, Pagination, BlogTypeItem },
     data() {
         return {

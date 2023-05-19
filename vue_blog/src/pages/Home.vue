@@ -172,7 +172,6 @@ export default {
     },
     created() {
         this.getBlogLists();
-        this.getMotto()
         this.getNewBlogs()
         this.getHotBlogs()
         this.getmusicList()
@@ -222,17 +221,6 @@ export default {
     },
 
     methods: {
-        // 获取座右铭
-        async getMotto() {
-            const { data: res } = await this.$axios.get("/myblog/mottos")
-            if (res.status === 1) {
-                if (res.data.length > 0) {
-                    this.firstBGPageInfo.mottos = res.data[0]
-                    const n = Math.round(Math.random() * (res.data[0].length - 1));
-                    this.firstBGPageInfo.curMotto = this.firstBGPageInfo.mottos[n]
-                }
-            }
-        },
         // 获取音乐列表
         async getmusicList() {
             const { data: res } = await this.$axios.get("/admin/musicList")
