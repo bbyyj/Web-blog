@@ -1,11 +1,7 @@
 <template>
-
     <div>
-        <transition appear
-            name="animate__animated animate__bounce animate__slow"
-            enter-active-class="animate__slideInDown"
-            leave-active-class="animate__slideOutUp"
-        >
+        <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__slideInDown"
+            leave-active-class="animate__slideOutUp">
             <NavigationBar class="navibar" v-show="showNavi"></NavigationBar>
         </transition>
         <BackToTop v-show="showCat"></BackToTop>
@@ -13,9 +9,7 @@
             <router-view ref="home"></router-view>
         </keep-alive>
     </div>
-
 </template>
-
 
 
 <script>
@@ -29,7 +23,7 @@ import "animate.css"
 // import "../assets/js/love"
 
 export default {
-    components: {NavigationBar, BackToTop},
+    components: { NavigationBar, BackToTop },
     data() {
         return {
             keyWord: "",
@@ -55,8 +49,7 @@ export default {
 
 
 <style scoped>
-
-.animate__animated{
+.animate__animated {
     animation-duration: 1.5s !important;
 }
 
@@ -64,5 +57,4 @@ export default {
     position: fixed;
     top: 0;
 }
-
 </style>
