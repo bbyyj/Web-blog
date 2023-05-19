@@ -154,29 +154,29 @@ export default {
         const ap = new APlayer({
             container: document.getElementById('player'),
             fixed: true,
-            audio: [
-                {
-                    name: '借',
-                    artist: '毛不易',
-                    url: 'http://music.163.com/song/media/outer/url?id=569214250.mp3',
-                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
-                    theme: '#ebd0c2'
-                },
-                {
-                    name: '像我这样的人',
-                    artist: '毛不易',
-                    url: 'http://music.163.com/song/media/outer/url?id=569213220.mp3',
-                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
-                    theme: '#46718b'
-                },
-                {
-                    name: '无与伦比的美丽',
-                    artist: '苏打绿',
-                    url: 'http://music.163.com/song/media/outer/url?id=2023994371.mp3',
-                    cover: 'http://p2.music.126.net/zfr5TThFTC3vedNp3L24Zg==/109951168565381063.jpg?param=130y130',
-                    theme: '#46718b'
-                }
-            ]
+            // audio: [
+            //     {
+            //         name: '借',
+            //         artist: '毛不易',
+            //         url: 'http://music.163.com/song/media/outer/url?id=569214250.mp3',
+            //         cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
+            //         theme: '#ebd0c2'
+            //     },
+            //     {
+            //         name: '像我这样的人',
+            //         artist: '毛不易',
+            //         url: 'http://music.163.com/song/media/outer/url?id=569213220.mp3',
+            //         cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
+            //         theme: '#46718b'
+            //     },
+            //     {
+            //         name: '无与伦比的美丽',
+            //         artist: '苏打绿',
+            //         url: 'http://music.163.com/song/media/outer/url?id=2023994371.mp3',
+            //         cover: 'http://p2.music.126.net/zfr5TThFTC3vedNp3L24Zg==/109951168565381063.jpg?param=130y130',
+            //         theme: '#46718b'
+            //     }
+            // ]
         });
         
         document.addEventListener('scroll',this.parallax,true);
