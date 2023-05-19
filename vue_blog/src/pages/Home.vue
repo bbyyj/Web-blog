@@ -141,6 +141,33 @@ export default {
                     { id: 7, title: "maven中静态资源的过滤" }
                 ]
             },
+            //获得歌单
+            musicList: [
+                {
+                    id: 1,
+                    name: '',
+                    artist: '',
+                    url: '',
+                    cover: '',
+                    theme: '#ebd0c2'
+                },
+                {
+                    id: 2,
+                    name: '',
+                    artist: '',
+                    url: '',
+                    cover: '',
+                    theme: '#ebd0c2'
+                },
+                {
+                    id: 3,
+                    name: '',
+                    artist: '',
+                    url: '',
+                    cover: '',
+                    theme: '#ebd0c2'
+                }
+            ]
         }
     },
     created() {
@@ -148,35 +175,39 @@ export default {
         this.getMotto()
         this.getNewBlogs()
         this.getHotBlogs()
+        this.getmusicList()
     },
     mounted() {
         //音乐播放器
         const ap = new APlayer({
             container: document.getElementById('player'),
             fixed: true,
-            // audio: [
-            //     {
-            //         name: '借',
-            //         artist: '毛不易',
-            //         url: 'http://music.163.com/song/media/outer/url?id=569214250.mp3',
-            //         cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
-            //         theme: '#ebd0c2'
-            //     },
-            //     {
-            //         name: '像我这样的人',
-            //         artist: '毛不易',
-            //         url: 'http://music.163.com/song/media/outer/url?id=569213220.mp3',
-            //         cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
-            //         theme: '#46718b'
-            //     },
-            //     {
-            //         name: '无与伦比的美丽',
-            //         artist: '苏打绿',
-            //         url: 'http://music.163.com/song/media/outer/url?id=2023994371.mp3',
-            //         cover: 'http://p2.music.126.net/zfr5TThFTC3vedNp3L24Zg==/109951168565381063.jpg?param=130y130',
-            //         theme: '#46718b'
-            //     }
-            // ]
+            audio: this.musicList
+            /*
+            audio: [
+                {
+                    name: '借',
+                    artist: '毛不易',
+                    url: 'http://music.163.com/song/media/outer/url?id=569214250.mp3',
+                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
+                    theme: '#ebd0c2'
+                },
+                {
+                    name: '像我这样的人',
+                    artist: '毛不易',
+                    url: 'http://music.163.com/song/media/outer/url?id=569213220.mp3',
+                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
+                    theme: '#46718b'
+                },
+                {
+                    name: '无与伦比的美丽',
+                    artist: '苏打绿',
+                    url: 'http://music.163.com/song/media/outer/url?id=2023994371.mp3',
+                    cover: 'http://p2.music.126.net/zfr5TThFTC3vedNp3L24Zg==/109951168565381063.jpg?param=130y130',
+                    theme: '#46718b'
+                }
+            ]*/
+
         });
         
         document.addEventListener('scroll',this.parallax,true);
@@ -189,8 +220,31 @@ export default {
         this.showMotto = true
         window.scrollTo(0, 0)
     },
-    
+
     methods: {
+        // 获取座右铭
+        async getMotto() {
+            const { data: res } = await this.$axios.get("/myblog/mottos")
+            if (res.status === 1) {
+                if (res.data.length > 0) {
+                    this.firstBGPageInfo.mottos = res.data[0]
+                    const n = Math.round(Math.random() * (res.data[0].length - 1));
+                    this.firstBGPageInfo.curMotto = this.firstBGPageInfo.mottos[n]
+                }
+            }
+        },
+        // 获取音乐列表
+        async getmusicList() {
+            const { data: res } = await this.$axios.get("/admin/musicList")
+            if (res.status === 1) {
+                print("success");
+                this.musicList = res.data.data;
+            }
+            else{
+                print("fail")
+            }
+        },
+
         anchorDown() {
             const offsetTop = document.getElementById("area-blow").offsetTop;
             window.scrollTo({ top: offsetTop, behavior: 'smooth' })
@@ -257,11 +311,11 @@ export default {
             this.getBlogLists();
         },
         //滚轮视差
-        parallax(){
+        parallax() {
             const scrollY = window.scrollY
             if (scrollY !== 0) {
                 this.$refs.box.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`
-             }else{
+            } else {
                 this.$refs.box.style.style.backgroundPosition = ''
             }
         },
@@ -372,6 +426,7 @@ export default {
     margin-left: -18px;
     cursor: pointer;
 }
+
 .anchor-down::after {
     content: '';
     width: 28px;
@@ -420,6 +475,7 @@ export default {
     overflow: hidden;
 
 }
+
 #bg1::before {
     content: '';
     background-size: cover;

@@ -60,6 +60,12 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/essayList", Decorate(essayRouter.EssayList))
 	}
+
+	//askboxlistRouter := controller.NewAskboxlistMessageRouter()
+	//{
+	//	blogGroup.POST("/leaveQuestion", Decorate(leaveMessageRouter.LeaveQuestion))
+	//	blogGroup.GET("/displayQA", Decorate(leaveMessageRouter.DisplayQA))
+	//}
 }
 
 func registerBlogManageRouter(engine *gin.Engine) {
@@ -141,4 +147,13 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.POST("/addMusic", Decorate(musicRouter.AddMusic))
 		adminGroup.DELETE("/deleteMusic", Decorate(musicRouter.DeleteMusic))
 	}
+
+	//askboxRouter := admin.NewAskboxRouter()
+	//{
+	//	adminGroup.GET("/askboxList", Decorate(musicRouter.AskboxList))
+	//	adminGroup.POST("/addAnswer", Decorate(musicRouter.AddAnswer))
+	//	adminGroup.DELETE("/deleteQuestion", Decorate(musicRouter.DeleteQuestion))
+	//	adminGroup.DELETE("/deleteAnswer", Decorate(musicRouter.DeleteAnswer))
+	//	adminGroup.PUT("/modifyAnswer", Decorate(musicRouter.ModifyAnswer))
+	//}
 }
