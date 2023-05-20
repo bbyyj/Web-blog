@@ -1,10 +1,8 @@
 
 <template>
-
     <div>
-        <h3>Welcome</h3>
+        <h3>欢迎来到博客后台管理页面!</h3>
     </div>
-
 </template>
 
 
@@ -13,7 +11,7 @@
 export default {
     data() {
         return {
-            
+
         }
     },
     methods: {
@@ -24,8 +22,4 @@ export default {
 
 
 
-<style lang="less" scoped>
-
-    
-
-</style>
+<style lang="less" scoped></style>
