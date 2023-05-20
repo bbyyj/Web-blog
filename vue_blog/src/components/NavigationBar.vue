@@ -43,7 +43,7 @@
                             rout="/timeLine"></NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="随笔" ico-class="icon-yongyan" rout="/essay">
+                        <NaviItem :activeRoute="activeRoute" index-name="默契鉴定" ico-class="icon-yongyan" rout="/essay">
                         </NaviItem>
                     </li>
                     <li>

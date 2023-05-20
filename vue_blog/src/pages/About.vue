@@ -7,8 +7,6 @@
                 enter-active-class="animate__slideInUp">
                 <div class="wrap">
 
-
-
                     <img :src="userInfo.avatar">
                     <h4>{{ userInfo.nickname }}</h4>
 
