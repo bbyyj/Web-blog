@@ -39,26 +39,26 @@ export default {
     data() {
         return {
             info: {
-                title: "归档",
-                desc: "恰同学少年，风华正茂！"
+                title: "文章归档",
+                //desc: "恰同学少年，风华正茂！"
             },
             blogsTotal: 3,
             blogs: [
                     [{
                     id: 1,
-                    title: "上邪~~",
+                    title: "博客系统开发",
                     flag: "原创",
                     createTime: "2021-04-30T13:20:34.000+00:00"
                 }],
                 [{
                     id: 2,
-                    title: "上邪~~",
+                    title: "博客系统开发",
                     flag: "原创",
                     createTime: "2021-03-30T13:20:34.000+00:00"
                 }],
                 [{
                     id: 3,
-                    title: "上邪~~",
+                    title: "博客系统开发",
                     flag: "原创",
                     createTime: "2020-03-30T13:20:34.000+00:00"
                 }]
@@ -93,15 +93,21 @@ ul, li {
 
 //标题区域
 .title-area {
-    background: url("../assets/images/back5__2496_520.png") 0 0 / cover no-repeat;
+   // background: url("../assets/images/back5__2496_520.png") 0 0 / cover no-repeat;
+   //font-size: 56px;
+   background-color: #3d3952;
+    
+   font-family: '华文中宋';
 }
 
 //下方整个区域
 .main {
     min-height: 1000px;
     width: 100%;
-    background: url("../assets/images/back6.png") 0 0 / cover no-repeat;
-    background-attachment: fixed;
+    background: url("../assets/images/wavetest.svg") 0 0 / cover no-repeat;
+    // background-image: url("../assets/images/wavetest.svg");
+    // background-repeat: no-repeat;
+    background-color: #3d3952;
     padding-top: 50px;
 }
 
@@ -113,7 +119,7 @@ ul, li {
 
 .timeline {
     width: 840px;
-    background-color: #fff;
+    background-color: #ddc2de;
     padding: 30px 0;
     border-radius: 6px;
     float: left;
@@ -122,7 +128,7 @@ ul, li {
 .article-title {
     font-size: 36px;
     font-weight: 500;
-    font-family: '楷体';
+    font-family: '华文中宋';
     text-align: center;
 }
 
@@ -140,6 +146,7 @@ ul, li {
 
 .article-list {
     padding: 30px 0 30px 90px;
+    font-family: '微软雅黑';
 }
 
 
