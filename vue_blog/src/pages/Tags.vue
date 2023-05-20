@@ -1,37 +1,30 @@
-
 <template>
-
     <div class="tag-bg">
         <div class="title" align="center">文章标签</div>
 
         <!-- 标签栏 -->
-        <transition appear
-                    name="animate__animated animate__bounce animate__slow"
-                    enter-active-class="animate__fadeInDown"
-                    leave-active-class="animate__fadeOutUp"
-        >
+        <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInDown"
+            leave-active-class="animate__fadeOutUp">
             <ul class="tag-area">
                 <li :key="item.id" v-for="item in tags">
-                    <BlogTagItem @click.native="getBlogList(item.id)" :taginfo="item" :activeId="currentTagId"></BlogTagItem>
+                    <BlogTagItem @click.native="getBlogList(item.id)" :taginfo="item" :activeId="currentTagId">
+                    </BlogTagItem>
                 </li>
             </ul>
         </transition>
 
-        <transition appear
-                    name="animate__animated animate__bounce animate__slow"
-                    enter-active-class="animate__fadeInUp"
-        >
+        <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInUp">
             <div>
                 <!-- 博客列表栏 -->
                 <div class="blog-area">
-                    <BlogCard class="blog-item" :key="item.id" v-for="(item, index) in blogDetails"
-                              :item="item" :imgRight="index % 2 === 0"
-                              @click.native="blogDetail(item.id)">
+                    <BlogCard class="blog-item" :key="item.id" v-for="(item, index) in blogDetails" :item="item"
+                        :imgRight="index % 2 === 0" @click.native="blogDetail(item.id)">
                     </BlogCard>
                 </div>
-                <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{pageNum:queryInfo.pageNum, pages:pages}"></Pagination>
+                <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }">
+                </Pagination>
             </div>
-    </transition>
+        </transition>
 
     </div>
 </template>
@@ -58,20 +51,20 @@ export default {
                 tagId: 0
             },
             tags: [{
-                    id: 1,
-                    name: "前端",
-                    count: 5
-                },
-                {
-                    id: 2,
-                    name: "后端",
-                    count: 8
-                },
-                 {
-                    id: 3,
-                    name: "SpringBoot",
-                    count: 5
-                }
+                id: 1,
+                name: "前端",
+                count: 5
+            },
+            {
+                id: 2,
+                name: "后端",
+                count: 8
+            },
+            {
+                id: 3,
+                name: "SpringBoot",
+                count: 5
+            }
             ],
             blogDetails: [{
                 id: 1,
@@ -110,7 +103,7 @@ export default {
     },
     created() {
         window.scrollTo(0, 0)
-        if (typeof(this.$route.query.id) !== "undefined") {
+        if (typeof (this.$route.query.id) !== "undefined") {
             this.getTagList(true)
         } else {
             this.getTagList(false);
@@ -118,8 +111,8 @@ export default {
     },
     methods: {
         async getTagList(flag) {
-            const {data: res} = await this.$axios.get("/myblog/tagList");
-            if(res.status === 1) {
+            const { data: res } = await this.$axios.get("/myblog/tagList");
+            if (res.status === 1) {
                 this.tags = res.data.length > 0 ? res.data[0] : this.tags;
             }
 
@@ -132,8 +125,8 @@ export default {
         async getBlogList(id) {
             this.currentTagId = id;
             this.queryInfo.tagId = id;
-            const {data: res} = await this.$axios.get("/myblog/tagBlogList", {params: this.queryInfo});
-            if(res.status === 1) {
+            const { data: res } = await this.$axios.get("/myblog/tagBlogList", { params: this.queryInfo });
+            if (res.status === 1) {
                 this.blogDetails = res.data.length > 0 ? res.data[0] : this.blogDetails;
             } else {
                 this.$message.error("获取博客失败，请重试")
@@ -167,8 +160,8 @@ export default {
 
 
 <style lang="less" scoped>
-
-ul, li {
+ul,
+li {
     margin: 0;
     padding: 0;
 }
@@ -177,14 +170,14 @@ ul, li {
     // background: url('~@/assets/images/bg11.jpg') 0 0 / cover no-repeat;
     // background-attachment: fixed;
     // min-height: 1000px;
-    background-color:#3A3B55;
-    background-image: 
+    background-color: #3A3B55;
+    background-image:
         radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),
         radial-gradient(closest-side, #a69ec6, rgba(132, 157, 133, 0)),
         radial-gradient(closest-side, #6c5c74, rgba(94, 129, 137, 0)),
         radial-gradient(closest-side, #fbd5d1, rgba(210, 201, 154, 0)),
         radial-gradient(closest-side, #3d3952, rgba(114, 145, 147, 0));
-    background-size: 
+    background-size:
         130vmax 130vmax,
         80vmax 80vmax,
         90vmax 90vmax,
@@ -200,61 +193,66 @@ ul, li {
     animation: 10s movement linear infinite;
 
     @keyframes movement {
-        0%, 100% {
-            background-size: 
-            130vmax 130vmax,
-            80vmax 80vmax,
-            90vmax 90vmax,
-            110vmax 110vmax,
-            90vmax 90vmax;
+
+        0%,
+        100% {
+            background-size:
+                130vmax 130vmax,
+                80vmax 80vmax,
+                90vmax 90vmax,
+                110vmax 110vmax,
+                90vmax 90vmax;
             background-position:
-            -80vmax -80vmax,
-            60vmax -30vmax,
-            10vmax 10vmax,
-            -30vmax -10vmax,
-            50vmax 50vmax;
+                -80vmax -80vmax,
+                60vmax -30vmax,
+                10vmax 10vmax,
+                -30vmax -10vmax,
+                50vmax 50vmax;
         }
+
         25% {
-            background-size: 
-            100vmax 100vmax,
-            90vmax 90vmax,
-            100vmax 100vmax,
-            90vmax 90vmax,
-            60vmax 60vmax;
+            background-size:
+                100vmax 100vmax,
+                90vmax 90vmax,
+                100vmax 100vmax,
+                90vmax 90vmax,
+                60vmax 60vmax;
             background-position:
-            -60vmax -90vmax,
-            50vmax -40vmax,
-            0vmax -20vmax,
-            -40vmax -20vmax,
-            40vmax 60vmax;
+                -60vmax -90vmax,
+                50vmax -40vmax,
+                0vmax -20vmax,
+                -40vmax -20vmax,
+                40vmax 60vmax;
         }
+
         50% {
-            background-size: 
-            80vmax 80vmax,
-            110vmax 110vmax,
-            80vmax 80vmax,
-            60vmax 60vmax,
-            80vmax 80vmax;
+            background-size:
+                80vmax 80vmax,
+                110vmax 110vmax,
+                80vmax 80vmax,
+                60vmax 60vmax,
+                80vmax 80vmax;
             background-position:
-            -50vmax -70vmax,
-            40vmax -30vmax,
-            10vmax 0vmax,
-            20vmax 10vmax,
-            30vmax 70vmax;
+                -50vmax -70vmax,
+                40vmax -30vmax,
+                10vmax 0vmax,
+                20vmax 10vmax,
+                30vmax 70vmax;
         }
+
         75% {
-            background-size: 
-            90vmax 90vmax,
-            90vmax 90vmax,
-            100vmax 100vmax,
-            90vmax 90vmax,
-            70vmax 70vmax;
+            background-size:
+                90vmax 90vmax,
+                90vmax 90vmax,
+                100vmax 100vmax,
+                90vmax 90vmax,
+                70vmax 70vmax;
             background-position:
-            -50vmax -40vmax,
-            50vmax -30vmax,
-            20vmax 0vmax,
-            -10vmax 10vmax,
-            40vmax 60vmax;
+                -50vmax -40vmax,
+                50vmax -30vmax,
+                20vmax 0vmax,
+                -10vmax 10vmax,
+                40vmax 60vmax;
         }
     }
 }
@@ -265,7 +263,7 @@ ul, li {
     margin-bottom: 50px;
     bottom: 0 !important;
     right: 0 !important;
-    font-family:'STXingkai';
+    font-family: 'STXingkai';
     opacity: 0.5;
     padding-top: 6%;
 }
@@ -297,5 +295,4 @@ ul, li {
 .pagebar {
     padding-bottom: 50px;
 }
-
 </style>
