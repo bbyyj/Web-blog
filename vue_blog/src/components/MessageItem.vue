@@ -118,17 +118,20 @@ p {
 }
 
 .question {
-    background-color: #f0f0f0;
+    /*问题的颜色 */
+    background: url("../assets/images/askboard_back.jpg");
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    font-weight: bold;
+    font-weight: normal;
+    font-family: 华文楷体;
 }
 
 .answer {
+    /*答案的样式 */
     padding: 10px;
     margin: 10px 0;
-    font-weight: normal;
-    font-weight: 500;
+    font-weight: bolder;
+    font-family: 华文楷体;
 }
 </style>

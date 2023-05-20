@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="msgboard-style">
         <askBoardTitle class="title-area" :info="info">
         </askBoardTitle>
         <div class="main">
@@ -169,7 +169,105 @@ export default {
 </script>
 
 <style scoped>
-.title-area {}
+.msgboard-style {
+    background-color: #3A3B55;
+    background-image:
+        radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),
+        radial-gradient(closest-side, #a69ec6, rgba(132, 157, 133, 0)),
+        radial-gradient(closest-side, #6c5c74, rgba(94, 129, 137, 0)),
+        radial-gradient(closest-side, #fbd5d1, rgba(210, 201, 154, 0)),
+        radial-gradient(closest-side, #3d3952, rgba(114, 145, 147, 0));
+    background-size:
+        130vmax 130vmax,
+        80vmax 80vmax,
+        90vmax 90vmax,
+        110vmax 110vmax,
+        90vmax 90vmax;
+    background-position:
+        -80vmax -80vmax,
+        60vmax -30vmax,
+        10vmax 10vmax,
+        -30vmax -10vmax,
+        50vmax 50vmax;
+    background-repeat: no-repeat;
+    animation: 10s movement linear infinite;
+
+    @keyframes movement {
+
+        0%,
+        100% {
+            background-size:
+                130vmax 130vmax,
+                80vmax 80vmax,
+                90vmax 90vmax,
+                110vmax 110vmax,
+                90vmax 90vmax;
+            background-position:
+                -80vmax -80vmax,
+                60vmax -30vmax,
+                10vmax 10vmax,
+                -30vmax -10vmax,
+                50vmax 50vmax;
+        }
+
+        25% {
+            background-size:
+                100vmax 100vmax,
+                90vmax 90vmax,
+                100vmax 100vmax,
+                90vmax 90vmax,
+                60vmax 60vmax;
+            background-position:
+                -60vmax -90vmax,
+                50vmax -40vmax,
+                0vmax -20vmax,
+                -40vmax -20vmax,
+                40vmax 60vmax;
+        }
+
+        50% {
+            background-size:
+                80vmax 80vmax,
+                110vmax 110vmax,
+                80vmax 80vmax,
+                60vmax 60vmax,
+                80vmax 80vmax;
+            background-position:
+                -50vmax -70vmax,
+                40vmax -30vmax,
+                10vmax 0vmax,
+                20vmax 10vmax,
+                30vmax 70vmax;
+        }
+
+        75% {
+            background-size:
+                90vmax 90vmax,
+                90vmax 90vmax,
+                100vmax 100vmax,
+                90vmax 90vmax,
+                70vmax 70vmax;
+            background-position:
+                -50vmax -40vmax,
+                50vmax -30vmax,
+                20vmax 0vmax,
+                -10vmax 10vmax,
+                40vmax 60vmax;
+        }
+    }
+}
+
+
+.title-area {
+    font-size: 450%;
+    color: #ffffff;
+    margin-bottom: 50px;
+    bottom: 0 !important;
+    right: 0 !important;
+    font-family: 'STXingkai';
+    opacity: 0.5;
+    padding-top: 6%;
+}
 
 .main {
 
@@ -186,7 +284,8 @@ export default {
 .center-area {
     width: 1100px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, .5);
+    /*外边框颜色 ——回答过的提问  */
+    background-color: rgba(119, 238, 133, 0.5);
     border-radius: 5px;
     padding-bottom: 20px;
     padding-top: 1px;
@@ -195,7 +294,8 @@ export default {
 .total {
     font-size: 24px;
     line-height: 20px;
-    font-weight: 800;
+    /*回答过的问题 */
+    font-weight: 1000;
     text-align: center;
     padding-top: 30px;
     padding-bottom: 10px;
@@ -252,7 +352,8 @@ export default {
     min-height: 80px;
     border-radius: 20px;
     /* 增加 border-radius 值来使框更圆润 */
-    background-color: #fff;
+    /*内框颜色 */
+    background-color: #179e58;
     box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgba(80, 225, 28, 0.18) !important;
     margin: 20px auto;
     opacity: 0.8;

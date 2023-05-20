@@ -54,7 +54,8 @@ li {
     /* 添加边框 */
     padding: 20px;
     /* 添加内边距 */
-    background-color: #f9f9f9;
+    /*每条消息内框的颜色*/
+    background: url("../assets/images/askboard_back.jpg") fixed top;
     /* 添加背景色 */
     border-radius: 20px;
     /* 使边框呈现圆角 */
@@ -73,7 +74,7 @@ li {
     margin-right: 50px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 20px;
     line-height: 1.5;
     position: relative;
 }
