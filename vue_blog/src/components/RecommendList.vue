@@ -44,7 +44,7 @@ ul, li {
 .wapper {
     width: 270px;
     border-radius: 12px;
-    background-color: #fff;
+    background-color: #d9dbeb;
     margin-top: 30px;
     user-select: none;
 }
@@ -54,7 +54,7 @@ ul, li {
 }
 
 .title i {
-    color: #fb6c28;
+    color: #3d3952;
     font-size: 17px;
     margin-left: 10px;
     margin-right: 5px;
@@ -85,7 +85,8 @@ ul li {
 ul li span {
     padding-bottom: 3px;
     position: relative;
-    color: #606266;
+    color: #696eae;
+    font-size: 14px;
 
 }
 
@@ -105,13 +106,13 @@ ul li span::before {
 }
 
 ul li:hover span {
-    color: #fb6c28;
+    color: #3d3952;
 }
 
 ul li:hover span::before {
     width: 100%;
     transition: 0.4s width ease-in;
-    border-bottom: 1px solid #fb6c28;
+    border-bottom: 1px solid #3d3952;
 }
 
 

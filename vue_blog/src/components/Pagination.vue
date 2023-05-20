@@ -77,7 +77,7 @@ ul {
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.5s ease;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #d9dbeb;
     margin: 0 10px;
     line-height: 40px;
 }
@@ -87,8 +87,8 @@ ul {
 .finger:hover,
 .page-num:hover {
     box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%) !important;
-    background: #F37D7C !important;
-    color: #fff;
+    background: #7c80b8 !important;
+    color: #d9dbeb;
 }
 
 .page-num:hover {
@@ -99,7 +99,7 @@ ul {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #d9dbeb;
     cursor: pointer;
     margin-left: 10px;
     font-size: 14px;

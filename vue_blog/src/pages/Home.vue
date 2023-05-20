@@ -1,24 +1,24 @@
 
 <template>
-    <div>
+    <div >
         <!--上方背景页面-->
+        <div class='console-container'>
+        <span id='text'></span>
+        <div class='console-underscore' ref="text-style">&#95;</div>
+        </div>
+
         <div id="bg1" ref="box">
-            <span ref="space">Blog</span>
-            <!-- <div id="motto" v-if="showMotto">
-                <transition-group appear name="animate__animated animate__bounce animate__slow"
-                    enter-active-class="animate__bounceIn" leave-active-class="animate__bounceOut">
-                    <h1 key="1">{{ firstBGPageInfo.curMotto.ch }}</h1>
-                    <p key="2">{{ firstBGPageInfo.curMotto.en }}</p>
-                </transition-group>
-            </div> -->
+            <span>Blog</span>
             <div class="scroll-down">
                 <a class="anchor-down" @click.prevent="anchorDown"></a>
             </div>
         </div>
 
-
         <!--博客展示区-->
         <div id="area-blow">
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
             <div class="blog-area">
                 <!--左侧博客信息区-->
                 <div class="blog-left">
@@ -65,7 +65,7 @@ import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
 
 import "animate.css"
-
+import '../assets/css/star.css'
 export default {
 
     name: "Home",
@@ -75,10 +75,6 @@ export default {
             firstBGPageInfo: {
                 curBg: "",
                 bgs: [],
-                curMotto: {
-                    ch: "奋斗从未停止, 前进永无止境!",
-                    en: "Struggle never stops, and progress never ends!"
-                },
                 mottos: [],
             },
             showCat: false,
@@ -176,7 +172,6 @@ export default {
     },
     created() {
         this.getBlogLists();
-        this.getMotto()
         this.getNewBlogs()
         this.getHotBlogs()
         this.getmusicList()
@@ -213,7 +208,9 @@ export default {
             ]*/
 
         });
-        document.addEventListener('scroll', this.parallax, true)
+        
+        document.addEventListener('scroll',this.parallax,true);
+        this.createConsoleText();
     },
     deactivated() {
         this.showMotto = false
@@ -224,17 +221,6 @@ export default {
     },
 
     methods: {
-        // 获取座右铭
-        async getMotto() {
-            const { data: res } = await this.$axios.get("/myblog/mottos")
-            if (res.status === 1) {
-                if (res.data.length > 0) {
-                    this.firstBGPageInfo.mottos = res.data[0]
-                    const n = Math.round(Math.random() * (res.data[0].length - 1));
-                    this.firstBGPageInfo.curMotto = this.firstBGPageInfo.mottos[n]
-                }
-            }
-        },
         // 获取音乐列表
         async getmusicList() {
             const { data: res } = await this.$axios.get("/admin/musicList")
@@ -320,7 +306,62 @@ export default {
             } else {
                 this.$refs.box.style.style.backgroundPosition = ''
             }
-        }
+        },
+
+        createConsoleText(){
+            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '可能还要换个字体', '先意思一下','不过紫色还蛮好看'];
+            var colors = ['#9990bc','#8a84b7','#7b79b1',"#6c6dac","#5d62a7"];
+
+            var visible = true;
+            var con = document.getElementById('console');
+            var letterCount = 1;
+            var x = 1;
+            var waiting = false;
+            var target = document.getElementById('text');
+            target.setAttribute('style', 'color:' + colors[0]);
+            this.consoleText(words, colors, visible, con, letterCount, x, waiting, target);
+        },
+
+        consoleText(words, colors, visible, con, letterCount, x, waiting, target) {
+            if (colors === undefined) colors = ['#black'];
+
+            target.setAttribute('style', 'color:' + colors[0])
+            window.setInterval(function() {
+                if (letterCount === 0 && waiting === false) {
+                waiting = true;
+                target.innerHTML = words[0].substring(0, letterCount)
+                window.setTimeout(function() {
+                    var usedColor = colors.shift();
+                    colors.push(usedColor);
+                    var usedWord = words.shift();
+                    words.push(usedWord);
+                    x = 1;
+                    target.setAttribute('style', 'color:' + colors[0])
+                    letterCount += x;
+                    waiting = false;
+                }, 1000)
+                } else if (letterCount === words[0].length + 1 && waiting === false) {
+                waiting = true;
+                window.setTimeout(function() {
+                    x = -1;
+                    letterCount += x;
+                    waiting = false;
+                }, 1000)
+                } else if (waiting === false) {
+                target.innerHTML = words[0].substring(0, letterCount)
+                letterCount += x;
+                }
+            }, 120)
+            window.setInterval(function() {
+                if (visible === true) {
+                con.className = 'console-underscore hidden'
+                visible = false;
+                } else {
+                con.className = 'console-underscore'
+                visible = true;
+                }
+            }, 400)
+        },
     }
 }
 </script>
@@ -332,26 +373,26 @@ export default {
 .animate__animated {
     animation-duration: 3s !important;
 }
-
-//座右铭部分
-#motto {
-    user-select: none;
-    font-weight: 560;
-    line-height: 1.25;
-    color: white;
-    text-align: center;
-    position: relative;
-    top: 42%;
-
-    h1 {
-        padding-bottom: 20px;
-    }
-
-    p {
-        font-size: 22px;
-    }
+ .console-container {
+    font-size:3em;
+    text-align:center;
+    height:560px;
+    width:1000px;
+    display:block;
+    position:absolute;
+    color:#fffcfb;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
 }
-
+.console-underscore {
+    display:inline-block;
+    position:relative;
+    top:-0.05em;
+    left:10px;
+}
 
 .scroll-down {
     width: 100%;
@@ -381,8 +422,8 @@ export default {
     position: absolute;
     right: 0;
     bottom: 0;
-    border-right: 5px solid #d2c99a;
-    border-bottom: 5px solid #d2c99a;
+    border-right: 5px solid #fbd5d1;
+    border-bottom: 5px solid #fbd5d1;
     display: block;
     border-bottom-right-radius: 5px;
 }
@@ -398,14 +439,11 @@ export default {
 
     50% {
         transform: translateY(-20px);
-        // border-right: #ed1414;
-        // border-top: #0f1110;
     }
 
     80% {
         transform: translateY(0);
     }
-
     100% {
         transform: translateY(0);
     }
@@ -413,7 +451,7 @@ export default {
 
 //上方背景
 #bg1 {
-    background-image: url("../assets/images/background03.jpg");
+    background-image: url("../assets/images/forest04.svg");
     background-size: cover;
     background-position: 50% 50%;
     font: 600 25rem '';
@@ -441,91 +479,7 @@ export default {
 
 //下面区域
 #area-blow {
-    background-color: #263529;
-    background-image:
-        radial-gradient(closest-side, #507863, rgba(80, 120, 99, 0)),
-        radial-gradient(closest-side, #5b8463, rgba(132, 157, 133, 0)),
-        radial-gradient(closest-side, #4d7a69, rgba(94, 129, 137, 0)),
-        radial-gradient(closest-side, #d8d0a7, rgba(210, 201, 154, 0)),
-        radial-gradient(closest-side, #98bdc8, rgba(114, 145, 147, 0));
-    background-size:
-        130vmax 130vmax,
-        80vmax 80vmax,
-        90vmax 90vmax,
-        110vmax 110vmax,
-        90vmax 90vmax;
-    background-position:
-        -80vmax -80vmax,
-        60vmax -30vmax,
-        10vmax 10vmax,
-        -30vmax -10vmax,
-        50vmax 50vmax;
-    background-repeat: no-repeat;
-    animation: 10s movement linear infinite;
-
-    @keyframes movement {
-
-        0%,
-        100% {
-            background-size:
-                130vmax 130vmax,
-                80vmax 80vmax,
-                90vmax 90vmax,
-                110vmax 110vmax,
-                90vmax 90vmax;
-            background-position:
-                -80vmax -80vmax,
-                60vmax -30vmax,
-                10vmax 10vmax,
-                -30vmax -10vmax,
-                50vmax 50vmax;
-        }
-
-        25% {
-            background-size:
-                100vmax 100vmax,
-                90vmax 90vmax,
-                100vmax 100vmax,
-                90vmax 90vmax,
-                60vmax 60vmax;
-            background-position:
-                -60vmax -90vmax,
-                50vmax -40vmax,
-                0vmax -20vmax,
-                -40vmax -20vmax,
-                40vmax 60vmax;
-        }
-
-        50% {
-            background-size:
-                80vmax 80vmax,
-                110vmax 110vmax,
-                80vmax 80vmax,
-                60vmax 60vmax,
-                80vmax 80vmax;
-            background-position:
-                -50vmax -70vmax,
-                40vmax -30vmax,
-                10vmax 0vmax,
-                20vmax 10vmax,
-                30vmax 70vmax;
-        }
-
-        75% {
-            background-size:
-                90vmax 90vmax,
-                90vmax 90vmax,
-                100vmax 100vmax,
-                90vmax 90vmax,
-                70vmax 70vmax;
-            background-position:
-                -50vmax -40vmax,
-                50vmax -30vmax,
-                20vmax 0vmax,
-                -10vmax 10vmax,
-                40vmax 60vmax;
-        }
-    }
+    background-color:#1d1d2b;
 }
 
 // 下面中心区域
