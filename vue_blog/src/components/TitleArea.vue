@@ -1,7 +1,6 @@
 <template>
     <div class="bg">
         <span class="title">{{ info.title }}</span>
-        <!-- <span class="desc">{{ info.desc }}</span> -->
     </div>
 </template>
 
@@ -14,13 +13,13 @@ export default {
 
 <style scoped>
 .bg {
-    height: 400px;
+    height: 220px;
     width: 100%;
     position: relative;
     text-align: center;
     z-index: 0;
     user-select: none;
-    font-family: '楷体';
+    font-family: "PingFang SC", "Microsoft YaHei", Lato, sans-serif;
 }
 
 .bg::before {
@@ -31,22 +30,15 @@ export default {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAKUlEQVQImU3IMREAIAgAwJfNkQCEsH8cijjpMf6vnXlQaIiJFx+omEBfmqIEZLe2jzcAAAAASUVORK5CYII=); */
 }
 
 .title {
     font-size: 48px;
     font-weight: 500;
-    color: #fff;
+    color: #d0ced9;
     display: block;
-    padding-top: 160px;
+    padding-top: 120px;
 }
 
 
-/* .desc {
-    display: inline-block;
-    margin-top: 8px;
-    color: #fff;
-    font-size: 32px;
-} */
 </style>

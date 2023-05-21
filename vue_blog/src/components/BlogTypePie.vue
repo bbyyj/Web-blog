@@ -76,7 +76,7 @@ export default {
     position: relative;
     height: 320px;
     width: 300px;
-    background-color: #fff;
+    background-color: #8689ae;
     border-radius: 12px;
     padding: 18px 0;
 }

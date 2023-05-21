@@ -44,7 +44,7 @@ ul, li {
 }
 
 .year {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     margin: 20px 0 15px;
     line-height: 1.5;
@@ -62,9 +62,9 @@ ul li {
 
 ul li::before {
     content: '';
-    width: 6px;
-    height: 6px;
-    background-color: #97dffd;
+    width: 7px;
+    height: 7px;
+    background-color: #565ca4;
     border-radius: 50%;
     display: inline-block;
     position: absolute;
@@ -74,14 +74,15 @@ ul li::before {
 
 ul li .date {
     margin-right: 20px;
-    color: #00a7e0;
-    font-size: 12px;
+    color: #525bba;
+    font-size: 14px;
 }
 
 ul li .title {
     position: relative;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
+    font-family: '华文中宋';
     cursor: pointer;
     padding-bottom: 6px;
 }
@@ -96,12 +97,12 @@ ul li .title::before {
 }
 
 ul li .title:hover {
-    color: #00a7e0;
+    color: #3d3952;
 }
 
 ul li .title:hover::before {
     width: 100%;
-    border-bottom: 1px solid #00a7e0;
+    border-bottom: 1px solid #3d3952;
 }
 
 </style>

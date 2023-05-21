@@ -2,22 +2,25 @@
 <template>
 
     <div>
-        <TitleArea class="title-area" :info="info"></TitleArea>
+        <TitleArea class="title-area" :info="info"></TitleArea>        
         <div class="main">
-            <div class="center-area">
-                <!-- 左边时间线 -->
-                <div class="timeline">
-                    <div class="article-title">文章列表</div>
-                    <div class="article-list">
-                        <TimeAxis :key="index" v-for="(item, index) in blogs" :list="item"></TimeAxis>
+            <transition appear name="animate__animated animate__bounce animate__slow"
+                        enter-active-class="animate__fadeInDown" leave-active-class="animate__fadeOutUp">
+                <div class="center-area">
+                    <!-- 左边时间线 -->
+                    <div class="timeline hvr-grow">
+                        <div class="article-title">文章列表</div>
+                        <div class="article-list ">
+                            <TimeAxis :key="index" v-for="(item, index) in blogs" :list="item"></TimeAxis>
+                        </div>
+                    </div>
+                    <!-- 右侧边栏 -->
+                    <div class="right-area ">
+                        <BlogTypePie class="hvr-grow"></BlogTypePie>
+                        <TagCloud class="tag-cloud hvr-grow"></TagCloud>
                     </div>
                 </div>
-                <!-- 右侧边栏 -->
-                <div class="right-area">
-                    <BlogTypePie></BlogTypePie>
-                    <TagCloud class="tag-cloud"></TagCloud>
-                </div>
-            </div>
+            </transition>
         </div>
     </div>
 
@@ -40,7 +43,6 @@ export default {
         return {
             info: {
                 title: "文章归档",
-                //desc: "恰同学少年，风华正茂！"
             },
             blogsTotal: 3,
             blogs: [
@@ -93,20 +95,17 @@ ul, li {
 
 //标题区域
 .title-area {
-   // background: url("../assets/images/back5__2496_520.png") 0 0 / cover no-repeat;
-   //font-size: 56px;
    background-color: #3d3952;
-    
-   font-family: '华文中宋';
+   
 }
 
 //下方整个区域
 .main {
-    min-height: 1000px;
+    min-height: 800px;
     width: 100%;
-    background: url("../assets/images/wavetest.svg") 0 0 / cover no-repeat;
-    // background-image: url("../assets/images/wavetest.svg");
-    // background-repeat: no-repeat;
+    background-image: url("../assets/images/wavetest.svg");
+    background-position-y: 45ch;
+    background-repeat: no-repeat;
     background-color: #3d3952;
     padding-top: 50px;
 }
@@ -119,7 +118,7 @@ ul, li {
 
 .timeline {
     width: 840px;
-    background-color: #ddc2de;
+    background-color: #f7d2f9;
     padding: 30px 0;
     border-radius: 6px;
     float: left;
@@ -146,8 +145,24 @@ ul, li {
 
 .article-list {
     padding: 30px 0 30px 90px;
-    font-family: '微软雅黑';
 }
+
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
 
 
 </style>
