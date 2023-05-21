@@ -51,12 +51,12 @@ export default {
 .label:hover, .active {
     background-color: #3d3952;
     color: #d9dbeb;
-    .item-count{
+    
+}
+.item-count{
         background-color: #d9dbeb;
         color: #696eae;
     }
-}
-
 
 .item-name {
     display: inline-block;
