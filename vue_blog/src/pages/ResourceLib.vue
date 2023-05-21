@@ -1,11 +1,10 @@
 <template>
-    <div>
-        <TitleArea class="title-area" :info="info"></TitleArea>
+    <div class="bg">
         <div class="main">
+            <div class="maintitle" align="center">资源库</div>
             <transition appear
                         name="animate__animated animate__bounce animate__slow"
-                        enter-active-class="animate__fadeInUp"
-            >
+                        enter-active-class="animate__fadeInUp">
                 <div class="center-area">
                     <div class="category" :key="cates.id" v-for="cates in categories">
                         <h4 class="title">
@@ -38,7 +37,6 @@ export default {
         return {
             info: {
                 title: "资源库",
-                desc: "工欲善其事，必先利其器！"
             },
             categories: []
         }
@@ -88,13 +86,26 @@ ul, li {
     padding: 0;
 }
 
-.title-area {
-    background: url("../assets/images/back4_3840_800.png") 0 0 / cover  no-repeat;
+.maintitle{
+    font-size: 48px;
+    color: #ffffff;
+    margin-bottom: 50px;
+    bottom: 0 !important;
+    right: 0 !important;
+    font-family: "PingFang SC", "Microsoft YaHei", Lato, sans-serif;
+    opacity: 0.5;
+    padding-top: 6%;
+}
+
+
+.bg {
+    background: #3d3952;
+    background-image: url("../assets/images/ball-wed.svg");
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7378ac', endColorstr='#fbd5d1',GradientType=0 );                     
+
 }
 
 .main {
-    background: url("../assets/images/back5.png") 0 0 / cover  no-repeat;
-    background-attachment: fixed;
     padding-top: 80px;
     padding-bottom: 150px;
     min-height: 800px;
