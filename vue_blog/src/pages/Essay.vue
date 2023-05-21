@@ -10,7 +10,7 @@
                     </div>
                     <div>
                         <!-- 问题和答案部分 -->
-                        <div class="questionnaire" v-for="(question, qIndex) in questions" :key="qIndex">
+                        <div class="questionnaire" v-for="(question,qIndex) in questions" :key="qIndex">
                             <h2>{{ question.text }}</h2>
                             <ul>
                                 <li v-for="(answer, aIndex) in question.answers" :key="aIndex">
@@ -59,12 +59,17 @@ export default {
                 //设置的10个问题
                 {
                     text: "问题1",
-                    answers: ["选项1", "选项2", "选项3"],
+                    answers: ["选项1", "选项2", "选项3","选项4"],
                     correctAnswer: "选项1"
                 },
                 {
                     text: "问题2",
-                    answers: ["选项1", "选项2", "选项3"],
+                    answers: ["选项1", "选项2", "选项3","选项4"],
+                    correctAnswer: "选项2"
+                },
+                {
+                    text: "问题3",
+                    answers: ["选项1", "选项2", "选项3","选项4"],
                     correctAnswer: "选项2"
                 },
                 // 可以添加更多的问题
@@ -97,11 +102,33 @@ export default {
             },
         }
     },
+
     created() {
         window.scrollTo(0, 0);
-        this.getUserInfo()
+         this.getTacitInfo()
+
     },
     methods: {
+       /* async getTacitInfo() {
+          try {
+            const res = await this.$axios.get("/myblog/tacitList");
+            if (res.status !== 200) {
+                this.$message.error("网络出了点小问题，获取数据失败！"+res.status)
+                  return
+                        }
+            const data = res.data; // 获取后端返回的数据
+
+
+            // 将后端数据赋值给questions属性
+            this.questions = data[0][0];
+
+            // 其他逻辑...
+          } catch (error) {
+            console.error("请求后端数据时发生错误:", error);
+            // 错误处理逻辑
+          }
+        },*/
+
 
         //点击提交按钮
         submitAnswers() {
