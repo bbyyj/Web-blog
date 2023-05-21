@@ -56,9 +56,9 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/displayMsg", Decorate(leaveMessageRouter.DisplayMessage))
 	}
 
-	essayRouter := controller.NewEssayRouter()
+	essayRouter := controller.NewTacitRouter()
 	{
-		blogGroup.GET("/essayList", Decorate(essayRouter.EssayList))
+		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
 	}
 
 	//askboxlistRouter := controller.NewAskboxlistMessageRouter()
@@ -127,13 +127,13 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/updateCategory", Decorate(linksRouter.UpdateCategory))
 	}
 
-	essayRouter := admin.NewEssayRouter()
-	{
-		adminGroup.GET("/essayList", Decorate(essayRouter.EssayList))
-		adminGroup.POST("/addEssay", Decorate(essayRouter.AddEssay))
-		adminGroup.DELETE("/deleteEssay", Decorate(essayRouter.DeleteEssay))
-		adminGroup.PUT("/updateEssay", Decorate(essayRouter.UpdateEssay))
-	}
+	//essayRouter := admin.NewEssayRouter()
+	//{
+	//	adminGroup.GET("/essayList", Decorate(essayRouter.EssayList))
+	//	adminGroup.POST("/addEssay", Decorate(essayRouter.AddEssay))
+	//	adminGroup.DELETE("/deleteEssay", Decorate(essayRouter.DeleteEssay))
+	//	adminGroup.PUT("/updateEssay", Decorate(essayRouter.UpdateEssay))
+	//}
 
 	messageRouter := admin.NewMessageRouter()
 	{

@@ -6,19 +6,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type EssayController struct {
-	essayService *service.EssayService
+type TacitController struct {
+	tacitService *service.TacitService
 }
 
-func NewEssayRouter() *EssayController {
-	return &EssayController{
-		essayService: service.NewEssayService(),
+func NewTacitRouter() *TacitController {
+	return &TacitController{
+		tacitService: service.NewTacitService(),
 	}
 }
 
-func (e *EssayController) EssayList(ctx *gin.Context) *response.Response {
-	essays, err := e.essayService.GetAll()
-	if response.CheckError(err, "Get Essay List") {
+func (e *TacitController) TacitList(ctx *gin.Context) *response.Response {
+	essays, err := e.tacitService.GetAll()
+	if response.CheckError(err, "Get Tacit List") {
 		return response.ResponseQueryFailed()
 	}
 
