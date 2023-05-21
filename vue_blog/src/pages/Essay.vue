@@ -105,8 +105,11 @@ export default {
 
     created() {
         window.scrollTo(0, 0);
-        this.getTacitInfo();
-        getTacitInfo() {
+        this.getTacitInfo()
+
+    },
+    methods: {
+        async getTacitInfo() {
             try {
                 const res = await this.$axios.get("/myblog/tacitList");
                 if (res.status !== 200) {
@@ -122,10 +125,8 @@ export default {
                 console.error("请求后端数据时发生错误:", error);
                 // 错误处理逻辑
             }
-        }
+        },
 
-    },
-    methods: {
 
         //点击提交按钮
         submitAnswers() {
