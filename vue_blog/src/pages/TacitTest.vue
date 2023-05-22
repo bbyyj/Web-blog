@@ -110,23 +110,16 @@ export default {
     },
     methods: {
         async getTacitInfo() {
-            try {
-                const res = await this.$axios.get("/myblog/tacitList");
-                if (res.status !== 200) {
-                    this.$message.error("网络出了点小问题，获取数据失败！" + res.status)
-                    return
-                }
-                const data = res.data; // 获取后端返回的数据
-
-                // 将后端数据赋值给questions属性
-                this.questions = data[0][0];
-                // 其他逻辑...
-            } catch (error) {
-                console.error("请求后端数据时发生错误:", error);
-                // 错误处理逻辑
-            }
-        },
-
+                    const { data: res } = await this.$axios.get("/myblog/tacitList")
+                    if (res.status === 1) {
+                        print("success");
+                        this.questions = res.data[0];
+                        console.log(res.data[0]);
+                    }
+                    else{
+                        print("fail")
+                    }
+                },
 
         //点击提交按钮
         submitAnswers() {
