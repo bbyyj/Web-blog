@@ -3,7 +3,7 @@
 
     <div class="login_container ">
         <div class="login_box">
-            <div class="login_font">管理后台登录</div>
+            <div class="login_font">登录</div>
             <!-- 登陆区域 -->
             <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
                 <!-- 用户名 -->
@@ -20,6 +20,7 @@
                     <el-button type="primary" @click="resetLoginForm">重置</el-button>
                 </el-form-item>
             </el-form>
+
         </div>
     </div>
 
@@ -39,6 +40,7 @@ export default {
                 username: "",
                 password: ""
             },
+
             //表单的验证规则对象
             loginFormRules: {
                 // 验证用户名
@@ -56,9 +58,12 @@ export default {
     },
     methods: {
         resetLoginForm() {
+            // 重置整个表单，将所有字段值重置为初始值并移除校验结果
             this.$refs.loginFormRef.resetFields();
         },
-        login() {   //表单预校验
+
+        login() {   
+            //表单预校验
             this.$refs.loginFormRef.validate(async (valid) =>{
                 if(!valid) return;     //预验证没有通过
                 let md5 = crypot.createHash('md5');
@@ -99,17 +104,17 @@ export default {
 <style lang="less" scoped>
 
 .login_container {
-    background: url("~@/assets/images/back7.jpg");
+    background-color: #dbd8e7;
+    background-size:100% 100%;
     width:100%;
     height: 100%;
-    background-size:100% 100%;
 }
 
 .login_box {
     width: 450px;
     height: 300px;
     background-color: rgba(255, 255, 255, .3);
-    border-radius: 3px;
+    border-radius: 10px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -132,13 +137,21 @@ export default {
     display: flex;
     justify-content: flex-end;
 }
+.el-button--primary{
+    background-color: #696eae;
+    color: #f1f0f5;
+    border: 0;
+    
+}
 
 .login_font {
     font-size: 30px;
     font-weight: bold;
-    color: #00B5AD;
+    color: #696eae;
+
     width: 100%;
-    padding-left: 130px;
+    padding-left: 200px;
     padding-top: 30px;
 }
+
 </style>
