@@ -4,13 +4,9 @@ import VueRouter from "vue-router";
 const Index = () => import("../pages");
 const Home = () => import("../pages/Home.vue");
 const BlogDetail = () => import("../pages/BlogDetail.vue");
-const Types = () => import("../pages/Types.vue");
-const Tags = () => import("../pages/Tags.vue");
-const TimeLine = () => import("../pages/TimeLine.vue");
-const About = () => import("../pages/About.vue");
+
 const TacitTest = () => import("../pages/TacitTest.vue");
 const MsgBoard = () => import("../pages/MsgBoard");
-const PhotoWall = () => import("../pages/PhotoWall");
 const ResourceLib = () => import("../pages/ResourceLib");
 const NotFound = () => import("../components/error/NOTFOUND.vue");
 const InternalError = () => import("../components/error/INTERNALERROR.vue");
@@ -27,6 +23,7 @@ const ManageMessage = () => import("../pages/admin/messages/ManageMessage");
 const ListMottos = () => import("../pages/admin/blogs/listMottos");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
+const ManageTacit = () => import("../pages/admin/TacitTest/ManageTacit");
 
 Vue.use(VueRouter);
 
@@ -41,14 +38,9 @@ const routes = [
     children: [
       { path: "/home", component: Home, meta: { auth: false } },
       { path: "/blogDetail", component: BlogDetail, meta: { auth: false } },
-      { path: "/types", component: Types, meta: { auth: false } },
-      { path: "/tags", component: Tags, meta: { auth: false } },
-      { path: "/timeLine", component: TimeLine, meta: { auth: false } },
       { path: "/tacitTest", component: TacitTest, meta: { auth: false } },
       { path: "/msgBoard", component: MsgBoard, meta: { auth: false } },
-      { path: "/photoWall", component: PhotoWall, meta: { auth: false } },
       { path: "/resourceLib", component: ResourceLib, meta: { auth: false } },
-      { path: "/about", component: About, meta: { auth: false } },
       { path: "/notFound", component: NotFound, meta: { auth: false } },
       {
         path: "/internalError",
@@ -76,6 +68,7 @@ const routes = [
       { path: "/manageMsg", component: ManageMessage, meta: { auth: true } },
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
       { path: "/manageMusic", component: ManageMusic, meta: { auth: true } },
+      { path: "/manageTacit", component: ManageTacit, meta: { auth: true } },
     ],
   },
 ];
@@ -83,7 +76,7 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
-
+/*
 //挂载路由导航守卫,此守卫是用来拦截页面访问的，如果没有token，则不能会被重定向到登录页
 // 访问博客页面不需要token，直接放行
 // 在登陆时不需要token，直接放行
@@ -102,5 +95,6 @@ router.beforeEach((to, from, next) => {
   if (!tokenStr) return next("/login");
   next();
 });
+*/
 
 export default router;
