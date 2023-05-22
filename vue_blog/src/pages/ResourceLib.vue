@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 import TitleArea from "../components/TitleArea";
 import ResourceLabel from "../components/ResourceLabel";
 

@@ -31,18 +31,6 @@
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="分类" ico-class="icon-fenlei" rout="/types">
-                        </NaviItem>
-                    </li>
-                    <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="标签" ico-class="icon-biaoqian" rout="/tags">
-                        </NaviItem>
-                    </li>
-                    <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="归档" ico-class="icon-24gf-hourglass"
-                            rout="/timeLine"></NaviItem>
-                    </li>
-                    <li>
                         <NaviItem :activeRoute="activeRoute" index-name="默契鉴定" ico-class="icon-yongyan" rout="/tacitTest">
                         </NaviItem>
                     </li>
@@ -50,16 +38,8 @@
                         <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/msgBoard">
                         </NaviItem>
                     </li>
-                    <li v-if="false">
-                        <NaviItem :activeRoute="activeRoute" index-name="照片墙" ico-class="icon-zhaopianxuanzhong"
-                            rout="/photoWall"></NaviItem>
-                    </li>
                     <li>
                         <NaviItem :activeRoute="activeRoute" index-name="资源库" ico-class="icon-ziyuanku" rout="/resourceLib">
-                        </NaviItem>
-                    </li>
-                    <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="关于我" ico-class="icon-guanyuwomen" rout="/about">
                         </NaviItem>
                     </li>
                     <li>
