@@ -31,11 +31,11 @@
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="默契鉴定" ico-class="icon-yongyan" rout="/tacitTest">
+                        <NaviItem :activeRoute="activeRoute" index-name="软工题库" ico-class="icon-yongyan" rout="/StudyTest">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/msgBoard">
+                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/AskBoard">
                         </NaviItem>
                     </li>
                     <li>

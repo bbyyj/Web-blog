@@ -5,8 +5,8 @@ const Index = () => import("../pages");
 const Home = () => import("../pages/Home.vue");
 const BlogDetail = () => import("../pages/BlogDetail.vue");
 
-const TacitTest = () => import("../pages/TacitTest.vue");
-const MsgBoard = () => import("../pages/MsgBoard");
+const StudyTest = () => import("../pages/StudyTest.vue");
+const AskBoard = () => import("../pages/AskBoard");
 const ResourceLib = () => import("../pages/ResourceLib");
 const NotFound = () => import("../components/error/NOTFOUND.vue");
 const InternalError = () => import("../components/error/INTERNALERROR.vue");
@@ -20,7 +20,7 @@ const ManageMessage = () => import("../pages/admin/messages/ManageMessage");
 const ListMottos = () => import("../pages/admin/blogs/listMottos");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
-const ManageTacit = () => import("../pages/admin/TacitTest/ManageTacit");
+const ManageTest = () => import("../pages/admin/StudyTest/ManageTest");
 
 Vue.use(VueRouter);
 
@@ -35,8 +35,8 @@ const routes = [
     children: [
       { path: "/home", component: Home, meta: { auth: false } },
       { path: "/blogDetail", component: BlogDetail, meta: { auth: false } },
-      { path: "/tacitTest", component: TacitTest, meta: { auth: false } },
-      { path: "/msgBoard", component: MsgBoard, meta: { auth: false } },
+      { path: "/StudyTest", component: StudyTest, meta: { auth: false } },
+      { path: "/AskBoard", component: AskBoard, meta: { auth: false } },
       { path: "/resourceLib", component: ResourceLib, meta: { auth: false } },
       { path: "/notFound", component: NotFound, meta: { auth: false } },
       {
@@ -62,7 +62,7 @@ const routes = [
       { path: "/manageMsg", component: ManageMessage, meta: { auth: true } },
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
       { path: "/manageMusic", component: ManageMusic, meta: { auth: true } },
-      { path: "/manageTacit", component: ManageTacit, meta: { auth: true } },
+      { path: "/manageTest", component: ManageTest, meta: { auth: true } },
     ],
   },
 ];

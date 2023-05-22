@@ -123,9 +123,9 @@ export default {
                 {
                     id: "8",
                     icon: "el-icon-star-off",
-                    name: "问答管理",
+                    name: "题库管理",
                     submenus: [
-                        { id: "81", index: "/manageTacit", icon: "el-icon-menu", name: "管理问答" },
+                        { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "题库管理" },
                     ]
                 }
             ]
