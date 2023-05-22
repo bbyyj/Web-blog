@@ -87,7 +87,7 @@ ul, li {
 
 .maintitle{
     font-size: 48px;
-    color: #ffffff;
+    color: #3d3952;
     margin-bottom: 50px;
     bottom: 0 !important;
     right: 0 !important;
@@ -98,8 +98,8 @@ ul, li {
 
 
 .bg {
-    background: #3d3952;
-    background-image: url("../assets/images/ball-wed.svg");
+    /* background: #3d3952; */
+    background-image: url("../assets/images/SeaClouds.svg");
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7378ac', endColorstr='#fbd5d1',GradientType=0 );                     
 
 }
