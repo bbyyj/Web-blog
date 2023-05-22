@@ -119,6 +119,14 @@ export default {
                     submenus: [
                         { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理链接" },
                     ]
+                },
+                {
+                    id: "8",
+                    icon: "el-icon-star-off",
+                    name: "问答管理",
+                    submenus: [
+                        { id: "81", index: "/manageTacit", icon: "el-icon-menu", name: "管理问答" },
+                    ]
                 }
             ]
         }
