@@ -8,7 +8,7 @@ const Types = () => import("../pages/Types.vue");
 const Tags = () => import("../pages/Tags.vue");
 const TimeLine = () => import("../pages/TimeLine.vue");
 const About = () => import("../pages/About.vue");
-const Essay = () => import("../pages/Essay");
+const TacitTest = () => import("../pages/TacitTest.vue");
 const MsgBoard = () => import("../pages/MsgBoard");
 const PhotoWall = () => import("../pages/PhotoWall");
 const ResourceLib = () => import("../pages/ResourceLib");
@@ -44,7 +44,7 @@ const routes = [
       { path: "/types", component: Types, meta: { auth: false } },
       { path: "/tags", component: Tags, meta: { auth: false } },
       { path: "/timeLine", component: TimeLine, meta: { auth: false } },
-      { path: "/essay", component: Essay, meta: { auth: false } },
+      { path: "/tacitTest", component: TacitTest, meta: { auth: false } },
       { path: "/msgBoard", component: MsgBoard, meta: { auth: false } },
       { path: "/photoWall", component: PhotoWall, meta: { auth: false } },
       { path: "/resourceLib", component: ResourceLib, meta: { auth: false } },
@@ -83,7 +83,7 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
-/*
+
 //挂载路由导航守卫,此守卫是用来拦截页面访问的，如果没有token，则不能会被重定向到登录页
 // 访问博客页面不需要token，直接放行
 // 在登陆时不需要token，直接放行
@@ -94,15 +94,13 @@ router.beforeEach((to, from, next) => {
   // next() 放行 next("/login") 强制跳转
   // 如果访问的不是管理员或登录页面，直接放行
   if (!to.meta.auth) {
-      return next()
+    return next();
   }
 
   // 访问的是管理员页面，查看有没有token，如果有，则放行，否则，跳转到登录页
   const tokenStr = window.sessionStorage.getItem("token");
-  if(!tokenStr) return next("/login");
+  if (!tokenStr) return next("/login");
   next();
-})
-
-*/
+});
 
 export default router;

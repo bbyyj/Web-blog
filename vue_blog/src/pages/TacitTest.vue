@@ -1,6 +1,6 @@
 
 <template>
-    <div class="love_test">
+    <div class="tacit_test">
         <TitleArea class="title-area" :info="info"></TitleArea>
         <div class="bottom">
             <transition appear name="animate__animated animate__bounce animate__slow"
@@ -218,7 +218,7 @@ ul {
     padding: 0;
 }
 
-.love_test {
+.tacit_test {
     background-color: #3A3B55;
     background-image:
         radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),

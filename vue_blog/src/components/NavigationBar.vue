@@ -43,7 +43,7 @@
                             rout="/timeLine"></NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="默契鉴定" ico-class="icon-yongyan" rout="/essay">
+                        <NaviItem :activeRoute="activeRoute" index-name="默契鉴定" ico-class="icon-yongyan" rout="/tacitTest">
                         </NaviItem>
                     </li>
                     <li>
@@ -85,7 +85,7 @@ export default {
     data() {
         return {
             keyWord: "",
-            siteName: "mgh的小站",
+            siteName: "中山大学",
             activeRoute: "/home",
             searchResult: [],
             total: 0,

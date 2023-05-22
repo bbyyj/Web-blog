@@ -1,8 +1,7 @@
 
 <template>
-
     <el-container class="home_container">
-            <!-- 头部区域 -->
+        <!-- 头部区域 -->
         <el-header>
             <div>
                 <span>博客管理后台</span>
@@ -14,9 +13,8 @@
             <!-- 侧边区域 -->
             <el-aside :width="isCollapse ? '65px' : '200px'">
                 <div class="toggle-button" @click="toggleCollapse">|||</div>
-                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff"
-                unique-opened :collapse="isCollapse" :collapse-transition="false" router
-                :default-active="activePath">
+                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" unique-opened
+                    :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
 
                     <el-submenu :index="menu.id" v-for="(menu, i1) in menus" :key="menu.id">
                         <!-- 一级菜单的模板区域 -->
@@ -28,7 +26,8 @@
                         </template>
 
                         <!-- 二级菜单 -->
-                        <el-menu-item :key="subMenu.id" v-for="(subMenu, i2) in menu.submenus" :index="subMenu.index" @click="saveNavState(i1, i2)">
+                        <el-menu-item :key="subMenu.id" v-for="(subMenu, i2) in menu.submenus" :index="subMenu.index"
+                            @click="saveNavState(i1, i2)">
                             <template slot="title">
                                 <!-- 图标 -->
                                 <i :class="subMenu.icon"></i>
@@ -51,8 +50,6 @@
             </el-main>
         </el-container>
     </el-container>
-
-
 </template>
 
 
@@ -66,29 +63,29 @@ export default {
             activeSubMenu: -1,
             menus: [
                 {
-                    id :"1",
+                    id: "1",
                     icon: "el-icon-edit",
                     name: "博客管理",
                     submenus: [
-                        {id:"11", index: "/listBlogs", icon:"el-icon-menu", name:"查看博客"},
-                        {id:"12", index: "/addBlog", icon:"el-icon-plus", name:"新增博客"},
-                        {id:"13", index: "/listMottos", icon:"el-icon-menu", name:"查看格言"}
+                        { id: "11", index: "/listBlogs", icon: "el-icon-menu", name: "查看博客" },
+                        { id: "12", index: "/addBlog", icon: "el-icon-plus", name: "新增博客" },
+                        { id: "13", index: "/listMottos", icon: "el-icon-menu", name: "查看格言" }
                     ]
                 },
                 {
-                    id :"2",
+                    id: "2",
                     icon: "el-icon-notebook-2",
                     name: "分类管理",
                     submenus: [
-                        {id:"21", index: "/listTypes", icon:"el-icon-menu", name:"查看分类"},
+                        { id: "21", index: "/listTypes", icon: "el-icon-menu", name: "查看分类" },
                     ]
                 },
                 {
-                    id :"3",
+                    id: "3",
                     icon: "el-icon-paperclip",
                     name: "标签管理",
                     submenus: [
-                        {id:"31", index: "/listTags", icon:"el-icon-menu", name:"查看标签"},
+                        { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
                     ]
                 },
                 // {
@@ -100,27 +97,27 @@ export default {
                 //     ]
                 // },
                 {
-                    id :"5",
+                    id: "5",
                     icon: "el-icon-notebook-1",
-                    name: "随笔管理",
+                    name: "音乐管理",
                     submenus: [
-                        {id:"51", index: "/manageEssay", icon:"el-icon-menu", name:"管理随笔"},
+                        { id: "51", index: "/manageMusic", icon: "el-icon-menu", name: "管理音乐" },
                     ]
                 },
                 {
-                    id :"6",
+                    id: "6",
                     icon: "el-icon-chat-line-square",
                     name: "留言管理",
                     submenus: [
-                        {id:"61", index: "/manageMsg", icon:"el-icon-menu", name:"管理留言"},
+                        { id: "61", index: "/manageMsg", icon: "el-icon-menu", name: "管理留言" },
                     ]
                 },
                 {
-                    id :"7",
+                    id: "7",
                     icon: "el-icon-star-off",
                     name: "资源库管理",
                     submenus: [
-                        {id:"71", index: "/manageLink", icon:"el-icon-menu", name:"管理链接"},
+                        { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理链接" },
                     ]
                 }
             ]
@@ -170,9 +167,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     color: #fff;
-    > div {
+
+    >div {
         display: flex;
         align-items: center;
+
         span {
             margin-left: 100px;
             font-size: 30px;
@@ -183,13 +182,14 @@ export default {
 
 .el-aside {
     background-color: #333744;
+
     ele-menu {
         border-right: none;
     }
 }
 
 .el-main {
-   background-color: #fff;
+    background-color: #fff;
 }
 
 .el-menu {
