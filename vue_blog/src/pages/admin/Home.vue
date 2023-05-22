@@ -125,7 +125,7 @@ export default {
                     icon: "el-icon-star-off",
                     name: "题库管理",
                     submenus: [
-                        { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "题库管理" },
+                        { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "管理题库" },
                     ]
                 }
             ]
