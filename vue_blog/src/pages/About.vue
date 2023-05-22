@@ -1,14 +1,11 @@
 
 <template>
-    <div>
-        <TitleArea class="title-area" :info="info"></TitleArea>
-        <div class="bottom">
+    <div class="bg">
+        <div class="maintitle" align="center">关于我</div>
+        <div>
             <transition appear name="animate__animated animate__bounce animate__slow"
                 enter-active-class="animate__slideInUp">
                 <div class="wrap">
-
-                    <!-- <img :src="userInfo.avatar">
-                    <h4>{{ userInfo.nickname }}</h4> -->
 
                     <ul class="contact">
                         <li><a :href="userInfo.github" target="_blank" class="iconfont icon-github"></a></li>
@@ -62,10 +59,6 @@ export default {
     components: { TitleArea },
     data() {
         return {
-            info: {
-                title: "关于我",
-                desc: "写点什么吧!"
-            },
             userInfo: {
                 avatar: "",
                 nickname: "",
@@ -82,38 +75,29 @@ export default {
 
 <style lang="less" scoped>
 
-.title-area {
-    background: url("../assets/images/back12.jpg") 0 0 / cover no-repeat;
+.bg{
+    background: url("../assets/images/SeaClouds.svg") 0 0 / cover no-repeat;
 }
 
-.bottom {
-    padding-bottom: 80px;
-    background-color: #ececec;
+.maintitle{
+    font-size: 48px;
+    color: #3d3952;
+    margin-bottom: 50px;
+    bottom: 0 !important;
+    right: 0 !important;
+    font-family: "PingFang SC", "Microsoft YaHei", Lato, sans-serif;
+    opacity: 0.5;
+    padding-top: 6%;
 }
+
+
 
 .wrap {
     width: 60%;
     border-radius: 10px;
     margin: 0 auto;
     transform: translateY(-20px);
-    box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
-    background: #fff url("../assets/images/flowerbg.png") fixed top;
     padding: 50px 0;
-
-    img {
-        display: block;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        margin: 0 auto;
-    }
-
-    h4 {
-        text-align: center;
-        margin: 12px 0;
-        color: #34495e;
-        font-style: italic;
-    }
 
     .contact {
         text-align: center;
