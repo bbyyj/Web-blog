@@ -154,6 +154,9 @@ func (abd *AskBoxDao) ClickLikes(likes int, parentID int, childID int) error {
 // 分页返回所有问题
 func (abd *AskBoxDao) GetAllQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
 	err = sqldb.Select(&msg, abd.sql[4], pageStart, PageSize)
+	if err != nil {
+		println(err.Error())
+	}
 	return
 }
 
