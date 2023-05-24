@@ -42,3 +42,13 @@ func (a *AskBoxService) GetAllQA(pageNum, pageSize int) ([]model.Askbox, error) 
 	}
 	return messages, nil
 }
+
+func (a *AskBoxService) GetUnansweredQA(pageNum, pageSize int) ([]model.Askbox, error) {
+	pageStart := (pageNum - 1) * pageSize
+	messages, err := a.askboxDao.GetUnansweredQA(pageStart, pageSize)
+	if err != nil {
+		utils.Logger().Warning("Get Unanswered QA error:%v", err)
+		return nil, err
+	}
+	return messages, nil
+}

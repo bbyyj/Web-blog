@@ -114,6 +114,9 @@ func NewAskBoxDao() *AskBoxDao {
 			// 分页返回所有问题
 			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
 			 FROM t_askbox ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
+			// 分页返回所有未回答问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
+			 FROM t_askbox WHERE is_answered = 0 ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
 		},
 	}
 }
@@ -145,5 +148,11 @@ func (abd *AskBoxDao) ClickLikes(likes int, parentID int, childID int) error {
 // 分页返回所有问题
 func (abd *AskBoxDao) GetAllQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
 	err = sqldb.Select(&msg, abd.sql[4], pageStart, PageSize)
+	return
+}
+
+// 分页返回所有未回答问题
+func (abd *AskBoxDao) GetUnansweredQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
+	err = sqldb.Select(&msg, abd.sql[5], pageStart, PageSize)
 	return
 }

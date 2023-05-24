@@ -29,6 +29,20 @@ func (a *AskBoxBackController) GetAllQA(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(messages)
 }
 
+// 分页返回所有未回答的问题信息
+func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Response {
+	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
+	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
+
+	messages, err := a.askBoxService.GetUnansweredQA(pageNum, pageSize)
+
+	if response.CheckError(err, "Find Unanswered QA error") {
+		return response.ResponseQueryFailed()
+	}
+
+	return response.ResponseQuerySuccess(messages)
+}
+
 //func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
 //	var msg model.Askbox
 //	err := ctx.ShouldBind(&msg)
@@ -77,17 +91,3 @@ func (a *AskBoxBackController) GetAllQA(ctx *gin.Context) *response.Response {
 //	return response.ResponseDeleteSuccess()
 //}
 //
-//// 分页返回所有未回答的问题信息
-//func (a *AskBoxBackController) FindUnansweredQA(ctx *gin.Context) *response.Response {
-//	// 分页
-//	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
-//	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
-//	// 取数据
-//	messages, totalCount, err := a.askBoxService.GetUnansweredQA(pageNum, pageSize)
-//	// 错误处理
-//	if response.CheckError(err, "Find Unanswered QA error") {
-//		return response.ResponseQueryFailed()
-//	}
-//	// 返回状态
-//	return response.ResponseQuerySuccess(messages, totalCount)
-//}
