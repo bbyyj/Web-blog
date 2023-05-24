@@ -56,3 +56,7 @@ func (a *AskBoxService) GetUnansweredQA(pageNum, pageSize int) ([]model.Askbox, 
 func (a *AskBoxService) AddAnswer(askbox *model.Askbox) error {
 	return a.askboxDao.AddAnswer(askbox)
 }
+
+func (a *AskBoxService) ModifyAnswer(askbox *model.Askbox) error {
+	return a.askboxDao.ModifyAnswer(askbox)
+}

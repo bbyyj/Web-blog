@@ -64,25 +64,24 @@ func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
 	return response.ResponseOperateSuccess()
 }
 
-//
-//func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response {
-//	var msg model.Askbox
-//	err := ctx.ShouldBind(&msg)
-//	if response.CheckError(err, "Bind param error") {
-//		ctx.Status(http.StatusInternalServerError)
-//		return nil
-//	}
-//
-//	msg.IsAnswered = true
-//	msg.AnswerTime = time.Now()
-//
-//	err = a.askBoxService.ModifyAnswer(&msg)
-//	if response.CheckError(err, "Modify answer error") {
-//		return response.ResponseOperateFailed()
-//	}
-//
-//	return response.ResponseOperateSuccess()
-//}
+func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response {
+	var msg model.Askbox
+	err := ctx.ShouldBind(&msg)
+	if response.CheckError(err, "Bind param error") {
+		ctx.Status(http.StatusInternalServerError)
+		return nil
+	}
+
+	msg.AnswerTime = time.Now()
+
+	err = a.askBoxService.ModifyAnswer(&msg)
+	if response.CheckError(err, "Modify answer error") {
+		return response.ResponseOperateFailed()
+	}
+
+	return response.ResponseOperateSuccess()
+}
+
 //
 //func (a *AskBoxBackController) DeleteQuestion(ctx *gin.Context) *response.Response {
 //	id := utils.QueryInt(ctx, "parent_id")
