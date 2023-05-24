@@ -109,6 +109,8 @@ func NewAskBoxDao() *AskBoxDao {
 			// 追加子问题
 			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow)
 			VALUES(?, ?, ?, ?, ?)`,
+			// 点赞问题
+			`UPDATE t_askbox SET likes = ? WHERE parent_id = ? AND child_id = ?;`,
 		},
 	}
 }
@@ -128,5 +130,11 @@ func (abd *AskBoxDao) AddNewQuestion(a *model.Askbox) error {
 // 追加子问题
 func (abd *AskBoxDao) AppendOldQuestion(a *model.Askbox) error {
 	_, err := sqldb.Exec(abd.sql[2], a.ParentId, a.ChildId, a.Question, a.QuestionTime, a.Rainbow)
+	return err
+}
+
+// 点赞问题
+func (abd *AskBoxDao) ClickLikes(likes int, parentID int, childID int) error {
+	_, err := sqldb.Exec(abd.sql[3], likes, parentID, childID)
 	return err
 }

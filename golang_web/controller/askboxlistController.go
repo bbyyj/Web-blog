@@ -70,3 +70,18 @@ func (a *AskBoxFrontController) AppendOldQuestion(ctx *gin.Context) *response.Re
 	}
 	return response.ResponseOperateSuccess()
 }
+
+func (a *AskBoxFrontController) ClickLikes(ctx *gin.Context) *response.Response {
+	var askbox model.Askbox
+	if err := ctx.ShouldBind(&askbox); err != nil {
+		return response.ResponseOperateFailed()
+	}
+
+	askbox.Likes += 1
+	err := a.askBoxService.ClickLikes(askbox.Likes, askbox.ParentId, askbox.ChildId)
+
+	if response.CheckError(err, "Click Likes error") {
+		return response.ResponseOperateFailed()
+	}
+	return response.ResponseOperateSuccess()
+}

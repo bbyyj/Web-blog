@@ -27,3 +27,7 @@ func (a *AskBoxService) AddNewQuestion(askbox *model.Askbox) error {
 func (a *AskBoxService) AppendOldQuestion(askbox *model.Askbox) error {
 	return a.askboxDao.AddNewQuestion(askbox)
 }
+
+func (a *AskBoxService) ClickLikes(likes int, parentID int, childID int) error {
+	return a.askboxDao.ClickLikes(likes, parentID, childID)
+}

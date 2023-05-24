@@ -66,6 +66,7 @@ func registerBlogRouters(engine *gin.Engine) {
 		//blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
 		blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
 		blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
+		blogGroup.PUT("/clickLikes", Decorate(askboxFrontRouter.ClickLikes))
 	}
 }
 
