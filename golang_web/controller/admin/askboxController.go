@@ -24,38 +24,38 @@ func (a *AskBoxBackController) GetAllQA(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
 
-	messages, err := a.askBoxService.GetAllQA(pageNum, pageSize)
+	messages, count, err := a.askBoxService.GetAllQA(pageNum, pageSize)
 
 	if response.CheckError(err, "Get messages error") {
 		return response.ResponseQueryFailed()
 	}
-	return response.ResponseQuerySuccess(messages)
+	return response.ResponseQuerySuccess(messages, count)
 }
 
 func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
 
-	messages, err := a.askBoxService.GetUnansweredQA(pageNum, pageSize)
+	messages, count, err := a.askBoxService.GetUnansweredQA(pageNum, pageSize)
 
 	if response.CheckError(err, "Find Unanswered QA error") {
 		return response.ResponseQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(messages)
+	return response.ResponseQuerySuccess(messages, count)
 }
 
 func (a *AskBoxBackController) GetAnsweredQAPage(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
 
-	messages, err := a.askBoxService.GetAnsweredQAPage(pageNum, pageSize)
+	messages, count, err := a.askBoxService.GetAnsweredQAPage(pageNum, pageSize)
 
 	if response.CheckError(err, "Find Answered QA error") {
 		return response.ResponseQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(messages)
+	return response.ResponseQuerySuccess(messages, count)
 }
 
 func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {

@@ -126,6 +126,14 @@ func NewAskBoxDao() *AskBoxDao {
 			// 分页返回所有已回答问题
 			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
 			 FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
+			// 返回所有已回答父问题数
+			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 1 AND is_parent = 1 AND child_id = 1;`,
+			// 返回所有已回答问题数（按子问题）
+			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 1;`,
+			// 返回所有未回答问题数（按子问题）
+			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 0;`,
+			// 返回所有问题数（按子问题）
+			`SELECT COUNT(*) FROM t_askbox;`,
 		},
 	}
 }
@@ -187,5 +195,25 @@ func (abd *AskBoxDao) DeleteQuestion(id int) error {
 // 分页返回所有已回答问题
 func (abd *AskBoxDao) GetAnsweredQAPage(pageStart, PageSize int) (msg []model.Askbox, err error) {
 	err = sqldb.Select(&msg, abd.sql[9], pageStart, PageSize)
+	return
+}
+
+func (abd *AskBoxDao) GetAnsweredParentQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[10])
+	return
+}
+
+func (abd *AskBoxDao) GetAnsweredQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[11])
+	return
+}
+
+func (abd *AskBoxDao) GetUnansweredQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[12])
+	return
+}
+
+func (abd *AskBoxDao) GetAllQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[13])
 	return
 }
