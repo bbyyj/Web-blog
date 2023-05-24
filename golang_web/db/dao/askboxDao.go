@@ -103,6 +103,9 @@ func NewAskBoxDao() *AskBoxDao {
 		sql: []string{
 			// 返回已回答的问题
 			`SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY id ASC;`,
+			// 增加父问题
+			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
+			VALUES(?, ?, ?, ?, ?, ?)`,
 		},
 	}
 }
@@ -111,4 +114,10 @@ func NewAskBoxDao() *AskBoxDao {
 func (abd *AskBoxDao) GetAnsweredQA() (askboxs []model.Askbox, err error) {
 	err = sqldb.Select(&askboxs, abd.sql[0])
 	return
+}
+
+// 增加父问题
+func (abd *AskBoxDao) AddNewQuestion(a *model.Askbox) error {
+	_, err := sqldb.Exec(abd.sql[1], a.ParentId, a.ChildId, a.Question, a.QuestionTime, a.Rainbow, a.IsParent)
+	return err
 }

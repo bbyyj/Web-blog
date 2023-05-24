@@ -2,6 +2,11 @@ package controller
 
 import (
 	"blog_web/db/service"
+	"blog_web/model"
+	"blog_web/response"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"time"
 )
 
 type AskBoxFrontController struct {
@@ -22,3 +27,25 @@ func NewAskboxFrontRouter() *AskBoxFrontController {
 //	}
 //	return response.ResponseQuerySuccess(askboxs)
 //}
+
+func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Response {
+
+	var askbox model.Askbox
+	err := ctx.ShouldBind(&askbox)
+	if response.CheckError(err, "Bind param error") {
+		ctx.Status(http.StatusInternalServerError)
+		return nil
+	}
+
+	//`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
+	// 已传入 parent_id, question, rainbow
+	askbox.ChildId = 1
+	askbox.QuestionTime = time.Now()
+	askbox.IsParent = true
+	err = a.askBoxService.AddNewQuestion(&askbox)
+
+	if response.CheckError(err, "Add music error") {
+		return response.ResponseOperateFailed()
+	}
+	return response.ResponseOperateSuccess()
+}

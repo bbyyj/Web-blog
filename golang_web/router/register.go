@@ -61,12 +61,12 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
 	}
 
-	//askboxFrontRouter := controller.NewAskboxFrontRouter()
-	//{
-	//	blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
-	//	//blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
-	//	//blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
-	//}
+	askboxFrontRouter := controller.NewAskboxFrontRouter()
+	{
+		//blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
+		blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
+		//blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
+	}
 }
 
 func registerBlogManageRouter(engine *gin.Engine) {

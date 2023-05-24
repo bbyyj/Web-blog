@@ -2,6 +2,7 @@ package service
 
 import (
 	"blog_web/db/dao"
+	"blog_web/model"
 )
 
 type AskBoxService struct {
@@ -18,3 +19,7 @@ func NewAskBoxService() *AskBoxService {
 //func (a *AskBoxService) GetAnsweredQA([]model.Askbox, error) {
 //	return a.askboxDao.GetAnsweredQA()
 //}
+
+func (a *AskBoxService) AddNewQuestion(askbox *model.Askbox) error {
+	return a.askboxDao.AddNewQuestion(askbox)
+}
