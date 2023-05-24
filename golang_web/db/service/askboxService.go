@@ -60,3 +60,7 @@ func (a *AskBoxService) AddAnswer(askbox *model.Askbox) error {
 func (a *AskBoxService) ModifyAnswer(askbox *model.Askbox) error {
 	return a.askboxDao.ModifyAnswer(askbox)
 }
+
+func (a *AskBoxService) DeleteQuestion(id int) error {
+	return a.askboxDao.DeleteQuestion(id)
+}

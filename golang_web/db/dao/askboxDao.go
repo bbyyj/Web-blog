@@ -121,6 +121,8 @@ func NewAskBoxDao() *AskBoxDao {
 			`UPDATE t_askbox SET answer = ?, answer_time = ?, is_answered =? WHERE parent_id = ? AND child_id = ?;`,
 			// 修改问题
 			`UPDATE t_askbox SET answer = ?, answer_time = ? WHERE parent_id = ? AND child_id = ?;`,
+			// 删除父问题及底下的子问题
+			`DELETE FROM t_askbox WHERE parent_id = ?;`,
 		},
 	}
 }
@@ -168,5 +170,10 @@ func (abd *AskBoxDao) AddAnswer(askbox *model.Askbox) error {
 
 func (abd *AskBoxDao) ModifyAnswer(askbox *model.Askbox) error {
 	_, err := sqldb.Exec(abd.sql[7], askbox.Answer, askbox.AnswerTime, askbox.ParentId, askbox.ChildId)
+	return err
+}
+
+func (abd *AskBoxDao) DeleteQuestion(id int) error {
+	_, err := sqldb.Exec(abd.sql[8], id)
 	return err
 }

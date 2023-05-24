@@ -82,14 +82,12 @@ func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response
 	return response.ResponseOperateSuccess()
 }
 
-//
-//func (a *AskBoxBackController) DeleteQuestion(ctx *gin.Context) *response.Response {
-//	id := utils.QueryInt(ctx, "parent_id")
-//	err := a.askBoxService.DeleteQuestion(id)
-//	if response.CheckError(err, "Delete Question error") {
-//		return response.ResponseDeleteFailed()
-//	}
-//
-//	return response.ResponseDeleteSuccess()
-//}
-//
+func (a *AskBoxBackController) DeleteQuestion(ctx *gin.Context) *response.Response {
+	id := utils.QueryInt(ctx, "parent_id")
+	err := a.askBoxService.DeleteQuestion(id)
+	if response.CheckError(err, "Delete Question error") {
+		return response.ResponseDeleteFailed()
+	}
+
+	return response.ResponseDeleteSuccess()
+}

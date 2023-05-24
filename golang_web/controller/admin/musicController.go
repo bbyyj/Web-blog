@@ -63,7 +63,6 @@ func (m *MusicController) DeleteMusic(ctx *gin.Context) *response.Response {
 
 	err := m.musicService.DeleteMusic(id)
 	if response.CheckError(err, "Delete music error") {
-		println("note here 3")
 		return response.ResponseDeleteFailed()
 	}
 

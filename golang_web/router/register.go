@@ -63,7 +63,7 @@ func registerBlogRouters(engine *gin.Engine) {
 
 	askboxFrontRouter := controller.NewAskboxFrontRouter()
 	{
-		//GetAnsweredQA报错
+		//GetAnsweredQA 正报错
 		//blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
 		blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
 		blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
@@ -153,12 +153,12 @@ func registerBlogManageRouter(engine *gin.Engine) {
 
 	askboxBackRouter := admin.NewAskBoxBackRouter()
 	{
-		//// getAllQA没通
+		//// getAllQA 还没通
 		//adminGroup.GET("/getAllQA", Decorate(askboxBackRouter.GetAllQA))
-		//// getUnansweredQA没通
+		//// getUnansweredQA 还没通
 		//adminGroup.GET("/getUnansweredQA", Decorate(askboxBackRouter.GetUnansweredQA))
 		adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
 		adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
-		//adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
+		adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
 	}
 }
