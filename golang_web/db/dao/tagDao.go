@@ -35,6 +35,7 @@ func (t *TagDao) GetTagsByBlogId(id int) (tags []model.Tag, err error) {
 
 // 查询所有标签
 func (t *TagDao) FindAllTags() (tags []model.Tag, err error) {
+	// `SELECT * FROM t_tag ORDER BY id ASC;`,
 	err = sqldb.Select(&tags, t.sql[1])
 	return
 }

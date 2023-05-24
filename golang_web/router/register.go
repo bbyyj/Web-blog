@@ -64,8 +64,8 @@ func registerBlogRouters(engine *gin.Engine) {
 	//askboxFrontRouter := controller.NewAskboxFrontRouter()
 	//{
 	//	blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
-	//	blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
-	//	blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
+	//	//blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
+	//	//blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
 	//}
 }
 
