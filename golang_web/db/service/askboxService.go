@@ -52,3 +52,7 @@ func (a *AskBoxService) GetUnansweredQA(pageNum, pageSize int) ([]model.Askbox, 
 	}
 	return messages, nil
 }
+
+func (a *AskBoxService) AddAnswer(askbox *model.Askbox) error {
+	return a.askboxDao.AddAnswer(askbox)
+}

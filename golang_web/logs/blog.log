@@ -583,3 +583,9 @@
 [2023-05-24 17:26:36][WARN][askboxService.go:(*AskBoxService):40] Get All QA error:sql: Scan error on column index 5, name "answer": converting NULL to string is unsupported
 [2023-05-24 17:26:36][WARN][errCheck.go:CheckError:13] Get messages error:sql: Scan error on column index 5, name "answer": converting NULL to string is unsupported
 [GIN] 2023/05/24 - 17:26:36 | 200 |      2.3403ms |       127.0.0.1 | GET      "/api/admin/getAllQA"
+[2023-05-24 17:38:04][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[2023-05-24 17:38:14][WARN][askboxService.go:(*AskBoxService):50] Get Unanswered QA error:sql: Scan error on column index 5, name "answer": converting NULL to string is unsupported
+[2023-05-24 17:38:14][WARN][errCheck.go:CheckError:13] Find Unanswered QA error:sql: Scan error on column index 5, name "answer": converting NULL to string is unsupported
+[GIN] 2023/05/24 - 17:38:14 | 200 |      9.3514ms |       127.0.0.1 | GET      "/api/admin/getUnansweredQA"
+[2023-05-24 17:46:45][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/24 - 17:49:44 | 200 |     14.0523ms |       127.0.0.1 | PUT      "/api/admin/addAnswer"

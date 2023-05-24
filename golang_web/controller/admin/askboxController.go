@@ -2,9 +2,12 @@ package admin
 
 import (
 	"blog_web/db/service"
+	"blog_web/model"
 	"blog_web/response"
 	"blog_web/utils"
 	"github.com/gin-gonic/gin"
+	"net/http"
+	"time"
 )
 
 type AskBoxBackController struct {
@@ -29,7 +32,6 @@ func (a *AskBoxBackController) GetAllQA(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(messages)
 }
 
-// 分页返回所有未回答的问题信息
 func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
@@ -43,24 +45,25 @@ func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Respo
 	return response.ResponseQuerySuccess(messages)
 }
 
-//func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
-//	var msg model.Askbox
-//	err := ctx.ShouldBind(&msg)
-//	if response.CheckError(err, "Bind param error") {
-//		ctx.Status(http.StatusInternalServerError)
-//		return nil
-//	}
-//
-//	msg.IsAnswered = true
-//	msg.AnswerTime = time.Now()
-//
-//	err = a.askBoxService.AddAnswer(&msg)
-//	if response.CheckError(err, "Add answer error") {
-//		return response.ResponseOperateFailed()
-//	}
-//
-//	return response.ResponseOperateSuccess()
-//}
+func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
+	var msg model.Askbox
+	err := ctx.ShouldBind(&msg)
+	if response.CheckError(err, "Bind param error") {
+		ctx.Status(http.StatusInternalServerError)
+		return nil
+	}
+
+	msg.IsAnswered = true
+	msg.AnswerTime = time.Now()
+
+	err = a.askBoxService.AddAnswer(&msg)
+	if response.CheckError(err, "Add answer error") {
+		return response.ResponseOperateFailed()
+	}
+
+	return response.ResponseOperateSuccess()
+}
+
 //
 //func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response {
 //	var msg model.Askbox

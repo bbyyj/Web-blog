@@ -153,10 +153,11 @@ func registerBlogManageRouter(engine *gin.Engine) {
 
 	askboxBackRouter := admin.NewAskBoxBackRouter()
 	{
-		// getAllQA查询失败
-		adminGroup.GET("/getAllQA", Decorate(askboxBackRouter.GetAllQA))
-		adminGroup.GET("/getUnansweredQA", Decorate(askboxBackRouter.GetUnansweredQA))
-		//adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
+		//// getAllQA没通
+		//adminGroup.GET("/getAllQA", Decorate(askboxBackRouter.GetAllQA))
+		//// getUnansweredQA没通
+		//adminGroup.GET("/getUnansweredQA", Decorate(askboxBackRouter.GetUnansweredQA))
+		adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
 		//adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
 		//adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
 	}
