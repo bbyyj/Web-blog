@@ -44,7 +44,28 @@ func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Respo
 	askbox.IsParent = true
 	err = a.askBoxService.AddNewQuestion(&askbox)
 
-	if response.CheckError(err, "Add music error") {
+	if response.CheckError(err, "Add NewQuestion error") {
+		return response.ResponseOperateFailed()
+	}
+	return response.ResponseOperateSuccess()
+}
+
+func (a *AskBoxFrontController) AppendOldQuestion(ctx *gin.Context) *response.Response {
+
+	var askbox model.Askbox
+	err := ctx.ShouldBind(&askbox)
+	if response.CheckError(err, "Bind param error") {
+		ctx.Status(http.StatusInternalServerError)
+		return nil
+	}
+
+	//`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow)
+	// 已传入 parent_id, child_id, question, rainbow
+	askbox.ChildId += 1
+	askbox.QuestionTime = time.Now()
+	err = a.askBoxService.AddNewQuestion(&askbox)
+
+	if response.CheckError(err, "Append OldQuestion error") {
 		return response.ResponseOperateFailed()
 	}
 	return response.ResponseOperateSuccess()

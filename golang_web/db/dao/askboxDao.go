@@ -106,6 +106,9 @@ func NewAskBoxDao() *AskBoxDao {
 			// 增加父问题
 			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
 			VALUES(?, ?, ?, ?, ?, ?)`,
+			// 追加子问题
+			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow)
+			VALUES(?, ?, ?, ?, ?)`,
 		},
 	}
 }
@@ -119,5 +122,11 @@ func (abd *AskBoxDao) GetAnsweredQA() (askboxs []model.Askbox, err error) {
 // 增加父问题
 func (abd *AskBoxDao) AddNewQuestion(a *model.Askbox) error {
 	_, err := sqldb.Exec(abd.sql[1], a.ParentId, a.ChildId, a.Question, a.QuestionTime, a.Rainbow, a.IsParent)
+	return err
+}
+
+// 追加子问题
+func (abd *AskBoxDao) AppendOldQuestion(a *model.Askbox) error {
+	_, err := sqldb.Exec(abd.sql[2], a.ParentId, a.ChildId, a.Question, a.QuestionTime, a.Rainbow)
 	return err
 }

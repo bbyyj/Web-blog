@@ -23,3 +23,7 @@ func NewAskBoxService() *AskBoxService {
 func (a *AskBoxService) AddNewQuestion(askbox *model.Askbox) error {
 	return a.askboxDao.AddNewQuestion(askbox)
 }
+
+func (a *AskBoxService) AppendOldQuestion(askbox *model.Askbox) error {
+	return a.askboxDao.AddNewQuestion(askbox)
+}
