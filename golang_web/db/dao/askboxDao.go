@@ -111,6 +111,9 @@ func NewAskBoxDao() *AskBoxDao {
 			VALUES(?, ?, ?, ?, ?)`,
 			// 点赞问题
 			`UPDATE t_askbox SET likes = ? WHERE parent_id = ? AND child_id = ?;`,
+			// 分页返回所有问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
+			 FROM t_askbox ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
 		},
 	}
 }
@@ -137,4 +140,10 @@ func (abd *AskBoxDao) AppendOldQuestion(a *model.Askbox) error {
 func (abd *AskBoxDao) ClickLikes(likes int, parentID int, childID int) error {
 	_, err := sqldb.Exec(abd.sql[3], likes, parentID, childID)
 	return err
+}
+
+// 分页返回所有问题
+func (abd *AskBoxDao) GetAllQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
+	err = sqldb.Select(&msg, abd.sql[4], pageStart, PageSize)
+	return
 }

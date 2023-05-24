@@ -1,42 +1,35 @@
 package admin
 
-//
-//import (
-//	"blog_web/db/service"
-//	"blog_web/model"
-//	"blog_web/response"
-//	"blog_web/utils"
-//	"github.com/gin-gonic/gin"
-//	"net/http"
-//	"time"
-//)
-//
-//type AskBoxBackController struct {
-//	askBoxService *service.AskBoxService
-//}
-//
-//func NewAskBoxListRouter() *AskBoxListController {
-//	return &AskBoxListController{
-//		askBoxService: service.NewAskBoxService(),
-//	}
-//}
-//
-//// 分页返回所有问题信息
-//func (a *AskBoxListController) FindAllQA(ctx *gin.Context) *response.Response {
-//	// 分页
-//	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
-//	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
-//	// 取数据
-//	messages, totalCount, err := a.askBoxService.GetAllQA(pageNum, pageSize)
-//	// 错误处理
-//	if response.CheckError(err, "Find AllQA error") {
-//		return response.ResponseQueryFailed()
-//	}
-//	// 返回状态
-//	return response.ResponseQuerySuccess(messages, totalCount)
-//}
-//
-//func (a *AskBoxListController) AddAnswer(ctx *gin.Context) *response.Response {
+import (
+	"blog_web/db/service"
+	"blog_web/response"
+	"blog_web/utils"
+	"github.com/gin-gonic/gin"
+)
+
+type AskBoxBackController struct {
+	askBoxService *service.AskBoxService
+}
+
+func NewAskBoxBackRouter() *AskBoxBackController {
+	return &AskBoxBackController{
+		askBoxService: service.NewAskBoxService(),
+	}
+}
+
+func (a *AskBoxBackController) GetAllQA(ctx *gin.Context) *response.Response {
+	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
+	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
+
+	messages, err := a.askBoxService.GetAllQA(pageNum, pageSize)
+
+	if response.CheckError(err, "Get messages error") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(messages)
+}
+
+//func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
 //	var msg model.Askbox
 //	err := ctx.ShouldBind(&msg)
 //	if response.CheckError(err, "Bind param error") {
@@ -55,7 +48,7 @@ package admin
 //	return response.ResponseOperateSuccess()
 //}
 //
-//func (a *AskBoxListController) ModifyAnswer(ctx *gin.Context) *response.Response {
+//func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response {
 //	var msg model.Askbox
 //	err := ctx.ShouldBind(&msg)
 //	if response.CheckError(err, "Bind param error") {
@@ -74,7 +67,7 @@ package admin
 //	return response.ResponseOperateSuccess()
 //}
 //
-//func (a *AskBoxListController) DeleteQuestion(ctx *gin.Context) *response.Response {
+//func (a *AskBoxBackController) DeleteQuestion(ctx *gin.Context) *response.Response {
 //	id := utils.QueryInt(ctx, "parent_id")
 //	err := a.askBoxService.DeleteQuestion(id)
 //	if response.CheckError(err, "Delete Question error") {
@@ -85,7 +78,7 @@ package admin
 //}
 //
 //// 分页返回所有未回答的问题信息
-//func (a *AskBoxListController) FindUnansweredQA(ctx *gin.Context) *response.Response {
+//func (a *AskBoxBackController) FindUnansweredQA(ctx *gin.Context) *response.Response {
 //	// 分页
 //	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 //	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")

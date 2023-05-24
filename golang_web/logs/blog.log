@@ -579,3 +579,7 @@
 [2023-05-24 16:52:05][FATAL][main.go:dealSignal:65] Server is going to shutdown...
 [GIN] 2023/05/24 - 16:55:08 | 200 |      4.4145ms |       127.0.0.1 | PUT      "/api/myblog/clickLikes?likes=0&parent_id=2&child_id=1"
 [2023-05-24 16:55:28][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/24 - 17:26:31 | 404 |            0s |       127.0.0.1 | PUT      "/api/admin/getAllQA"
+[2023-05-24 17:26:36][WARN][askboxService.go:(*AskBoxService):40] Get All QA error:sql: Scan error on column index 5, name "answer": converting NULL to string is unsupported
+[2023-05-24 17:26:36][WARN][errCheck.go:CheckError:13] Get messages error:sql: Scan error on column index 5, name "answer": converting NULL to string is unsupported
+[GIN] 2023/05/24 - 17:26:36 | 200 |      2.3403ms |       127.0.0.1 | GET      "/api/admin/getAllQA"

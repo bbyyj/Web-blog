@@ -63,6 +63,7 @@ func registerBlogRouters(engine *gin.Engine) {
 
 	askboxFrontRouter := controller.NewAskboxFrontRouter()
 	{
+		//GetAnsweredQA报错
 		//blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
 		blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
 		blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
@@ -150,13 +151,13 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteMusic", Decorate(musicRouter.DeleteMusic))
 	}
 
-	//askboxBackRouter := admin.NewAskboxBackRouter()
-	//{
-	//	adminGroup.GET("/getAllQA", Decorate(askboxBackRouter.GetAllQA))
-	//	adminGroup.GET("/getUnansweredQ", Decorate(askboxBackRouter.GetUnansweredQ))
-	//	adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
-	//	adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
-	//	adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
-	//
-	//}
+	askboxBackRouter := admin.NewAskBoxBackRouter()
+	{
+		// getAllQA查询失败
+		adminGroup.GET("/getAllQA", Decorate(askboxBackRouter.GetAllQA))
+		//adminGroup.GET("/getUnansweredQ", Decorate(askboxBackRouter.GetUnansweredQ))
+		//adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
+		//adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
+		//adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
+	}
 }
