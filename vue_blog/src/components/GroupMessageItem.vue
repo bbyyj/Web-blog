@@ -48,18 +48,12 @@ li {
 }
 
 .group-warp {
-    margin: 20px;
-    /* 调整外边距以防止框紧贴 */
-    border: 1px solid #ccc;
-    /* 添加边框 */
-    padding: 20px;
-    /* 添加内边距 */
-    /*每条消息内框的颜色*/
-    background: url("../assets/images/askboard_back.jpg") fixed top;
-    /* 添加背景色 */
-    border-radius: 20px;
-    /* 使边框呈现圆角 */
-    border-bottom: 1px dashed rgba(0, 0, 0, .2);
+    background-color: #c1c3da;
+    border: 1px solid #c1c3da;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgba(16, 10, 10, 0.18) !important;
+
+    border-radius: 20px; 
+    margin: 40px;
     padding: 20px 30px 3px;
 }
 
@@ -83,9 +77,9 @@ li {
     display: inline-block;
     width: 8px;
     height: 8px;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
-    transform: rotate(-135deg);
+    /* border-right: 1px solid #000;
+    border-bottom: 1px solid #000; */
+    /* transform: rotate(-135deg); */
     position: absolute;
     top: 10px;
     right: -20px;

@@ -131,46 +131,25 @@ export default {
 </script>
 
 <style scoped>
+/* 问题框部分 */
 .panel {
-    border-radius: 8px;
-    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgb(0 0 0 / 18%) !important;
-    background-color: #fff;
-    width: 1070px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgb(0 0 0 / 18%);
+    background-color: #eff0f6;
+    width: 1050px;
 }
-
 .wrapper {
-    padding: 10px 10px 15px;
-}
-
-input {
-    width: 350px;
-    height: 100px;
-    outline: none;
-    border: none;
-    border-bottom: 1px dashed #dedede;
-}
-
-input:focus {
-    border-bottom: 1px dashed #e4933c;
-    box-shadow: 0 1px 0 0 #def605;
-    transition: all 0.5s ease;
-}
-
-
-
-.info {
-    margin-bottom: 10px;
+    padding: 50px 15px 15px;
 }
 
 textarea {
+    font-size: 40px;
     outline: none;
     resize: none;
-    width: 100%;
     border: none;
     border-bottom: 2px dashed #dedede;
-    /*background: url("../assets/images/comment_bg.webp") no-repeat top right;*/
-    font-size: 40px;
-    /* 设置文字大小*/
+    padding: 10px;
+    width: 90%;
 }
 
 .btn-area {
@@ -182,22 +161,16 @@ textarea {
 
 button {
     flex: 1;
-    /* 使得按钮长度均衡 */
-    margin: 0 100px;
-    /* 设置按钮间隔 */
-    border: 1px solid rgb(88 80 236);
-    background-color: #2ec4b6;
-    /* 将背景颜色改为绿色 */
-    font-size: .875rem;
+    background-color: #c1c3da;
+    color: #ffffff;
+    text-align: center;
+    font-size: 25px;
+    border: none;
     padding: 1rem 1rem;
     border-radius: 50px;
-    /* 设置为圆角 */
-    color: #ffffff;
-    /* 设置按钮字体颜色为白色 */
-    text-align: center;
-    /* 文字居中 */
+    margin: 0 150px;
+    
 }
-
 button:active {
     transform: translateY(2px);
 }
