@@ -8,41 +8,93 @@ package admin
 //	"blog_web/utils"
 //	"github.com/gin-gonic/gin"
 //	"net/http"
+//	"time"
 //)
 //
-//type MessageController struct {
-//	msgService *service.LeaveMessageService
+//type AskBoxBackController struct {
+//	askBoxService *service.AskBoxService
 //}
 //
-//func NewMessageRouter() *MessageController {
-//	return &MessageController{
-//		msgService: service.NewLeaveMessageService(),
+//func NewAskBoxListRouter() *AskBoxListController {
+//	return &AskBoxListController{
+//		askBoxService: service.NewAskBoxService(),
 //	}
 //}
 //
-//func (m *MessageController) MessageList(ctx *gin.Context) *response.Response {
+//// 分页返回所有问题信息
+//func (a *AskBoxListController) FindAllQA(ctx *gin.Context) *response.Response {
+//	// 分页
 //	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 //	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
-//	messages, count, err := m.msgService.GetPageMessage(pageNum, pageSize)
-//	if response.CheckError(err, "Get messages error") {
+//	// 取数据
+//	messages, totalCount, err := a.askBoxService.GetAllQA(pageNum, pageSize)
+//	// 错误处理
+//	if response.CheckError(err, "Find AllQA error") {
 //		return response.ResponseQueryFailed()
 //	}
-//
-//	return response.ResponseQuerySuccess(messages, count)
+//	// 返回状态
+//	return response.ResponseQuerySuccess(messages, totalCount)
 //}
 //
-//func (m *MessageController) UpdateStatus(ctx *gin.Context) *response.Response {
-//	var msg model.Message
+//func (a *AskBoxListController) AddAnswer(ctx *gin.Context) *response.Response {
+//	var msg model.Askbox
 //	err := ctx.ShouldBind(&msg)
 //	if response.CheckError(err, "Bind param error") {
 //		ctx.Status(http.StatusInternalServerError)
 //		return nil
 //	}
 //
-//	err = m.msgService.UpdateMsgStatus(&msg)
-//	if response.CheckError(err, "Update message status error") {
+//	msg.IsAnswered = true
+//	msg.AnswerTime = time.Now()
+//
+//	err = a.askBoxService.AddAnswer(&msg)
+//	if response.CheckError(err, "Add answer error") {
 //		return response.ResponseOperateFailed()
 //	}
 //
 //	return response.ResponseOperateSuccess()
+//}
+//
+//func (a *AskBoxListController) ModifyAnswer(ctx *gin.Context) *response.Response {
+//	var msg model.Askbox
+//	err := ctx.ShouldBind(&msg)
+//	if response.CheckError(err, "Bind param error") {
+//		ctx.Status(http.StatusInternalServerError)
+//		return nil
+//	}
+//
+//	msg.IsAnswered = true
+//	msg.AnswerTime = time.Now()
+//
+//	err = a.askBoxService.ModifyAnswer(&msg)
+//	if response.CheckError(err, "Modify answer error") {
+//		return response.ResponseOperateFailed()
+//	}
+//
+//	return response.ResponseOperateSuccess()
+//}
+//
+//func (a *AskBoxListController) DeleteQuestion(ctx *gin.Context) *response.Response {
+//	id := utils.QueryInt(ctx, "parent_id")
+//	err := a.askBoxService.DeleteQuestion(id)
+//	if response.CheckError(err, "Delete Question error") {
+//		return response.ResponseDeleteFailed()
+//	}
+//
+//	return response.ResponseDeleteSuccess()
+//}
+//
+//// 分页返回所有未回答的问题信息
+//func (a *AskBoxListController) FindUnansweredQA(ctx *gin.Context) *response.Response {
+//	// 分页
+//	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
+//	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
+//	// 取数据
+//	messages, totalCount, err := a.askBoxService.GetUnansweredQA(pageNum, pageSize)
+//	// 错误处理
+//	if response.CheckError(err, "Find Unanswered QA error") {
+//		return response.ResponseQueryFailed()
+//	}
+//	// 返回状态
+//	return response.ResponseQuerySuccess(messages, totalCount)
 //}

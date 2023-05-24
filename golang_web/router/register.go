@@ -61,10 +61,11 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
 	}
 
-	//askboxlistRouter := controller.NewAskboxlistMessageRouter()
+	//askboxFrontRouter := controller.NewAskboxFrontRouter()
 	//{
-	//	blogGroup.POST("/leaveQuestion", Decorate(leaveMessageRouter.LeaveQuestion))
-	//	blogGroup.GET("/displayQA", Decorate(leaveMessageRouter.DisplayQA))
+	//	blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
+	//	blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
+	//	blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
 	//}
 }
 
@@ -148,12 +149,13 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteMusic", Decorate(musicRouter.DeleteMusic))
 	}
 
-	//askboxRouter := admin.NewAskboxRouter()
+	//askboxBackRouter := admin.NewAskboxBackRouter()
 	//{
-	//	adminGroup.GET("/askboxList", Decorate(musicRouter.AskboxList))
-	//	adminGroup.POST("/addAnswer", Decorate(musicRouter.AddAnswer))
-	//	adminGroup.DELETE("/deleteQuestion", Decorate(musicRouter.DeleteQuestion))
-	//	adminGroup.DELETE("/deleteAnswer", Decorate(musicRouter.DeleteAnswer))
-	//	adminGroup.PUT("/modifyAnswer", Decorate(musicRouter.ModifyAnswer))
+	//	adminGroup.GET("/getAllQA", Decorate(askboxBackRouter.GetAllQA))
+	//	adminGroup.GET("/getUnansweredQ", Decorate(askboxBackRouter.GetUnansweredQ))
+	//	adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
+	//	adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
+	//	adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
+	//
 	//}
 }
