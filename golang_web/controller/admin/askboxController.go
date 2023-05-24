@@ -45,6 +45,19 @@ func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Respo
 	return response.ResponseQuerySuccess(messages)
 }
 
+func (a *AskBoxBackController) GetAnsweredQAPage(ctx *gin.Context) *response.Response {
+	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
+	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
+
+	messages, err := a.askBoxService.GetAnsweredQAPage(pageNum, pageSize)
+
+	if response.CheckError(err, "Find Answered QA error") {
+		return response.ResponseQueryFailed()
+	}
+
+	return response.ResponseQuerySuccess(messages)
+}
+
 func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
 	var msg model.Askbox
 	err := ctx.ShouldBind(&msg)

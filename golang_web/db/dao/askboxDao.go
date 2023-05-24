@@ -123,6 +123,9 @@ func NewAskBoxDao() *AskBoxDao {
 			`UPDATE t_askbox SET answer = ?, answer_time = ? WHERE parent_id = ? AND child_id = ?;`,
 			// 删除父问题及底下的子问题
 			`DELETE FROM t_askbox WHERE parent_id = ?;`,
+			// 分页返回所有已回答问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
+			 FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
 		},
 	}
 }
@@ -179,4 +182,10 @@ func (abd *AskBoxDao) ModifyAnswer(askbox *model.Askbox) error {
 func (abd *AskBoxDao) DeleteQuestion(id int) error {
 	_, err := sqldb.Exec(abd.sql[8], id)
 	return err
+}
+
+// 分页返回所有已回答问题
+func (abd *AskBoxDao) GetAnsweredQAPage(pageStart, PageSize int) (msg []model.Askbox, err error) {
+	err = sqldb.Select(&msg, abd.sql[9], pageStart, PageSize)
+	return
 }

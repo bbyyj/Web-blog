@@ -53,6 +53,16 @@ func (a *AskBoxService) GetUnansweredQA(pageNum, pageSize int) ([]model.Askbox, 
 	return messages, nil
 }
 
+func (a *AskBoxService) GetAnsweredQAPage(pageNum, pageSize int) ([]model.Askbox, error) {
+	pageStart := (pageNum - 1) * pageSize
+	messages, err := a.askboxDao.GetAnsweredQAPage(pageStart, pageSize)
+	if err != nil {
+		utils.Logger().Warning("Get Answered QA error:%v", err)
+		return nil, err
+	}
+	return messages, nil
+}
+
 func (a *AskBoxService) AddAnswer(askbox *model.Askbox) error {
 	return a.askboxDao.AddAnswer(askbox)
 }
