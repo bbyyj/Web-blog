@@ -4,6 +4,7 @@ import (
 	"blog_web/db/dao"
 	"blog_web/model"
 	"blog_web/utils"
+	"fmt"
 )
 
 type AskBoxService struct {
@@ -16,10 +17,35 @@ func NewAskBoxService() *AskBoxService {
 	}
 }
 
-// 报错？
-//func (a *AskBoxService) GetAnsweredQA([]model.Askbox, error) {
-//	return a.askboxDao.GetAnsweredQA()
-//}
+func groupByParentID(askboxs []model.Askbox) [][]model.Askbox {
+	groups := make(map[int][]model.Askbox)
+	for _, ab := range askboxs {
+		groups[ab.ParentId] = append(groups[ab.ParentId], ab)
+	}
+
+	var result [][]model.Askbox
+	for _, group := range groups {
+		result = append(result, group)
+	}
+
+	return result
+}
+
+func (a *AskBoxService) GetAnsweredQA() ([][]model.Askbox, int, error) {
+
+	askboxs, err := a.askboxDao.GetAnsweredQA()
+	if err != nil {
+		fmt.Println(askboxs)
+		fmt.Printf("askboxs的类型是：%T\n", askboxs)
+	}
+
+	result := groupByParentID(askboxs)
+	fmt.Println(result)
+
+	count, _ := a.askboxDao.GetAnsweredParentQuestionCount()
+
+	return result, count, nil
+}
 
 func (a *AskBoxService) AddNewQuestion(askbox *model.Askbox) error {
 	return a.askboxDao.AddNewQuestion(askbox)
