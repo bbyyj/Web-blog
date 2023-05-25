@@ -22,6 +22,7 @@ const ListMottos = () => import("../pages/admin/blogs/listMottos");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
 const ManageTest = () => import("../pages/admin/StudyTest/ManageTest");
+const ManageAsk = () => import("../pages/admin/Ask/ManageAsk.vue");
 
 Vue.use(VueRouter);
 
@@ -67,6 +68,7 @@ const routes = [
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
       { path: "/manageMusic", component: ManageMusic, meta: { auth: true } },
       { path: "/manageTest", component: ManageTest, meta: { auth: true } },
+      { path: "/manageAsk", component: ManageAsk, meta: { auth: true } },
     ],
   },
 ];

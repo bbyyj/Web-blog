@@ -127,12 +127,21 @@ export default {
                     submenus: [
                         { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "管理题库" },
                     ]
+                },
+                {
+                    id: "9",
+                    icon: "el-icon-star-off",
+                    name: "提问箱管理",
+                    submenus: [
+                        { id: "91", index: "/ManageAsk", icon: "el-icon-menu", name: "管理提问箱" },
+                    ]
                 }
             ]
         }
     },
     methods: {
-        logout() {
+        logout() {=
+
             // 清空token
             window.sessionStorage.clear();
             // 跳转登录页
