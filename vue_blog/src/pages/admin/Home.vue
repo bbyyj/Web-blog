@@ -140,7 +140,7 @@ export default {
         }
     },
     methods: {
-        logout() {=
+        logout() {
 
             // 清空token
             window.sessionStorage.clear();
