@@ -6,6 +6,7 @@ const Home = () => import("../pages/Home.vue");
 const BlogDetail = () => import("../pages/BlogDetail.vue");
 const ChooseQS = () => import("../pages/ChooseQS.vue");
 const StudyTest = () => import("../pages/StudyTest.vue");
+const HelpChoose = () => import("../pages/HelpChoose.vue");
 const AskBoard = () => import("../pages/AskBoard");
 const ResourceLib = () => import("../pages/ResourceLib");
 const NotFound = () => import("../components/error/NOTFOUND.vue");
@@ -37,6 +38,7 @@ const routes = [
       { path: "/blogDetail", component: BlogDetail, meta: { auth: false } },
       { path: "/StudyTest", component: StudyTest, meta: { auth: false } },
       { path: "/ChooseQS", component: ChooseQS, meta: { auth: false } },
+      { path: "/HelpChoose", component: HelpChoose, meta: { auth: false } },
       { path: "/AskBoard", component: AskBoard, meta: { auth: false } },
       { path: "/resourceLib", component: ResourceLib, meta: { auth: false } },
       { path: "/notFound", component: NotFound, meta: { auth: false } },
