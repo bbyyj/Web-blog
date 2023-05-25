@@ -1,6 +1,8 @@
 package dao
 
-import "blog_web/model"
+import (
+	"blog_web/model"
+)
 
 type AskBoxDao struct {
 	sql []string
@@ -46,6 +48,8 @@ func NewAskBoxDao() *AskBoxDao {
 			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent FROM t_askbox WHERE parent_id = ? ;`,
 			// 按父问题序号返回父问题下子问题个数
 			`SELECT parent_id, COUNT(*) AS child_count FROM t_askbox GROUP BY parent_id ;`,
+			// 返回最大父问题序号
+			`SELECT Max(parent_id) from t_askbox ;`,
 		},
 	}
 }
@@ -135,5 +139,11 @@ func (abd *AskBoxDao) GetUnansweredQuestionCount() (count int, err error) {
 
 func (abd *AskBoxDao) GetAllQuestionCount() (count int, err error) {
 	err = sqldb.Get(&count, abd.sql[13])
+	return
+}
+
+func (abd *AskBoxDao) GetMaxParentQuestionId() (maxID int, err error) {
+	err = sqldb.Get(&maxID, "SELECT MAX(parent_id) FROM t_askbox")
+	println(maxID)
 	return
 }
