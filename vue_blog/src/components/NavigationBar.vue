@@ -31,7 +31,7 @@
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="软工题库" ico-class="icon-yongyan" rout="/StudyTest">
+                        <NaviItem :activeRoute="activeRoute" index-name="软工题库" ico-class="icon-yongyan" rout="/ChooseQS">
                         </NaviItem>
                     </li>
                     <li>

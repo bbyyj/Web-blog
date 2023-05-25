@@ -4,7 +4,7 @@ import VueRouter from "vue-router";
 const Index = () => import("../pages");
 const Home = () => import("../pages/Home.vue");
 const BlogDetail = () => import("../pages/BlogDetail.vue");
-
+const ChooseQS = () => import("../pages/ChooseQS.vue");
 const StudyTest = () => import("../pages/StudyTest.vue");
 const AskBoard = () => import("../pages/AskBoard");
 const ResourceLib = () => import("../pages/ResourceLib");
@@ -36,9 +36,11 @@ const routes = [
       { path: "/home", component: Home, meta: { auth: false } },
       { path: "/blogDetail", component: BlogDetail, meta: { auth: false } },
       { path: "/StudyTest", component: StudyTest, meta: { auth: false } },
+      { path: "/ChooseQS", component: ChooseQS, meta: { auth: false } },
       { path: "/AskBoard", component: AskBoard, meta: { auth: false } },
       { path: "/resourceLib", component: ResourceLib, meta: { auth: false } },
       { path: "/notFound", component: NotFound, meta: { auth: false } },
+
       {
         path: "/internalError",
         component: InternalError,

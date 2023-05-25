@@ -1,7 +1,5 @@
-
 <template>
-    <div class="tacit_test">
-        <TitleArea class="title-area" :info="info"></TitleArea>
+    <div class="StudyTest">
         <div class="bottom">
             <transition appear name="animate__animated animate__bounce animate__slow"
                 enter-active-class="animate__slideInUp">
@@ -43,6 +41,7 @@
 <script>
 
 import "../assets/icon/iconfont.css"
+//声明组件
 import TitleArea from "../components/TitleArea";
 
 import "animate.css"
@@ -51,10 +50,10 @@ export default {
     components: { TitleArea },
     data() {
         return {
-            info: {
-                title: "默契鉴定",
-                desc: "!"
-            },
+            //所有可选科目
+            subjects: [],
+
+
             questions: [
                 //设置的10个问题
                 {
@@ -105,21 +104,36 @@ export default {
 
     created() {
         window.scrollTo(0, 0);
-        this.getTacitInfo()
 
+
+        ///this.getTacitInfo()
     },
     methods: {
+        //先获取科目进行渲染
+        async getSubjects() {
+            const { data: res } = await this.$axios.get("/获取科目")
+            if (res.status === 1) {
+                //赋值给科目
+                this.subjects = res.data;
+            }
+
+
+
+
+        },
+
+        //获取对应的题目
         async getTacitInfo() {
-                    const { data: res } = await this.$axios.get("/myblog/tacitList")
-                    if (res.status === 1) {
-                        print("success");
-                        this.questions = res.data[0];
-                        console.log(res.data[0]);
-                    }
-                    else{
-                        print("fail")
-                    }
-                },
+            const { data: res } = await this.$axios.get("/myblog/tacitList")
+            if (res.status === 1) {
+                print("success");
+                this.questions = res.data[0];
+                console.log(res.data[0]);
+            }
+            else {
+                print("fail")
+            }
+        },
 
         //点击提交按钮
         submitAnswers() {
@@ -211,7 +225,7 @@ ul {
     padding: 0;
 }
 
-.tacit_test {
+.StudyTest {
     background-color: #3A3B55;
     background-image:
         radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),
@@ -299,16 +313,6 @@ ul {
     }
 }
 
-.title-area {
-    font-size: 450%;
-    color: #ffffff;
-    margin-bottom: 50px;
-    bottom: 0 !important;
-    right: 0 !important;
-    font-family: 'STXingkai';
-    opacity: 0.5;
-    padding-top: 6%;
-}
 
 .bottom {
     padding-bottom: 80px;
