@@ -1,53 +1,86 @@
 package controller
 
-//
-//import (
-//	"blog_web/db/service"
-//	"blog_web/model"
-//	"blog_web/response"
-//	"blog_web/utils"
-//	"github.com/gin-gonic/gin"
-//	"time"
-//)
-//
-//type LeaveMessageController struct {
-//	messageService *service.LeaveMessageService
-//}
-//
-//func NewLeaveMessageRouter() *LeaveMessageController {
-//	return &LeaveMessageController{
-//		messageService: service.NewLeaveMessageService(),
-//	}
-//}
-//
-//func (l *LeaveMessageController) LeaveMessage(ctx *gin.Context) *response.Response {
-//	var msg model.Message
-//	err := ctx.ShouldBind(&msg)
-//	if response.CheckError(err, "Bind param error") {
-//		return response.ResponseOperateFailed()
-//	}
-//
-//	// 在使用nginx作为反向代理时，需要在nginx中进行配置，添加客户端的真实IP到头部，以便web服务器获取
-//	msg.Ip = ctx.GetHeader("X-Forwarded-For")
-//
-//	msg.Avatar = utils.RandomInt(28)
-//	msg.CreateTime = time.Now()
-//	err = l.messageService.AddMessage(&msg)
-//	if response.CheckError(err, "Add message error, msg:%s", msg.Ip) {
-//		return response.ResponseOperateFailed()
-//	} else {
-//		return response.ResponseOperateSuccess()
-//	}
-//}
-//
-//func (l *LeaveMessageController) DisplayMessage(ctx *gin.Context) *response.Response {
-//	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
-//	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
-//
-//	messages, count, totalCount, err := l.messageService.GetDisplayMessage(pageNum, pageSize)
-//	if response.CheckError(err, "Get messages error") {
-//		return response.ResponseQueryFailed()
-//	}
-//
-//	return response.ResponseQuerySuccess(messages, count, totalCount)
-//}
+import (
+	"blog_web/db/service"
+	"blog_web/model"
+	"blog_web/response"
+	"github.com/gin-gonic/gin"
+	"net/http"
+	"time"
+)
+
+type AskBoxFrontController struct {
+	askBoxService *service.AskBoxService
+}
+
+func NewAskboxFrontRouter() *AskBoxFrontController {
+	return &AskBoxFrontController{
+		askBoxService: service.NewAskBoxService(),
+	}
+}
+
+func (a *AskBoxFrontController) GetAnsweredQA(ctx *gin.Context) *response.Response {
+	askboxs, count, err := a.askBoxService.GetAnsweredQA()
+	if response.CheckError(err, "Get links error") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(askboxs, count)
+}
+
+func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Response {
+
+	var askbox model.Askbox
+	err := ctx.ShouldBind(&askbox)
+	if response.CheckError(err, "Bind param error") {
+		ctx.Status(http.StatusInternalServerError)
+		return nil
+	}
+
+	//`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
+	// 已传入 parent_id, question, rainbow
+	askbox.ChildId = 1
+	askbox.QuestionTime = time.Now()
+	askbox.IsParent = true
+	err = a.askBoxService.AddNewQuestion(&askbox)
+
+	if response.CheckError(err, "Add NewQuestion error") {
+		return response.ResponseOperateFailed()
+	}
+	return response.ResponseOperateSuccess()
+}
+
+func (a *AskBoxFrontController) AppendOldQuestion(ctx *gin.Context) *response.Response {
+
+	var askbox model.Askbox
+	err := ctx.ShouldBind(&askbox)
+	if response.CheckError(err, "Bind param error") {
+		ctx.Status(http.StatusInternalServerError)
+		return nil
+	}
+
+	//`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow)
+	// 已传入 parent_id, child_id, question, rainbow
+	askbox.ChildId += 1
+	askbox.QuestionTime = time.Now()
+	err = a.askBoxService.AddNewQuestion(&askbox)
+
+	if response.CheckError(err, "Append OldQuestion error") {
+		return response.ResponseOperateFailed()
+	}
+	return response.ResponseOperateSuccess()
+}
+
+func (a *AskBoxFrontController) ClickLikes(ctx *gin.Context) *response.Response {
+	var askbox model.Askbox
+	if err := ctx.ShouldBind(&askbox); err != nil {
+		return response.ResponseOperateFailed()
+	}
+
+	askbox.Likes += 1
+	err := a.askBoxService.ClickLikes(askbox.Likes, askbox.ParentId, askbox.ChildId)
+
+	if response.CheckError(err, "Click Likes error") {
+		return response.ResponseOperateFailed()
+	}
+	return response.ResponseOperateSuccess()
+}

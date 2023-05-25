@@ -303,8 +303,6 @@ export default {
             const scrollY = window.scrollY
             if (scrollY !== 0) {
                 this.$refs.box.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`
-            } else {
-                this.$refs.box.style.style.backgroundPosition = ''
             }
         },
 
@@ -352,15 +350,6 @@ export default {
                 letterCount += x;
                 }
             }, 120)
-            window.setInterval(function() {
-                if (visible === true) {
-                con.className = 'console-underscore hidden'
-                visible = false;
-                } else {
-                con.className = 'console-underscore'
-                visible = true;
-                }
-            }, 400)
         },
     }
 }
@@ -371,7 +360,7 @@ export default {
 
 <style lang="less" scoped>
 .animate__animated {
-    animation-duration: 3s !important;
+    animation-duration: 3s;
 }
  .console-container {
     font-size:3em;

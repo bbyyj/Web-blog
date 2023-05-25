@@ -43,67 +43,66 @@ export default {
 </script>
 
 <style scoped>
-.bg {
-    width: 100%;
-    position: relative;
-    text-align: center;
-    z-index: 0;
-    user-select: none;
-    font-family: '楷体';
-}
 
+/* 提问箱背景部分 */
+.bg {
+    user-select: none;
+    text-align: center;
+    font-family: 'STXingkai';
+    font-size: 50px;
+    position: relative;
+    z-index: 0;
+}
 .bg::before {
     content: '';
+    background-color: #fffafa;
+    opacity: 0.75;
+    border-radius: 20px;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAKUlEQVQImU3IMREAIAgAwJfNkQCEsH8cijjpMf6vnXlQaIiJFx+omEBfmqIEZLe2jzcAAAAASUVORK5CYII=);
 }
 
+/* 提问箱文字部分 */
 .title {
-    font-size: 36px;
+    font-size: 45px;
     font-weight: 500;
-    color: #fff;
+    color: #7378ac;
     display: block;
-    padding-top: 160px;
+    padding-top: 120px;
 }
 
 .desc {
-    display: inline-block;
+    font-size: 30px;
+    color: #7378ac;
     margin-top: 8px;
-    color: #fff;
-    font-size: 18px;
+    display: inline-block;
 }
 
+/* 控制必要上下间隔 */
 .space {
-    height: 30px;
+    height: 40px;
 }
 
+/* 提问箱按钮部分 */
 button {
+    background: #c1c3da;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
     border: 0;
     border-radius: 10px;
-    background: #2ec4b6;
-    text-transform: uppercase;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
     padding: 15px 30px;
     outline: none;
     position: relative;
-    transition: border-radius 3s;
-    -webkit-transition: border-radius 3s;
 }
-
-button:hover {
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 10px;
+button:active {
+    transform: translateY(2px);
 }
-
+/* 提问箱问题输入框部分 */
 .leave-message {
     margin: 0 auto;
     opacity: 0.8;
@@ -115,12 +114,4 @@ button:hover {
     transform: translateX(-50%);
 }
 
-.replay-enter-active {
-    animation: downcome 1s linear;
-}
-
-.replay-leave-active {
-    animation: downcome 1s linear;
-    animation-direction: reverse;
-}
 </style>

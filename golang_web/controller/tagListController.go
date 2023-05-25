@@ -31,7 +31,6 @@ func (t *TagListController) GetTagList(ctx *gin.Context) *response.Response {
 	if response.CheckError(err, "Get tags error") {
 		return response.ResponseQueryFailed()
 	}
-
 	return response.ResponseQuerySuccess(tags)
 }
 
