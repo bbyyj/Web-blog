@@ -60,6 +60,14 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
 	}
+	subjectRouter := controller.NewSubjectRouter()
+	{
+		blogGroup.GET("/subjectList", Decorate(subjectRouter.SubjectList))
+	}
+	chapterRouter := controller.NewChapterRouter()
+	{
+		blogGroup.GET("/chapterList", Decorate(chapterRouter.ChapterList))
+	}
 
 	//askboxlistRouter := controller.NewAskboxlistMessageRouter()
 	//{
