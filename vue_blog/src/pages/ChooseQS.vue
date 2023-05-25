@@ -7,6 +7,18 @@
         <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInDown"
             leave-active-class="animate__fadeOutUp">
             <ul class="subjects-area">
+                <el-dropdown>
+                    <el-button type="primary">
+                        更多科目<i class="el-icon-arrow-down el-icon--right"></i>
+                    </el-button>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item v-for="subject in subjects" :key="subject.id"
+                            @click.native="getChaptersList(subject.name)">
+                            {{ subject.name }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+
                 <!--标识每个科目-->
                 <li :key="item.id" v-for="item in subjects">
                     <!--传入对应科目的名字 获取全部的章节-->
@@ -86,7 +98,7 @@ export default {
             },
             {
                 id: 6,
-                name: "数据结构与算法",
+                name: "数据结构与算",
                 count: 7
             }
             ],
@@ -115,11 +127,7 @@ export default {
         }
     },
     created() {
-        this.getSubjectsList(true)
-    },
-    async mounted() {
-        window.scrollTo(0, 0)
-        this.getSubjectsList(true)
+        this.getSubjectsList(true);
     },
 
     methods: {
@@ -128,7 +136,9 @@ export default {
             const { data: res } = await this.$axios.get("/myblog/subjectList");
             if (res.status === 1) {
                 //将res赋值给subjects
-                this.subjects = res.data;
+                console.log(res.data[0]);
+                this.subjects = res.data[0].data;
+                console.log(res.data);
             }
             //调用章节获取的接口
             /*if (flag) {
@@ -139,7 +149,7 @@ export default {
             }*/
         },
         //获取科目下的章节内容
-        /*
+
         async getChaptersList(subject) {
             //this.currentTagId = id;
             //this.queryInfo.tagId = id;
@@ -156,7 +166,7 @@ export default {
             if (this.pages <= 0) {
                 this.pages = 1
             }
-        },*/
+        },
         jumpPage(pageNum) {
             window.scrollTo(0, 0)
             this.queryInfo.pageNum = pageNum;
@@ -179,8 +189,17 @@ export default {
 
 
 <style lang="less" scoped>
-[v-cloak] {
-    display: none;
+//下拉菜单的样式
+.el-dropdown {
+    vertical-align: top;
+}
+
+.el-dropdown+.el-dropdown {
+    margin-left: 15px;
+}
+
+.el-icon-arrow-down {
+    font-size: 12px;
 }
 
 ul,

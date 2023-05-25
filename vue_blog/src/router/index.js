@@ -6,6 +6,7 @@ const Home = () => import("../pages/Home.vue");
 const BlogDetail = () => import("../pages/BlogDetail.vue");
 const ChooseQS = () => import("../pages/ChooseQS.vue");
 const StudyTest = () => import("../pages/StudyTest.vue");
+const HelpChoose = () => import("../pages/HelpChoose.vue");
 const AskBoard = () => import("../pages/AskBoard");
 const ResourceLib = () => import("../pages/ResourceLib");
 const NotFound = () => import("../components/error/NOTFOUND.vue");
@@ -21,6 +22,7 @@ const ListMottos = () => import("../pages/admin/blogs/listMottos");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
 const ManageTest = () => import("../pages/admin/StudyTest/ManageTest");
+const ManageAsk = () => import("../pages/admin/Ask/ManageAsk.vue");
 
 Vue.use(VueRouter);
 
@@ -37,6 +39,7 @@ const routes = [
       { path: "/blogDetail", component: BlogDetail, meta: { auth: false } },
       { path: "/StudyTest", component: StudyTest, meta: { auth: false } },
       { path: "/ChooseQS", component: ChooseQS, meta: { auth: false } },
+      { path: "/HelpChoose", component: HelpChoose, meta: { auth: false } },
       { path: "/AskBoard", component: AskBoard, meta: { auth: false } },
       { path: "/resourceLib", component: ResourceLib, meta: { auth: false } },
       { path: "/notFound", component: NotFound, meta: { auth: false } },
@@ -65,6 +68,7 @@ const routes = [
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
       { path: "/manageMusic", component: ManageMusic, meta: { auth: true } },
       { path: "/manageTest", component: ManageTest, meta: { auth: true } },
+      { path: "/manageAsk", component: ManageAsk, meta: { auth: true } },
     ],
   },
 ];

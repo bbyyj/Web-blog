@@ -43,6 +43,10 @@
                         </NaviItem>
                     </li>
                     <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="选课通" ico-class="icon-ziyuanku" rout="/HelpChoose">
+                        </NaviItem>
+                    </li>
+                    <li>
                         <NaviItem :activeRoute="activeRoute" index-name="后台管理" ico-class="icon-houtaiguanli-jifenguanli"
                             rout="/login"></NaviItem>
                     </li>
