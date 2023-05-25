@@ -85,6 +85,7 @@ func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response
 		return nil
 	}
 
+	msg.IsAnswered = true
 	msg.AnswerTime = time.Now()
 
 	err = a.askBoxService.ModifyAnswer(&msg)
