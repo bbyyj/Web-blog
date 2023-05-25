@@ -23,10 +23,10 @@ func NewAskBoxDao() *AskBoxDao {
 			`UPDATE t_askbox SET likes = ? WHERE parent_id = ? AND child_id = ?;`,
 			// 分页返回所有问题
 			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
-			 FROM t_askbox ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
+			 FROM t_askbox ORDER BY parent_id, child_id DESC LIMIT ?, ? ;`,
 			// 分页返回所有未回答问题
 			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
-			 FROM t_askbox WHERE is_answered = 0 ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
+			 FROM t_askbox WHERE is_answered = 0 ORDER BY parent_id, child_id DESC LIMIT ?, ? ;`,
 			// 回答问题
 			`UPDATE t_askbox SET answer = ?, answer_time = ?, is_answered =? WHERE parent_id = ? AND child_id = ?;`,
 			// 修改问题
@@ -35,7 +35,7 @@ func NewAskBoxDao() *AskBoxDao {
 			`DELETE FROM t_askbox WHERE parent_id = ?;`,
 			// 分页返回所有已回答问题
 			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
-			 FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC LIMIT ?, ? ;`,
+			 FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id DESC LIMIT ?, ? ;`,
 			// 返回所有已回答父问题数
 			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 1 AND is_parent = 1 AND child_id = 1;`,
 			// 返回所有已回答问题数（按子问题）

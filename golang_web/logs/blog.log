@@ -760,3 +760,9 @@
 [2023-05-25 19:27:31][FATAL][main.go:dealSignal:65] Server is going to shutdown...
 [GIN] 2023/05/25 - 19:27:38 | 200 |     12.8628ms |       127.0.0.1 | POST     "/api/myblog/addNewQuestion"
 [GIN] 2023/05/25 - 19:27:50 | 200 |      3.2755ms |       127.0.0.1 | POST     "/api/myblog/addNewQuestion"
+[GIN] 2023/05/25 - 19:49:32 | 200 |       5.844ms |       127.0.0.1 | PUT      "/api/admin/addAnswer"
+[GIN] 2023/05/25 - 19:49:57 | 200 |      4.2144ms |       127.0.0.1 | PUT      "/api/admin/modifyAnswer"
+[2023-05-25 20:12:42][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/25 - 21:08:28 | 200 |     13.6566ms |       127.0.0.1 | PUT      "/api/admin/addAnswer"
+[GIN] 2023/05/25 - 21:08:57 | 200 |      3.2175ms |       127.0.0.1 | PUT      "/api/admin/modifyAnswer"
+[2023-05-25 21:26:03][FATAL][main.go:dealSignal:65] Server is going to shutdown...
