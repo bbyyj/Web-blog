@@ -59,7 +59,7 @@ export default {
     components: { ChaptersCard, Pagination, BlogTagItem },
     data() {
         return {
-            currentTagId: 0,
+            currentTagId: 1,
             //选中的科目
             subject: "",
             // 页面数量
@@ -72,31 +72,12 @@ export default {
             //科目选择
             subjects: [],
             //对应科目下的章节等内容
-            Chapters: [{
-                id: 1,
-                title: "传输层",
-                description: "TCP UDP",
-                typename: "计算机网络",
-                views: 98
-            },
-            {
-                id: 2,
-                title: "文件系统",
-                description: "LFS",
-                typename: "操作系统",
-                views: 10
-            },
-            {
-                id: 3,
-                title: "树",
-                description: "二叉树",
-                typename: "数据结构与算法",
-                views: 20
-            }],
+            Chapters: [],
         }
     },
     created() {
         this.getSubjectsList(true);
+        this.getChaptersList('计算机组成原理');
     },
 
     methods: {
@@ -108,22 +89,14 @@ export default {
                 console.log(res.data[0]);
                 this.subjects = res.data[0];
             }
-            //调用章节获取的接口
-            /*if (flag) {
-                await this.getChaptersList(this.$route.query.id);
-                //await this.getChaptersList();
-            } else {
-                await this.getChaptersList(this.subjects[0].id)
-            }*/
         },
         //获取科目下的章节内容
-
         async getChaptersList(subject) {
-            //this.currentTagId = id;
-            //this.queryInfo.tagId = id;
-            const { data: res } = await this.$axios.get("/myblog/章节接口", { params: this.subject });
+            const { data: res } = await this.$axios.get("/myblog/chapterList", {
+                params: { name: subject }
+            });
             if (res.status === 1) {
-                this.Chapters = res.data.length > 0 ? res.data[0] : this.Chapters;
+                this.Chapters = res.data[0];
             } else {
                 this.$message.error("获取对应章节失败,请重试")
                 return
