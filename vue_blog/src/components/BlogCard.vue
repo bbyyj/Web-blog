@@ -70,13 +70,13 @@ export default {
 
 //博客展示item
 .box {
-    // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
     background-color: #d9dbeb;
-    width: 840px;
-    padding: 16px 20px;
+    opacity: 0.8;
+    height: 300px;
     overflow: hidden;
-    border-radius: 0.25rem;
-    margin-bottom: 20px;
+    border-radius: 20px;
+    padding: 16px 20px;
+    margin: 20px 200px 50px 200px;
     position: relative;
     transition: all .5s;
     cursor: pointer;
@@ -84,14 +84,13 @@ export default {
 
 .box:hover {
     transform:  scale(1.02);
-    // box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
 }
 
 //图片区域
 .box .image-box {
     float: left;
     border-radius: 6px;
-    margin: 2px 10px 0;
+    margin: 40px 30px;
     cursor: pointer;
     overflow: hidden;
 }
@@ -99,8 +98,8 @@ export default {
 //博客信息区域
 .box .blog-box {
     float: left;
-    width: 450px;
-    height: 190px;
+    width: 650px;
+    height: 250px;
     padding-left: 20px;
 }
 

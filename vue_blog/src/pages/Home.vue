@@ -19,29 +19,17 @@
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
+
             <div class="blog-area">
-                <!--左侧博客信息区-->
-                <div class="blog-left">
-                    <!--用户信息栏-->
-                    <UserInfoCard :count="blogCount"></UserInfoCard>
-                    <!--最新推荐栏-->
-                    <RecommendList :blogList="newRecommend"></RecommendList>
-                    <!--标签云-->
-                    <TagCloud></TagCloud>
-                    <!--热门推荐-->
-                    <RecommendList :blogList="hotBlogs"></RecommendList>
-
-                </div>
+                <!--用户信息栏-->
+                <UserInfoCard :count="blogCount"></UserInfoCard>
+                   
                 <div id="player"></div>
-                <!--右侧博客展示区-->
-                <div class="blog-right">
-                    <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
-                        @click.native="blogDetail(item.id)">
-                    </BlogCard>
-                    <!--分页导航区-->
-                    <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
-
-                </div>
+                <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
+                    @click.native="blogDetail(item.id)">
+                </BlogCard>
+                <!--分页导航区-->
+                <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
             </div>
         </div>
 
@@ -473,23 +461,10 @@ export default {
 
 // 下面中心区域
 .blog-area {
-    width: 1165px;
-    margin: 0 auto;
+    margin: 20px 20px 20px 20px;
     padding-top: 36px;
     padding-bottom: 64px;
     overflow: hidden;
 }
 
-.blog-right {
-    float: left;
-}
-
-.blog-left {
-    float: left;
-    width: 300px;
-    margin-right: 15px;
-    padding: 0 15px;
-    border-radius: 6px;
-    transition: all 0.3s;
-}
 </style>
