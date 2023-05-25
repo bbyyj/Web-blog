@@ -36,8 +36,14 @@ func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Respo
 		return nil
 	}
 
+	maxParentQuestionID, err := a.askBoxService.GetMaxParentQuestionId()
+	if response.CheckError(err, "Get MaxParentQuestionId error") {
+		return response.ResponseQueryFailed()
+	}
+	askbox.ParentId = maxParentQuestionID + 1
+
 	//`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
-	// 已传入 parent_id, question, rainbow
+	// 已传入 question, rainbow
 	askbox.ChildId = 1
 	askbox.QuestionTime = time.Now()
 	askbox.IsParent = true
@@ -75,7 +81,7 @@ func (a *AskBoxFrontController) ClickLikes(ctx *gin.Context) *response.Response 
 	if err := ctx.ShouldBind(&askbox); err != nil {
 		return response.ResponseOperateFailed()
 	}
-
+	println(askbox.Likes)
 	askbox.Likes += 1
 	err := a.askBoxService.ClickLikes(askbox.Likes, askbox.ParentId, askbox.ChildId)
 

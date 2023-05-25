@@ -51,6 +51,15 @@ func (a *AskBoxService) AddNewQuestion(askbox *model.Askbox) error {
 	return a.askboxDao.AddNewQuestion(askbox)
 }
 
+func (a *AskBoxService) GetMaxParentQuestionId() (int, error) {
+	maxParentQuestionId, err := a.askboxDao.GetMaxParentQuestionId()
+	if err != nil {
+		utils.Logger().Warning("Get Max ParentQuestionId error:%v", err)
+		return 0, err
+	}
+	return maxParentQuestionId, nil
+}
+
 func (a *AskBoxService) AppendOldQuestion(askbox *model.Askbox) error {
 	return a.askboxDao.AddNewQuestion(askbox)
 }

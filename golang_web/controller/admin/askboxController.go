@@ -97,6 +97,7 @@ func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response
 
 func (a *AskBoxBackController) DeleteQuestion(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "parent_id")
+	println(id)
 	err := a.askBoxService.DeleteQuestion(id)
 	if response.CheckError(err, "Delete Question error") {
 		return response.ResponseDeleteFailed()
