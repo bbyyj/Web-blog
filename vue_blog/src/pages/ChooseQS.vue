@@ -28,7 +28,6 @@
             </ul>
         </transition>
 
-
         <!-- 章节列表栏 -->
         <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInUp">
             <div>
@@ -71,37 +70,7 @@ export default {
                 tagId: 0
             },
             //科目选择
-            subjects: [{
-                id: 1,
-                name: "计算机网络",
-                count: 5
-            },
-            {
-                id: 2,
-                name: "计算机组成原理",
-                count: 8
-            },
-            {
-                id: 3,
-                name: "操作系统",
-                count: 5
-            },
-            {
-                id: 4,
-                name: "数据结构与算法",
-                count: 7
-            },
-            {
-                id: 5,
-                name: "数据结构与算法",
-                count: 7
-            },
-            {
-                id: 6,
-                name: "数据结构与算",
-                count: 7
-            }
-            ],
+            subjects: [],
             //对应科目下的章节等内容
             Chapters: [{
                 id: 1,
@@ -137,8 +106,7 @@ export default {
             if (res.status === 1) {
                 //将res赋值给subjects
                 console.log(res.data[0]);
-                this.subjects = res.data[0].data;
-                console.log(res.data);
+                this.subjects = res.data[0];
             }
             //调用章节获取的接口
             /*if (flag) {

@@ -116,10 +116,6 @@ export default {
                 //赋值给科目
                 this.subjects = res.data;
             }
-
-
-
-
         },
 
         //获取对应的题目
