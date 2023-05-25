@@ -2,16 +2,16 @@
     <div class="bg" >
         <div class="main">
             <div class="maintitle" align="center">资源库</div>
-            <div class="butt">
+            <div class="butt" style="text-align: center;">
                     <button>全部</button>
-                    <button>分类1</button>
-                    <button>分类2</button>
+                    <button>计算机组成原理</button>
+                    <button>计算机网络</button>
             </div>
             <transition appear
                         name="animate__animated animate__bounce animate__slow"
                         enter-active-class="animate__fadeInUp">
-                <div class="center-area">
-                    <div class="category"  :key="item.id" v-for="item in items" >
+                <div class="center-area" style="text-align: center;">
+                    <div class="category" style="text-align: left;"  :key="item.id" v-for="item in items" >
                         <strong class="title">
                             {{ item.name }}
                         </strong>
@@ -99,14 +99,44 @@ ul, li {
 }
 
 button {
-    margin-bottom: 15px;
-    background-color: #a69ec6;
-    margin: 1%; 
+    background-color: #a69ec699;
+    margin: 1%;
+    padding: 0.2em 1em;
+    text-align: center;
+    text-decoration: none;
+    color: #3d395299;
+    border: 2px solid #ffffff00;
+    font-size: 20px;
+    display: inline-block;
+    border-radius: 0.3em;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
 }
+
+button:before {
+    content: "";
+    background-color: rgba(255,255,255,0.5);
+    height: 100%;
+    width: 3em;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -4.5em;
+    transform: skewX(-45deg) translateX(0);
+    transition: none;
+  }
+
+button:hover {
+    background-color: #7378acb7;
+    color: #fff;
+    border-bottom: 4px solid darken(#fff, 10%);
+  } 
+
 
 .maintitle{
     font-size: 48px;
-    color: #3d3952;
+    color: #181720;
     margin-bottom: 50px;
     bottom: 0 !important;
     right: 0 !important;
@@ -134,6 +164,7 @@ button {
     width: 66%;
     background-color: rgba(255, 255, 255, .6);
     margin: 0 auto;
+    margin-top: 2%;
     border-radius: 5px;
     padding-bottom: 80px;
 }
