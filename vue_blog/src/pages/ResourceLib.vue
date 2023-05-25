@@ -2,16 +2,18 @@
     <div class="bg" >
         <div class="main">
             <div class="maintitle" align="center">资源库</div>
-            <div class="butt" style="text-align: center;">
-                    <button>全部</button>
+            <div style="text-align: center;">
+                    <button @click="getLinks()">全部</button>
                     <button>计算机组成原理</button>
                     <button>计算机网络</button>
+                    <button>数据结构与算法</button>
+                    <button>操作系统</button>
             </div>
             <transition appear
                         name="animate__animated animate__bounce animate__slow"
                         enter-active-class="animate__fadeInUp">
                 <div class="center-area" style="text-align: center;">
-                    <div class="category" style="text-align: left;"  :key="item.id" v-for="item in items" >
+                    <div class="category grow" style="text-align: left;"  :key="item.id" v-for="item in items" >
                         <strong class="title">
                             {{ item.name }}
                         </strong>
@@ -34,14 +36,14 @@
 </template>
 
 <script>
-import TitleArea from "../components/TitleArea";
-import ResourceLabel from "../components/ResourceLabel";
+// import TitleArea from "../components/TitleArea";
+// import ResourceLabel from "../components/ResourceLabel";
 
 import "animate.css"
 
 export default {
     name: "ResourceLib",
-    components: { TitleArea, ResourceLabel },
+    // components: { TitleArea, ResourceLabel },
     data() {
         return {
             items:[]
@@ -100,15 +102,16 @@ ul, li {
 
 button {
     background-color: #a69ec699;
-    margin: 1%;
+    margin: 0.5%;
     padding: 0.2em 1em;
+    margin-top: 2%;
     text-align: center;
     text-decoration: none;
     color: #3d395299;
     border: 2px solid #ffffff00;
     font-size: 20px;
     display: inline-block;
-    border-radius: 0.3em;
+    border-radius: 0.2em;
     transition: all 0.2s ease-in-out;
     position: relative;
     overflow: hidden;
@@ -170,11 +173,6 @@ button:hover {
 }
 
 .category {
-    /* padding-left: 30px;
-    padding-top: 30px;
-    width: 80%;
-    background-color: #fcfcfcb1; */
-    /* outline: none; */
     display: inline-block;
     border-radius: 7px;
     background-color: #ffffff87;
@@ -196,6 +194,22 @@ button:hover {
     text-overflow: ellipsis;
 }
 
+.grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.grow:hover, .grow:focus, .grow:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.03);
+}
+
 .title {
     /* height: 40px;
     line-height: 40px;
@@ -208,16 +222,8 @@ button:hover {
     color: #7378ac;
 }
 
-/* .title::before {
-    content: '\e611';
-    position: absolute;
-    left: 5px;
-    top: 0px;
-    font-family: "iconfont";
-    font-size: 20px;
-} */
 
-ul {
+/* ul {
     padding-left: 20px;
 }
 
@@ -226,16 +232,8 @@ ul li {
     list-style: none;
     margin-right: 30px;
     margin-top: 10px;
-}
+} */
 
 
-/*清除浮动*/
-.clear-fix::after {
-    content: '';
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
 
 </style>
