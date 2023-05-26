@@ -28,14 +28,17 @@ export default {
 <style scoped>
 
 .back-to-top {
-    cursor: pointer;
+    /* cursor: pointer; */
     position: fixed;
     right: 80px;
-    top: -200px;
+    top: 600px;
     z-index: 999;
-    width: 70px;
-    height: 900px;
-    background: url('data:image/BackToTop.png')
+    width: 60px;
+    height: 60px;
+    /* background-color: #7378ac; */
+    background-image: url('../assets/images/to-top03.png');
+
+
 }
 
 .animate__animated{
