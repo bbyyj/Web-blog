@@ -3,20 +3,23 @@
         <div class="main">
             <div class="maintitle" align="center">资源库</div>
             <div style="text-align: center;">
-                    <button @click="getLinks()">全部</button>
-                    <button>计算机组成原理</button>
-                    <button>计算机网络</button>
-                    <button>数据结构与算法</button>
-                    <button>操作系统</button>
+                    <button @click="getLinks">全部</button>
+                    <button @click="showdata('2')">计算机组成原理</button>
+                    <button @click="showdata('1')">计算机网络</button>
+                    <button @click="showdata('3')">数据结构与算法</button>
+                    <button @click="showdata('4')">操作系统</button>
             </div>
             <transition appear
                         name="animate__animated animate__bounce animate__slow"
                         enter-active-class="animate__fadeInUp">
                 <div class="center-area" style="text-align: center;">
-                    <div class="category grow" style="text-align: left;"  :key="item.id" v-for="item in items" >
-                        <strong class="title">
+                    <div class="category grow" style="text-align: left;"  :key="item.ID" v-for="item in items" >
+                        <!-- <a href=item.url download=item.name target="_blank" > -->
+                            <strong class="title">
                             {{ item.name }}
                         </strong>
+                        
+                        
                         <p class = "desc">
                             {{ item.desc }}
                         </p>
@@ -25,8 +28,9 @@
                             大小：{{ item.filesize }}
                         </p>
                         <p class = "desc">
-                            上传时间：{{ item.createdat }}
+                            上传时间：{{ item.CreatedAt }}
                         </p>
+                        <!-- </a> -->
                     </div>
                 </div>
             </transition>
@@ -36,69 +40,65 @@
 </template>
 
 <script>
-// import TitleArea from "../components/TitleArea";
-// import ResourceLabel from "../components/ResourceLabel";
 
 import "animate.css"
 
 export default {
     name: "ResourceLib",
-    // components: { TitleArea, ResourceLabel },
     data() {
         return {
-            items:[]
+            //初始展示全部类的资源
+            items:[],
+            //初始页面
+            pagenum: 1,
+            //页面大小
+            pagesize: 15,
+            //类别
+            categoryid: 1,
         }
     },
-    methods: {
+    methods: { 
+        //进入页面默认展示内容   
         async getLinks() {
-            const {data: res} = await this.$axios.get("/myblog/t/re/1/10");
-            this.items = res.data[0];
-            
-            if(res.status != 563){
+            let pagenum = 1;
+            let pagesize = 10;
+            const {data: res} = await this.$axios.get("/myblog/t/pageresource", { params: { pagenum: pagenum, pagesize: pagesize } });
+
+            if(res.status = 563){
+                this.items = res.data[0];
+                console.log(res);
+            }
+            else{
                 this.$message.warning("获取资源失败")
                 return
             }
 
-
-            // this.items.shift()
-            // let data
-            // let items
-            // if (res.data.length > 1) {
-            //     // data = res.data[0]
-            //     items = res.data[1]
-            // } else {
-            //     return
-            // }
-
-            // items.forEach((val) => {
-            //     const arr = data.filter((d) => {
-            //         return d.name === val.name
-            //     })
-            //     if (arr.length > 0) {
-            //         this.items.push({
-            //             // id: val.id,
-            //             name: val.name,
-            //             // links: arr
-            //         })
-            //     }
-            // })
-            console.log(res);
-
+        },
+        //点击分类展示对应内容
+        async showdata(cateid){
+            let pagenum = 1;
+            let pagesize = 10;
+            const {data: res1} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
+            
+            if(res1.status = 563){
+                this.items = res1.data[0];
+                console.log(res1);
+            }
+            else{
+                this.$message.warning("获取资源失败")
+                return
+            }
         }
     },
     created() {
         window.scrollTo(0, 0)
         this.getLinks()
+
     }
 }
 </script>
 
 <style scoped>
-
-ul, li {
-    margin: 0;
-    padding: 0;
-}
 
 button {
     background-color: #a69ec699;
@@ -211,29 +211,9 @@ button:hover {
 }
 
 .title {
-    /* height: 40px;
-    line-height: 40px;
-    font-size: 18px;
-    font-weight: 400;
-    color: #555;
-    position: relative;
-    padding-left: 28px; */
     font-weight: 700;
     color: #7378ac;
 }
-
-
-/* ul {
-    padding-left: 20px;
-}
-
-ul li {
-    float: left;
-    list-style: none;
-    margin-right: 30px;
-    margin-top: 10px;
-} */
-
 
 
 </style>
