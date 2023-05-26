@@ -22,7 +22,9 @@ const ListMottos = () => import("../pages/admin/blogs/listMottos");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
 const ManageTest = () => import("../pages/admin/StudyTest/ManageTest");
-const ManageAsk = () => import("../pages/admin/Ask/ManageAsk.vue");
+const ManageSandC = () => import("../pages/admin/StudyTest/ManageSandC");
+const ManagehaveAsked = () => import("../pages/admin/Ask/ManagehaveAsked.vue");
+const ManagenoAsk = () => import("../pages/admin/Ask/ManagenoAsk.vue");
 
 Vue.use(VueRouter);
 
@@ -68,7 +70,17 @@ const routes = [
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
       { path: "/manageMusic", component: ManageMusic, meta: { auth: true } },
       { path: "/manageTest", component: ManageTest, meta: { auth: true } },
-      { path: "/manageAsk", component: ManageAsk, meta: { auth: true } },
+      {
+        path: "/manageSubjectsAndChapters",
+        component: ManageSandC,
+        meta: { auth: true },
+      },
+      {
+        path: "/managehaveAsked",
+        component: ManagehaveAsked,
+        meta: { auth: true },
+      },
+      { path: "/managenoAsk", component: ManagenoAsk, meta: { auth: true } },
     ],
   },
 ];
