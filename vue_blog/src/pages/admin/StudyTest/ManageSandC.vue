@@ -16,7 +16,7 @@
             <h2>删除科目</h2>
             <el-form-item label="科目名">
                 <el-select v-model="deleteSubjectForm.name" placeholder="请选择">
-                    <el-option v-for="item in subjects" :key="item" :label="item" :value="item">
+                    <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -47,13 +47,13 @@
             <h2>删除章节</h2>
             <el-form-item label="科目名">
                 <el-select v-model="deleteChapterForm.subject" placeholder="请选择" @change="updateChapterList">
-                    <el-option v-for="item in subjects" :key="item" :label="item" :value="item">
+                    <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="章节名">
                 <el-select v-model="deleteChapterForm.chapter" placeholder="请选择">
-                    <el-option v-for="item in chapters" :key="item" :label="item" :value="item">
+                    <el-option v-for="item in chapters" :key="item.id" :label="item.title" :value="item.title">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -85,12 +85,8 @@ export default {
                 chapter: ''
             },
             //获取到已有的科目和对应的章节 便于实现删除
-            subjects: [
-                "计算机"
-            ],  //科目列表
-            chapters: [
-                "ddd"
-            ]   //章节列表
+            subjects: [],  //科目列表
+            chapters: []   //章节列表
         }
     },
     created() {
@@ -177,13 +173,13 @@ export default {
         },
         //确认删除章节
         confirmDeleteChapter() {
-            if (!this.deleteChapterForm.subject || !this.deleteChapterForm.chapter) {
-                this.$message({
-                    type: 'info',
-                    message: '请选择要删除的科目和章节'
-                });
-                return;
-            }
+            /* if (!this.deleteChapterForm.subject || !this.deleteChapterForm.chapter) {
+                 this.$message({
+                     type: 'info',
+                     message: '请选择要删除的科目和章节'
+                 });
+                 return;
+             }*/
             if (window.confirm('确认删除此章节吗?')) {
                 this.deleteChapter();
             } else {
@@ -199,9 +195,10 @@ export default {
         async addSubject() {
             try {
                 const { data: res } = await this.$axios.post("/admin/addSubject", {
-                    name: this.newSubjectName   //假设你的新科目名称存在这个变量里
+                    name: this.newSubjectForm.name, //假设你的新科目名称存在这个变量里
                 });
-                if (res.status === 1) {
+                console.log(this.newSubjectForm.name)
+                if (res.status === 101) {
                     this.$message.success("新增科目成功");
                     this.getSubjectsList();  //刷新科目列表
                 } else {
@@ -215,9 +212,9 @@ export default {
         async deleteSubject() {
             try {
                 const { data: res } = await this.$axios.delete("/admin/deleteSubject", {
-                    params: { name: this.selectedSubjectName }  //假设你要删除的科目名称存在这个变量里
+                    params: { name: this.deleteSubjectForm.name }  //假设你要删除的科目名称存在这个变量里
                 });
-                if (res.status === 1) {
+                if (res.status === 401) {
                     this.$message.success("删除科目成功");
                     this.getSubjectsList();  //刷新科目列表
                 } else {
@@ -235,9 +232,9 @@ export default {
                     chapterName: this.newChapterForm.chapter,   //假设你的新章节名称存在这个变量里
                     description: this.newChapterForm.description
                 });
-                if (res.status === 1) {
+                if (res.status === 101) {
                     this.$message.success("新增章节成功");
-                    this.getChaptersList(this.selectedSubjectName);  //刷新章节列表
+                    this.getChaptersList(this.newChapterForm.subject);  //刷新章节列表
                 } else {
                     this.$message.error("新增章节失败");
                 }
@@ -250,13 +247,14 @@ export default {
             try {
                 const { data: res } = await this.$axios.delete("/admin/deleteChapter", {
                     params: {
-                        subjectName: this.selectedSubjectName,  //假设你要在哪个科目下删除章节的科目名称存在这个变量里
-                        chapterName: this.selectedChapterName  //假设你要删除的章节名称存在这个变量里
+                        subjectName: this.deleteChapterForm.subject, //假设你要在哪个科目下删除章节的科目名称存在这个变量里
+                        chapterName: this.deleteChapterForm.chapter  //假设你要删除的章节名称存在这个变量里
                     }
                 });
-                if (res.status === 1) {
+                if (res.status === 401) {
                     this.$message.success("删除章节成功");
-                    this.getChaptersList(this.selectedSubjectName);  //刷新章节列表
+                    this.getChaptersList(this.deleteChapterForm.subject);  //刷新章节列表
+                    console.log(this.deleteChapterForm.subject)
                 } else {
                     this.$message.error("删除章节失败");
                 }
