@@ -14,7 +14,7 @@
                         enter-active-class="animate__fadeInUp">
                 <div class="center-area" style="text-align: center;">
                     <div class="category grow" style="text-align: left;"  :key="item.ID" v-for="item in items" >
-                        <!-- <a href=item.url download=item.name target="_blank" > -->
+                        <a @click="downloadFile(item.name, item.url)">
                             <strong class="title">
                             {{ item.name }}
                         </strong>
@@ -30,10 +30,13 @@
                         <p class = "desc">
                             上传时间：{{ item.CreatedAt }}
                         </p>
-                        <!-- </a> -->
+                        </a>
                     </div>
                 </div>
             </transition>
+            <!-- 分页 -->
+            <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: pagenum, pages: pages }">
+                </Pagination>
         </div>
     </div>
 
@@ -43,8 +46,11 @@
 
 import "animate.css"
 
+import Pagination from "../components/Pagination";
+
 export default {
     name: "ResourceLib",
+    components: { Pagination },
     data() {
         return {
             //初始展示全部类的资源
@@ -52,7 +58,9 @@ export default {
             //初始页面
             pagenum: 1,
             //页面大小
-            pagesize: 15,
+            pagesize: 9,
+            //页面数量
+            pages: 1,
             //类别
             categoryid: 1,
         }
@@ -61,7 +69,7 @@ export default {
         //进入页面默认展示内容   
         async getLinks() {
             let pagenum = 1;
-            let pagesize = 10;
+            let pagesize = 9;
             const {data: res} = await this.$axios.get("/myblog/t/pageresource", { params: { pagenum: pagenum, pagesize: pagesize } });
 
             if(res.status = 563){
@@ -88,7 +96,27 @@ export default {
                 this.$message.warning("获取资源失败")
                 return
             }
-        }
+        },
+
+        downloadFile(fileName, data) {
+            if (!data) {
+                return;
+            }
+            let url = window.URL.createObjectURL(new Blob([data]));
+            let link = document.createElement('a');
+            link.style.display = 'none';
+            link.href = url;
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+        },
+
+        jumpPage(){
+
+        },
+        
+
+
     },
     created() {
         window.scrollTo(0, 0)
@@ -192,6 +220,10 @@ button:hover {
     overflow: hidden;
     max-width: 250px;
     text-overflow: ellipsis;
+}
+
+.pagebar {
+    padding-bottom: 50px;
 }
 
 .grow {
