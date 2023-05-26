@@ -76,9 +76,11 @@ export default {
 .box {
     text-align: center;
     // background-color: #acaed2;
-    background: radial-gradient(#d9dbeb 5%, rgba(255, 255, 255, 0) 60%);
+    // background: radial-gradient(#d9dbeb 5%, rgba(255, 255, 255, 0) 60%);
+    background-image: url('../assets/images/cloud02.png'); 
+    background-repeat:no-repeat;
     opacity: 0.8;
-    margin: 30px;
+    margin: 0px 250px 50px 250px;
     height: 300px;
     border-radius: 20px;
     
@@ -122,42 +124,34 @@ export default {
 .link01{
     position: relative;
     top: -265px;
-    left: 428px;
+    left: 278px;
     animation: twinkle 2s ease-out infinite alternate;
     a{
         text-decoration: none;
     }
     p {
         position: relative;
-        top: 130px;
-        left: -650px;
+        top: 110px;
+        left: -440px;
         color: rgb(255, 255, 255);
         font-size: 24px;
         margin: 10px;
         
     }
 }
-.link-text01{
-    color: rgb(255, 255, 255);
-    font-size: 24px;
-    position: relative;
-    top: -125px;
-    left: -228px;
-    animation: twinkle 2s ease-out infinite alternate;
-    
-}
+
 .link02{
     position: relative;
-    top: -390px; 
-    left: 820px;
+    top: -480px; 
+    left: 620px;
     animation: twinkle 2s ease-out infinite alternate-reverse;
 }
 .link-text02{
     color: rgb(255, 255, 255);
     font-size: 24px;
     position: relative;
-    top: -250px;
-    left: 170px;
+    top: -360px;
+    left: 180px;
     animation: twinkle 2s ease-out infinite alternate-reverse;
     text-decoration: none;
 }

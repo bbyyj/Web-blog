@@ -19,7 +19,6 @@
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
-
             <div class="blog-area">
                 <!--用户信息栏-->
                 <UserInfoCard :count="blogCount"></UserInfoCard>
