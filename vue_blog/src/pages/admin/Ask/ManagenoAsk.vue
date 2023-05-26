@@ -134,11 +134,11 @@ export default {
             this.dialogFormVisible = false
         },
 
-        //提交编辑操作
+        //提交回答操作
         async commitEdit() {
             let res
-            //提交编辑操作
-            res = await this.$axios.put("/admin/modifyAnswer", this.postInfo)
+            //提交回答操作
+            res = await this.$axios.put("/admin/addAnswer", this.postInfo)
             if (res.data.status !== 101) {
                 this.$message.error("操作失败，请重试！")
             } else {

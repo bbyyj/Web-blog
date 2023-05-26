@@ -2,7 +2,6 @@
 <template>
     <div class="ChooseQS">
         <div class="title" align="center">答题测试</div>
-
         <!-- 科目栏 -->
         <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInDown"
             leave-active-class="animate__fadeOutUp">
@@ -39,11 +38,13 @@
                     </ChaptersCard>
                 </div>
                 <!--分页-->
-                <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }">
-                </Pagination>
+                <!-- 分页区域 -->
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page="queryInfo.pageNum" :page-sizes="[5, 10]" :page-size="queryInfo.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper" :total="total">
+                </el-pagination>
             </div>
         </transition>
-
     </div>
 </template>
 
@@ -62,10 +63,12 @@ export default {
             currentTagId: 1,
             //选中的科目
             subject: "",
+            //对应科目下的章节数量
+            total: 0,
             // 页面数量
             pages: 1,
             queryInfo: {
-                pageNum: 1,
+                pageNum: 0,
                 pageSize: 5,
                 tagId: 0
             },
@@ -79,39 +82,40 @@ export default {
         this.getSubjectsList(true);
         this.getChaptersList('计算机组成原理');
     },
-
     methods: {
         //获取科目列表
         async getSubjectsList(flag) {
             const { data: res } = await this.$axios.get("/myblog/subjectList");
             if (res.status === 1) {
                 //将res赋值给subjects
-                console.log(res.data[0]);
+                //console.log(res.data[0]);
                 this.subjects = res.data[0];
             }
         },
         //获取科目下的章节内容
         async getChaptersList(subject) {
             const { data: res } = await this.$axios.get("/myblog/chapterList", {
-                params: { name: subject }
+                params: { name: subject, pageNum: this.queryInfo.pageNum, pageSize: this.queryInfo.pageSize }
             });
+            console.log(res.data[0])
             if (res.status === 1) {
+                this.subject = subject;
                 this.Chapters = res.data[0];
+                for (let item of this.subjects) {
+                    if (item.name === subject) {
+                        this.total = item.count;
+                        break;
+                    }
+                }
             } else {
                 this.$message.error("获取对应章节失败,请重试")
                 return
             }
             //分页相关
-            const count = res.data.length > 1 ? res.data[1] : 0
-            this.pages = Math.ceil(count / this.queryInfo.pageSize);
+            this.pages = Math.ceil(this.total / this.queryInfo.pageSize);
             if (this.pages <= 0) {
                 this.pages = 1
             }
-        },
-        jumpPage(pageNum) {
-            window.scrollTo(0, 0)
-            this.queryInfo.pageNum = pageNum;
-            this.getChaptersList(this.currentTagId);
         },
         GotoTest(typename, title) {
             this.$router.push({
@@ -121,7 +125,15 @@ export default {
                     title: title
                 }
             });
-        }
+        },
+        handleSizeChange(newSize) {
+            this.queryInfo.pageSize = newSize;
+            this.getChaptersList(this.subject);
+        },
+        handleCurrentChange(newPage) {
+            this.queryInfo.pageNum = newPage;
+            this.getChaptersList(this.subject);
+        },
     }
 }
 
@@ -152,7 +164,7 @@ li {
 .ChooseQS {
     background-attachment: fixed;
     min-height: 1000px;
-    
+
 }
 
 .title {

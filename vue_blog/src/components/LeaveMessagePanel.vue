@@ -1,11 +1,15 @@
 <template>
     <div class="panel" id="rp">
         <div class="wrapper">
-            <textarea name="" id="" cols="30" rows="10" v-model="postInfo.content" placeholder="输入你的问题..."></textarea>
-            <div class="btn-area">
-                <button @click="clearAll">清空</button>
-                <button @click="commit">发送</button>
-            </div>
+            <!-- 提问输入框 -->
+            <textarea v-model="postInfo.question" placeholder="输入你的问题..." id="" cols="30" rows="10"></textarea>
+            <!-- 彩虹模式选择框 -->
+            <label>
+                <input v-model="postInfo.rainbow" type="checkbox">
+                是否为彩虹
+            </label>
+            <!-- 提交按钮 -->
+            <button @click="commit">发送</button>
         </div>
     </div>
 </template>
@@ -14,7 +18,7 @@
 export default {
     name: "LeaveMessagePanel",
     props: ["closeBtn", "msgInfo"],
-    watch: {
+    /*watch: {
         msgInfo: {
             handler(newVal) {
                 this.postInfo.parentId = newVal.parentId
@@ -22,42 +26,30 @@ export default {
             },
             deep: true
         }
-    },
+    },*/
     data() {
         return {
             postInfo: {
-                nickname: "",
-                email: "",
-                url: "",
-                content: "",
-                parentId: 0,
-                topParentId: 0
+                question: "",  // 提问的内容
+                rainbow: false,  // 是否为彩虹
+                // 其他数据属性...
             },
             commented: false,
             repeatCommitTimes: 0
         }
     },
+
     methods: {
         async commit() {
             if (!this.validate()) {
                 return
             }
-
-            this.trimSpace()
-            const { data: res } = await this.$axios.post("/myblog/leaveMsg", this.postInfo);
-            if (res.status === 101) {
-                this.$message.success("您的问题已提交,请等待博主的回答！")
-                this.postInfo.content = ""
-                if (this.closeBtn) {
-                    this.close()
-                }
-            } else {
-                this.commented = false
-                this.$message.success("网络出现了点小问题，请重试！")
-            }
+            // 添加新的问题
+            this.addNewQuestion();
         },
+        //验证提问
         validate() {
-            // 评论后，需要等一分钟才能评论，不能重复提交，重复提交次数>3，就清空所有输入的内容
+            // 提问后，需要等一分钟才能提问，不能重复提问，重复提问次数>3，就清空所有输入的内容
             if (this.commented) {
                 this.$message.error("您的提交太过频繁，请稍后再试！")
                 this.repeatCommitTimes++
@@ -66,41 +58,15 @@ export default {
                 }
                 return false
             }
-            /*
-                        // 验证昵称
-                        if (this.postInfo.nickname.trim() === "") {
-                            this.$message.error("请输入您的昵称！")
-                            return false
-                        } else if (this.postInfo.nickname.length > 28) {
-                            this.$message.error("昵称长度限制为28个字符！")
-                            return
-                        }
-                        // 验证邮箱格式
-                        const t = /^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
-                        if (!t.test(this.postInfo.email)) {
-                            this.$message.error("邮箱格式错误！")
-                            this.postInfo.email = ""
-                            return false
-                        }
-                        // 验证网址格式
-                        if (this.postInfo.url !== "") {
-                            const reg = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/;
-                            if (!reg.test(this.postInfo.url)) {
-                                this.$message.error("网址格式错误！")
-                                this.postInfo.url = ""
-                                return false
-                            }
-                        }
-            */
-
             // 验证输入内容
-            if (this.postInfo.content == "") {
+            if (this.postInfo.question == "") {
                 this.$message.error("请输入提问内容！")
                 return false
-            } else if (this.postInfo.content.length > 500) {
-                this.$message.error("提问内容字符限制最大500字！")
+            } else if (this.postInfo.question.length > 500) {
+                this.$message.error("提问内容字符限制最大500字!")
                 return false
             }
+            //控制放置短时间多次提问的方式
             this.commented = true
             this.repeatCommitTimes = 0
             setTimeout(() => {
@@ -108,24 +74,27 @@ export default {
             }, 60 * 1000)
             return true
         },
-        clearAll() {
-            this.postInfo = {
-                nickname: "",
-                email: "",
-                url: "",
-                content: ""
+        //添加新问题
+        async addNewQuestion() {
+            // 构建请求的数据
+            const requestData = {
+                question: this.postInfo.question,
+                rainbow: this.postInfo.rainbow,
+            };
+            // 发送请求
+            const { data: res } = await this.$axios.post("/myblog/addNewQuestion", requestData);
+            // 检查响应的状态
+            if (res.status !== 101) {
+                this.$message.error("提交问题失败！");
+                return;
             }
+            // 提示成功消息
+            this.$message.success("问题提交成功！");
+            // 清空问题输入和彩虹标志
+            this.postInfo.question = '';
+            this.postInfo.rainbow = false;
         },
-        trimSpace() {
-            this.postInfo.nickname.trim()
-            this.postInfo.email.trim()
-            this.postInfo.content.trim()
-            this.postInfo.url.trim()
-        },
-        /*
-        close() {
-            this.$bus.$emit("hideReplay")
-        }*/
+
     }
 }
 </script>
@@ -138,6 +107,7 @@ export default {
     background-color: #eff0f6;
     width: 1050px;
 }
+
 .wrapper {
     padding: 50px 15px 15px;
 }
@@ -169,8 +139,9 @@ button {
     padding: 1rem 1rem;
     border-radius: 50px;
     margin: 0 150px;
-    
+
 }
+
 button:active {
     transform: translateY(2px);
 }
