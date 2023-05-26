@@ -1,8 +1,9 @@
 
 <template>
     <div class="ChooseQS">
-        <div class="title" align="center">答题测试</div>
+        <div class="sun"></div>
 
+        <div class="title" align="center">答题测试</div>
         <!-- 科目栏 -->
         <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInDown"
             leave-active-class="animate__fadeOutUp">
@@ -131,44 +132,97 @@ export default {
 
 <style lang="less" scoped>
 //下拉菜单的样式
+
+.ChooseQS {
+    min-height: 2000px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #7378ac;
+    background-image: 
+        radial-gradient(closest-side, #aab7cc, rgba(235, 105, 78, 0)),
+        radial-gradient(closest-side, #7285ac, rgba(243, 11, 164, 0)),
+        radial-gradient(closest-side, #919fbe, rgba(254, 234, 131, 0)),
+        radial-gradient(closest-side, #e0e5ed, rgba(170, 142, 245, 0)),
+        radial-gradient(closest-side, #8295b5, rgba(248, 192, 147, 0));
+    background-size: 130vmax 130vmax,80vmax 80vmax,90vmax 90vmax,110vmax 110vmax,90vmax 90vmax;
+    background-position: -80vmax -80vmax,60vmax -30vmax,10vmax 10vmax,-30vmax -10vmax,50vmax 50vmax;
+    animation: 10s move linear infinite;
+
+}
+// 通过修改background的参数形成动画
+@keyframes move {
+    0%, 100% {
+        background-size: 130vmax 130vmax,80vmax 80vmax,90vmax 90vmax,110vmax 110vmax,90vmax 90vmax;
+        background-position:-80vmax -80vmax,60vmax -30vmax,10vmax 10vmax,-30vmax -10vmax,50vmax 50vmax;
+    }
+    25% {
+        background-size: 100vmax 100vmax,90vmax 90vmax,100vmax 100vmax,90vmax 90vmax,60vmax 60vmax;
+        background-position:-60vmax -90vmax,50vmax -40vmax,0vmax -20vmax,-40vmax -20vmax,40vmax 60vmax;
+    }
+    50% {
+        background-size: 80vmax 80vmax,110vmax 110vmax,80vmax 80vmax,60vmax 60vmax,80vmax 80vmax;
+        background-position:-50vmax -70vmax,40vmax -30vmax,10vmax 0vmax,20vmax 10vmax,30vmax 70vmax;
+        }
+    75% {
+        background-size: 90vmax 90vmax,90vmax 90vmax,100vmax 100vmax,90vmax 90vmax,70vmax 70vmax;
+        background-position: -50vmax -40vmax,50vmax -30vmax,20vmax 0vmax,-10vmax 10vmax,40vmax 60vmax;
+    }
+}
+.sun{
+    position: fixed;
+    top: 30px;
+    left: 780px;
+    background-image: url('../assets/images/sun.svg');
+    opacity: 0.3;
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 400px;
+}
+.title {
+    font-size: 80px;
+    color: #eff1f6;
+    margin-bottom: 50px;
+    bottom: 0 !important;
+    right: 0 !important;
+    font-family: 'STXingkai';
+    opacity: 0.85;
+    padding-top: 8%;
+}
 .el-dropdown {
     vertical-align: top;
 }
-
 .el-dropdown+.el-dropdown {
     margin-left: 15px;
 }
 
 .el-icon-arrow-down {
-    font-size: 12px;
+    font-size: 14px;
 }
 
-ul,
-li {
+ul,li {
+    
+    display: block;
+    list-style:none;
     margin: 0;
     padding: 0;
 }
-
-.ChooseQS {
-    background-attachment: fixed;
-    min-height: 1000px;
-    
-}
-
-.title {
-    font-size: 450%;
-    color: #fa0000;
+.el-button--primary{
+    background-color: #393f51;
+    padding: 18px;
+    border-radius: 10px;
+    border: 0;
     margin-bottom: 50px;
-    bottom: 0 !important;
-    right: 0 !important;
-    font-family: 'STXingkai';
-    opacity: 0.5;
-    padding-top: 6%;
 }
-
+.el-dropdown-menu{
+    background-color: #eff1f6;
+    border-radius: 10px;
+    padding: 15px 20px 15px 20px;
+}
+.el-dropdown-menu el-dropdown-item:hover{
+    color: #7378ac;
+}
 .subjects-area {
-    width: 840px;
-    margin: 0 auto;
+    margin: 50px 200px 50px 200px;
     overflow: hidden;
 }
 
