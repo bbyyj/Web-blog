@@ -111,7 +111,7 @@ export default {
         jumpPage(pageNum) {
             window.scrollTo(0, 0)
             this.queryInfo.pageNum = pageNum;
-            this.getBlogList(this.currentTagId);
+            this.getChaptersList(this.currentTagId);
         },
         GotoTest(typename, title) {
             this.$router.push({
