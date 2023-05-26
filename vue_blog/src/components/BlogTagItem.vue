@@ -30,7 +30,6 @@ a {
     font-weight: 600;
     line-height: 32px;
     color: #696eae;
-    ;
     background-color: #acaed2;
     border-radius: 8px;
     margin: 6px 8px;

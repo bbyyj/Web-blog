@@ -152,11 +152,12 @@ li {
 .ChooseQS {
     background-attachment: fixed;
     min-height: 1000px;
+    
 }
 
 .title {
     font-size: 450%;
-    color: #ffffff;
+    color: #fa0000;
     margin-bottom: 50px;
     bottom: 0 !important;
     right: 0 !important;
