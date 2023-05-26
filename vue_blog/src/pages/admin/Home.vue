@@ -126,6 +126,7 @@ export default {
                     name: "题库管理",
                     submenus: [
                         { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "管理题库" },
+                        { id: "82", index: "/manageSubjectsAndChapters", icon: "el-icon-menu", name: "管理科目和章节" },
                     ]
                 },
                 {
@@ -133,7 +134,8 @@ export default {
                     icon: "el-icon-star-off",
                     name: "提问箱管理",
                     submenus: [
-                        { id: "91", index: "/ManageAsk", icon: "el-icon-menu", name: "管理提问箱" },
+                        { id: "91", index: "/ManagehaveAsked", icon: "el-icon-menu", name: "已回答问题" },
+                        { id: "92", index: "/ManagenoAsk", icon: "el-icon-menu", name: "未回答问题" },
                     ]
                 }
             ]
