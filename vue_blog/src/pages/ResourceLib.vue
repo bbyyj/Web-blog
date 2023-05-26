@@ -35,8 +35,9 @@
                 </div>
             </transition>
             <!-- 分页 -->
-            <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: pagenum, pages: pages }">
-                </Pagination>
+            <!-- <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: pagenum, pages: pages }">
+                </Pagination> -->
+
         </div>
     </div>
 
@@ -53,23 +54,24 @@ export default {
     components: { Pagination },
     data() {
         return {
-            //初始展示全部类的资源
+            //接收到的全部数据
             items:[],
-            //初始页面
+           //当前页面
             pagenum: 1,
             //页面大小
-            pagesize: 9,
+            pagesize: 100,
             //页面数量
             pages: 1,
             //类别
             categoryid: 1,
+
         }
     },
     methods: { 
         //进入页面默认展示内容   
         async getLinks() {
-            let pagenum = 1;
-            let pagesize = 9;
+            let pagenum = this.pagenum;
+            let pagesize = this.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/pageresource", { params: { pagenum: pagenum, pagesize: pagesize } });
 
             if(res.status = 563){
@@ -81,21 +83,24 @@ export default {
                 return
             }
 
+
         },
         //点击分类展示对应内容
         async showdata(cateid){
-            let pagenum = 1;
-            let pagesize = 10;
+            let pagenum = this.pagenum;
+            let pagesize = this.pagesize;
             const {data: res1} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
             
             if(res1.status = 563){
                 this.items = res1.data[0];
+                this.categoryid = cateid;
                 console.log(res1);
             }
             else{
                 this.$message.warning("获取资源失败")
                 return
             }
+
         },
 
         downloadFile(fileName, data) {
@@ -110,11 +115,6 @@ export default {
             document.body.appendChild(link);
             link.click();
         },
-
-        jumpPage(){
-
-        },
-        
 
 
     },
