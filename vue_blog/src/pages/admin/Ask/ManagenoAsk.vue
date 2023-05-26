@@ -48,7 +48,8 @@ export default {
             total: 0,
             //准备进行回答
             postInfo: {
-                id: 0,
+                parent_id: 0,
+                child_id: 0,
                 answer: "",
             },
             //查询的信息
@@ -64,7 +65,7 @@ export default {
     },
     methods: {
         async getQandA() {
-            const { data: res } = await this.$axios.get("/admin/getUnansweredQA");
+            const { data: res } = await this.$axios.get("/admin/getUnansweredQA", { params: this.queryInfo });
             if (res.status !== 1) {
                 this.$message.error("获取已经回答过的问题失败，请重试！")
                 return
@@ -79,6 +80,7 @@ export default {
         async handleResponse(index) {
             //显示编辑窗口
             this.dialogFormVisible = true
+            //此处进行绑定到postInfo
             this.postInfo = { ...this.QandA[index] }
         },
         //删除该条
@@ -124,7 +126,8 @@ export default {
         //取消编辑操作
         cancel() {
             this.postInfo = {
-                id: 0,
+                parent_id: 0,
+                child_id: 0,
                 answer: ""
             }
             //消失

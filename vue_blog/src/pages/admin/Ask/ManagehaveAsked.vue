@@ -47,7 +47,6 @@ export default {
             total: 0,
             //准备编辑修改的内容
             postInfo: {
-                id: 0,
                 parent_id: 0,
                 chile_id: 0,
                 answer: "",
@@ -65,7 +64,7 @@ export default {
     },
     methods: {
         async getQandA() {
-            const { data: res } = await this.$axios.get("/admin/getAnsweredQAPage");
+            const { data: res } = await this.$axios.get("/admin/getAnsweredQAPage", { params: this.queryInfo });
             if (res.status !== 1) {
                 this.$message.error("获取已经回答过的问题失败，请重试！")
                 return
@@ -136,7 +135,7 @@ export default {
         async commitEdit() {
             let res
             //提交编辑操作
-            res = await this.$axios.put("/admin/modifyAnswer", { params: { parent_id: this.postInfo.parent_id, chile_id: this.postInfo.chile_id } })
+            res = await this.$axios.put("/admin/modifyAnswer", this.postInfo)
             if (res.data.status !== 101) {
                 this.$message.error("操作失败，请重试！")
             } else {
