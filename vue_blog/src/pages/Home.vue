@@ -212,11 +212,9 @@ export default {
         async getmusicList() {
             const { data: res } = await this.$axios.get("/admin/musicList")
             if (res.status === 1) {
-                print("success");
                 this.musicList = res.data.data;
             }
             else{
-                print("fail")
             }
         },
 
