@@ -22,12 +22,14 @@ func NewMusicRouter() *MusicController {
 func (m *MusicController) MusicList(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
-	musics, count, err := m.musicService.GetLimited(pageNum, pageSize)
-	if response.CheckError(err, "Get musics error") {
+
+	messages, count, err := m.musicService.MusicList(pageNum, pageSize)
+
+	if response.CheckError(err, "Get MusicList error") {
 		return response.ResponseQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(musics, count)
+	return response.ResponseQuerySuccess(messages, count)
 }
 
 func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
@@ -35,6 +37,8 @@ func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
 	var music model.Music
 
 	err := ctx.ShouldBind(&music)
+	println(music.Url)
+	println(music.Name)
 
 	if response.CheckError(err, "Bind param error") {
 		ctx.Status(http.StatusInternalServerError)

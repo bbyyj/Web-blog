@@ -20,15 +20,15 @@ func (m *MusicService) GetAll() ([]model.Music, error) {
 	return m.musicDao.FindAll()
 }
 
-func (m *MusicService) GetLimited(pageNum, pageSize int) ([]model.Music, int, error) {
+func (m *MusicService) MusicList(pageNum, pageSize int) ([]model.Music, int, error) {
 	pageStart := (pageNum - 1) * pageSize
-	musics, err := m.musicDao.FindLimited(pageStart, pageSize)
+	messages, err := m.musicDao.MusicList(pageStart, pageSize)
 	if err != nil {
-		utils.Logger().Warning("Get musics error:%v", err)
+		utils.Logger().Warning("Get MusicList error:%v", err)
 		return nil, 0, err
 	}
 	count, _ := m.musicDao.FindTotalCount()
-	return musics, count, nil
+	return messages, count, nil
 }
 
 func (m *MusicService) GetCount() (int, error) {
