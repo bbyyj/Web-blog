@@ -8,9 +8,10 @@
             <!-- 列表区域 -->
             <el-table :data="links" border stripe>
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="标题" prop="name" width="300px"></el-table-column>
+                <el-table-column label="文件名" prop="name" width="220px"></el-table-column>
                 <el-table-column label="描述" prop="desc"></el-table-column>
-                <el-table-column label="类别" prop="category" width="180px"></el-table-column>
+                <el-table-column label="类别" prop="category" width="150px"></el-table-column>
+                <el-table-column label="更新时间" prop="UpdatedAt"></el-table-column>
                 <el-table-column label="地址" prop="url"></el-table-column>
                 <el-table-column label="操作"  width="150">
                     <template slot-scope="scope">
@@ -99,10 +100,14 @@ export default {
     name: "manageResLink",
     data() {
         return {
+            //接收到的该页数据
             links: [],
+            //编辑、添加资源信息显示对话
             dialogFormVisible: false,
+            //展示分类列表对话
             dialogCategoryVisible: false,
             innerVisible: false,
+            //资源总条数
             total: 0,
             selectedCategory: "",
             postInfo: {
@@ -121,22 +126,27 @@ export default {
                 pageNum: 1,
                 pageSize: 10
             },
+            //所有分类 包括id和名字
             categories: [],
             uploadIcon: axios.defaults.baseURL + "/admin/uploadIcon"
         }
     },
     methods: {
         async getLinkList() {
-            const {data:res} = await this.$axios.get("/admin/pageLinks", {params: this.queryInfo});
-            if(res.status !== 1) {
+            const {data:res} = await this.$axios.get("/admin/t/pageresource", {params: this.queryInfo});
+            // const {data:res} = await this.$axios.get("/admin/pageLinks", {params: this.queryInfo});
+            if(res.status !== 563) {
                 this.$message.error("获取列表失败，请重试！")
                 return
             }
+
+            console.log(res);
 
             let links, categories, count
             if (res.data.length > 2 ) {
                 links = res.data[0]
                 categories = res.data[1]
+                //总数
                 count = res.data[2]
             } else {
                 this.$message.error("获取列表失败，请重试！")
@@ -151,7 +161,7 @@ export default {
                 m.set(val.id, val.name)
             }))
             links.forEach((val) => {
-                this.links.push({...val, category: m.get(val.categoryId)})
+                this.links.push({...val, category: m.get(val.categoryid)})
             })
         },
         async getAllCategories() {
@@ -169,10 +179,14 @@ export default {
             })
             this.postInfo.categoryId = val.id
         },
+
+        //添加资源button对应
         async handleAdd() {
             this.postInfo.id = 0
             this.dialogFormVisible = true
         },
+
+        //表格内编辑button对应
         async handleEdit(index) {
             this.dialogFormVisible = true
             this.postInfo = {...this.links[index]}
@@ -181,6 +195,8 @@ export default {
             })
             this.selectedCategory = val.name
         },
+
+        //表格内删除button对应
         async handleDelete(id) {
             this.$messageBox.confirm('确认删除该链接?', '提示', {
                 confirmButtonText: '确定',
