@@ -117,7 +117,7 @@ export default {
                     icon: "el-icon-star-off",
                     name: "资源库管理",
                     submenus: [
-                        { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理链接" },
+                        { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理文件" },
                     ]
                 },
                 {

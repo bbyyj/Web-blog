@@ -1,10 +1,6 @@
 <!--返回顶部组件-->
 <template>
-    <transition appear
-                name="animate__animated animate__bounce animate__slow"
-                enter-active-class="animate__bounceInDown"
-                leave-active-class="animate__bounceOutUp"
-    >
+    <transition >
         <div class="back-to-top" @click="toTop">
         </div>
     </transition>
@@ -30,13 +26,13 @@ export default {
 .back-to-top {
     /* cursor: pointer; */
     position: fixed;
-    right: 80px;
-    top: 600px;
+    right: 25px;
+    top: 650px;
     z-index: 999;
     width: 60px;
     height: 60px;
     /* background-color: #7378ac; */
-    background-image: url('../assets/images/to-top03.png');
+    background-image: url('../assets/images/to-top04.svg');
 
 
 }

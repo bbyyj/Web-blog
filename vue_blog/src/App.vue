@@ -14,12 +14,12 @@ body {
     width: 6px !important;
     height: 5px !important;
     border-radius: 10px !important;
-    background-color: #F5F5F5 !important;
+    background-color: #050303 !important;
 }
 
 
 ::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(to top, #fa709a 0%, #fee140 100%) !important;
+    background-image: linear-gradient(to top, #ffffff 0%, #7378ac 100%) !important;
     background-clip:padding-box !important;
     -webkit-border-radius: 10em !important;
     -moz-border-radius: 10em !important;
@@ -33,7 +33,7 @@ body {
     border-radius: 0 !important;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%) !important;
+    background-image: linear-gradient(to top, #ffffff 0%, #fbd5d1 100%) !important;
     transition: 0.3s ease-in-out !important;
 }
 
