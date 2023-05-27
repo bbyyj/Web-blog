@@ -61,6 +61,11 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
 	}
 
+	musicFrontRouter := admin.NewMusicRouter()
+	{
+		blogGroup.GET("/getAllMusic", Decorate(musicFrontRouter.GetAllMusic))
+	}
+
 	askboxFrontRouter := controller.NewAskboxFrontRouter()
 	{
 		blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
@@ -143,11 +148,11 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/updateMsgStatus", Decorate(messageRouter.UpdateStatus))
 	}
 
-	musicRouter := admin.NewMusicRouter()
+	musicBackRouter := admin.NewMusicRouter()
 	{
-		adminGroup.GET("/musicList", Decorate(musicRouter.MusicList))
-		adminGroup.POST("/addMusic", Decorate(musicRouter.AddMusic))
-		adminGroup.DELETE("/deleteMusic", Decorate(musicRouter.DeleteMusic))
+		adminGroup.GET("/musicList", Decorate(musicBackRouter.MusicList))
+		adminGroup.POST("/addMusic", Decorate(musicBackRouter.AddMusic))
+		adminGroup.DELETE("/deleteMusic", Decorate(musicBackRouter.DeleteMusic))
 	}
 
 	askboxBackRouter := admin.NewAskBoxBackRouter()

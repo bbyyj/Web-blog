@@ -7,7 +7,6 @@ import (
 	"blog_web/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 type MusicController struct {
@@ -23,11 +22,10 @@ func NewMusicRouter() *MusicController {
 func (m *MusicController) MusicList(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "10")
-	musics, err := m.musicService.GetLimited(pageNum, pageSize)
+	musics, count, err := m.musicService.GetLimited(pageNum, pageSize)
 	if response.CheckError(err, "Get musics error") {
 		return response.ResponseQueryFailed()
 	}
-	count, _ := m.musicService.GetCount()
 
 	return response.ResponseQuerySuccess(musics, count)
 }
@@ -54,17 +52,24 @@ func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
 
 func (m *MusicController) DeleteMusic(ctx *gin.Context) *response.Response {
 
-	idStr := ctx.Query("id")
-	id, err0 := strconv.Atoi(idStr)
-	if err0 != nil {
-		println(err0)
+	name := ctx.Query("name")
+	println(name)
+	if name == "" {
 		return response.ResponseDeleteFailed()
 	}
 
-	err := m.musicService.DeleteMusic(id)
+	err := m.musicService.DeleteMusic(name)
 	if response.CheckError(err, "Delete music error") {
 		return response.ResponseDeleteFailed()
 	}
 
 	return response.ResponseDeleteSuccess()
+}
+
+func (m *MusicController) GetAllMusic(ctx *gin.Context) *response.Response {
+	musics, err := m.musicService.GetAll()
+	if response.CheckError(err, "Get AllMusic error") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(musics)
 }

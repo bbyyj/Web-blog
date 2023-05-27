@@ -21,7 +21,7 @@ func NewAskboxFrontRouter() *AskBoxFrontController {
 
 func (a *AskBoxFrontController) GetAnsweredQA(ctx *gin.Context) *response.Response {
 	askboxs, count, err := a.askBoxService.GetAnsweredQA()
-	if response.CheckError(err, "Get links error") {
+	if response.CheckError(err, "Get AnsweredQA error") {
 		return response.ResponseQueryFailed()
 	}
 	return response.ResponseQuerySuccess(askboxs, count)
