@@ -14,9 +14,11 @@
                 <el-table-column label="更新时间" prop="UpdatedAt"></el-table-column>
                 <el-table-column label="地址" prop="url"></el-table-column>
                 <el-table-column label="操作"  width="150">
-                    <template slot-scope="scope">
+                    <!-- <template slot-scope="scope"> -->
+                    <!-- <template v-slot:default="scope"> -->
+                    <template scope="scope">
                         <el-button size="mini" @click="handleEdit(scope.$index)">编辑</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -25,6 +27,7 @@
                            :current-page="queryInfo.pageNum" :page-sizes="[10, 12, 15, 20]" :page-size="queryInfo.pageSize"
                            layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
+            <!-- 编辑、添加显示页面 -->
             <el-dialog title="资源信息" :visible.sync="dialogFormVisible">
                 <el-form label-width="80px">
                     <el-form-item label="标题：">
@@ -60,6 +63,7 @@
                     <el-button type="primary" @click="commitLink">确 定</el-button>
                 </div>
             </el-dialog>
+            <!-- 分类信息展示 -->
             <el-dialog title="资源分类信息" :visible.sync="dialogCategoryVisible">
                 <el-row>
                     <el-button class="add" type="primary" plain @click="innerVisible=true;categoryPost.id=0">添加资源分类</el-button>
@@ -171,6 +175,7 @@ export default {
                 return
             }
             this.categories = res.data.length > 0 ? res.data[0] : []
+            console.log(res);
         },
         changeCategory(name) {
             this.selectedCategory = name
@@ -198,17 +203,20 @@ export default {
 
         //表格内删除button对应
         async handleDelete(id) {
-            this.$messageBox.confirm('确认删除该链接?', '提示', {
+            console.log(id);
+            this.$messageBox.confirm('确认删除该资源?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(async () => {
                 //删除博客
-                const {data:res} = await this.$axios.delete("/admin/deleteLink", {params: {id: id}});
-                if (res.status !== 401) {
+                const {data:res} = await this.$axios.delete("/admin/t/deleteresource", {params: {id: id}});
+                if (res.status !== 101) {
                     this.$message.error("删除失败，请重试！")
                 } else {
                     this.$message.success("删除成功！")
+                    console.log(res);
+                    console.log(id);
                 }
                 if (this.queryInfo.pageNum === Math.ceil(this.total / this.queryInfo.pageSize) && this.links.length === 1) {
                     this.queryInfo.pageNum -= 1
@@ -292,7 +300,7 @@ export default {
             this.innerVisible = true
         },
         async deleteCategory(id) {
-            this.$messageBox.confirm('确认删除该链接?', '提示', {
+            this.$messageBox.confirm('确认删除该资源?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
