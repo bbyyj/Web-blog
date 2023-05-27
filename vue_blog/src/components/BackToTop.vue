@@ -30,13 +30,13 @@ export default {
 .back-to-top {
     /* cursor: pointer; */
     position: fixed;
-    right: 80px;
+    right: 15px;
     top: 600px;
     z-index: 999;
     width: 60px;
     height: 60px;
     /* background-color: #7378ac; */
-    background-image: url('../assets/images/to-top03.png');
+    background-image: url('../assets/images/to-top04.svg');
 
 
 }
