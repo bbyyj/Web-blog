@@ -170,7 +170,7 @@ export default {
 }
 .sun{
     position: fixed;
-    top: 30px;
+    top: 80px;
     left: 780px;
     background-image: url('../assets/images/sun.svg');
     opacity: 0.3;
@@ -181,6 +181,7 @@ export default {
 .title {
     font-size: 80px;
     color: #eff1f6;
+    top: 50px;
     margin-bottom: 50px;
     bottom: 0 !important;
     right: 0 !important;
@@ -200,7 +201,6 @@ export default {
 }
 
 ul,li {
-    
     display: block;
     list-style:none;
     margin: 0;
