@@ -54,30 +54,15 @@ export default {
 }
 
 .toprow {
-    height: 0px;
     overflow: hidden;
+    height: 0px;
     line-height: 48px;
-}
-
-
-.avatar {
-    width: 48px;
-    height: 48px;
-    float: left;
-    border-radius: 50%;
-    transition: all 0.6s linear;
-}
-
-.avatar:hover {
-    transform: rotate(360deg);
-
 }
 
 .info {
     float: left;
     margin-left: 12px;
 }
-
 
 h4 {
     font-size: 13px;
@@ -86,51 +71,53 @@ h4 {
     margin-bottom: 5px;
     cursor: pointer;
 }
-
 h5 {
     font-size: 12px;
     font-weight: 400;
     margin: 0;
 }
-
-a {
-    float: right;
-    margin-right: 10px;
-    outline: none;
-    text-decoration: none;
-    color: rgb(88 80 236) !important;
-    cursor: pointer;
-}
-
-a:hover {
-    color: rgb(166, 80, 236) !important;
-    ;
-}
-
 p {
     display: block;
     margin: 5px 54px 10px;
     line-height: 1.8;
 }
 
+a {
+    display: block;
+    background-color: #30246b;
+    color: rgb(255, 255, 255) !important;
+    border-radius: 10px;
+    float: right;
+    padding: 10px;
+    margin-right: 10px;
+    outline: none;
+    text-decoration: none;   
+    cursor: pointer;
+}
+
+a:hover {
+    color: #30246b !important;
+    background-color: #ffffff;
+    opacity: 0.75;
+}
+
 .space {
     height: 20px;
 }
-
+/* 问题部分 */
 .question {
-    /*问题的颜色 */
-    background: url("../assets/images/askboard_back.jpg");
     padding: 10px;
-    margin: 10px 0;
+    margin: 0px 0;
     border-radius: 5px;
+    font-size: 24px;
     font-weight: normal;
     font-family: 华文楷体;
 }
-
+/* 答案部分 */
 .answer {
-    /*答案的样式 */
     padding: 10px;
     margin: 10px 0;
+    font-size: 24px;
     font-weight: bolder;
     font-family: 华文楷体;
 }

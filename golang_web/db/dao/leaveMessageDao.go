@@ -63,6 +63,8 @@ func (l *LeaveMessageDao) FindMessageCount() (count int, err error) {
 
 // 查询评论
 func (l *LeaveMessageDao) FindLimited(pageStart, pageSize int) (messages []model.Message, err error) {
+	//`SELECT id, nickname, email, url, content, create_time, parent_id, top_parent_id, status, ip
+	//		FROM t_leave_message LIMIT ?, ?;`,
 	err = sqldb.Select(&messages, l.sql[5], pageStart, pageSize)
 	return
 }

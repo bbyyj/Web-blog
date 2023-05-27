@@ -117,7 +117,25 @@ export default {
                     icon: "el-icon-star-off",
                     name: "资源库管理",
                     submenus: [
-                        { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理链接" },
+                        { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理文件" },
+                    ]
+                },
+                {
+                    id: "8",
+                    icon: "el-icon-star-off",
+                    name: "题库管理",
+                    submenus: [
+                        { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "管理题库" },
+                        { id: "82", index: "/manageSubjectsAndChapters", icon: "el-icon-menu", name: "管理科目和章节" },
+                    ]
+                },
+                {
+                    id: "9",
+                    icon: "el-icon-star-off",
+                    name: "提问箱管理",
+                    submenus: [
+                        { id: "91", index: "/ManagehaveAsked", icon: "el-icon-menu", name: "已回答问题" },
+                        { id: "92", index: "/ManagenoAsk", icon: "el-icon-menu", name: "未回答问题" },
                     ]
                 }
             ]
@@ -125,6 +143,7 @@ export default {
     },
     methods: {
         logout() {
+
             // 清空token
             window.sessionStorage.clear();
             // 跳转登录页

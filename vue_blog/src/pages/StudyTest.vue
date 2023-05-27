@@ -1,7 +1,5 @@
-
 <template>
-    <div class="tacit_test">
-        <TitleArea class="title-area" :info="info"></TitleArea>
+    <div class="StudyTest">
         <div class="bottom">
             <transition appear name="animate__animated animate__bounce animate__slow"
                 enter-active-class="animate__slideInUp">
@@ -43,6 +41,7 @@
 <script>
 
 import "../assets/icon/iconfont.css"
+//声明组件
 import TitleArea from "../components/TitleArea";
 
 import "animate.css"
@@ -51,31 +50,13 @@ export default {
     components: { TitleArea },
     data() {
         return {
-            info: {
-                title: "默契鉴定",
-                desc: "!"
-            },
+            //所有可选科目
+            subjects: [],
             questions: [
                 //设置的10个问题
-                {
-                    text: "问题1",
-                    answers: ["选项1", "选项2", "选项3", "选项4"],
-                    correctAnswer: "选项1"
-                },
-                {
-                    text: "问题2",
-                    answers: ["选项1", "选项2", "选项3", "选项4"],
-                    correctAnswer: "选项2"
-                },
-                {
-                    text: "问题3",
-                    answers: ["选项1", "选项2", "选项3", "选项4"],
-                    correctAnswer: "选项2"
-                },
-                // 可以添加更多的问题
             ],
             //将问题选项的按钮置位空
-            userAnswers: Array(3).fill(null),
+            userAnswers: Array(10).fill(null),
             //是否显示评分
             showScore: false,
             //评分
@@ -88,38 +69,39 @@ export default {
             maxScore: 100,
             //设置不同评分对应的话语
             messages: {
-                0: '我们真的没有缘分！',
-                10: '可能我们只是初识，需要更多的了解',
-                20: '默契有点微妙，但是还有希望',
-                30: '我们的默契还需提高！',
-                40: '虽然有些小默契，但还有很大的提升空间',
-                50: '我们的默契程度一般，需要更多交流',
-                60: '我们的默契程度还不错，继续保持',
-                70: '我们的默契程度很好，让我们更进一步',
-                80: '我们的默契程度很高，继续努力',
-                90: '我们的默契程度接近完美，让我们继续',
-                100: '我们之间的默契棒极了！'
-            },
+                0: '你似乎还没有开始学习这个主题。',
+                10: '你已经初步了解这个主题，但还有许多需要学习的地方。',
+                20: '你已经掌握了一些基础知识，但还需要进一步的学习。',
+                30: '你对这个主题有一定的理解，但还有很多需要提升的地方。',
+                40: '你的知识掌握程度还可以，但还有很大的提升空间。',
+                50: '你已经掌握了这个主题的一半知识，继续努力！',
+                60: '你的知识掌握程度相当不错，但不要停下来，继续努力！',
+                70: '你已经对这个主题有了深入的了解，再继续努力就更完美了！',
+                80: '你的知识掌握程度相当高，你已经接近这个主题的专家了！',
+                90: '你的知识掌握程度接近完美，你是这个主题的专家了！',
+                100: '你的知识掌握太到位了！你已经是这个主题的大师了！'
+            }
         }
     },
 
     created() {
         window.scrollTo(0, 0);
-        this.getTacitInfo()
-
+        this.getQuestionInfo()
     },
     methods: {
-        async getTacitInfo() {
-                    const { data: res } = await this.$axios.get("/myblog/tacitList")
-                    if (res.status === 1) {
-                        print("success");
-                        this.questions = res.data[0];
-                        console.log(res.data[0]);
-                    }
-                    else{
-                        print("fail")
-                    }
-                },
+        //获取对应的题目
+        async getQuestionInfo() {
+            let title = this.$route.query.title;
+            let typename = this.$route.query.typename;
+            const { data: res } = await this.$axios.get("/myblog/examList", { params: { typename: typename, title: title } });
+            if (res.status === 1) {
+                this.questions = res.data[0];
+                console.log(res.data[0]);
+            }
+            else {
+                print("fail")
+            }
+        },
 
         //点击提交按钮
         submitAnswers() {
@@ -151,7 +133,7 @@ export default {
             if (!confirm("你重置你的答案吗")) {
                 return;
             }
-            this.userAnswers = Array(3).fill(null);
+            this.userAnswers = Array(10).fill(null);
             this.showScore = false;
             this.isSubmitted = false;
             this.score = 0;
@@ -211,7 +193,7 @@ ul {
     padding: 0;
 }
 
-.tacit_test {
+.StudyTest {
     background-color: #3A3B55;
     background-image:
         radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),
@@ -299,16 +281,6 @@ ul {
     }
 }
 
-.title-area {
-    font-size: 450%;
-    color: #ffffff;
-    margin-bottom: 50px;
-    bottom: 0 !important;
-    right: 0 !important;
-    font-family: 'STXingkai';
-    opacity: 0.5;
-    padding-top: 6%;
-}
 
 .bottom {
     padding-bottom: 80px;

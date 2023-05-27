@@ -1,79 +1,141 @@
 package dao
 
-//
-//import "blog_web/model"
-//
-//type LeaveMessageDao struct {
-//	sql []string
-//}
-//
-//func NewLeaveMessageDao() *LeaveMessageDao {
-//	return &LeaveMessageDao{
-//		sql: []string{
-//			`INSERT INTO t_leave_message(nickname, email, url, content, avatar, create_time, parent_id, top_parent_id, ip)
-//			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-//
-//			`SELECT id, nickname, content, avatar, create_time, parent_id, top_parent_id
-//			FROM t_leave_message WHERE top_parent_id = 0 AND status = 1 LIMIT ?, ?;`,
-//
-//			`SELECT id, nickname, content, avatar, create_time, parent_id, top_parent_id
-//			FROM t_leave_message WHERE top_parent_id = ? AND status = 1;`,
-//
-//			`SELECT COUNT(*) FROM t_leave_message WHERE top_parent_id = 0 AND status = 1;`,
-//
-//			`SELECT COUNT(*) FROM t_leave_message WHERE status = 1;`,
-//
-//			`SELECT id, nickname, email, url, content, create_time, parent_id, top_parent_id, status, ip
-//			FROM t_leave_message LIMIT ?, ?;`,
-//
-//			`SELECT COUNT(*) FROM t_leave_message;`,
-//
-//			`UPDATE t_leave_message SET status = ? WHERE id = ?;`,
-//		},
-//	}
-//}
-//
-//func (l *LeaveMessageDao) InsertOne(m *model.Message) error {
-//	_, err := sqldb.Exec(l.sql[0], m.Nickname, m.Email, m.Url, m.Content, m.Avatar, m.CreateTime, m.ParentId, m.TopParentId, m.Ip)
-//	return err
-//}
-//
-//// 获取顶级留言
-//func (l *LeaveMessageDao) FindTopMessage(pageStart, PageSize int) (msg []model.Message, err error) {
-//	err = sqldb.Select(&msg, l.sql[1], pageStart, PageSize)
-//	return
-//}
-//
-//// 获取子留言
-//func (l *LeaveMessageDao) FindChildMessage(parentId int) (msg []model.Message, err error) {
-//	err = sqldb.Select(&msg, l.sql[2], parentId)
-//	return
-//}
-//
-//// 查询顶级评论的数目
-//func (l *LeaveMessageDao) FindTopMessageCount() (count int, err error) {
-//	err = sqldb.Get(&count, l.sql[3])
-//	return
-//}
-//
-//// 查询所有评论的数目
-//func (l *LeaveMessageDao) FindMessageCount() (count int, err error) {
-//	err = sqldb.Get(&count, l.sql[4])
-//	return
-//}
-//
-//// 查询评论
-//func (l *LeaveMessageDao) FindLimited(pageStart, pageSize int) (messages []model.Message, err error) {
-//	err = sqldb.Select(&messages, l.sql[5], pageStart, pageSize)
-//	return
-//}
-//
-//func (l *LeaveMessageDao) FindTotalCount() (count int, err error) {
-//	err = sqldb.Get(&count, l.sql[6])
-//	return
-//}
-//
-//func (l *LeaveMessageDao) UpdateStatus(message *model.Message) error {
-//	_, err := sqldb.Exec(l.sql[7], message.Status, message.Id)
-//	return err
-//}
+import (
+	"blog_web/model"
+)
+
+type AskBoxDao struct {
+	sql []string
+}
+
+func NewAskBoxDao() *AskBoxDao {
+	return &AskBoxDao{
+		sql: []string{
+			// 返回已回答的问题
+			`SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id DESC;`,
+			// 增加父问题
+			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
+			VALUES(?, ?, ?, ?, ?, ?)`,
+			// 追加子问题
+			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow)
+			VALUES(?, ?, ?, ?, ?)`,
+			// 点赞问题
+			`UPDATE t_askbox SET likes = ? WHERE parent_id = ? AND child_id = ?;`,
+			// 分页返回所有问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
+			 FROM t_askbox ORDER BY parent_id, child_id DESC LIMIT ?, ? ;`,
+			// 分页返回所有未回答问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
+			 FROM t_askbox WHERE is_answered = 0 ORDER BY parent_id, child_id DESC LIMIT ?, ? ;`,
+			// 回答问题
+			`UPDATE t_askbox SET answer = ?, answer_time = ?, is_answered =? WHERE parent_id = ? AND child_id = ?;`,
+			// 修改问题
+			`UPDATE t_askbox SET answer = ?, answer_time = ? WHERE parent_id = ? AND child_id = ?;`,
+			// 删除父问题及底下的子问题
+			`DELETE FROM t_askbox WHERE parent_id = ?;`,
+			// 分页返回所有已回答问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent, is_answered
+			 FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id DESC LIMIT ?, ? ;`,
+			// 返回所有已回答父问题数
+			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 1 AND is_parent = 1 AND child_id = 1;`,
+			// 返回所有已回答问题数（按子问题）
+			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 1;`,
+			// 返回所有未回答问题数（按子问题）
+			`SELECT COUNT(*) FROM t_askbox WHERE is_answered = 0;`,
+			// 返回所有问题数（按子问题）
+			`SELECT COUNT(*) FROM t_askbox;`,
+			// 按父问题序号返回已回答的问题
+			`SELECT id, parent_id, child_id, question, question_time, answer, answer_time, rainbow, likes, is_parent FROM t_askbox WHERE parent_id = ? ;`,
+			// 按父问题序号返回父问题下子问题个数
+			`SELECT parent_id, COUNT(*) AS child_count FROM t_askbox GROUP BY parent_id ;`,
+			// 返回最大父问题序号
+			`SELECT Max(parent_id) from t_askbox ;`,
+		},
+	}
+}
+
+// // 返回已回答的问题
+func (abd *AskBoxDao) GetAnsweredQA() (askboxs []model.Askbox, err error) {
+	// abd.sql[0]: `SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC;`,
+	err = sqldb.Select(&askboxs, abd.sql[0])
+	return
+}
+
+func (abd *AskBoxDao) AddNewQuestion(a *model.Askbox) error {
+	_, err := sqldb.Exec(abd.sql[1], a.ParentId, a.ChildId, a.Question, a.QuestionTime, a.Rainbow, a.IsParent)
+	return err
+}
+
+// 追加子问题
+func (abd *AskBoxDao) AppendOldQuestion(a *model.Askbox) error {
+	_, err := sqldb.Exec(abd.sql[2], a.ParentId, a.ChildId, a.Question, a.QuestionTime, a.Rainbow)
+	return err
+}
+
+// 点赞问题
+func (abd *AskBoxDao) ClickLikes(likes int, parentID int, childID int) error {
+	_, err := sqldb.Exec(abd.sql[3], likes, parentID, childID)
+	return err
+}
+
+// 分页返回所有问题
+func (abd *AskBoxDao) GetAllQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
+	err = sqldb.Select(&msg, abd.sql[4], pageStart, PageSize)
+	if err != nil {
+		println(err.Error())
+	}
+	return
+}
+
+// 分页返回所有未回答问题
+func (abd *AskBoxDao) GetUnansweredQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
+	err = sqldb.Select(&msg, abd.sql[5], pageStart, PageSize)
+	return
+}
+
+func (abd *AskBoxDao) AddAnswer(askbox *model.Askbox) error {
+	_, err := sqldb.Exec(abd.sql[6], askbox.Answer, askbox.AnswerTime, askbox.IsAnswered, askbox.ParentId, askbox.ChildId)
+	return err
+}
+
+func (abd *AskBoxDao) ModifyAnswer(askbox *model.Askbox) error {
+	_, err := sqldb.Exec(abd.sql[7], askbox.Answer, askbox.AnswerTime, askbox.ParentId, askbox.ChildId)
+	return err
+}
+
+func (abd *AskBoxDao) DeleteQuestion(id int) error {
+	_, err := sqldb.Exec(abd.sql[8], id)
+	return err
+}
+
+// 分页返回所有已回答问题
+func (abd *AskBoxDao) GetAnsweredQAPage(pageStart, PageSize int) (msg []model.Askbox, err error) {
+	err = sqldb.Select(&msg, abd.sql[9], pageStart, PageSize)
+	return
+}
+
+func (abd *AskBoxDao) GetAnsweredParentQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[10])
+	return
+}
+
+func (abd *AskBoxDao) GetAnsweredQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[11])
+	return
+}
+
+func (abd *AskBoxDao) GetUnansweredQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[12])
+	return
+}
+
+func (abd *AskBoxDao) GetAllQuestionCount() (count int, err error) {
+	err = sqldb.Get(&count, abd.sql[13])
+	return
+}
+
+func (abd *AskBoxDao) GetMaxParentQuestionId() (maxID int, err error) {
+	err = sqldb.Get(&maxID, "SELECT MAX(parent_id) FROM t_askbox")
+	println(maxID)
+	return
+}

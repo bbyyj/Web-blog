@@ -7,7 +7,6 @@
 
         <div class="navi-bar-center">
             <div class="navi-bar-item-group">
-                <i @click="fullscreen" class="iconfont icon-quanpingmu fullscreen"></i>
                 <!--搜索框-->
                 <div class="search-warp">
                     <el-input class="search-input" size="mini" placeholder="请输入内容" prefix-icon="el-icon-search"
@@ -31,11 +30,11 @@
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="默契鉴定" ico-class="icon-yongyan" rout="/tacitTest">
+                        <NaviItem :activeRoute="activeRoute" index-name="软工题库" ico-class="icon-yongyan" rout="/ChooseQS">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/msgBoard">
+                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/AskBoard">
                         </NaviItem>
                     </li>
                     <li>
@@ -43,10 +42,15 @@
                         </NaviItem>
                     </li>
                     <li>
+                        <NaviItem :activeRoute="activeRoute" index-name="选课通" ico-class="icon-ziyuanku" rout="/HelpChoose">
+                        </NaviItem>
+                    </li>
+                    <li>
                         <NaviItem :activeRoute="activeRoute" index-name="后台管理" ico-class="icon-houtaiguanli-jifenguanli"
                             rout="/login"></NaviItem>
                     </li>
                 </ul>
+                <i @click="fullscreen" class="iconfont icon-quanpingmu fullscreen"></i>
             </div>
         </div>
 
@@ -128,9 +132,9 @@ export default {
 
     input {
         width: 200px;
-        border: 1px solid #fda085 !important;
+        border: 1px solid #3d3952 !important;
         border-radius: 20px;
-        background: rgba(210, 249, 253, 0.3);
+        background: rgba(255, 255, 255, 0.3);
     }
 
 }
@@ -195,7 +199,7 @@ li {
         a {
             outline: none;
             text-decoration: none;
-            color: #61666d;
+            color: #3d3952;
         }
     }
 
@@ -207,16 +211,14 @@ li {
 
 p {
     float: left;
-    line-height: 1.5;
     text-align: center;
-    font-size: 24px;
+    font-size: 25px;
     align-items: center;
     margin: 10px 0 0 50px;
     height: 40px;
-    background: -webkit-linear-gradient(45deg, #70f7fe, #fbd7c6, #fdefac, #bfb5dd, #bed5f5);
     -webkit-background-clip: text;
     font-weight: bolder;
-    color: transparent;
+    color: #7378ac;
     user-select: none;
 }
 
@@ -225,7 +227,7 @@ p {
     width: 100%;
     height: 60px;
     position: fixed;
-    background: rgba(210, 249, 253, 0.3);
+    background: rgba(252, 252, 252, 0.35);
 }
 
 .navi-bar-center {
@@ -239,13 +241,13 @@ p {
     align-items: center;
     height: 100%;
     float: right;
-    margin-right: 100px;
+    margin-right: 70px;
 }
 
 .fullscreen {
-    color: #fda085;
-    font-size: 20px;
+    color: #7378ac;
+    font-size: 27px;
     cursor: pointer;
-    margin-right: 20px;
+    margin: 7px 8px 0px 10px;
 }
 </style>

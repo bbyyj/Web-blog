@@ -20,28 +20,15 @@
             <div id='stars2'></div>
             <div id='stars3'></div>
             <div class="blog-area">
-                <!--左侧博客信息区-->
-                <div class="blog-left">
-                    <!--用户信息栏-->
-                    <UserInfoCard :count="blogCount"></UserInfoCard>
-                    <!--最新推荐栏-->
-                    <RecommendList :blogList="newRecommend"></RecommendList>
-                    <!--标签云-->
-                    <TagCloud></TagCloud>
-                    <!--热门推荐-->
-                    <RecommendList :blogList="hotBlogs"></RecommendList>
-
-                </div>
+                <!--用户信息栏-->
+                <UserInfoCard :count="blogCount"></UserInfoCard>
+                   
                 <div id="player"></div>
-                <!--右侧博客展示区-->
-                <div class="blog-right">
-                    <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
-                        @click.native="blogDetail(item.id)">
-                    </BlogCard>
-                    <!--分页导航区-->
-                    <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
-
-                </div>
+                <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
+                    @click.native="blogDetail(item.id)">
+                </BlogCard>
+                <!--分页导航区-->
+                <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
             </div>
         </div>
 
@@ -58,8 +45,6 @@ import BackToTop from "../components/BackToTop";
 import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
-import RecommendList from "../components/RecommendList";
-import TagCloud from "../components/TagCloud";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -69,7 +54,7 @@ import '../assets/css/star.css'
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard, RecommendList, TagCloud },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard},
     data() {
         return {
             firstBGPageInfo: {
@@ -225,11 +210,9 @@ export default {
         async getmusicList() {
             const { data: res } = await this.$axios.get("/admin/musicList")
             if (res.status === 1) {
-                print("success");
                 this.musicList = res.data.data;
             }
             else{
-                print("fail")
             }
         },
 
@@ -303,8 +286,6 @@ export default {
             const scrollY = window.scrollY
             if (scrollY !== 0) {
                 this.$refs.box.style.backgroundPosition = `calc(50% + ${scrollY}px) calc(50% + ${scrollY}px)`
-            } else {
-                this.$refs.box.style.style.backgroundPosition = ''
             }
         },
 
@@ -352,15 +333,6 @@ export default {
                 letterCount += x;
                 }
             }, 120)
-            window.setInterval(function() {
-                if (visible === true) {
-                con.className = 'console-underscore hidden'
-                visible = false;
-                } else {
-                con.className = 'console-underscore'
-                visible = true;
-                }
-            }, 400)
         },
     }
 }
@@ -371,7 +343,7 @@ export default {
 
 <style lang="less" scoped>
 .animate__animated {
-    animation-duration: 3s !important;
+    animation-duration: 3s;
 }
  .console-container {
     font-size:3em;
@@ -484,23 +456,10 @@ export default {
 
 // 下面中心区域
 .blog-area {
-    width: 1165px;
-    margin: 0 auto;
+    margin: 20px 20px 20px 20px;
     padding-top: 36px;
     padding-bottom: 64px;
     overflow: hidden;
 }
 
-.blog-right {
-    float: left;
-}
-
-.blog-left {
-    float: left;
-    width: 300px;
-    margin-right: 15px;
-    padding: 0 15px;
-    border-radius: 6px;
-    transition: all 0.3s;
-}
 </style>

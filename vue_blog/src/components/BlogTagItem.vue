@@ -24,14 +24,13 @@ export default {
 </script>
 
 <style scoped>
-
 a {
     float: left;
     font-size: 14px;
     font-weight: 600;
     line-height: 32px;
-    color: #696eae;;
-    background-color: #acaed2;
+    color: #393f51;
+    background-color: #e0e5ed;
     border-radius: 8px;
     margin: 6px 8px;
     padding: 0 15px;

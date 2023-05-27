@@ -1,14 +1,8 @@
 <!--博客卡片组件-->
 <template>
     <div class="box">
-
-        <!--图片区域-->
-        <div class="image-box" :class="{'image-box-right' : imgRight}">
-            <img :src="item.firstPicture">
-        </div>
-
         <!--博客区域-->
-        <div class="blog-box" :class="{'blog-box-right' : imgRight}">
+        <div class="blog-box" :class="{ 'blog-box-right': imgRight }">
             <!--博客标题-->
             <div class="blog-title">
                 <a>
@@ -20,26 +14,17 @@
             <div class="blog-info">
                 <ul>
                     <li>
-                        <i class="iconfont icon-yonghu"></i>
-                        <span>{{item.nickname}}</span>
-                    </li>
-                    <li>
-                        <i class="iconfont icon-riqi"></i>
-                        <span>{{ (item.createTime || '').split('T')[0]}}</span>
-                    </li>
-                    <li>
-                        <i class="iconfont icon-yanjing"></i>
-                        <span>{{item.views}}</span>
+                        <span>{{ item.views }}</span>
                     </li>
                     <li>
                         <a href="#">
-                            {{item.typename}}
+                            {{ item.typename }}
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="blog-desc">
-                <p class="text-ellipsis">{{item.description}}</p>
+                <p class="text-ellipsis">{{ item.description }}</p>
             </div>
         </div>
     </div>
@@ -62,7 +47,6 @@ export default {
 
 
 <style lang="less" scoped>
-
 * {
     padding: 0;
     margin: 0;
@@ -70,27 +54,28 @@ export default {
 
 //博客展示item
 .box {
+    // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
     background-color: #d9dbeb;
-    opacity: 0.8;
-    height: 300px;
-    overflow: hidden;
-    border-radius: 20px;
+    width: 840px;
     padding: 16px 20px;
-    margin: 20px 200px 50px 200px;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    margin-bottom: 20px;
     position: relative;
     transition: all .5s;
     cursor: pointer;
 }
 
 .box:hover {
-    transform:  scale(1.02);
+    transform: scale(1.02);
+    // box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
 }
 
 //图片区域
 .box .image-box {
     float: left;
     border-radius: 6px;
-    margin: 40px 30px;
+    margin: 2px 10px 0;
     cursor: pointer;
     overflow: hidden;
 }
@@ -98,8 +83,8 @@ export default {
 //博客信息区域
 .box .blog-box {
     float: left;
-    width: 650px;
-    height: 250px;
+    width: 450px;
+    height: 190px;
     padding-left: 20px;
 }
 
@@ -124,45 +109,47 @@ export default {
     transform: scale(1.1);
 }
 
-.box::after{
-    position:absolute;
-    content:'';
+.box::after {
+    position: absolute;
+    content: '';
     // border:3px;
-    width:0;
-    height:0;
-    z-index:-1;
+    width: 0;
+    height: 0;
+    z-index: -1;
     left: -6px;
     top: 0;
-    transition: border-color  0s  ease-in 0.8s , width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
-    -webkit-transition: border-color  0s  ease-in 0.8s , width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
-}
-.box::before{
-    position:absolute;
-    content:'';
-    border:3px dashed transparent;
-    box-sizing: border-box;
-    width:0;
-    height:0;
-    z-index:-1;
-    bottom: 0;
-    right: 0;
-    transition: border-color 0s ease-in 0.4s, width 0.2s ease-in 0.2s, height 0.2s ease-in ;
+    transition: border-color 0s ease-in 0.8s, width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
+    -webkit-transition: border-color 0s ease-in 0.8s, width 0.2s ease-in 0.6s, height 0.2s ease-in 0.4s;
 }
 
-.box:hover::before{
-    width:100%;
-    height:100%;
+.box::before {
+    position: absolute;
+    content: '';
+    border: 3px dashed transparent;
+    box-sizing: border-box;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    bottom: 0;
+    right: 0;
+    transition: border-color 0s ease-in 0.4s, width 0.2s ease-in 0.2s, height 0.2s ease-in;
+}
+
+.box:hover::before {
+    width: 100%;
+    height: 100%;
     // border-bottom-color:#183f2d;
     // border-left-color:#183f2d;
-    transition:border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
+    transition: border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
 }
-.box:hover::before{
-    width:100%;
-    height:100%;
+
+.box:hover::before {
+    width: 100%;
+    height: 100%;
     // border-top-color:#183f2d;
     // border-right-color: #183f2d;
     transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
-    -webkit-transition:width 0.2s ease-out, height 0.2s ease-out 0.2s;
+    -webkit-transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
 }
 
 
@@ -212,6 +199,7 @@ export default {
 
 .box .blog-box .blog-desc {
     height: 110px;
+
     p {
         padding: 12px 20px;
         font-size: 16px;
@@ -237,14 +225,6 @@ export default {
         font-weight: bold;
     }
 
-    .icon-yonghu{
-        color: #3d3952;
-    }
-
-    .icon-riqi {
-        color: #3d3952;
-    }
-
     .icon-yanjing {
         color: #3d3952;
     }
@@ -267,13 +247,6 @@ li {
     margin-right: 18px;
 }
 
-.right-float {
-    float: right;
-}
-
-.left-float {
-    float: left;
-}
 
 .text-ellipsis {
     overflow: hidden;
@@ -282,5 +255,4 @@ li {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
 }
-
 </style>

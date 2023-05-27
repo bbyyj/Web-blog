@@ -1,0 +1,237 @@
+
+<template>
+    <div class="ChooseQS">
+        <div class="sun"></div>
+
+        <div class="title" align="center">答题测试</div>
+        <!-- 科目栏 -->
+        <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInDown"
+            leave-active-class="animate__fadeOutUp">
+            <ul class="subjects-area">
+                <el-dropdown>
+                    <el-button type="primary">
+                        更多科目<i class="el-icon-arrow-down el-icon--right"></i>
+                    </el-button>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item v-for="subject in subjects" :key="subject.id"
+                            @click.native="getChaptersList(subject.name)">
+                            {{ subject.name }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+
+                <!--标识每个科目-->
+                <li :key="item.id" v-for="item in subjects">
+                    <!--传入对应科目的名字 获取全部的章节-->
+                    <BlogTagItem @click.native="getChaptersList(item.name)" :taginfo="item" :activeId="currentTagId">
+                    </BlogTagItem>
+                </li>
+            </ul>
+        </transition>
+
+        <!-- 章节列表栏 -->
+        <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInUp">
+            <div>
+                <div class="chapters-area">
+                    <!--标识每个科目-->
+                    <ChaptersCard class="chapter-item" :key="item.id" v-for="(item, index) in Chapters" :item="item"
+                        :imgRight="index % 2 === 0" @click.native="GotoTest(item.typename, item.title)">
+                        <!--blogDetail跳转到对应的答题页面-->
+                    </ChaptersCard>
+                </div>
+                <!--分页-->
+                <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }">
+                </Pagination>
+            </div>
+        </transition>
+
+    </div>
+</template>
+
+
+
+<script>
+
+import ChaptersCard from "../components/ChaptersCard";
+import Pagination from "../components/Pagination";
+import BlogTagItem from "../components/BlogTagItem";
+
+export default {
+    components: { ChaptersCard, Pagination, BlogTagItem },
+    data() {
+        return {
+            currentTagId: 1,
+            //选中的科目
+            subject: "",
+            // 页面数量
+            pages: 1,
+            queryInfo: {
+                pageNum: 1,
+                pageSize: 5,
+                tagId: 0
+            },
+            //科目选择
+            subjects: [],
+            //对应科目下的章节等内容
+            Chapters: [],
+        }
+    },
+    created() {
+        this.getSubjectsList(true);
+        this.getChaptersList('计算机组成原理');
+    },
+
+    methods: {
+        //获取科目列表
+        async getSubjectsList(flag) {
+            const { data: res } = await this.$axios.get("/myblog/subjectList");
+            if (res.status === 1) {
+                //将res赋值给subjects
+                console.log(res.data[0]);
+                this.subjects = res.data[0];
+            }
+        },
+        //获取科目下的章节内容
+        async getChaptersList(subject) {
+            const { data: res } = await this.$axios.get("/myblog/chapterList", {
+                params: { name: subject }
+            });
+            if (res.status === 1) {
+                this.Chapters = res.data[0];
+            } else {
+                this.$message.error("获取对应章节失败,请重试")
+                return
+            }
+            //分页相关
+            const count = res.data.length > 1 ? res.data[1] : 0
+            this.pages = Math.ceil(count / this.queryInfo.pageSize);
+            if (this.pages <= 0) {
+                this.pages = 1
+            }
+        },
+        jumpPage(pageNum) {
+            window.scrollTo(0, 0)
+            this.queryInfo.pageNum = pageNum;
+            this.getChaptersList(this.currentTagId);
+        },
+        GotoTest(typename, title) {
+            this.$router.push({
+                path: "/StudyTest",
+                query: {
+                    typename: typename,
+                    title: title
+                }
+            });
+        }
+    }
+}
+
+</script>
+
+
+
+<style lang="less" scoped>
+//下拉菜单的样式
+
+.ChooseQS {
+    min-height: 2000px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #7378ac;
+    background-image: 
+        radial-gradient(closest-side, #aab7cc, rgba(235, 105, 78, 0)),
+        radial-gradient(closest-side, #7285ac, rgba(243, 11, 164, 0)),
+        radial-gradient(closest-side, #919fbe, rgba(254, 234, 131, 0)),
+        radial-gradient(closest-side, #e0e5ed, rgba(170, 142, 245, 0)),
+        radial-gradient(closest-side, #8295b5, rgba(248, 192, 147, 0));
+    background-size: 130vmax 130vmax,80vmax 80vmax,90vmax 90vmax,110vmax 110vmax,90vmax 90vmax;
+    background-position: -80vmax -80vmax,60vmax -30vmax,10vmax 10vmax,-30vmax -10vmax,50vmax 50vmax;
+    animation: 10s move linear infinite;
+
+}
+// 通过修改background的参数形成动画
+@keyframes move {
+    0%, 100% {
+        background-size: 130vmax 130vmax,80vmax 80vmax,90vmax 90vmax,110vmax 110vmax,90vmax 90vmax;
+        background-position:-80vmax -80vmax,60vmax -30vmax,10vmax 10vmax,-30vmax -10vmax,50vmax 50vmax;
+    }
+    25% {
+        background-size: 100vmax 100vmax,90vmax 90vmax,100vmax 100vmax,90vmax 90vmax,60vmax 60vmax;
+        background-position:-60vmax -90vmax,50vmax -40vmax,0vmax -20vmax,-40vmax -20vmax,40vmax 60vmax;
+    }
+    50% {
+        background-size: 80vmax 80vmax,110vmax 110vmax,80vmax 80vmax,60vmax 60vmax,80vmax 80vmax;
+        background-position:-50vmax -70vmax,40vmax -30vmax,10vmax 0vmax,20vmax 10vmax,30vmax 70vmax;
+        }
+    75% {
+        background-size: 90vmax 90vmax,90vmax 90vmax,100vmax 100vmax,90vmax 90vmax,70vmax 70vmax;
+        background-position: -50vmax -40vmax,50vmax -30vmax,20vmax 0vmax,-10vmax 10vmax,40vmax 60vmax;
+    }
+}
+.sun{
+    position: fixed;
+    top: 80px;
+    left: 780px;
+    background-image: url('../assets/images/sun.svg');
+    opacity: 0.3;
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 400px;
+}
+.title {
+    font-size: 80px;
+    color: #eff1f6;
+    top: 50px;
+    margin-bottom: 50px;
+    bottom: 0 !important;
+    right: 0 !important;
+    font-family: 'STXingkai';
+    opacity: 0.85;
+    padding-top: 8%;
+}
+.el-dropdown {
+    vertical-align: top;
+}
+.el-dropdown+.el-dropdown {
+    margin-left: 15px;
+}
+
+.el-icon-arrow-down {
+    font-size: 14px;
+}
+
+ul,li {
+    display: block;
+    list-style:none;
+    margin: 0;
+    padding: 0;
+}
+.el-button--primary{
+    background-color: #393f51;
+    padding: 18px;
+    border-radius: 10px;
+    border: 0;
+    margin-bottom: 50px;
+}
+.el-dropdown-menu{
+    background-color: #eff1f6;
+    border-radius: 10px;
+    padding: 15px 20px 15px 20px;
+}
+.el-dropdown-menu el-dropdown-item:hover{
+    color: #7378ac;
+}
+.subjects-area {
+    margin: 50px 200px 50px 200px;
+    overflow: hidden;
+}
+
+.chapters-area {
+    width: 850px;
+    margin: 40px auto 50px;
+}
+
+.pagebar {
+    padding-bottom: 50px;
+}
+</style>
