@@ -1729,3 +1729,14 @@
 [GIN] 2023/05/27 - 20:00:10 | 500 |      9.1674ms |       127.0.0.1 | POST     "/api/admin/addMusic"
 [GIN] 2023/05/27 - 20:00:44 | 200 |      10.437ms |       127.0.0.1 | POST     "/api/admin/addMusic"
 [2023-05-27 20:01:03][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/27 - 20:10:42 | 200 |      2.1868ms |       127.0.0.1 | GET      "/api/admin/musicList"
+[GIN] 2023/05/27 - 20:11:18 | 500 |      6.6373ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?name=%E6%97%A0%E4%B8%8E%E4%BC%A6%E6%AF%94%E7%9A%84%E7%BE%8E%E4%B8%BD"
+[GIN] 2023/05/27 - 20:12:19 | 500 |      4.0964ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?name=1"
+[GIN] 2023/05/27 - 20:12:28 | 500 |      3.7596ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?name=%E6%97%A0%E4%B8%8E%E4%BC%A6%E6%AF%94%E7%9A%84%E7%BE%8E%E4%B8%BD"
+[GIN] 2023/05/27 - 20:12:57 | 200 |      4.4299ms |       127.0.0.1 | DELETE   "/api/admin/deleteQuestion?parent_id=22"
+[2023-05-27 20:19:08][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[2023-05-27 20:21:35][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/27 - 20:22:06 | 500 |     13.5146ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?id=36"
+[GIN] 2023/05/27 - 20:23:52 | 500 |      6.9646ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?id=13"
+[2023-05-27 20:24:20][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/27 - 20:24:29 | 200 |      1.1746ms |       127.0.0.1 | DELETE   "/api/admin/deleteMusic?id=36"

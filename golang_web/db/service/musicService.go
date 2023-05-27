@@ -39,6 +39,6 @@ func (m *MusicService) AddMusic(music *model.Music) error {
 	return m.musicDao.Add(music)
 }
 
-func (m *MusicService) DeleteMusic(name string) error {
-	return m.musicDao.Delete(name)
+func (m *MusicService) DeleteMusic(id int) error {
+	return m.musicDao.Delete(id)
 }

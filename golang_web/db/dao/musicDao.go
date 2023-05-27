@@ -15,7 +15,7 @@ func NewMusicDao() *MusicDao {
 			`SELECT id, name, artist, url, cover FROM t_music ORDER BY artist LIMIT ?, ? ;`,
 			`SELECT COUNT(*) FROM t_music`,
 			`INSERT INTO t_music (name, artist, url, cover) VALUES (?, ?, ?, ?);`,
-			`DELETE FROM t_music WHERE name = ?;`,
+			`DELETE FROM t_music WHERE id = ?;`,
 		},
 	}
 }
@@ -40,8 +40,7 @@ func (m *MusicDao) Add(music *model.Music) error {
 	return err
 }
 
-func (m *MusicDao) Delete(name string) error {
-	_, err := sqldb.Exec(m.sql[4], name)
-	println(err.Error())
+func (m *MusicDao) Delete(id int) error {
+	_, err := sqldb.Exec(m.sql[4], id)
 	return err
 }

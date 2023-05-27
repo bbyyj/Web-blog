@@ -56,13 +56,10 @@ func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
 
 func (m *MusicController) DeleteMusic(ctx *gin.Context) *response.Response {
 
-	name := ctx.Query("name")
-	println(name)
-	if name == "" {
-		return response.ResponseDeleteFailed()
-	}
+	id := utils.QueryInt(ctx, "id")
+	println(id)
 
-	err := m.musicService.DeleteMusic(name)
+	err := m.musicService.DeleteMusic(id)
 	if response.CheckError(err, "Delete music error") {
 		return response.ResponseDeleteFailed()
 	}
