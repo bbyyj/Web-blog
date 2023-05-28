@@ -54,14 +54,6 @@ func NewAskBoxDao() *AskBoxDao {
 	}
 }
 
-//getbyparentID
-//{
-//	while{
-//	buff= sql(parentID)
-//	question = append(buff)
-//	}
-//}
-
 // // 返回已回答的问题
 func (abd *AskBoxDao) GetAnsweredQA() (askboxs []model.Askbox, err error) {
 	// abd.sql[0]: `SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC;`,

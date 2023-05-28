@@ -45,8 +45,6 @@ import BackToTop from "../components/BackToTop";
 import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
-import RecommendList from "../components/RecommendList";
-import TagCloud from "../components/TagCloud";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -56,7 +54,7 @@ import '../assets/css/star.css'
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard, RecommendList, TagCloud },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard},
     data() {
         return {
             firstBGPageInfo: {

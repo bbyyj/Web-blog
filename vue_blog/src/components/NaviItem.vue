@@ -25,7 +25,7 @@ export default {
 <style lang="less" scoped>
 
 i {
-    color: #fda085 !important;
+    color: #7378ac !important;
 }
 
 .nav-item {
@@ -33,18 +33,15 @@ i {
     cursor: pointer;
     padding-bottom: 5px;
     text-decoration:none;
-    color: black;
-    font-weight: 40;
+    color: #3d3952;
+    font-weight: 40px;
 }
 
 .nav-item:hover, .active {
     font-weight: bold;
-    color: #fda085;
-    border-bottom: 2px solid #fda085;
+    color: #c1c3da;
+    border-bottom: 2px solid #c1c3da;
 }
 
-.nav-item:hover .active {
-    border-bottom: 4px solid #fda085;
-}
 
 </style>

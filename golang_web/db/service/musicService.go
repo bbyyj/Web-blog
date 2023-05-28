@@ -3,6 +3,7 @@ package service
 import (
 	"blog_web/db/dao"
 	"blog_web/model"
+	"blog_web/utils"
 )
 
 type MusicService struct {
@@ -19,9 +20,15 @@ func (m *MusicService) GetAll() ([]model.Music, error) {
 	return m.musicDao.FindAll()
 }
 
-func (m *MusicService) GetLimited(pageNum, pageSize int) ([]model.Music, error) {
+func (m *MusicService) MusicList(pageNum, pageSize int) ([]model.Music, int, error) {
 	pageStart := (pageNum - 1) * pageSize
-	return m.musicDao.FindLimited(pageStart, pageSize)
+	messages, err := m.musicDao.MusicList(pageStart, pageSize)
+	if err != nil {
+		utils.Logger().Warning("Get MusicList error:%v", err)
+		return nil, 0, err
+	}
+	count, _ := m.musicDao.FindTotalCount()
+	return messages, count, nil
 }
 
 func (m *MusicService) GetCount() (int, error) {

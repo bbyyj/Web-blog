@@ -154,6 +154,53 @@ INSERT INTO `t_essay` VALUES (5, '2021-05-01 20:10:48', '如果你累了，学�
 INSERT INTO `t_essay` VALUES (6, '2022-04-06 19:09:15', '学会享受孤独！');
 
 -- ----------------------------
+-- Table structure for t_subject
+-- ----------------------------
+DROP TABLE IF EXISTS `t_subject`;
+CREATE TABLE `t_subject`  (
+                            `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                            `subject` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '学科',
+                            PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+INSERT INTO `t_subject` VALUES (1, '计算机组成原理');
+INSERT INTO `t_subject` VALUES (2, '操作系统');
+INSERT INTO `t_subject` VALUES (3, '计算机网络');
+INSERT INTO `t_subject` VALUES (4, '离散数学');
+INSERT INTO `t_subject` VALUES (5, '数字电路与逻辑');
+INSERT INTO `t_subject` VALUES (6, '软件分析');
+
+-- ----------------------------
+-- Table structure for t_chapter
+-- ----------------------------
+DROP TABLE IF EXISTS `t_chapter`;
+CREATE TABLE `t_chapter`  (
+                              `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                              `subject` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '学科',
+                              `chapter` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '章节',
+                              PRIMARY KEY (`id`) USING BTREE
+
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+INSERT INTO `t_chapter` VALUES (1, '计算机组成原理','总线');
+INSERT INTO `t_chapter` VALUES (2, '计算机组成原理','CPU');
+INSERT INTO `t_chapter` VALUES (3, '计算机组成原理','寻址方式');
+INSERT INTO `t_chapter` VALUES (4, '操作系统','虚拟内存');
+INSERT INTO `t_chapter` VALUES (5, '操作系统','物理内存');
+INSERT INTO `t_chapter` VALUES (6, '操作系统','文件系统');
+INSERT INTO `t_chapter` VALUES (7, '计算机网络','应用层');
+INSERT INTO `t_chapter` VALUES (8, '计算机网络','运输层');
+INSERT INTO `t_chapter` VALUES (9, '计算机网络','网络层');
+INSERT INTO `t_chapter` VALUES (10, '计算机网络','链路层');
+INSERT INTO `t_chapter` VALUES (11, '离散数学','图');
+INSERT INTO `t_chapter` VALUES (12, '离散数学','命题');
+INSERT INTO `t_chapter` VALUES (13, '离散数学','逻辑分析');
+INSERT INTO `t_chapter` VALUES (14, '数字电路与逻辑','存储器');
+INSERT INTO `t_chapter` VALUES (15, '数字电路与逻辑','移位器');
+INSERT INTO `t_chapter` VALUES (16, '数字电路与逻辑','自动转换表');
+INSERT INTO `t_chapter` VALUES (17, '软件分析','用例建模');
+
+-- ----------------------------
 -- Table structure for t_leave_message
 -- ----------------------------
 DROP TABLE IF EXISTS `t_leave_message`;

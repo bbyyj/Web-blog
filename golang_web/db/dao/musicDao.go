@@ -1,6 +1,8 @@
 package dao
 
-import "blog_web/model"
+import (
+	"blog_web/model"
+)
 
 type MusicDao struct {
 	sql []string
@@ -9,10 +11,10 @@ type MusicDao struct {
 func NewMusicDao() *MusicDao {
 	return &MusicDao{
 		sql: []string{
-			`SELECT id, name, artist, url, cover FROM t_music ORDER BY artist;`,
-			`SELECT id, name, artist, url, cover FROM t_music ORDER BY artist LIMIT ?, ?;`,
+			`SELECT id, name, artist, url, cover FROM t_music;`,
+			`SELECT id, name, artist, url, cover FROM t_music ORDER BY artist LIMIT ?, ? ;`,
 			`SELECT COUNT(*) FROM t_music`,
-			`INSERT INTO t_music (id, name, artist, url, cover) VALUES (?, ?, ?, ?, ?);`,
+			`INSERT INTO t_music (name, artist, url, cover) VALUES (?, ?, ?, ?);`,
 			`DELETE FROM t_music WHERE id = ?;`,
 		},
 	}
@@ -23,8 +25,8 @@ func (m *MusicDao) FindAll() (musics []model.Music, err error) {
 	return
 }
 
-func (m *MusicDao) FindLimited(pageStart, pageSize int) (musics []model.Music, err error) {
-	err = sqldb.Select(&musics, m.sql[1], pageStart, pageSize)
+func (m *MusicDao) MusicList(pageStart, PageSize int) (msg []model.Music, err error) {
+	err = sqldb.Select(&msg, m.sql[1], pageStart, PageSize)
 	return
 }
 
@@ -34,7 +36,7 @@ func (m *MusicDao) FindTotalCount() (count int, err error) {
 }
 
 func (m *MusicDao) Add(music *model.Music) error {
-	_, err := sqldb.Exec(m.sql[3], music.Id, music.Name, music.Artist, music.Url, music.Cover)
+	_, err := sqldb.Exec(m.sql[3], music.Name, music.Artist, music.Url, music.Cover)
 	return err
 }
 
