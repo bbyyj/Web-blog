@@ -201,6 +201,7 @@ export default {
                 if (res.status === 101) {
                     this.$message.success("新增科目成功");
                     this.getSubjectsList();  //刷新科目列表
+                    this.newSubjectForm.name = ""
                 } else {
                     this.$message.error("新增科目失败");
                 }
@@ -235,6 +236,10 @@ export default {
                 if (res.status === 101) {
                     this.$message.success("新增章节成功");
                     this.getChaptersList(this.newChapterForm.subject);  //刷新章节列表
+                    this.newChapterForm.subject = "",  //假设你要在哪个科目下新增章节的科目名称存在这个变量里
+                        this.newChapterForm.chapter = "",   //假设你的新章节名称存在这个变量里
+                        this.newChapterForm.description = ""
+
                 } else {
                     this.$message.error("新增章节失败");
                 }

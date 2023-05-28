@@ -175,20 +175,28 @@ export default {
         // 监听pagesize 改变的事件
         handleSizeChange: function (pagesize) {
             this.queryInfo.pageSize = pagesize;
-            this.getQandA();
+            this.getExamQuestion();
         },
         // 页码值发送变化
         handleCurrentChange: function (newPage) {
             this.queryInfo.pageNum = newPage;
-            this.getQandA();
+            this.getExamQuestion();
         },
-        //处理编辑按钮
+        //处理编辑操作
         handleEdit(index) {
-            // 复制被编辑的题目到editInfo
-            this.editInfo = { ...this.examQuestions[index] };
-            // 打开编辑对话框
-            this.dialogEditFormVisible = true;
+            // 在下一个DOM更新周期执行数据赋值操作
+            const question = this.examQuestions[index];
+            this.editInfo.id = question.id;
+            this.editInfo.question = question.text;
+            this.editInfo.selection1 = question.first_answer;
+            this.editInfo.selection2 = question.second_answer;
+            this.editInfo.selection3 = question.third_answer;
+            this.editInfo.selection4 = question.fourth_answer;
+            this.editInfo.answer = question.correct_answer;
+
+            this.dialogEditFormVisible = true; // 先设置对话框可见状态
         },
+
         //删除按钮
         async handleDelete(index) {
             // 使用浏览器自带的确认框，提示用户确认删除
@@ -225,15 +233,6 @@ export default {
         },
         //提交新的题目信息
         async submitPostInfo() {
-            // 检查是否已选择科目和章节
-            if (this.selectedSubject.trim() === '') {
-                window.alert('请先选择科目！');
-                return;
-            }
-            if (this.selectedChapter.trim() === '') {
-                window.alert('请先选择章节！');
-                return;
-            }
             // 检查所有信息是否已被填充
             for (let key in this.postInfo) {
                 if (this.postInfo.hasOwnProperty(key) && key !== 'id') {
@@ -302,10 +301,9 @@ export default {
                 if (res.status === 101) {
                     // 显示成功消息
                     window.alert('编辑成功!');
+                    this.dialogEditFormVisible = false;
                     // 重新获取题目列表
                     this.getExamQuestion();
-                    // 关闭编辑对话框
-                    this.dialogFormVisible = false;
                 } else {
                     // 显示失败消息
                     window.alert('编辑失败!');
