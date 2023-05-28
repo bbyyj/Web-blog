@@ -8,7 +8,7 @@
                     </el-option>
                 </el-select>
                 <el-select v-model="selectedChapter" placeholder="选择章节" @change="getExamQuestion" clearable>
-                    <el-option v-for="item in chapters" :key="item.id" :label="item.name" :value="item.name">
+                    <el-option v-for="item in chapters" :key="item.id" :label="item.title" :value="item.title">
                     </el-option>
                 </el-select>
                 <!-- 新增题目按钮 -->
@@ -16,19 +16,19 @@
             </div>
 
             <!-- 列表区域 -->
-            <el-table :data="links" border stripe>
+            <el-table :data="examQuestions" border stripe>
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="问题" prop="question" width="300px"></el-table-column>
-                <el-table-column label="选项1" prop="selection1"></el-table-column>
-                <el-table-column label="选项2" prop="selection2"></el-table-column>
-                <el-table-column label="选项3" prop="selection3"></el-table-column>
-                <el-table-column label="选项4" prop="selection4"></el-table-column>
-                <el-table-column label="正确答案" prop="answer" width="300px"></el-table-column>
+                <el-table-column label="问题" prop="text" width="300px"></el-table-column>
+                <el-table-column label="选项1" prop="first_answer"></el-table-column>
+                <el-table-column label="选项2" prop="second_answer"></el-table-column>
+                <el-table-column label="选项3" prop="third_answer"></el-table-column>
+                <el-table-column label="选项4" prop="fourth_answer"></el-table-column>
+                <el-table-column label="正确答案" prop="correct_answer" width="300px"></el-table-column>
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
                         <!-- 编辑和删除按钮 -->
                         <el-button size="mini" @click="handleEdit(scope.$index)">编辑</el-button>
-                        <el-button size="mini" @click="handleDelete(scope.$index)">删除</el-button>
+                        <el-button size="mini" @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -117,7 +117,6 @@ export default {
             //新增题目的信息对话框
             dialogFormVisible: false,
             postInfo: {
-                id: 0,
                 question: "",
                 selection1: "",
                 selection2: "",
@@ -132,20 +131,11 @@ export default {
                 pageNum: 1,
                 pageSize: 10,
             },
-
-            subjects: [{ name: "机组" }], //科目列表
-            chapters: [{ name: "机组" }], //章节列表
+            subjects: [], //科目列表
+            chapters: [], //章节列表
             selectedSubject: '', //选中的科目
             selectedChapter: '', //选中的章节
-            links: [{
-                id: 0,
-                question: "test",
-                selection1: "1",
-                selection2: "2",
-                selection3: "3",
-                selection4: "4",
-                answer: "3",
-            }] //存储获取的题目列表
+            examQuestions: [] //存储获取的题目列表
         };
     },
     watch: {
@@ -171,7 +161,6 @@ export default {
             }
             // 清空postInfo
             this.postInfo = {
-                id: 0,
                 question: "",
                 selection1: "",
                 selection2: "",
@@ -183,19 +172,20 @@ export default {
             this.dialogFormVisible = true;
         },
 
-        //分页大小改变
-        handleSizeChange(val) {
-            this.queryInfo.pageSize = val;
-            this.getExamQuestion();
+        // 监听pagesize 改变的事件
+        handleSizeChange: function (pagesize) {
+            this.queryInfo.pageSize = pagesize;
+            this.getQandA();
         },
-        //分页当前页改变
-        handleCurrentChange(val) {
-            this.queryInfo.pageNum = val;
-            this.getExamQuestion();
+        // 页码值发送变化
+        handleCurrentChange: function (newPage) {
+            this.queryInfo.pageNum = newPage;
+            this.getQandA();
         },
+        //处理编辑按钮
         handleEdit(index) {
             // 复制被编辑的题目到editInfo
-            this.editInfo = { ...this.links[index] };
+            this.editInfo = { ...this.examQuestions[index] };
             // 打开编辑对话框
             this.dialogEditFormVisible = true;
         },
@@ -204,13 +194,22 @@ export default {
             // 使用浏览器自带的确认框，提示用户确认删除
             if (window.confirm('此操作将永久删除该题目, 是否继续?')) {
                 try {
-                    // 发送delete HTTP请求来删除题目
-                    const { data: res } = await axios.delete(`/myblog/tacitInfo/${this.links[index].id}`);
-                    if (res.status === 1) {
+                    // 发送delete HTTP请求来删除题目/admin/deleteExam
+                    const { data: res } = await this.$axios.delete("/admin/deleteExam", { params: { id: index } });
+                    console.log(index)
+                    if (res.status === 401) {
                         // 显示成功消息
                         window.alert('删除成功!');
-                        // 重新获取题目列表
-                        this.getExamQuestion();
+                        //进行页码等相关转换操作
+                        if (this.queryInfo.pageNum === Math.ceil(this.total / this.queryInfo.pageSize) && this.examQuestions.length === 1) {
+                            this.queryInfo.pageNum -= 1
+                            if (this.queryInfo.pageNum <= 0) {
+                                this.queryInfo.pageNum = 1
+                                return
+                            }
+                        }
+                        //刷新列表
+                        await this.getExamQuestion();
                     } else {
                         // 显示失败消息
                         window.alert('删除失败!');
@@ -247,10 +246,18 @@ export default {
             }
             try {
                 // 如果所有信息都已被填充，继续提交操作
-                const { data: res } = this.postInfo.id
-                    ? await axios.put("/myblog/tacitInfo", this.postInfo) // 发送PUT HTTP请求来更新题目
-                    : await axios.post("/myblog/tacitInfo", this.postInfo); // 发送POST HTTP请求来创建题目
-                if (res.status === 1) {
+                const { data: res } = await this.$axios.post("/admin/createExam", {
+                    subject: this.selectedSubject,
+                    chapter: this.selectedChapter,
+                    text: this.postInfo.question,
+                    first_answer: this.postInfo.selection1,
+                    second_answer: this.postInfo.selection2,
+                    third_answer: this.postInfo.selection3,
+                    fourth_answer: this.postInfo.selection4,
+                    correct_answer: this.postInfo.answer
+                });
+                console.log(this.selectedChapter)
+                if (res.status === 101) {
                     // 显示成功消息
                     window.alert('新增成功!');
                     // 重新获取题目列表
@@ -266,6 +273,7 @@ export default {
                 window.alert('操作失败，发生异常!');
             }
         },
+
         //提交新编辑的章节内容
         async submitEditInfo() {
             // 检查所有信息是否已被填充
@@ -280,10 +288,18 @@ export default {
             }
             try {
                 // 如果所有信息都已被填充，继续提交操作
-                const { data: res } = this.editInfo.id
-                    ? await axios.put("/myblog/tacitInfo", this.editInfo) // 发送PUT HTTP请求来更新题目
-                    : await axios.post("/myblog/tacitInfo", this.editInfo); // 发送POST HTTP请求来创建题目
-                if (res.status === 1) {
+                const { data: res } = await this.$axios.put("/admin/updateExam", {
+                    id: this.editInfo.id,
+                    subject: this.selectedSubject,
+                    chapter: this.selectedChapter,
+                    text: this.editInfo.question,
+                    first_answer: this.editInfo.selection1,
+                    second_answer: this.editInfo.selection2,
+                    third_answer: this.editInfo.selection3,
+                    fourth_answer: this.editInfo.selection4,
+                    correct_answer: this.editInfo.answer
+                });
+                if (res.status === 101) {
                     // 显示成功消息
                     window.alert('编辑成功!');
                     // 重新获取题目列表
@@ -300,16 +316,16 @@ export default {
             }
         },
 
-        //获取全部学科列表
+        //获取全部学科列表 //已经完成/////////////////////////
         async getSubjectsList() {
             const { data: res } = await axios.get("/myblog/subjectList");
             if (res.status === 1) {
                 this.subjects = res.data[0];
             }
         },
-        //获取对应学科下全部的章节信息
+        //获取对应学科下全部的章节信息 //已经完成 ////////////////////////////////
         async getChaptersList(subject) {
-            const { data: res } = await axios.get("/myblog/chapterList", {
+            const { data: res } = await axios.get("/admin/chapterList", {
                 params: { name: subject }
             });
             if (res.status === 1) {
@@ -321,16 +337,21 @@ export default {
         },
         //获取对应科目+章节的全部题目
         async getExamQuestion() {
-            const { data: res } = await axios.get("/myblog/获取题目的接口", {
+            const { data: res } = await axios.get("/admin/examList", {
                 params: {
-                    subject: this.selectedSubject,
-                    chapter: this.selectedChapter,
+                    typename: this.selectedSubject,
+                    title: this.selectedChapter,
+                    pageNum: this.queryInfo.pageNum,
+                    pageSize: this.queryInfo.pageSize
                 }
             });
+
             if (res.status === 1) {
-                this.links = res.data[0].list;
-                this.total = res.data[0].total;
-            } else {
+                //赋值题目
+                this.total = res.data[1]
+                this.examQuestions = res.data[0];
+            }
+            else {
                 this.$message.error("获取题目失败,请重试");
             }
         }

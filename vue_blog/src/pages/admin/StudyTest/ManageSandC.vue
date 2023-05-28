@@ -102,7 +102,7 @@ export default {
         },
         //获取科目下的章节内容
         async getChaptersList(subject) {
-            const { data: res } = await this.$axios.get("/myblog/chapterList", {
+            const { data: res } = await this.$axios.get("/admin/chapterList", {
                 params: { name: subject }
             });
             if (res.status === 1) {
