@@ -173,20 +173,22 @@ func (e *ExamDao) FindExamLimited(a string, b string) (examvuelist []model.ExamV
 	return
 }
 
-func (e *ExamDao) FindExam(subject string, chapter string, pageNum int, pageSize int) (examvuelist []model.ExamVue, err error) {
-	examlist := []model.Exam{}
+func (e *ExamDao) FindExam(subject string, chapter string, pageNum int, pageSize int) (examlist []model.Exam, num int, err error) {
+	//examlist := []model.Exam{}
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&examlist, e.sql[6], subject, chapter, pageStart, pageSize)
-	for _, exam := range examlist {
-		examvue := model.ExamVue{
-			Id:            exam.Id,
-			Question:      exam.Question,
-			Answers:       []string{exam.FirstAnswer, exam.SecondAnswer, exam.ThirdAnswer, exam.FourthAnswer},
-			CorrectAnswer: exam.CorrectAnswer,
-		}
-		examvuelist = append(examvuelist, examvue)
+	err = sqldb.Get(&num, e.sql[1], subject, chapter)
+	//for _, exam := range examlist {
+	//	examvue := model.Exam{
+	//		Id:            exam.Id,
+	//		Question:      exam.Question,
+	//		Answers:       []string{exam.FirstAnswer, exam.SecondAnswer, exam.ThirdAnswer, exam.FourthAnswer},
+	//		CorrectAnswer: exam.CorrectAnswer,
+	//	}
+	//	examvuelist = append(examvuelist, examvue)
+	//
+	//}
 
-	}
 	return
 
 }

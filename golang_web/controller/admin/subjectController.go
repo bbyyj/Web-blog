@@ -114,11 +114,11 @@ func (e *ExamController) ExamList(ctx *gin.Context) *response.Response {
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pageSize := utils.QueryInt(ctx, "pageSize")
 
-	exams, err := e.examDao.FindExam(a, b, pageNum, pageSize)
+	exams, count, err := e.examDao.FindExam(a, b, pageNum, pageSize)
 	if response.CheckError(err, "Get Exam List") {
 		return response.ResponseQueryFailed()
 	}
-	return response.ResponseQuerySuccess(exams)
+	return response.ResponseQuerySuccess(exams, count)
 
 }
 
