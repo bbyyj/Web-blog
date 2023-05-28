@@ -40,6 +40,7 @@ func NewChapterDao() *ChapterDao {
 			`SELECT * FROM t_chapter WHERE subject=? ORDER BY id ASC LIMIT ?,?;`,
 			`INSERT INTO t_chapter(subject,chapter,description,views) VALUES (?,?,?,0);`,
 			`DELETE FROM t_chapter WHERE subject=? and chapter=?;`,
+			`SELECT * FROM t_chapter WHERE subject=? ORDER BY id ASC;`,
 		},
 	}
 }
@@ -118,6 +119,10 @@ func (e *SubjectDao) UpdateSub(a string, b string) error {
 func (e *ChapterDao) FindChapter(a string, pageNum int, pageSize int) (chaplist []model.Chapter, err error) {
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&chaplist, e.sql[0], a, pageStart, pageSize)
+	return
+}
+func (e *ChapterDao) FindAllChapter(a string) (chaplist []model.Chapter, err error) {
+	err = sqldb.Select(&chaplist, e.sql[3], a)
 	return
 }
 

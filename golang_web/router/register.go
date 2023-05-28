@@ -194,6 +194,7 @@ func registerBlogManageRouter(engine *gin.Engine) {
 
 	chapterRouter := admin.NewChapterRouter()
 	{
+		adminGroup.GET("/chapterList", Decorate(chapterRouter.ChapterList))
 		adminGroup.POST("/addChapter", Decorate(chapterRouter.AddChapter))
 		adminGroup.DELETE("/deleteChapter", Decorate(chapterRouter.DeleteChapter))
 	}
