@@ -68,7 +68,7 @@ export default {
             // 页面数量
             pages: 1,
             queryInfo: {
-                pageNum: 0,
+                pageNum: 1,
                 pageSize: 5,
                 tagId: 0
             },
