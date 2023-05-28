@@ -68,6 +68,20 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/chapterList", Decorate(chapterRouter.ChapterList))
 	}
+	examRouter := controller.NewExamRouter()
+	{
+		blogGroup.GET("/examList", Decorate(examRouter.ExamList))
+	}
+	electionRouter := controller.NewElectionRouter()
+	{
+		blogGroup.GET("/electionList", Decorate(electionRouter.ElectionList))
+		blogGroup.GET("/electionDetailedList", Decorate(electionRouter.ElectionDetailedList))
+	}
+	electionCommentRouter := controller.NewElectionCommentRouter()
+	{
+		blogGroup.GET("/electionCommentList", Decorate(electionCommentRouter.ElectionCommentList))
+		blogGroup.POST("/addElectionComment", Decorate(electionCommentRouter.AddElectionComment))
+	}
 
 	musicFrontRouter := admin.NewMusicRouter()
 	{
@@ -172,4 +186,44 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
 		adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
 	}
+	subjectRouter := admin.NewSubjectRouter()
+	{
+		adminGroup.POST("/addSubject", Decorate(subjectRouter.AddSubject))
+		adminGroup.DELETE("/deleteSubject", Decorate(subjectRouter.DeleteSubject))
+	}
+
+	chapterRouter := admin.NewChapterRouter()
+	{
+		adminGroup.POST("/addChapter", Decorate(chapterRouter.AddChapter))
+		adminGroup.DELETE("/deleteChapter", Decorate(chapterRouter.DeleteChapter))
+	}
+	examRouter := admin.NewExamRouter()
+	{
+		adminGroup.GET("/examList", Decorate(examRouter.ExamList))
+		adminGroup.DELETE("/deleteExam", Decorate(examRouter.DeleteExam))
+		adminGroup.POST("/createExam", Decorate(examRouter.CreateExam))
+		adminGroup.PUT("/updateExam", Decorate(examRouter.UpdateExam))
+	}
+
+	electionRouter := admin.NewElectionRouter()
+	{
+		adminGroup.GET("/electionList", Decorate(electionRouter.ElectionAllList))
+		adminGroup.DELETE("/deleteElection", Decorate(electionRouter.DeleteElection))
+		adminGroup.POST("/addElection", Decorate(electionRouter.AddElection))
+		adminGroup.PUT("/updateElection", Decorate(electionRouter.UpdateElection))
+	}
+	electionCommentRouter := admin.NewElectionCommentRouter()
+	{
+		adminGroup.GET("/electionCommentList", Decorate(electionCommentRouter.ElectionCommentAllList))
+		adminGroup.DELETE("/deleteElectionComment", Decorate(electionCommentRouter.DeleteElectionComment))
+	}
+
+	//askboxRouter := admin.NewAskboxRouter()
+	//{
+	//	adminGroup.GET("/askboxList", Decorate(musicRouter.AskboxList))
+	//	adminGroup.POST("/addAnswer", Decorate(musicRouter.AddAnswer))
+	//	adminGroup.DELETE("/deleteQuestion", Decorate(musicRouter.DeleteQuestion))
+	//	adminGroup.DELETE("/deleteAnswer", Decorate(musicRouter.DeleteAnswer))
+	//	adminGroup.PUT("/modifyAnswer", Decorate(musicRouter.ModifyAnswer))
+	//}
 }

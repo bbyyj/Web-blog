@@ -48,7 +48,7 @@ func NewExamDao() *ExamDao {
 	return &ExamDao{
 		sql: []string{
 			`SELECT id,subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer 
-FROM t_exam WHERE subject=? and chapter=? ORDER BY id ASC LIMIT ?,?;`,
+FROM t_exam WHERE subject=? and chapter=? ORDER BY id ASC;`,
 			`SELECT COUNT(*) FROM t_exam WHERE subject=? and chapter=?`,
 			`DELETE FROM t_exam WHERE id=?`,
 			`INSERT INTO t_exam(subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer)
@@ -56,6 +56,8 @@ VALUES (?,?,?,?,?,?,?,?)`,
 			`UPDATE t_exam SET subject=?,chapter=?,question=?,first_answer=?,second_answer=?,third_answer=?,
             fourth_answer=?,correct_answer=? WHERE id=?`,
 			`UPDATE t_chapter SET views=views+1 WHERE subject=? and chapter=?`,
+			`SELECT id,subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer 
+FROM t_exam WHERE subject=? and chapter=? ORDER BY id ASC LIMIT ?,?;`,
 		},
 	}
 }
@@ -169,7 +171,7 @@ func (e *ExamDao) FindExamLimited(a string, b string) (examvuelist []model.ExamV
 func (e *ExamDao) FindExam(subject string, chapter string, pageNum int, pageSize int) (examvuelist []model.ExamVue, err error) {
 	examlist := []model.Exam{}
 	pageStart := (pageNum - 1) * pageSize
-	err = sqldb.Select(&examlist, e.sql[0], subject, chapter, pageStart, pageSize)
+	err = sqldb.Select(&examlist, e.sql[6], subject, chapter, pageStart, pageSize)
 	for _, exam := range examlist {
 		examvue := model.ExamVue{
 			Id:            exam.Id,
