@@ -119,7 +119,7 @@ export default {
                 name: "",
                 desc: "",
                 url: "",
-                categoryId: 0,
+                categoryid: 0,
                 icon: "",
             },
             categoryPost: {
@@ -127,8 +127,8 @@ export default {
                 name: ""
             },
             queryInfo: {
-                pageNum: 1,
-                pageSize: 10
+                pagenum: 1,
+                pagesize: 10
             },
             //所有分类 包括id和名字
             categories: [],
@@ -182,7 +182,7 @@ export default {
             const val = this.categories.find(item => {
                 return item.name === name
             })
-            this.postInfo.categoryId = val.id
+            this.postInfo.categoryid = val.id
         },
 
         //添加资源button对应
@@ -196,7 +196,7 @@ export default {
             this.dialogFormVisible = true
             this.postInfo = {...this.links[index]}
             const val = this.categories.find(item => {
-                return item.id === this.links[index].categoryId
+                return item.id === this.links[index].categoryid
             })
             this.selectedCategory = val.name
         },
@@ -218,10 +218,10 @@ export default {
                     console.log(res);
                     console.log(id);
                 }
-                if (this.queryInfo.pageNum === Math.ceil(this.total / this.queryInfo.pageSize) && this.links.length === 1) {
-                    this.queryInfo.pageNum -= 1
-                    if(this.queryInfo.pageNum <= 0) {
-                        this.queryInfo.pageNum = 1
+                if (this.queryInfo.pagenum === Math.ceil(this.total / this.queryInfo.pagesize) && this.links.length === 1) {
+                    this.queryInfo.pagenum -= 1
+                    if(this.queryInfo.pagenum <= 0) {
+                        this.queryInfo.pagenum = 1
                         return
                     }
                 }
@@ -233,11 +233,11 @@ export default {
             });
         },
         handleSizeChange: function(pagesize) {     // 监听pagesize 改变的事件
-            this.queryInfo.pageSize = pagesize;
+            this.queryInfo.pagesize = pagesize;
             this.getLinkList();
         },
         handleCurrentChange: function(newPage) {  // 页码值发送变化
-            this.queryInfo.pageNum = newPage;
+            this.queryInfo.pagenum = newPage;
             this.getLinkList();
         },
         cancel() {
@@ -246,7 +246,7 @@ export default {
                 name: "",
                 desc: "",
                 url: "",
-                categoryId: 0,
+                categoryid: 0,
                 icon: "",
             }
             this.dialogFormVisible = false
