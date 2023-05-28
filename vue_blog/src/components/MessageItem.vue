@@ -23,16 +23,6 @@ import axios from 'axios';
 export default {
     name: "MessageItem",
     props: ["msg"],
-    computed: {
-        imgObj() {
-            const x = Math.floor((this.msg.avatar - 1) % 7) + 1
-            const y = Math.floor((this.msg.avatar - 1) / 7)
-            return {
-                backgroundPositionX: x * 48 + 'px',
-                backgroundPositionY: y * 48 + 'px',
-            }
-        },
-    },
     methods: {
         dateFormat() {
             return dayjs(this.msg.createTime).format('YYYY-MM-DD HH:mm:ss')
@@ -71,11 +61,13 @@ h4 {
     margin-bottom: 5px;
     cursor: pointer;
 }
+
 h5 {
     font-size: 12px;
     font-weight: 400;
     margin: 0;
 }
+
 p {
     display: block;
     margin: 5px 54px 10px;
@@ -91,7 +83,7 @@ a {
     padding: 10px;
     margin-right: 10px;
     outline: none;
-    text-decoration: none;   
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -104,6 +96,7 @@ a:hover {
 .space {
     height: 20px;
 }
+
 /* 问题部分 */
 .question {
     padding: 10px;
@@ -113,6 +106,7 @@ a:hover {
     font-weight: normal;
     font-family: 华文楷体;
 }
+
 /* 答案部分 */
 .answer {
     padding: 10px;
@@ -120,5 +114,4 @@ a:hover {
     font-size: 24px;
     font-weight: bolder;
     font-family: 华文楷体;
-}
-</style>
+}</style>

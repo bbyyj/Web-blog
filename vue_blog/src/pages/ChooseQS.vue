@@ -1,7 +1,8 @@
 
 <template>
     <div class="ChooseQS">
-        <div class="sun"></div>
+        <div class="sun">
+        </div>
 
         <div class="title" align="center">答题测试</div>
         <!-- 科目栏 -->
@@ -40,11 +41,13 @@
                     </ChaptersCard>
                 </div>
                 <!--分页-->
-                <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }">
-                </Pagination>
+                <!-- 分页区域 -->
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page="queryInfo.pageNum" :page-sizes="[5, 10]" :page-size="queryInfo.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper" :total="total">
+                </el-pagination>
             </div>
         </transition>
-
     </div>
 </template>
 
@@ -63,6 +66,8 @@ export default {
             currentTagId: 1,
             //选中的科目
             subject: "",
+            //对应科目下的章节数量
+            total: 0,
             // 页面数量
             pages: 1,
             queryInfo: {
@@ -78,41 +83,42 @@ export default {
     },
     created() {
         this.getSubjectsList(true);
-        this.getChaptersList('计算机组成原理');
+        this.getChaptersList('计算机网络');
     },
-
     methods: {
         //获取科目列表
         async getSubjectsList(flag) {
             const { data: res } = await this.$axios.get("/myblog/subjectList");
             if (res.status === 1) {
                 //将res赋值给subjects
-                console.log(res.data[0]);
+                //console.log(res.data[0]);
                 this.subjects = res.data[0];
             }
         },
         //获取科目下的章节内容
         async getChaptersList(subject) {
             const { data: res } = await this.$axios.get("/myblog/chapterList", {
-                params: { name: subject }
+                params: { name: subject, pageNum: this.queryInfo.pageNum, pageSize: this.queryInfo.pageSize }
             });
+            console.log(res.data[0])
             if (res.status === 1) {
+                this.subject = subject;
                 this.Chapters = res.data[0];
+                for (let item of this.subjects) {
+                    if (item.name === subject) {
+                        this.total = item.count;
+                        break;
+                    }
+                }
             } else {
                 this.$message.error("获取对应章节失败,请重试")
                 return
             }
             //分页相关
-            const count = res.data.length > 1 ? res.data[1] : 0
-            this.pages = Math.ceil(count / this.queryInfo.pageSize);
+            this.pages = Math.ceil(this.total / this.queryInfo.pageSize);
             if (this.pages <= 0) {
                 this.pages = 1
             }
-        },
-        jumpPage(pageNum) {
-            window.scrollTo(0, 0)
-            this.queryInfo.pageNum = pageNum;
-            this.getChaptersList(this.currentTagId);
         },
         GotoTest(typename, title) {
             this.$router.push({
@@ -122,12 +128,19 @@ export default {
                     title: title
                 }
             });
-        }
+        },
+        handleSizeChange(newSize) {
+            this.queryInfo.pageSize = newSize;
+            this.getChaptersList(this.subject);
+        },
+        handleCurrentChange(newPage) {
+            this.queryInfo.pageNum = newPage;
+            this.getChaptersList(this.subject);
+        },
     }
 }
 
 </script>
-
 
 
 <style lang="less" scoped>
@@ -138,37 +151,77 @@ export default {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-color: #7378ac;
-    background-image: 
+    background-image:
+
         radial-gradient(closest-side, #aab7cc, rgba(235, 105, 78, 0)),
         radial-gradient(closest-side, #7285ac, rgba(243, 11, 164, 0)),
         radial-gradient(closest-side, #919fbe, rgba(254, 234, 131, 0)),
         radial-gradient(closest-side, #e0e5ed, rgba(170, 142, 245, 0)),
         radial-gradient(closest-side, #8295b5, rgba(248, 192, 147, 0));
-    background-size: 130vmax 130vmax,80vmax 80vmax,90vmax 90vmax,110vmax 110vmax,90vmax 90vmax;
-    background-position: -80vmax -80vmax,60vmax -30vmax,10vmax 10vmax,-30vmax -10vmax,50vmax 50vmax;
+    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
     animation: 10s move linear infinite;
 
 }
+
 // 通过修改background的参数形成动画
 @keyframes move {
-    0%, 100% {
-        background-size: 130vmax 130vmax,80vmax 80vmax,90vmax 90vmax,110vmax 110vmax,90vmax 90vmax;
-        background-position:-80vmax -80vmax,60vmax -30vmax,10vmax 10vmax,-30vmax -10vmax,50vmax 50vmax;
+
+    0%,
+    100% {
+        background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+        background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
     }
+
     25% {
-        background-size: 100vmax 100vmax,90vmax 90vmax,100vmax 100vmax,90vmax 90vmax,60vmax 60vmax;
-        background-position:-60vmax -90vmax,50vmax -40vmax,0vmax -20vmax,-40vmax -20vmax,40vmax 60vmax;
+        background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+        background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
     }
+
     50% {
-        background-size: 80vmax 80vmax,110vmax 110vmax,80vmax 80vmax,60vmax 60vmax,80vmax 80vmax;
-        background-position:-50vmax -70vmax,40vmax -30vmax,10vmax 0vmax,20vmax 10vmax,30vmax 70vmax;
-        }
+        background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+        background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+
     75% {
-        background-size: 90vmax 90vmax,90vmax 90vmax,100vmax 100vmax,90vmax 90vmax,70vmax 70vmax;
-        background-position: -50vmax -40vmax,50vmax -30vmax,20vmax 0vmax,-10vmax 10vmax,40vmax 60vmax;
+        background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+        background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
     }
 }
-.sun{
+
+.sun {
+    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    animation: 10s move linear infinite;
+
+}
+
+// 通过修改background的参数形成动画
+@keyframes move {
+
+    0%,
+    100% {
+        background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+        background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+
+    25% {
+        background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+        background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+
+    50% {
+        background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+        background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+
+    75% {
+        background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+        background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
+}
+
+.sun {
     position: fixed;
     top: 80px;
     left: 780px;
@@ -178,6 +231,7 @@ export default {
     height: 400px;
     width: 400px;
 }
+
 .title {
     font-size: 80px;
     color: #eff1f6;
@@ -189,9 +243,11 @@ export default {
     opacity: 0.85;
     padding-top: 8%;
 }
+
 .el-dropdown {
     vertical-align: top;
 }
+
 .el-dropdown+.el-dropdown {
     margin-left: 15px;
 }
@@ -200,38 +256,85 @@ export default {
     font-size: 14px;
 }
 
-ul,li {
+ul,
+li {
     display: block;
-    list-style:none;
+    list-style: none;
     margin: 0;
     padding: 0;
 }
-.el-button--primary{
-    background-color: #393f51;
-    padding: 18px;
-    border-radius: 10px;
-    border: 0;
-    margin-bottom: 50px;
-}
-.el-dropdown-menu{
-    background-color: #eff1f6;
-    border-radius: 10px;
-    padding: 15px 20px 15px 20px;
-}
-.el-dropdown-menu el-dropdown-item:hover{
-    color: #7378ac;
-}
-.subjects-area {
-    margin: 50px 200px 50px 200px;
-    overflow: hidden;
+
+.ChooseQS {
+    background-attachment: fixed;
+    min-height: 1000px;
+
 }
 
-.chapters-area {
-    width: 850px;
-    margin: 40px auto 50px;
-}
+.title {
+    font-size: 450%;
+    color: #fa0000;
 
-.pagebar {
-    padding-bottom: 50px;
+    .el-button--primary {
+        background-color: #393f51;
+        padding: 18px;
+        border-radius: 10px;
+        border: 0;
+        margin-bottom: 50px;
+    }
+
+    ul,
+    li {
+        display: block;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .el-button--primary {
+        background-color: #393f51;
+        padding: 18px;
+        border-radius: 10px;
+        border: 0;
+        margin-bottom: 50px;
+    }
+
+    .el-dropdown-menu {
+        background-color: #eff1f6;
+        border-radius: 10px;
+        padding: 15px 20px 15px 20px;
+    }
+
+    .el-dropdown-menu el-dropdown-item:hover {
+        color: #7378ac;
+    }
+
+    .subjects-area {
+        margin: 50px 200px 50px 200px;
+        overflow: hidden;
+    }
+
+    .el-dropdown-menu {
+        background-color: #eff1f6;
+        border-radius: 10px;
+        padding: 15px 20px 15px 20px;
+    }
+
+    .el-dropdown-menu el-dropdown-item:hover {
+        color: #7378ac;
+    }
+
+    .subjects-area {
+        margin: 50px 200px 50px 200px;
+        overflow: hidden;
+    }
+
+    .chapters-area {
+        width: 850px;
+        margin: 40px auto 50px;
+    }
+
+    .pagebar {
+        padding-bottom: 50px;
+    }
 }
 </style>
