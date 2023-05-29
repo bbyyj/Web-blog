@@ -258,19 +258,15 @@ ul,li {
 /deep/ .el-input__inner:focus, .el-input__inner:hover, .el-input__inner:active{
     border: 2px solid  #565ca4;
 }
-// 修改不成功
-/deep/ .el-select-dropdown__list{
-    .el-select-dropdown__item {
-		padding: 0 0.2rem 0 0.2rem;
-		color:#010101;
-		font-size: 16px;
-	}
-    .el-select-dropdown__item.selected {
-		color: #565ca4;
-	}
-    .el-select-dropdown__item.hover,.el-select-dropdown__item:hover {
-		background-color: #ffffff;
-	}
+
+// 这里修改不成功
+.el-select-dropdown__item {
+	padding: 0 0.2rem 0 0.2rem;
+	color:#010101;
+	font-size: 16px;
+}
+.el-select-dropdown__item.selected {
+	color: #565ca4;
 }
 
 /deep/ .el-select:hover{
