@@ -4,8 +4,8 @@
             <!-- 提问输入框 -->
             <textarea v-model="postInfo.question" placeholder="输入你的问题..." id="" cols="30" rows="10"></textarea>
             <!-- 彩虹模式选择框 -->
-            <label>
-                <input v-model="postInfo.rainbow" type="checkbox">
+            <label class="rainbow">
+                <input v-model="postInfo.rainbow" type="checkbox" class="rainbow-input">
                 是否为彩虹
             </label>
             <!-- 提交按钮 -->
@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 /* 问题框部分 */
 .panel {
     border-radius: 20px;
@@ -113,20 +113,13 @@ export default {
 }
 
 textarea {
-    font-size: 40px;
+    font-size: 36px;
     outline: none;
     resize: none;
     border: none;
     border-bottom: 2px dashed #dedede;
     padding: 10px;
     width: 90%;
-}
-
-.btn-area {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 button {
@@ -136,13 +129,33 @@ button {
     text-align: center;
     font-size: 25px;
     border: none;
-    padding: 1rem 1rem;
-    border-radius: 50px;
+    padding: 1rem 2rem;
+    border-radius: 25px;
     margin: 0 150px;
 
 }
 
 button:active {
     transform: translateY(2px);
+}
+
+.rainbow-input{
+    display:inline-block;
+    visibility:hidden;
+}
+.rainbow-input:checked{
+    visibility: visible;
+}
+.rainbow{
+    display:inline-block;
+    background-color: #c1c3da;
+    color: #ffffff;
+    text-align: center;
+    font-size: 25px;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    margin: 0 100px;
+    
 }
 </style>

@@ -3,17 +3,15 @@
     <div class="box">
 
         <!--图片区域-->
-        <div class="image-box" :class="{'image-box-right' : imgRight}">
+        <div class="image-box">
             <img :src="item.firstPicture">
         </div>
 
         <!--博客区域-->
-        <div class="blog-box" :class="{'blog-box-right' : imgRight}">
+        <div class="blog-box">
             <!--博客标题-->
             <div class="blog-title">
-                <a>
-                    {{ item.title }}
-                </a>
+                <a>{{ item.title }}</a>
             </div>
 
             <!--博客信息-->
@@ -87,7 +85,7 @@ export default {
 }
 
 //图片区域
-.box .image-box {
+.image-box {
     float: left;
     border-radius: 6px;
     margin: 40px 30px;
@@ -96,21 +94,10 @@ export default {
 }
 
 //博客信息区域
-.box .blog-box {
-    float: left;
+.blog-box {
     width: 650px;
     height: 250px;
     padding-left: 20px;
-}
-
-.image-box-right {
-    float: right !important;
-    margin-right: 10px !important;
-}
-
-.blog-box-right {
-    float: right !important;
-    padding-right: 20px !important;
 }
 
 .image-box img {
@@ -127,7 +114,6 @@ export default {
 .box::after{
     position:absolute;
     content:'';
-    // border:3px;
     width:0;
     height:0;
     z-index:-1;
@@ -152,15 +138,6 @@ export default {
 .box:hover::before{
     width:100%;
     height:100%;
-    // border-bottom-color:#183f2d;
-    // border-left-color:#183f2d;
-    transition:border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
-}
-.box:hover::before{
-    width:100%;
-    height:100%;
-    // border-top-color:#183f2d;
-    // border-right-color: #183f2d;
     transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
     -webkit-transition:width 0.2s ease-out, height 0.2s ease-out 0.2s;
 }
@@ -213,7 +190,7 @@ export default {
 .box .blog-box .blog-desc {
     height: 110px;
     p {
-        padding: 12px 20px;
+        padding: 12px 24px;
         font-size: 16px;
         line-height: 1.8;
         color: #3d3952;
@@ -237,15 +214,7 @@ export default {
         font-weight: bold;
     }
 
-    .icon-yonghu{
-        color: #3d3952;
-    }
-
-    .icon-riqi {
-        color: #3d3952;
-    }
-
-    .icon-yanjing {
+    .icon-yonghu, .icon-riqi, .icon-yanjing {
         color: #3d3952;
     }
 
@@ -254,7 +223,7 @@ export default {
         text-decoration: none;
         outline: none;
         border: 1px solid #696eae;
-        padding: 2px;
+        padding: 4px;
         border-radius: 3px;
         color: #696eae;
     }
@@ -265,14 +234,6 @@ li {
     list-style: none;
     display: inline-block;
     margin-right: 18px;
-}
-
-.right-float {
-    float: right;
-}
-
-.left-float {
-    float: left;
 }
 
 .text-ellipsis {

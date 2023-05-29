@@ -13,7 +13,7 @@
             <!-- 侧边区域 -->
             <el-aside :width="isCollapse ? '65px' : '200px'">
                 <div class="toggle-button" @click="toggleCollapse">|||</div>
-                <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" unique-opened
+                <el-menu text-color="#eaf0ef" active-text-color="#eaf0ef" unique-opened
                     :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
 
                     <el-submenu :index="menu.id" v-for="(menu, i1) in menus" :key="menu.id">
@@ -36,7 +36,7 @@
                             </template>
                         </el-menu-item>
                     </el-submenu>
-                </el-menu>-->
+                </el-menu>
             </el-aside>
 
             <!-- 主体区域 -->
@@ -179,14 +179,14 @@ export default {
 .home_container {
     height: 100%;
 }
-
 .el-header {
-    background-color: #373D41;
+    background-color: #1c436d;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #fff;
-
+    color: #F9F5EB;
+    padding-top: 10px;
+    padding-bottom: 10px;
     >div {
         display: flex;
         align-items: center;
@@ -195,35 +195,50 @@ export default {
             margin-left: 100px;
             font-size: 30px;
             font-weight: bold;
+            
         }
     }
 }
-
+.el-button--info{
+    background-color: #EA5455;
+    border: none;
+    color: #F9F5EB;
+    font-size: 16px;
+}
 .el-aside {
-    background-color: #333744;
+    background-color: #1c436d;
 
     ele-menu {
-        border-right: none;
+        border-right: 1px solid #1c436d;
     }
 }
 
 .el-main {
-    background-color: #fff;
+    background-color: #F9F5EB;
 }
 
 .el-menu {
-    background-color: #1B1C1D;
+    border-right: 1px solid #1c436d;
+    background-color: #1c436d;
+    // color: #1d3d39;
     opacity: 1;
-
     font-weight: 500;
     font-size: 50px;
 }
 
+/deep/ .el-submenu .el-submenu__title:hover, .el-menu-item:hover, .el-submenu .el-submenu__title:focus, .el-menu-item:focus{
+    outline: 0 !important;
+    background-color: #7189a4 !important;
+}
+.el-menu-item {
+    background-color: #1c436d !important;
+    border: none;
+}
 .toggle-button {
-    background-color: #4A5064;
+    background-color: #1c436d;
     font-size: 10px;
-    line-height: 24px;
-    color: #fff;
+    line-height: 30px;
+    color: #F9F5EB;
     text-align: center;
     letter-spacing: 0.2em;
     cursor: pointer;

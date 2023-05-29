@@ -2,7 +2,7 @@
 <template>
     <div class="box">
         <!--博客区域-->
-        <div class="blog-box" :class="{ 'blog-box-right': imgRight }">
+        <div class="blog-box">
             <!--博客标题-->
             <div class="blog-title">
                 <a>
