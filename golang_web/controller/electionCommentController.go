@@ -22,11 +22,11 @@ func (e *ElectionCommentController) ElectionCommentList(ctx *gin.Context) *respo
 	subject_id := ctx.Query("subject_id")
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pegeSize := utils.QueryInt(ctx, "pageSize")
-	essays, err := e.electionCommentDao.FindElectionComment(subject_id, pageNum, pegeSize)
+	essays, count, err := e.electionCommentDao.FindElectionComment(subject_id, pageNum, pegeSize)
 	if response.CheckError(err, "Get Election Comment List") {
 		return response.ResponseQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays)
+	return response.ResponseQuerySuccess(essays, count)
 }
 func (e *ElectionCommentController) AddElectionComment(ctx *gin.Context) *response.Response {
 	var comment model.ElectionComment
