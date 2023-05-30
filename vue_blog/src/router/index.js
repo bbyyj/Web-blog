@@ -11,6 +11,7 @@ const AskBoard = () => import("../pages/AskBoard");
 const ResourceLib = () => import("../pages/ResourceLib");
 const NotFound = () => import("../components/error/NOTFOUND.vue");
 const InternalError = () => import("../components/error/INTERNALERROR.vue");
+const CourseDetail = () => import("../components/CourseDetail.vue");
 
 const Login = () => import("../pages/admin/Login");
 const AdminHome = () => import("../pages/admin/Home");
@@ -25,6 +26,10 @@ const ManageTest = () => import("../pages/admin/StudyTest/ManageTest");
 const ManageSandC = () => import("../pages/admin/StudyTest/ManageSandC");
 const ManagehaveAsked = () => import("../pages/admin/Ask/ManagehaveAsked.vue");
 const ManagenoAsk = () => import("../pages/admin/Ask/ManagenoAsk.vue");
+const ManageComments = () =>
+  import("../pages/admin/ChooseSubject/ManageComments.vue");
+const ManageSubjects = () =>
+  import("../pages/admin/ChooseSubject/ManageSubjects.vue");
 
 Vue.use(VueRouter);
 
@@ -51,6 +56,7 @@ const routes = [
         component: InternalError,
         meta: { auth: false },
       },
+      { path: "/CourseDetail", component: CourseDetail, meta: { auth: false } },
     ],
   },
   { path: "/login", component: Login },
@@ -81,6 +87,16 @@ const routes = [
         meta: { auth: true },
       },
       { path: "/managenoAsk", component: ManagenoAsk, meta: { auth: true } },
+      {
+        path: "/manageComments",
+        component: ManageComments,
+        meta: { auth: true },
+      },
+      {
+        path: "/manageSubjects",
+        component: ManageSubjects,
+        meta: { auth: true },
+      },
     ],
   },
 ];

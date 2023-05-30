@@ -137,6 +137,15 @@ export default {
                         { id: "91", index: "/ManagehaveAsked", icon: "el-icon-menu", name: "已回答问题" },
                         { id: "92", index: "/ManagenoAsk", icon: "el-icon-menu", name: "未回答问题" },
                     ]
+                },
+                {
+                    id: "10",
+                    icon: "el-icon-star-off",
+                    name: "选课通管理",
+                    submenus: [
+                        { id: "101", index: "/ManageComments", icon: "el-icon-menu", name: "学科评论" },
+                        { id: "102", index: "/ManageSubjects", icon: "el-icon-menu", name: "学科信息" },
+                    ]
                 }
             ]
         }
