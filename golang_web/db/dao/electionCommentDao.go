@@ -12,18 +12,36 @@ func NewElectionCommentDao() *ElectionCommentDao {
 			`SELECT * FROM t_election_comment WHERE subject_id=? ORDER BY id ASC LIMIT ?,?;`,
 			`SELECT * FROM t_election_comment ORDER BY id ASC LIMIT ?,?;`,
 			`DELETE FROM t_election_comment WHERE id=?`,
-			`INSERT INTO t_election_comment(subject_id,subject_name,comment) VALUES (?,?,?)`,
+			`INSERT INTO t_election_comment(subject_id,subject_name,classification,comment) VALUES (?,?,?,?)`,
+			`SELECT COUNT(*) FROM t_election_comment `,
+			`SELECT COUNT(*) FROM t_election_comment WHERE subject_id=?`,
+			`SELECT subject_name FROM t_election WHERE subject_id=?`,
+			`SELECT * FROM t_election_comment WHERE classification=? and subject_name=? ORDER BY id ASC LIMIT ?,?;`,
+			`SELECT COUNT(*) FROM t_election_comment WHERE classification=?`,
+			`SELECT classification FROM t_election WHERE subject_id=?`,
 		},
 	}
 }
-func (e *ElectionCommentDao) FindElectionComment(subjectId string, pageNum int, pageSize int) (electionCommentList []model.ElectionComment, err error) {
-	err = sqldb.Select(&electionCommentList, e.sql[0], subjectId, pageNum, pageSize)
+func (e *ElectionCommentDao) FindElectionComment(subjectId string, pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
+	pageStart := (pageNum - 1) * pageSize
+	err = sqldb.Select(&electionCommentList, e.sql[0], subjectId, pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[5], subjectId)
 	return
 }
 
-func (e *ElectionCommentDao) FindAllElectionComment(pageNum int, pageSize int) (electionCommentList []model.ElectionComment, err error) {
+func (e *ElectionCommentDao) FindAllElectionComment(pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&electionCommentList, e.sql[1], pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[4])
+	if err != nil {
+		println(err.Error())
+	}
+	return
+}
+func (e *ElectionCommentDao) FindElectionCommentByClassification(classification string, subjectName string, pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
+	pageStart := (pageNum - 1) * pageSize
+	err = sqldb.Select(&electionCommentList, e.sql[7], classification, subjectName, pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[8], classification)
 	if err != nil {
 		println(err.Error())
 	}
@@ -37,7 +55,12 @@ func (e *ElectionCommentDao) DeleteElectionComment(id int) error {
 	return err
 }
 func (e *ElectionCommentDao) AddElectionComment(comment *model.ElectionComment) error {
-	_, err := sqldb.Exec(e.sql[3], comment.SubjectId, comment.SubjectName, comment.Comment)
+	er := sqldb.Get(&comment.SubjectName, e.sql[6], comment.SubjectId)
+	er = sqldb.Get(&comment.Classification, e.sql[9], comment.SubjectId)
+	if er != nil {
+		println(er.Error())
+	}
+	_, err := sqldb.Exec(e.sql[3], comment.SubjectId, comment.SubjectName, comment.Classification, comment.Comment)
 	if err != nil {
 		println(err.Error())
 	}

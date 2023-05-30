@@ -21,9 +21,10 @@ type Election struct {
 }
 
 type ElectionComment struct {
-	Id          int       `json:"id" db:"id"`
-	SubjectId   string    `json:"subject_id" db:"subject_id"`
-	SubjectName string    `json:"subject_name" db:"subject_name"`
-	CreateTime  time.Time `db:"create_time" json:"createTime"`
-	Comment     string    `json:"comment" db:"comment"`
+	Id             int       `json:"id" db:"id"`
+	SubjectId      string    `json:"subject_id" db:"subject_id"`
+	SubjectName    string    `json:"subject_name" db:"subject_name"`
+	Classification string    `json:"classification" db:"classification"`
+	CreateTime     time.Time `db:"create_time" json:"createTime"`
+	Comment        string    `json:"comment" db:"comment"`
 }
