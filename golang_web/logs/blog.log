@@ -1035,3 +1035,25 @@
 [2023-05-24 00:24:35][FATAL][main.go:dealSignal:65] Server is going to shutdown...
 [GIN] 2023/05/24 - 00:59:20 | 404 |            0s |             ::1 | GET      "/favicon.ico"
 [2023-05-24 02:01:28][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/29 - 12:52:30 | 200 |      15.616ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 12:58:23 | 200 |       2.989ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 12:58:33 | 200 |      2.2701ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:00:48 | 200 |      2.6105ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:01:14 | 200 |      1.9308ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:02:04 | 200 |      2.0014ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:03:40 | 200 |      2.1396ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:04:21 | 200 |      3.5666ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:06:03 | 200 |      3.5315ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:07:41 | 200 |      2.5252ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:11:26 | 200 |      2.2493ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:11:37 | 200 |      1.9971ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:12:20 | 200 |      2.1978ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:14:52 | 200 |      1.8182ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:16:24 | 200 |      2.1077ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:16:30 | 200 |      2.9069ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 13:18:45 | 200 |      2.1948ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[2023-05-29 13:57:00][FATAL][main.go:dealSignal:65] Server is going to shutdown...
+[GIN] 2023/05/29 - 22:11:25 | 200 |     18.2582ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 22:15:13 | 200 |      2.9898ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[GIN] 2023/05/29 - 22:19:49 | 200 |      2.1144ms |   58.249.112.36 | GET      "/api/myblog/getAnsweredQA"
+[2023-05-29 23:37:10][FATAL][main.go:dealSignal:65] Server is going to shutdown...
