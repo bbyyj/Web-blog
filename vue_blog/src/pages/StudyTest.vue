@@ -1,7 +1,6 @@
 <template>
     <div class="StudyTest">
-        <div class="bottom">
-            <transition appear name="animate__animated animate__bounce animate__slow"
+        <transition appear name="animate__animated animate__bounce animate__slow"
                 enter-active-class="animate__slideInUp">
                 <div class="wrap">
                     <div class="statement">
@@ -27,14 +26,13 @@
                         <div class="loader" v-bind:class="{ show: isScoring }"></div>
 
                         <!-- 显示得分 -->
-                        <div v-if="showScore">
+                        <div class="answer" v-if="showScore">
                             <h3>你的得分是：{{ score }}</h3>
                             <h1>{{ messages[score] }}</h1>
                         </div>
                     </div>
                 </div>
-            </transition>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -156,31 +154,73 @@ export default {
 
 
 <style lang="less" scoped>
+
+.StudyTest {
+    min-height: 2000px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #7378ac;
+    background-image:
+        radial-gradient(closest-side, #aab7cc, rgba(235, 105, 78, 0)),
+        radial-gradient(closest-side, #7285ac, rgba(243, 11, 164, 0)),
+        radial-gradient(closest-side, #919fbe, rgba(254, 234, 131, 0)),
+        radial-gradient(closest-side, #e0e5ed, rgba(170, 142, 245, 0)),
+        radial-gradient(closest-side, #8295b5, rgba(248, 192, 147, 0));
+    background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+    background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    animation: 10s move linear infinite;
+
+}
+// 通过修改background的参数形成动画
+@keyframes move {
+
+    0%,
+    100% {
+        background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
+        background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
+    }
+
+    25% {
+        background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 60vmax 60vmax;
+        background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax, -40vmax -20vmax, 40vmax 60vmax;
+    }
+
+    50% {
+        background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax, 60vmax 60vmax, 80vmax 80vmax;
+        background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax, 20vmax 10vmax, 30vmax 70vmax;
+    }
+
+    75% {
+        background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax, 90vmax 90vmax, 70vmax 70vmax;
+        background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax, -10vmax 10vmax, 40vmax 60vmax;
+    }
+}
+
+
 /* 加载圆圈的样式 */
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
 }
-
 .loader {
-    z-index: 9999;
+    
     border: 16px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    position: absolute;
+    border-top: 16px solid #7c80b8;
+    width: 80px;
+    height: 80px;
+    position: relative;
     top: 50%;
     left: 50%;
-    margin-top: -60px;
-    margin-left: -60px;
+    z-index: 9999;
+    margin-top: 50px;
+    margin-left: -50px;
     display: none;
+    animation: spin 2s linear infinite;
 }
 
 .loader.show {
@@ -193,117 +233,12 @@ ul {
     padding: 0;
 }
 
-.StudyTest {
-    background-color: #3A3B55;
-    background-image:
-        radial-gradient(closest-side, #7378ac, rgba(80, 120, 99, 0)),
-        radial-gradient(closest-side, #a69ec6, rgba(132, 157, 133, 0)),
-        radial-gradient(closest-side, #6c5c74, rgba(94, 129, 137, 0)),
-        radial-gradient(closest-side, #fbd5d1, rgba(210, 201, 154, 0)),
-        radial-gradient(closest-side, #3d3952, rgba(114, 145, 147, 0));
-    background-size:
-        130vmax 130vmax,
-        80vmax 80vmax,
-        90vmax 90vmax,
-        110vmax 110vmax,
-        90vmax 90vmax;
-    background-position:
-        -80vmax -80vmax,
-        60vmax -30vmax,
-        10vmax 10vmax,
-        -30vmax -10vmax,
-        50vmax 50vmax;
-    background-repeat: no-repeat;
-    animation: 10s movement linear infinite;
-
-    @keyframes movement {
-
-        0%,
-        100% {
-            background-size:
-                130vmax 130vmax,
-                80vmax 80vmax,
-                90vmax 90vmax,
-                110vmax 110vmax,
-                90vmax 90vmax;
-            background-position:
-                -80vmax -80vmax,
-                60vmax -30vmax,
-                10vmax 10vmax,
-                -30vmax -10vmax,
-                50vmax 50vmax;
-        }
-
-        25% {
-            background-size:
-                100vmax 100vmax,
-                90vmax 90vmax,
-                100vmax 100vmax,
-                90vmax 90vmax,
-                60vmax 60vmax;
-            background-position:
-                -60vmax -90vmax,
-                50vmax -40vmax,
-                0vmax -20vmax,
-                -40vmax -20vmax,
-                40vmax 60vmax;
-        }
-
-        50% {
-            background-size:
-                80vmax 80vmax,
-                110vmax 110vmax,
-                80vmax 80vmax,
-                60vmax 60vmax,
-                80vmax 80vmax;
-            background-position:
-                -50vmax -70vmax,
-                40vmax -30vmax,
-                10vmax 0vmax,
-                20vmax 10vmax,
-                30vmax 70vmax;
-        }
-
-        75% {
-            background-size:
-                90vmax 90vmax,
-                90vmax 90vmax,
-                100vmax 100vmax,
-                90vmax 90vmax,
-                70vmax 70vmax;
-            background-position:
-                -50vmax -40vmax,
-                50vmax -30vmax,
-                20vmax 0vmax,
-                -10vmax 10vmax,
-                40vmax 60vmax;
-        }
-    }
-}
-
-
-.bottom {
-    padding-bottom: 80px;
-    background-color: #ececec;
-}
-
 .wrap {
     width: 60%;
     border-radius: 10px;
     margin: 0 auto;
     transform: translateY(-20px);
-    box-shadow: 0 15px 35px rgb(50 50 93 / 10%), 0 5px 15px rgb(0 0 0 / 7%);
-    background: #fff url("../assets/images/flowerbg.png") fixed top;
-    padding: 50px 0;
-
-    img {
-        display: block;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        margin: 0 auto;
-    }
-
+    padding: 100px 0;
     h4 {
         text-align: center;
         margin: 12px 0;
@@ -312,15 +247,14 @@ ul {
     }
 
     .questionnaire {
-        margin: 20px 0;
-        background-color: #f8f8f8;
+        margin: 30px 0;
+        background-color: #eff0f6;
         border-radius: 5px;
         padding: 20px;
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
-
         h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
 
         ul {
@@ -332,7 +266,35 @@ ul {
                 margin-bottom: 10px;
 
                 input[type="radio"] {
-                    margin-right: 10px;
+                    -webkit-appearance:none;
+                    -moz-appearance:none;
+                    outline: none;
+                    width:25px;
+                    height:25px;
+                    background-color:#ffffff;
+                    border:solid 1px #dddddd;
+                    border-radius:50%;
+                    margin:0px 10px 4px 4px;
+                    padding:0;
+                    position:relative;
+                    display:inline-block;
+                    vertical-align:top;
+                    transition:background-color ease 0.1s;
+                }
+                input[type="radio"]:checked{
+                    background:#7c80b8;
+                }
+                input[type="radio"]:checked::after{
+                    content:'';
+                    top:8px;
+                    left:6px;
+                    position:absolute;
+                    border:#fff solid 2px;
+                    border-top:none;
+                    border-right:none;
+                    height:6px;
+                    width:10px;
+                    transform:rotate(-45deg);
                 }
 
                 label {
@@ -348,16 +310,31 @@ ul {
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-        background-color: #42b983;
-        color: white;
+        background-color: #eff0f6;
+        color: #7c80b8;
         font-size: 18px;
         cursor: pointer;
         transition: background-color 0.3s;
-
         &:hover {
-            background-color: #2a8a63;
+            background-color: #484b6f;
+            color: #eff0f6;
+        }
+    }
+
+    .answer{
+        margin-top: 40px;
+        text-align: center;
+        h3{
+            font-size: 20px;
+            color: #eff0f6;
+        }
+        h1{
+            font-size: 20px;
+            color: #eff0f6;
         }
     }
 
 }
+
+
 </style>

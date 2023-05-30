@@ -14,6 +14,7 @@
             <div class="blog-info">
                 <ul>
                     <li>
+                        <i class="iconfont icon-yanjing"></i>
                         <span>{{ item.views }}</span>
                     </li>
                     <li>
@@ -56,7 +57,7 @@ export default {
 .box {
     // background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
     background-color: #d9dbeb;
-    width: 840px;
+    margin: 0px 60px 16px 60px;
     padding: 16px 20px;
     overflow: hidden;
     border-radius: 0.25rem;
@@ -71,42 +72,12 @@ export default {
     // box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25), 0 10px 10px rgba(255, 255, 255, 0.22);
 }
 
-//图片区域
-.box .image-box {
-    float: left;
-    border-radius: 6px;
-    margin: 2px 10px 0;
-    cursor: pointer;
-    overflow: hidden;
-}
-
 //博客信息区域
 .box .blog-box {
     float: left;
     width: 450px;
     height: 190px;
     padding-left: 20px;
-}
-
-.image-box-right {
-    float: right !important;
-    margin-right: 10px !important;
-}
-
-.blog-box-right {
-    float: right !important;
-    padding-right: 20px !important;
-}
-
-.image-box img {
-    width: 180px;
-    height: 180px;
-    border-radius: 6px;
-    transition: all 0.5s;
-}
-
-.image-box img:hover {
-    transform: scale(1.1);
 }
 
 .box::after {
@@ -138,27 +109,17 @@ export default {
 .box:hover::before {
     width: 100%;
     height: 100%;
-    // border-bottom-color:#183f2d;
-    // border-left-color:#183f2d;
-    transition: border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s, height 0.2s ease-out 0.6s;
-}
-
-.box:hover::before {
-    width: 100%;
-    height: 100%;
-    // border-top-color:#183f2d;
-    // border-right-color: #183f2d;
     transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
     -webkit-transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
 }
 
-
 .box .blog-box .blog-title {
     cursor: pointer;
     height: 46px;
-    line-height: 46px;
+    line-height: 50px;
     text-align: center;
-    font-size: 1.28rem;
+    font-size: 25px;
+    margin-bottom: 10px;
 }
 
 .box .blog-box .blog-title a {
@@ -199,7 +160,6 @@ export default {
 
 .box .blog-box .blog-desc {
     height: 110px;
-
     p {
         padding: 12px 20px;
         font-size: 16px;
@@ -234,12 +194,11 @@ export default {
         text-decoration: none;
         outline: none;
         border: 1px solid #696eae;
-        padding: 2px;
+        padding: 4px;
         border-radius: 3px;
         color: #696eae;
     }
 }
-
 
 li {
     list-style: none;
@@ -247,12 +206,14 @@ li {
     margin-right: 18px;
 }
 
-
 .text-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
+}
+.icon-yanjing {
+        color: #3d3952;
 }
 </style>
