@@ -40,6 +40,7 @@ func NewChapterDao() *ChapterDao {
 			`SELECT * FROM t_chapter WHERE subject=? ORDER BY id ASC LIMIT ?,?;`,
 			`INSERT INTO t_chapter(subject,chapter,description,views) VALUES (?,?,?,0);`,
 			`DELETE FROM t_chapter WHERE subject=? and chapter=?;`,
+			`SELECT * FROM t_chapter WHERE subject=? ORDER BY id ASC;`,
 		},
 	}
 }
@@ -120,6 +121,10 @@ func (e *ChapterDao) FindChapter(a string, pageNum int, pageSize int) (chaplist 
 	err = sqldb.Select(&chaplist, e.sql[0], a, pageStart, pageSize)
 	return
 }
+func (e *ChapterDao) FindAllChapter(a string) (chaplist []model.Chapter, err error) {
+	err = sqldb.Select(&chaplist, e.sql[3], a)
+	return
+}
 
 func (e *ChapterDao) AddChapter(subject string, chapter string, description string) error {
 	_, err := sqldb.Exec(e.sql[1], subject, chapter, description)
@@ -168,20 +173,22 @@ func (e *ExamDao) FindExamLimited(a string, b string) (examvuelist []model.ExamV
 	return
 }
 
-func (e *ExamDao) FindExam(subject string, chapter string, pageNum int, pageSize int) (examvuelist []model.ExamVue, err error) {
-	examlist := []model.Exam{}
+func (e *ExamDao) FindExam(subject string, chapter string, pageNum int, pageSize int) (examlist []model.Exam, num int, err error) {
+	//examlist := []model.Exam{}
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&examlist, e.sql[6], subject, chapter, pageStart, pageSize)
-	for _, exam := range examlist {
-		examvue := model.ExamVue{
-			Id:            exam.Id,
-			Question:      exam.Question,
-			Answers:       []string{exam.FirstAnswer, exam.SecondAnswer, exam.ThirdAnswer, exam.FourthAnswer},
-			CorrectAnswer: exam.CorrectAnswer,
-		}
-		examvuelist = append(examvuelist, examvue)
+	err = sqldb.Get(&num, e.sql[1], subject, chapter)
+	//for _, exam := range examlist {
+	//	examvue := model.Exam{
+	//		Id:            exam.Id,
+	//		Question:      exam.Question,
+	//		Answers:       []string{exam.FirstAnswer, exam.SecondAnswer, exam.ThirdAnswer, exam.FourthAnswer},
+	//		CorrectAnswer: exam.CorrectAnswer,
+	//	}
+	//	examvuelist = append(examvuelist, examvue)
+	//
+	//}
 
-	}
 	return
 
 }

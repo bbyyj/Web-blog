@@ -4,9 +4,9 @@
             <!-- 列表区域  data中是获取到的数据-->
             <el-table :data="QandA" border stripe>
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="问题" prop="question" width="300px"></el-table-column>
-                <el-table-column label="答案" prop="answer" width="180px"></el-table-column>
-                <el-table-column label="操作" width="150">
+                <el-table-column label="问题" prop="question"></el-table-column>
+                <el-table-column label="答案" prop="answer"></el-table-column>
+                <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button size="mini" @click="handleEdit(scope.$index)">编辑回答</el-button>
                         <el-button size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除该条</el-button>
@@ -160,4 +160,5 @@ export default {
     float: right;
     margin-right: 30px;
 }
+
 </style>

@@ -11,12 +11,15 @@ func NewElectionDao() *ElectionDao {
 		sql: []string{
 			`SELECT * FROM t_election WHERE subject_id=? ORDER BY subject_id ASC;`,
 			`SELECT subject_id,subject_name,teacher FROM t_election WHERE classification=? ORDER BY subject_id ASC LIMIT ?,?;`,
-			`SELECT * FROM t_election ORDER BY subject_id ASC LIMIT ?,?;`,
+			`SELECT * FROM t_election WHERE classification=? ORDER BY subject_id ASC LIMIT ?,?;`,
 			`DELETE FROM t_election WHERE subject_id=?`,
 			`INSERT INTO t_election(subject_id,subject_name,teacher,classification,credit,college,attendance,score,evaluation)
 VALUES (?,?,?,?,?,?,?,?,?)`,
 			`UPDATE t_election SET subject_name=?,teacher=?,classification=?,credit=?,college=?,attendance=?,
             score=?,evaluation=? WHERE subject_id=?`,
+			`SELECT * FROM t_election ORDER BY subject_id ASC LIMIT ?,?;`,
+			`SELECT COUNT(*) FROM t_election WHERE classification=?;`,
+			`SELECT COUNT(*) FROM t_election ;`,
 		},
 	}
 }
@@ -25,14 +28,23 @@ func (e *ElectionDao) FindDetailedElection(subjectId string) (electionlist []mod
 	err = sqldb.Select(&electionlist, e.sql[0], subjectId)
 	return
 }
-func (e *ElectionDao) FindAllElection(classification string, pageNum int, pageSize int) (electionlist []model.Election, err error) {
+func (e *ElectionDao) FindAllElection(classification string, pageNum int, pageSize int) (electionlist []model.Election, count int, err error) {
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&electionlist, e.sql[1], classification, pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[7], classification)
 	return
 }
-func (e *ElectionDao) FindAllDetailedElection(pageNum int, pageSize int) (electionlist []model.ElectionDetailed, err error) {
+func (e *ElectionDao) FindElectionByClass(classification string, pageNum int, pageSize int) (electionlist []model.ElectionDetailed, count int, err error) {
 	pageStart := (pageNum - 1) * pageSize
-	err = sqldb.Select(&electionlist, e.sql[2], pageStart, pageSize)
+	err = sqldb.Select(&electionlist, e.sql[2], classification, pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[7], classification)
+
+	return
+}
+func (e *ElectionDao) FindAllDetailedElection(pageNum int, pageSize int) (electionlist []model.ElectionDetailed, count int, err error) {
+	pageStart := (pageNum - 1) * pageSize
+	err = sqldb.Select(&electionlist, e.sql[6], pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[8])
 	return
 }
 func (e *ElectionDao) DeleteElection(subjectId string) error {

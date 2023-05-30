@@ -4,9 +4,9 @@
             <!-- 列表区域  data中是获取到的数据-->
             <el-table :data="QandA" border stripe>
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="问题" prop="question" width="300px"></el-table-column>
-                <el-table-column label="答案" prop="answer" width="180px"></el-table-column>
-                <el-table-column label="操作" width="150">
+                <el-table-column label="问题" prop="question"></el-table-column>
+                <el-table-column label="答案" prop="answer"></el-table-column>
+                <el-table-column label="操作">
                     <template slot-scope="scope">
                         <!--回复和删除按钮-->
                         <el-button size="mini" @click="handleResponse(scope.$index)">回复</el-button>

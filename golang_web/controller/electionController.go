@@ -20,11 +20,11 @@ func (e *ElectionController) ElectionList(ctx *gin.Context) *response.Response {
 	classification := ctx.Query("classification")
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pegeSize := utils.QueryInt(ctx, "pageSize")
-	essays, err := e.electionDao.FindAllElection(classification, pageNum, pegeSize)
+	essays, count, err := e.electionDao.FindAllElection(classification, pageNum, pegeSize)
 	if response.CheckError(err, "Get Election List") {
 		return response.ResponseQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays)
+	return response.ResponseQuerySuccess(essays, count)
 }
 
 func (e *ElectionController) ElectionDetailedList(ctx *gin.Context) *response.Response {

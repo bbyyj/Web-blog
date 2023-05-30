@@ -63,6 +63,17 @@ func NewChapterRouter() *ChapterController {
 	}
 }
 
+func (e *ChapterController) ChapterList(ctx *gin.Context) *response.Response {
+	name := ctx.Query("name")
+	//pageNum := utils.QueryInt(ctx, "pageNum")
+	//pageSize := utils.QueryInt(ctx, "pageSize")
+	chapters, err := e.chapterDao.FindAllChapter(name)
+	if response.CheckError(err, "Get Chapter List") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(chapters)
+}
+
 func (e *ChapterController) AddChapter(ctx *gin.Context) *response.Response {
 	var chapter model.ChapterVue
 	err := ctx.ShouldBind(&chapter)
@@ -103,11 +114,11 @@ func (e *ExamController) ExamList(ctx *gin.Context) *response.Response {
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pageSize := utils.QueryInt(ctx, "pageSize")
 
-	exams, err := e.examDao.FindExam(a, b, pageNum, pageSize)
+	exams, count, err := e.examDao.FindExam(a, b, pageNum, pageSize)
 	if response.CheckError(err, "Get Exam List") {
 		return response.ResponseQueryFailed()
 	}
-	return response.ResponseQuerySuccess(exams)
+	return response.ResponseQuerySuccess(exams, count)
 
 }
 

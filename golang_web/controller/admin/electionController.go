@@ -18,14 +18,24 @@ func NewElectionRouter() *ElectionController {
 		electionDao: dao.NewElectionDao(),
 	}
 }
-func (e *ElectionController) ElectionAllList(ctx *gin.Context) *response.Response {
+func (e *ElectionController) ElectionByClass(ctx *gin.Context) *response.Response {
+	classification := ctx.Query("classification")
 	pageNum := utils.QueryInt(ctx, "pageNum")
-	pegeSize := utils.QueryInt(ctx, "pageSize")
-	essays, err := e.electionDao.FindAllDetailedElection(pageNum, pegeSize)
+	pageSize := utils.QueryInt(ctx, "pageSize")
+	essays, count, err := e.electionDao.FindElectionByClass(classification, pageNum, pageSize)
 	if response.CheckError(err, "Get Election List") {
 		return response.ResponseQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays)
+	return response.ResponseQuerySuccess(essays, count)
+}
+func (e *ElectionController) ElectionAllList(ctx *gin.Context) *response.Response {
+	pageNum := utils.QueryInt(ctx, "pageNum")
+	pageSize := utils.QueryInt(ctx, "pageSize")
+	essays, count, err := e.electionDao.FindAllDetailedElection(pageNum, pageSize)
+	if response.CheckError(err, "Get Election List") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(essays, count)
 }
 func (e *ElectionController) DeleteElection(ctx *gin.Context) *response.Response {
 	subjectId := ctx.Query("subject_id")

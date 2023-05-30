@@ -34,11 +34,3 @@ func TestGetFilenameWithoutSuffix(t *testing.T) {
 	fp, suffix := FileSuffixSplit("abc.jpg")
 	fmt.Println(fp, suffix)
 }
-
-func TestImageScale(t *testing.T) {
-	path, err := ImageScale("F:\\go_projects\\vue_blog_web\\images\\firstPic\\29.png", 800)
-	if err != nil {
-		t.Error(err)
-	}
-	fmt.Println(path)
-}

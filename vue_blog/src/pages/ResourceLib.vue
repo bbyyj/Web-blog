@@ -103,10 +103,13 @@ export default {
 
         },
 
-        downloadFile(fileName, data) {
+        async downloadFile(fileName, data) {
             if (!data) {
                 return;
             }
+            const {data: res} = await this.$axios.get("/myblog/t/downloadresource", { params: {  name: fileName } });
+            console.log(res);
+
             let url = window.URL.createObjectURL(new Blob([data]));
             let link = document.createElement('a');
             link.style.display = 'none';
