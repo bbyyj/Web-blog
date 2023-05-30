@@ -7,9 +7,9 @@ import (
 
 func TestGetAnsweredQuestionCount(t *testing.T) {
 	abd := dao.NewAskBoxDao()
-	_, err := abd.GetAnsweredQuestionCount()
+	count, err := abd.GetAnsweredQuestionCount()
 	if err != nil {
 		t.Fatal("GetAnsweredQuestionCount Error")
 	}
-	t.Log("GetAnsweredQuestionCount Success")
+	t.Logf("GetAnsweredQuestionCount Success, count = %v", count)
 }
