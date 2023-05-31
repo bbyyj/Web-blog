@@ -148,7 +148,7 @@ export default {
                 fixed: true,
                 audio: this.musicList
             });
-        }, 1000); // 延迟1秒执行
+        }, 2000); // 延迟1秒执行
 
 
         document.addEventListener('scroll', this.parallax, true);
