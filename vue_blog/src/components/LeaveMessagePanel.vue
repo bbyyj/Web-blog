@@ -109,6 +109,7 @@ export default {
 }
 
 .wrapper {
+    position: relative;
     padding: 50px 15px 15px;
 }
 
@@ -138,16 +139,38 @@ button {
 button:active {
     transform: translateY(2px);
 }
-
 .rainbow-input{
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    outline: none;
+    width:25px;
+    height:25px;
+    background-color:#ffffff;
+    border:solid 1px #dddddd;
+    border-radius:50%;
+    margin:6px 2px 1px 2px;
+    padding:0;
+    position:relative;
     display:inline-block;
-    visibility:hidden;
+    vertical-align:top;
+    transition:background-color ease 0.1s;
 }
-.rainbow-input:checked{
-    visibility: visible;
+.rainbow-input:checked {
+    background:#7c80b8;
+}
+.rainbow-input:checked::after {
+    content:'';
+    top:8px;
+    left:6px;
+    position:absolute;
+    border:#fff solid 2px;
+    border-top:none;
+    border-right:none;
+    height:6px;
+    width:10px;
+    transform:rotate(-45deg);
 }
 .rainbow{
-    display:inline-block;
     background-color: #c1c3da;
     color: #ffffff;
     text-align: center;
@@ -158,4 +181,5 @@ button:active {
     margin: 0 100px;
     
 }
+
 </style>
