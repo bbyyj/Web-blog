@@ -3,9 +3,13 @@
     <div>
         <div class="group-warp">
             <MessageItem :msg="groupMsg.myself"></MessageItem>
+            <button class="like-button" @click="clickLikes(groupMsg.myself)">
+                {{ groupMsg.myself.likes }}赞
+            </button>
+            <button v-if="shouldDisplayButton" @click="openAppendDialog">追加子问题</button>
             <div class="count" v-if="groupMsg.children.length">
                 <span @click="hideChildren">
-                    {{ groupMsg.children.length }}条回复<span class="arrowUp" :class="{ arrowDown: !showChildren }"></span>
+                    {{ groupMsg.children.length }}条追问<span class="arrowUp" :class="{ arrowDown: !showChildren }"></span>
                 </span>
             </div>
             <transition name="children">
@@ -13,6 +17,9 @@
                     <ul>
                         <li :key="item.id" v-for="(item, index) in groupMsg.children">
                             <MessageItem :msg="item"></MessageItem>
+                            <button class="like-button" @click="clickLikes(item)">
+                                {{ item.likes }}赞
+                            </button>
                             <!-- 追加子问题的按钮只会在最后一个问题下面显示 -->
                             <button v-if="index === groupMsg.children.length - 1" @click="openAppendDialog">追加子问题</button>
                         </li>
@@ -34,7 +41,7 @@
                     <input v-model="newQuestionRainbow" type="checkbox">
                 </label>
             </div>
-            <button @click="submitAppendDialog(groupMsg.children.length)">提交</button>
+            <button @click="submitAppendDialog(groupMsg.children.length)">提交啦</button>
             <button @click="closeAppendDialog">关闭</button>
         </div>
         <!-- 阴影效果 -->
@@ -51,70 +58,88 @@ export default {
     props: ["groupMsg"],
     data() {
         return {
-            showChildren: true,
+            showChildren: false,
             showAppendDialog: false,
+            //新写的问题
             newQuestion: '',
+            //新写的问题是否加彩虹
             newQuestionRainbow: false,
         }
     },
+    computed: {
+        shouldDisplayButton() {
+            return this.groupMsg.children.length === 0;
+        },
+
+    },
     methods: {
+        //显示追加问题的窗口
         openAppendDialog() {
             this.showAppendDialog = true;
         },
+        //取消追加子问题
         closeAppendDialog() {
             this.showAppendDialog = false;
             this.newQuestion = '';
             this.newQuestionRainbow = false;
         },
+
+        //提交新的子问题  点击确定按钮
         submitAppendDialog(child_id) {
+            console.log(child_id)
+            child_id += 1
+            console.log()
+            console.log(this.newQuestion)
+            console.log(this.newQuestionRainbow)
+            //提交子问题的操作   参数已经获取到了
             this.appendOldQuestion(child_id, this.newQuestion, this.newQuestionRainbow);
             this.closeAppendDialog();
         },
-        appendOldQuestion(child_id, question, rainbow) {
-            this.openAppendDialog();
+        //追加子问题的函数
+        async appendOldQuestion(child_id, question, rainbow) {
             const parent_id = this.groupMsg.myself.id;
-            axios.post('http://127.0.0.1:8080/api/myblog/appendOldQuestion', {
-                parent_id,
-                child_id,
-                question,
-                rainbow,
-            }).then(response => {
-                if (response.data.status === 101) {
-                    this.groupMsg.children.push({
-                        id: child_id,
-                        content: question,
-                        rainbow: rainbow,
-                        likes: 0,
-                        reply: '',
-                        replyTime: new Date().toLocaleString(),
-                        askedTime: new Date().toLocaleString(),
-                        answered: false,
-                        isParent: false,
-                    });
+            try {
+                const { data: res } = await this.$axios.post("/myblog/appendOldQuestion", {
+                    parent_id,
+                    child_id,
+                    question,
+                    rainbow,
+                });
+                if (res.status !== 101) {
+                    this.$message.error("操作失败，请重试！")
                 } else {
-                    console.error('追加子问题失败: ', response.data.message);
+                    this.$message.success("操作成功！");
+                    await this.getMessageList()
+                    this.closeAppendDialog();
                 }
-            }).catch(error => {
-                console.error('追加子问题时发生错误: ', error);
-            });
+            } catch (error) {
+                console.error(error);
+            }
         },
-        clickLikes(child_id) {
+        //点赞相关的函数
+        async clickLikes(temple) {
+            const child_id = temple.child_id
             const parent_id = this.groupMsg.myself.id;
-            const likes = this.groupMsg.children.find(child => child.id === child_id).likes;
-            axios.put('http://127.0.0.1:8080/api/myblog/clickLikes', {
-                parent_id,
-                child_id,
-                likes,
-            }).then(response => {
-                if (response.data.status === 101) {
-                    this.groupMsg.children.find(child => child.id === child_id).likes += 1;
+            const likes = temple.likes += 1;
+            console.log(temple.likes)
+            console.log(likes)
+            try {
+                const { data: res } = await this.$axios.put("/myblog/clickLikes", {
+                    likes,
+                    parent_id,
+                    child_id,
+                });
+                if (res.status !== 101) {
+                    this.$message.error("点赞失败，请重试！")
                 } else {
-                    console.error('点赞问题失败: ', response.data.message);
+                    this.$message.success("点赞成功！");
                 }
-            }).catch(error => {
-                console.error('点赞问题时发生错误: ', error);
-            });
+            } catch (error) {
+                console.error(error);
+            }
+
         },
+        //切换  是否显示追问
         hideChildren() {
             this.showChildren = !this.showChildren
         }
