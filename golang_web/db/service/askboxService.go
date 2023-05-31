@@ -40,6 +40,7 @@ func (a *AskBoxService) GetAnsweredQA() ([][]model.Askbox, int, error) {
 	}
 
 	result := groupByParentID(askboxs)
+	fmt.Println("note here")
 	fmt.Println(result)
 
 	count, _ := a.askboxDao.GetAnsweredParentQuestionCount()

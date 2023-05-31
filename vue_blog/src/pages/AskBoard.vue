@@ -5,7 +5,7 @@
         <div class="background-layer upper01"></div>
         <div class="background-layer upper02"></div>
 
-        <!-- 提问想内容设置 -->
+        <!-- 提问箱内容设置 -->
         <askBoardTitle class="title-area" :info="info"></askBoardTitle>
         <div class="main">
             <transition appear name="animate__animated animate__bounce animate__slow"

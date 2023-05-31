@@ -2,6 +2,7 @@ package dao
 
 import (
 	"blog_web/model"
+	"fmt"
 )
 
 type AskBoxDao struct {
@@ -12,7 +13,7 @@ func NewAskBoxDao() *AskBoxDao {
 	return &AskBoxDao{
 		sql: []string{
 			// 返回已回答的问题
-			`SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id DESC;`,
+			`SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id DESC, child_id ASC;`,
 			// 增加父问题
 			`INSERT INTO t_askbox(parent_id, child_id, question, question_time, rainbow, is_parent)
 			VALUES(?, ?, ?, ?, ?, ?)`,
@@ -58,6 +59,8 @@ func NewAskBoxDao() *AskBoxDao {
 func (abd *AskBoxDao) GetAnsweredQA() (askboxs []model.Askbox, err error) {
 	// abd.sql[0]: `SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC;`,
 	err = sqldb.Select(&askboxs, abd.sql[0])
+	println("note here")
+	fmt.Println(askboxs)
 	return
 }
 
