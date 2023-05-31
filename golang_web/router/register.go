@@ -223,12 +223,4 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteElectionComment", Decorate(electionCommentRouter.DeleteElectionComment))
 	}
 
-	//askboxRouter := admin.NewAskboxRouter()
-	//{
-	//	adminGroup.GET("/askboxList", Decorate(musicRouter.AskboxList))
-	//	adminGroup.POST("/addAnswer", Decorate(musicRouter.AddAnswer))
-	//	adminGroup.DELETE("/deleteQuestion", Decorate(musicRouter.DeleteQuestion))
-	//	adminGroup.DELETE("/deleteAnswer", Decorate(musicRouter.DeleteAnswer))
-	//	adminGroup.PUT("/modifyAnswer", Decorate(musicRouter.ModifyAnswer))
-	//}
 }

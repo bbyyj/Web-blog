@@ -82,7 +82,7 @@ func (a *AskBoxFrontController) ClickLikes(ctx *gin.Context) *response.Response 
 		return response.ResponseOperateFailed()
 	}
 	println(askbox.Likes)
-	askbox.Likes += 1
+	//askbox.Likes += 1
 	err := a.askBoxService.ClickLikes(askbox.Likes, askbox.ParentId, askbox.ChildId)
 
 	if response.CheckError(err, "Click Likes error") {

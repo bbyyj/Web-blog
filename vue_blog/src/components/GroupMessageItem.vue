@@ -97,7 +97,9 @@ export default {
         },
         //追加子问题的函数
         async appendOldQuestion(child_id, question, rainbow) {
-            const parent_id = this.groupMsg.myself.id;
+            // const parent_id = this.groupMsg.myself.id;
+            const parent_id = this.groupMsg.myself.parent_id;
+            console.log(parent_id)
             try {
                 const { data: res } = await this.$axios.post("/myblog/appendOldQuestion", {
                     parent_id,
@@ -119,10 +121,13 @@ export default {
         //点赞相关的函数
         async clickLikes(temple) {
             const child_id = temple.child_id
-            const parent_id = this.groupMsg.myself.id;
+            // const parent_id = this.groupMsg.myself.id;
+            const parent_id = this.groupMsg.myself.parent_id;
             const likes = temple.likes += 1;
             console.log(temple.likes)
             console.log(likes)
+            console.log(child_id)
+            console.log(parent_id)
             try {
                 const { data: res } = await this.$axios.put("/myblog/clickLikes", {
                     likes,
