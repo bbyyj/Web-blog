@@ -12,7 +12,7 @@
                 <el-table-column label="cover" prop="cover"></el-table-column>
                 <el-table-column>
                     <template slot-scope="scope">
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -22,7 +22,7 @@
                 layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
 
-            <el-dialog title="音乐信息" :visible.sync="dialogFormVisible">
+            <el-dialog title="新的音乐信息" :visible.sync="dialogFormVisible">
                 <el-form label-width="80px">
                     <el-form-item label="name:">
                         <el-input v-model="postInfo.name" autocomplete="off" clearable></el-input>
@@ -57,7 +57,6 @@ export default {
             dialogFormVisible: false,
             total: 0,
             postInfo: {
-                id: 0,
                 name: "",
                 artist: "",
                 url: "",
@@ -70,6 +69,7 @@ export default {
         }
     },
     methods: {
+        //获取歌单列表
         async getMusicList() {
             const { data: res } = await this.$axios.get("/admin/musicList", {
                 params: {
@@ -78,16 +78,17 @@ export default {
                 }
             });
             if (res.status === 1) {
-                this.musicList = res.data.data;
-                this.total = res.data.total;
+                this.musicList = res.data[0];
+                this.total = res.data[1];
             } else {
                 this.$message.error("获取音乐列表失败，请重试！")
             }
         },
+        //显示新增信息的窗口
         async handleAdd() {
-            this.postInfo.id = 0
             this.dialogFormVisible = true
         },
+        //删除音乐
         async handleDelete(id) {
             this.$messageBox.confirm('确认删除该音乐?', '提示', {
                 confirmButtonText: '确定',
@@ -95,7 +96,7 @@ export default {
                 type: 'warning'
             }).then(async () => {
                 const { data: res } = await this.$axios.delete("/admin/deleteMusic", { params: { id: id } });
-                if (res.status !== 1) {
+                if (res.status !== 401) {
                     this.$message.error("删除失败，请重试！")
                 } else {
                     this.$message.success("删除成功！")
@@ -105,7 +106,7 @@ export default {
                 this.$message({ type: 'info', message: '已取消删除' });
             });
         },
-
+        //////////////////分页相关的
         handleSizeChange: function (pagesize) {
             this.queryInfo.pageSize = pagesize;
             this.getMusicList();
@@ -114,10 +115,9 @@ export default {
             this.queryInfo.pageNum = newPage;
             this.getMusicList();
         },
-
+        //取消新增操作
         cancel() {
             this.postInfo = {
-                id: 0,
                 name: "",
                 artist: "",
                 url: "",
@@ -125,18 +125,15 @@ export default {
             }
             this.dialogFormVisible = false
         },
-
+        //增加新的歌曲内容
         async commitMusic() {
-            let res
-            if (this.postInfo.id === 0) {
-                res = await this.$axios.post("/admin/addMusic", this.postInfo)
-            } else {
-                res = await this.$axios.put("/admin/updateMusic", this.postInfo)
-            }
-            if (res.data.status !== 1) {
+            const { data: res } = await this.$axios.post("/admin/addMusic", this.postInfo)
+
+            if (res.status !== 101) {
                 this.$message.error("操作失败，请重试！")
             } else {
                 this.cancel()
+                //获取到新的歌单列表
                 await this.getMusicList()
                 this.$message.success("操作成功！")
             }
