@@ -12,27 +12,21 @@
         <div class="answer">
             {{ msg.answer }}
         </div>
-        <h6 class="date"> {{ dateFormat() }} <a @click.prevent="replay" v-if="msg.answer == ''">回复</a></h6>
+        <h6 class="date"> {{ dateFormat() }}</h6>
     </div>
 </template>
 <script>
 
 import dayjs from "dayjs";
-import axios from 'axios';
 
 export default {
     name: "MessageItem",
     props: ["msg"],
     methods: {
         dateFormat() {
-            return dayjs(this.msg.createTime).format('YYYY-MM-DD HH:mm:ss')
+            //显示博主的回复时间
+            return dayjs(this.msg.answer_Time).format('YYYY-MM-DD HH:mm:ss')
         },
-        replay() {
-            //控制是否显示"回复按钮" 并且在点击时跳转到后台管理页面
-            this.$router.push({
-                path: "/login",
-            });
-        }
     },
 
 }
@@ -114,4 +108,5 @@ a:hover {
     font-size: 24px;
     font-weight: bolder;
     font-family: 华文楷体;
-}</style>
+}
+</style>
