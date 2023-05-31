@@ -1,10 +1,10 @@
 
 <template>
-    <div >
+    <div>
         <!--上方背景页面-->
         <div class='console-container'>
-        <span id='text'></span>
-        <div class='console-underscore' ref="text-style">&#95;</div>
+            <span id='text'></span>
+            <div class='console-underscore' ref="text-style">&#95;</div>
         </div>
 
         <div id="bg1" ref="box">
@@ -22,7 +22,7 @@
             <div class="blog-area">
                 <!--用户信息栏-->
                 <UserInfoCard :count="blogCount"></UserInfoCard>
-                   
+
                 <div id="player"></div>
                 <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
                     @click.native="blogDetail(item.id)">
@@ -51,10 +51,11 @@ import APlayer from 'APlayer';
 
 import "animate.css"
 import '../assets/css/star.css'
+import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard},
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard },
     data() {
         return {
             firstBGPageInfo: {
@@ -127,32 +128,7 @@ export default {
                 ]
             },
             //获得歌单
-            musicList: [
-                {
-                    id: 1,
-                    name: '',
-                    artist: '',
-                    url: '',
-                    cover: '',
-                    theme: '#ebd0c2'
-                },
-                {
-                    id: 2,
-                    name: '',
-                    artist: '',
-                    url: '',
-                    cover: '',
-                    theme: '#ebd0c2'
-                },
-                {
-                    id: 3,
-                    name: '',
-                    artist: '',
-                    url: '',
-                    cover: '',
-                    theme: '#ebd0c2'
-                }
-            ]
+            musicList: []
         }
     },
     created() {
@@ -160,41 +136,22 @@ export default {
         this.getNewBlogs()
         this.getHotBlogs()
         this.getmusicList()
+
     },
     mounted() {
         //音乐播放器
-        const ap = new APlayer({
-            container: document.getElementById('player'),
-            fixed: true,
-            audio: this.musicList
-            /*
-            audio: [
-                {
-                    name: '借',
-                    artist: '毛不易',
-                    url: 'http://music.163.com/song/media/outer/url?id=569214250.mp3',
-                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
-                    theme: '#ebd0c2'
-                },
-                {
-                    name: '像我这样的人',
-                    artist: '毛不易',
-                    url: 'http://music.163.com/song/media/outer/url?id=569213220.mp3',
-                    cover: 'http://p1.music.126.net/vmCcDvD1H04e9gm97xsCqg==/109951163350929740.jpg?param=130y130',
-                    theme: '#46718b'
-                },
-                {
-                    name: '无与伦比的美丽',
-                    artist: '苏打绿',
-                    url: 'http://music.163.com/song/media/outer/url?id=2023994371.mp3',
-                    cover: 'http://p2.music.126.net/zfr5TThFTC3vedNp3L24Zg==/109951168565381063.jpg?param=130y130',
-                    theme: '#46718b'
-                }
-            ]*/
+        setTimeout(() => {
+            // 在这里放入需要延迟执行的代码
+            // 音乐播放器等相关操作
+            const ap = new APlayer({
+                container: document.getElementById('player'),
+                fixed: true,
+                audio: this.musicList
+            });
+        }, 1000); // 延迟1秒执行
 
-        });
-        
-        document.addEventListener('scroll',this.parallax,true);
+
+        document.addEventListener('scroll', this.parallax, true);
         this.createConsoleText();
     },
     deactivated() {
@@ -208,11 +165,13 @@ export default {
     methods: {
         // 获取音乐列表
         async getmusicList() {
-            const { data: res } = await this.$axios.get("/admin/musicList")
+            const { data: res } = await this.$axios.get("/myblog/getAllMusic")
             if (res.status === 1) {
-                this.musicList = res.data.data;
+                console.log(res.data[0])
+                this.musicList = res.data[0];
             }
-            else{
+            else {
+                window.alert("获取音乐列表失败,请检查网络设置")
             }
         },
 
@@ -289,9 +248,9 @@ export default {
             }
         },
 
-        createConsoleText(){
-            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '可能还要换个字体', '先意思一下','不过紫色还蛮好看'];
-            var colors = ['#9990bc','#8a84b7','#7b79b1',"#6c6dac","#5d62a7"];
+        createConsoleText() {
+            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '可能还要换个字体', '先意思一下', '不过紫色还蛮好看'];
+            var colors = ['#9990bc', '#8a84b7', '#7b79b1', "#6c6dac", "#5d62a7"];
 
             var visible = true;
             var con = document.getElementById('console');
@@ -307,30 +266,30 @@ export default {
             if (colors === undefined) colors = ['#black'];
 
             target.setAttribute('style', 'color:' + colors[0])
-            window.setInterval(function() {
+            window.setInterval(function () {
                 if (letterCount === 0 && waiting === false) {
-                waiting = true;
-                target.innerHTML = words[0].substring(0, letterCount)
-                window.setTimeout(function() {
-                    var usedColor = colors.shift();
-                    colors.push(usedColor);
-                    var usedWord = words.shift();
-                    words.push(usedWord);
-                    x = 1;
-                    target.setAttribute('style', 'color:' + colors[0])
-                    letterCount += x;
-                    waiting = false;
-                }, 1000)
+                    waiting = true;
+                    target.innerHTML = words[0].substring(0, letterCount)
+                    window.setTimeout(function () {
+                        var usedColor = colors.shift();
+                        colors.push(usedColor);
+                        var usedWord = words.shift();
+                        words.push(usedWord);
+                        x = 1;
+                        target.setAttribute('style', 'color:' + colors[0])
+                        letterCount += x;
+                        waiting = false;
+                    }, 1000)
                 } else if (letterCount === words[0].length + 1 && waiting === false) {
-                waiting = true;
-                window.setTimeout(function() {
-                    x = -1;
-                    letterCount += x;
-                    waiting = false;
-                }, 1000)
+                    waiting = true;
+                    window.setTimeout(function () {
+                        x = -1;
+                        letterCount += x;
+                        waiting = false;
+                    }, 1000)
                 } else if (waiting === false) {
-                target.innerHTML = words[0].substring(0, letterCount)
-                letterCount += x;
+                    target.innerHTML = words[0].substring(0, letterCount)
+                    letterCount += x;
                 }
             }, 120)
         },
@@ -345,25 +304,27 @@ export default {
 .animate__animated {
     animation-duration: 3s;
 }
- .console-container {
-    font-size:3em;
-    text-align:center;
-    height:560px;
-    width:1000px;
-    display:block;
-    position:absolute;
-    color:#fffcfb;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    margin:auto;
+
+.console-container {
+    font-size: 3em;
+    text-align: center;
+    height: 560px;
+    width: 1000px;
+    display: block;
+    position: absolute;
+    color: #fffcfb;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
+
 .console-underscore {
-    display:inline-block;
-    position:relative;
-    top:-0.05em;
-    left:10px;
+    display: inline-block;
+    position: relative;
+    top: -0.05em;
+    left: 10px;
 }
 
 .scroll-down {
@@ -416,6 +377,7 @@ export default {
     80% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -451,7 +413,7 @@ export default {
 
 //下面区域
 #area-blow {
-    background-color:#1d1d2b;
+    background-color: #1d1d2b;
 }
 
 // 下面中心区域
@@ -461,5 +423,4 @@ export default {
     padding-bottom: 64px;
     overflow: hidden;
 }
-
 </style>
