@@ -20,6 +20,8 @@ VALUES (?,?,?,?,?,?,?,?,?)`,
 			`SELECT * FROM t_election ORDER BY subject_id ASC LIMIT ?,?;`,
 			`SELECT COUNT(*) FROM t_election WHERE classification=?;`,
 			`SELECT COUNT(*) FROM t_election ;`,
+			`SELECT subject_id,subject_name,teacher FROM t_election WHERE classification=? ORDER BY subject_id ASC;`,
+			`SELECT subject_id,subject_name,teacher FROM t_election ORDER BY subject_id ASC LIMIT ?,?;`,
 		},
 	}
 }
@@ -34,6 +36,18 @@ func (e *ElectionDao) FindAllElection(classification string, pageNum int, pageSi
 	err = sqldb.Get(&count, e.sql[7], classification)
 	return
 }
+
+func (e *ElectionDao) FindAllElectionNoClass(pageNum int, pageSize int) (electionlist []model.Election, count int, err error) {
+	pageStart := (pageNum - 1) * pageSize
+	err = sqldb.Select(&electionlist, e.sql[10], pageStart, pageSize)
+	err = sqldb.Get(&count, e.sql[8])
+	return
+}
+func (e *ElectionDao) FindAllElectionNopage(classification string) (electionlist []model.Election, err error) {
+	err = sqldb.Select(&electionlist, e.sql[9], classification)
+	return
+}
+
 func (e *ElectionDao) FindElectionByClass(classification string, pageNum int, pageSize int) (electionlist []model.ElectionDetailed, count int, err error) {
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&electionlist, e.sql[2], classification, pageStart, pageSize)
