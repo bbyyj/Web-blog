@@ -76,6 +76,7 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/electionList", Decorate(electionRouter.ElectionList))
 		blogGroup.GET("/electionDetailedList", Decorate(electionRouter.ElectionDetailedList))
+		blogGroup.GET("/electionListNoClass", Decorate(electionRouter.ElectionListNoClass))
 	}
 	electionCommentRouter := controller.NewElectionCommentRouter()
 	{
@@ -213,6 +214,7 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteElection", Decorate(electionRouter.DeleteElection))
 		adminGroup.POST("/addElection", Decorate(electionRouter.AddElection))
 		adminGroup.PUT("/updateElection", Decorate(electionRouter.UpdateElection))
+		adminGroup.GET("/electionNoPage", Decorate(electionRouter.ElectionListNoPage))
 	}
 	electionCommentRouter := admin.NewElectionCommentRouter()
 	{

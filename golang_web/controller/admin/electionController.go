@@ -18,6 +18,15 @@ func NewElectionRouter() *ElectionController {
 		electionDao: dao.NewElectionDao(),
 	}
 }
+func (e *ElectionController) ElectionListNoPage(ctx *gin.Context) *response.Response {
+	classification := ctx.Query("classification")
+	essays, err := e.electionDao.FindAllElectionNopage(classification)
+	if response.CheckError(err, "Get Election List") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(essays)
+}
+
 func (e *ElectionController) ElectionByClass(ctx *gin.Context) *response.Response {
 	classification := ctx.Query("classification")
 	pageNum := utils.QueryInt(ctx, "pageNum")
