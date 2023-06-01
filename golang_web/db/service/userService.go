@@ -13,17 +13,18 @@ import (
 
 type UserService struct {
 	userDao *dao.UserDao
-	tagDao *dao.TagDao
+	tagDao  *dao.TagDao
 }
 
 func NewUserService() *UserService {
 	return &UserService{
 		userDao: dao.NewUserDao(),
-		tagDao: dao.NewTagDao(),
+		tagDao:  dao.NewTagDao(),
 	}
 }
 
 func (u *UserService) CheckUser(username, password string) (*model.User, error) {
+	println("note here serve")
 	return u.userDao.FindUserByUsernameAndPassword(username, password)
 }
 

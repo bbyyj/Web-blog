@@ -33,6 +33,7 @@ func TestFindTotalCount(t *testing.T) {
 	t.Logf("Find Total Count Success, count = %v", count)
 }
 
+// 添加并删除同一音乐
 func TestAdd(t *testing.T) {
 	music := dao.NewMusicDao()
 	var newMusic model.Music
