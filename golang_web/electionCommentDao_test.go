@@ -1,68 +1,76 @@
 package main
 
-//import "blog_web/model"
-//
-//type ElectionCommentDao struct {
-//	sql []string
-//}
-//
-//func NewElectionCommentDao() *ElectionCommentDao {
-//	return &ElectionCommentDao{
-//		sql: []string{
-//			`SELECT * FROM t_election_comment WHERE subject_id=? ORDER BY id ASC LIMIT ?,?;`,
-//			`SELECT * FROM t_election_comment ORDER BY id ASC LIMIT ?,?;`,
-//			`DELETE FROM t_election_comment WHERE id=?`,
-//			`INSERT INTO t_election_comment(subject_id,subject_name,classification,comment) VALUES (?,?,?,?)`,
-//			`SELECT COUNT(*) FROM t_election_comment `,
-//			`SELECT COUNT(*) FROM t_election_comment WHERE subject_id=?`,
-//			`SELECT subject_name FROM t_election WHERE subject_id=?`,
-//			`SELECT * FROM t_election_comment WHERE classification=? and subject_name=? ORDER BY id ASC LIMIT ?,?;`,
-//			`SELECT COUNT(*) FROM t_election_comment WHERE classification=?`,
-//			`SELECT classification FROM t_election WHERE subject_id=?`,
-//		},
-//	}
-//}
-//func (e *ElectionCommentDao) FindElectionComment(subjectId string, pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
-//	pageStart := (pageNum - 1) * pageSize
-//	err = sqldb.Select(&electionCommentList, e.sql[0], subjectId, pageStart, pageSize)
-//	err = sqldb.Get(&count, e.sql[5], subjectId)
-//	return
-//}
-//
-//func (e *ElectionCommentDao) FindAllElectionComment(pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
-//	pageStart := (pageNum - 1) * pageSize
-//	err = sqldb.Select(&electionCommentList, e.sql[1], pageStart, pageSize)
-//	err = sqldb.Get(&count, e.sql[4])
-//	if err != nil {
-//		println(err.Error())
-//	}
-//	return
-//}
-//func (e *ElectionCommentDao) FindElectionCommentByClassification(classification string, subjectName string, pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
-//	pageStart := (pageNum - 1) * pageSize
-//	err = sqldb.Select(&electionCommentList, e.sql[7], classification, subjectName, pageStart, pageSize)
-//	err = sqldb.Get(&count, e.sql[8], classification)
-//	if err != nil {
-//		println(err.Error())
-//	}
-//	return
-//}
-//func (e *ElectionCommentDao) DeleteElectionComment(id int) error {
-//	_, err := sqldb.Exec(e.sql[2], id)
-//	if err != nil {
-//		println(err.Error())
-//	}
-//	return err
-//}
-//func (e *ElectionCommentDao) AddElectionComment(comment *model.ElectionComment) error {
-//	er := sqldb.Get(&comment.SubjectName, e.sql[6], comment.SubjectId)
-//	er = sqldb.Get(&comment.Classification, e.sql[9], comment.SubjectId)
-//	if er != nil {
-//		println(er.Error())
-//	}
-//	_, err := sqldb.Exec(e.sql[3], comment.SubjectId, comment.SubjectName, comment.Classification, comment.Comment)
-//	if err != nil {
-//		println(err.Error())
-//	}
-//	return err
-//}
+import (
+	"blog_web/db/dao"
+	"blog_web/model"
+	"testing"
+)
+
+// 测试 花式查询
+func TestFindElectionComment(t *testing.T) {
+	ec := dao.NewElectionCommentDao()
+
+	_, _, err := ec.FindElectionComment("SSE201", 1, 5)
+	if err != nil {
+		println(err.Error())
+		t.Fatal("Find Election Comment Error")
+	}
+	t.Log("Find Election Comment Success")
+}
+
+func TestFindAllElectionComment(t *testing.T) {
+	ec := dao.NewElectionCommentDao()
+
+	_, _, err := ec.FindAllElectionComment(1, 5)
+	if err != nil {
+		println(err.Error())
+		t.Fatal("Find All Election Comment Error")
+	}
+	t.Log("Find All Election Comment Success")
+}
+
+func TestFindElectionCommentByClassification(t *testing.T) {
+	ec := dao.NewElectionCommentDao()
+
+	_, _, err := ec.FindElectionCommentByClassification("专必", "计算机组成原理", 1, 5)
+	if err != nil {
+		println(err.Error())
+		t.Fatal("Find Election Comment By Classification Error")
+	}
+	t.Log("Find Election Comment By Classification Success")
+}
+
+// 测试 增删
+func TestAddElectionComment(t *testing.T) {
+	ec := dao.NewElectionCommentDao()
+	var comment model.ElectionComment
+
+	comment.SubjectId = "SSE201"
+	comment.SubjectName = "计算机组成原理"
+	comment.Classification = "专必"
+	comment.Comment = "老师很可爱很可爱"
+	err := ec.AddElectionComment(&comment)
+	if err != nil {
+		println(err.Error())
+		t.Fatal("Add Election Comment Error")
+	}
+	t.Log("Add Election Comment Success")
+}
+
+func TestDeleteElectionComment(t *testing.T) {
+	ec := dao.NewElectionCommentDao()
+
+	maxId, err := ec.GetMaxId()
+	if err != nil {
+		println(err.Error())
+		t.Fatal("Get MaxId Error")
+	}
+	t.Log("Get MaxId Success")
+
+	err = ec.DeleteElectionComment(maxId)
+	if err != nil {
+		println(err.Error())
+		t.Fatal("Delete Election Comment Error")
+	}
+	t.Log("Delete Election Comment Success")
+}

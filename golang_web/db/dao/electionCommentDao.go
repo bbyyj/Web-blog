@@ -66,3 +66,9 @@ func (e *ElectionCommentDao) AddElectionComment(comment *model.ElectionComment) 
 	}
 	return err
 }
+
+func (e *ElectionCommentDao) GetMaxId() (maxID int, err error) {
+	err = sqldb.Get(&maxID, "SELECT MAX(id) FROM t_election_comment")
+	//println(maxID)
+	return
+}

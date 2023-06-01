@@ -63,6 +63,16 @@ FROM t_exam WHERE subject=? and chapter=? ORDER BY id ASC LIMIT ?,?;`,
 	}
 }
 
+//	func (e *SubjectDao) FindAll() (subvuelist model.SubjectVue, err error) {
+//		sublist := []model.Subject{}
+//		err = sqldb.Select(&sublist, e.sql[0])
+//		suball := []string{}
+//		for _, sub := range sublist {
+//			suball = append(suball, sub.Subject)
+//		}
+//		subvuelist.Subject = suball
+//		return
+//	}
 func (e *SubjectDao) FindAll() (subvuelist []model.SubjectVue, err error) {
 	sublist := []model.Subject{}
 	var count int
@@ -168,6 +178,17 @@ func (e *ExamDao) FindExam(subject string, chapter string, pageNum int, pageSize
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&examlist, e.sql[6], subject, chapter, pageStart, pageSize)
 	err = sqldb.Get(&num, e.sql[1], subject, chapter)
+	//for _, exam := range examlist {
+	//	examvue := model.Exam{
+	//		Id:            exam.Id,
+	//		Question:      exam.Question,
+	//		Answers:       []string{exam.FirstAnswer, exam.SecondAnswer, exam.ThirdAnswer, exam.FourthAnswer},
+	//		CorrectAnswer: exam.CorrectAnswer,
+	//	}
+	//	examvuelist = append(examvuelist, examvue)
+	//
+	//}
+
 	return
 
 }
