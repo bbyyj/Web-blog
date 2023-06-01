@@ -5,12 +5,6 @@ import (
 	"strconv"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 19:11
-* @Desc:
- */
-
 func QueryInt(ctx *gin.Context, key string) int {
 	param := ctx.Query(key)
 	i, _ := strconv.Atoi(param)

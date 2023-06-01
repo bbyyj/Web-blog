@@ -2,15 +2,9 @@ package model
 
 import "time"
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 18:47
-* @Desc:
- */
-
 type BlogSection struct {
-	Id             int       `db:"id" json:"id"`
-	Title          string    `db:"title" json:"title"`
+	Id    int    `db:"id" json:"id"`
+	Title string `db:"title" json:"title"`
 }
 
 type Blog struct {
@@ -31,12 +25,14 @@ type Blog struct {
 	UserId         int       `db:"user_id" json:"userId"`
 }
 
+// 带用户名的blog
 type BlogUserType struct {
 	Blog
 	Nickname string `db:"nickname" json:"nickname"`
 	Typename string `db:"typename" json:"typename"`
 }
 
+// 带用户名和点击量的blog
 type DetailedBlog struct {
 	Blog
 	Nickname string `db:"nickname" json:"nickname"`
@@ -44,6 +40,7 @@ type DetailedBlog struct {
 	Views    int    `db:"views" json:"views"`
 }
 
+// 带用户名和tag组合的blog
 type FullBlog struct {
 	BlogUserType
 	TagIds []int `json:"tagIds"`

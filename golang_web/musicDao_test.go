@@ -8,29 +8,32 @@ import (
 
 func TestFindAll(t *testing.T) {
 	music := dao.NewMusicDao()
-	musics, err := music.FindAll()
+	_, err := music.FindAll()
 	if err != nil {
+		println(err.Error())
 		t.Fatal("Find All Error")
 	}
-	t.Logf("Find All Success, musics = %v", musics)
+	t.Log("Find All Success")
 }
 
 func TestMusicList(t *testing.T) {
 	music := dao.NewMusicDao()
-	musics, err := music.MusicList(1, 10)
+	_, err := music.MusicList(1, 10)
 	if err != nil {
+		println(err.Error())
 		t.Fatal("Music List Error")
 	}
-	t.Logf("Music List Success, musics = %v", musics)
+	t.Log("Music List Success")
 }
 
 func TestFindTotalCount(t *testing.T) {
 	music := dao.NewMusicDao()
-	count, err := music.FindTotalCount()
+	_, err := music.FindTotalCount()
 	if err != nil {
+		println(err.Error())
 		t.Fatal("Find Total Count Error")
 	}
-	t.Logf("Find Total Count Success, count = %v", count)
+	t.Log("Find Total Count Success")
 }
 
 // 添加并删除同一音乐
@@ -43,6 +46,7 @@ func TestAdd(t *testing.T) {
 	newMusic.Cover = "http://p1.music.126.net/C_dc-WuRU4YKJREo4A2Wbw==/109951165115215198.jpg?param=130y130"
 	err := music.Add(&newMusic)
 	if err != nil {
+		println(err.Error())
 		t.Fatal("Add Error")
 	}
 	t.Log("Add Success")
@@ -53,7 +57,8 @@ func TestDelete(t *testing.T) {
 	maxId, err := music.GetMaxMusicId()
 	err = music.Delete(maxId)
 	if err != nil {
-		t.Fatal("DeleteError")
+		println(err.Error())
+		t.Fatal("Delete Error")
 	}
 	t.Log("Delete Success")
 }
