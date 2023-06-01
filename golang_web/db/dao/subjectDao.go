@@ -214,3 +214,9 @@ func (e *ExamDao) UpdateExam(exam *model.Exam) error {
 	}
 	return err
 }
+
+func (e *ExamDao) GetMaxId() (maxID int, err error) {
+	err = sqldb.Get(&maxID, "SELECT MAX(id) FROM t_exam")
+	//println(maxID)
+	return
+}
