@@ -3,7 +3,6 @@ package main
 import (
 	"blog_web/db/dao"
 	"blog_web/model"
-	_ "blog_web/model"
 	"testing"
 	"time"
 )

@@ -44,3 +44,9 @@ func (m *MusicDao) Delete(id int) error {
 	_, err := sqldb.Exec(m.sql[4], id)
 	return err
 }
+
+func (m *MusicDao) GetMaxMusicId() (maxID int, err error) {
+	err = sqldb.Get(&maxID, "SELECT Max(id) FROM t_music")
+	//println(maxID)
+	return
+}
