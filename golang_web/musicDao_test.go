@@ -33,15 +33,6 @@ func TestFindTotalCount(t *testing.T) {
 	t.Logf("Find Total Count Success, count = %v", count)
 }
 
-//	func (m *MusicDao) Add(music *model.Music) error {
-//		_, err := sqldb.Exec(m.sql[3], music.Name, music.Artist, music.Url, music.Cover)
-//		return err
-//	}
-//
-//	func (m *MusicDao) Delete(id int) error {
-//		_, err := sqldb.Exec(m.sql[4], id)
-//		return err
-//	}
 func TestAdd(t *testing.T) {
 	music := dao.NewMusicDao()
 	var newMusic model.Music
