@@ -5,6 +5,7 @@ import (
 	"blog_web/model"
 	"blog_web/utils"
 	"fmt"
+	"sort"
 )
 
 type AskBoxService struct {
@@ -21,14 +22,26 @@ func groupByParentID(askboxs []model.Askbox) [][]model.Askbox {
 	groups := make(map[int][]model.Askbox)
 	for _, ab := range askboxs {
 		groups[ab.ParentId] = append(groups[ab.ParentId], ab)
+		//println(ab.ParentId)
+		//fmt.Println(groups)
+		//fmt.Println("---------------------------------------------")
+		//// 到这里还不是乱序的？
 	}
 
 	var result [][]model.Askbox
 	for _, group := range groups {
+		// map无序，遍历随机
+		//fmt.Println(group)
 		result = append(result, group)
+		//fmt.Println("---------------------------------------------")
 	}
 
+	sort.Slice(result, func(i, j int) bool {
+		return result[i][0].ParentId > result[j][0].ParentId
+	})
+
 	return result
+	//return groups
 }
 
 func (a *AskBoxService) GetAnsweredQA() ([][]model.Askbox, int, error) {
@@ -40,8 +53,8 @@ func (a *AskBoxService) GetAnsweredQA() ([][]model.Askbox, int, error) {
 	}
 
 	result := groupByParentID(askboxs)
-	fmt.Println("note here")
-	fmt.Println(result)
+	//fmt.Println("note here")
+	//fmt.Println(result)
 
 	count, _ := a.askboxDao.GetAnsweredParentQuestionCount()
 
