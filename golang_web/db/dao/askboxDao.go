@@ -138,6 +138,6 @@ func (abd *AskBoxDao) GetAllQuestionCount() (count int, err error) {
 
 func (abd *AskBoxDao) GetMaxParentQuestionId() (maxID int, err error) {
 	err = sqldb.Get(&maxID, "SELECT MAX(parent_id) FROM t_askbox")
-	println(maxID)
+	//println(maxID)
 	return
 }

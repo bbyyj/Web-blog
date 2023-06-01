@@ -43,47 +43,51 @@ func TestGetAllQuestionCountCount(t *testing.T) {
 }
 
 // 测试一系列GetQA函数
+func TestGetAnsweredQA(t *testing.T) {
+	abd := dao.NewAskBoxDao()
+	qa, err := abd.GetAnsweredQA()
+	if err != nil {
+		t.Fatal("Get Answered QA Error")
+	}
+	t.Logf("Get Answered QA Success, QAPage = %v", qa)
+}
 
-//func (abd *AskBoxDao) GetAnsweredQAPage(pageStart, PageSize int) (msg []model.Askbox, err error) {
-//	err = sqldb.Select(&msg, abd.sql[9], pageStart, PageSize)
-//	return
-//}
-//
+func TestGetAnsweredQAPage(t *testing.T) {
+	abd := dao.NewAskBoxDao()
+	qaPage, err := abd.GetAnsweredQAPage(1, 10)
+	if err != nil {
+		t.Fatal("Get Answered QAPage Error")
+	}
+	t.Logf("Get Answered QAPage Success, QAPage = %v", qaPage)
+}
 
-//
-//func (abd *AskBoxDao) GetMaxParentQuestionId() (maxID int, err error) {
-//	err = sqldb.Get(&maxID, "SELECT MAX(parent_id) FROM t_askbox")
-//	println(maxID)
-//	return
-//}
-//
-//func (abd *AskBoxDao) GetUnansweredQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
-//	err = sqldb.Select(&msg, abd.sql[5], pageStart, PageSize)
-//	return
-//}
-//
-//func (abd *AskBoxDao) GetAllQA(pageStart, PageSize int) (msg []model.Askbox, err error) {
-//	err = sqldb.Select(&msg, abd.sql[4], pageStart, PageSize)
-//	if err != nil {
-//		println(err.Error())
-//	}
-//	return
-//}
-//
-//func (abd *AskBoxDao) GetAnsweredQA() (askboxs []model.Askbox, err error) {
-//	// abd.sql[0]: `SELECT * FROM t_askbox WHERE is_answered = 1 ORDER BY parent_id, child_id ASC;`,
-//	err = sqldb.Select(&askboxs, abd.sql[0])
-//	return
-//}
+func TestGetAllQA(t *testing.T) {
+	abd := dao.NewAskBoxDao()
+	qaPage, err := abd.GetAnsweredQA()
+	if err != nil {
+		t.Fatal("Get All QA Error")
+	}
+	t.Logf("Get All QA Success, QAPage = %v", qaPage)
+}
 
-//func TestGetAnsweredQAPage(t *testing.T) {
-//	abd := dao.NewAskBoxDao()
-//	err := abd.GetAnsweredQAPage(1,10)
-//	if err != nil {
-//		t.Fatal("Get Answered QAPage Error")
-//	}
-//	t.Logf("Get Answered QAPage Success, QAPage = %v", count)
-//}
+func TestGetUnansweredQA(t *testing.T) {
+	abd := dao.NewAskBoxDao()
+	qaPage, err := abd.GetUnansweredQA(1, 10)
+	if err != nil {
+		t.Fatal("Get Unanswered QA Error")
+	}
+	t.Logf("Get Unanswered QA Success, QAPage = %v", qaPage)
+}
+
+// 测试其他Get函数
+func TestGetMaxParentQuestionId(t *testing.T) {
+	abd := dao.NewAskBoxDao()
+	maxId, err := abd.GetMaxParentQuestionId()
+	if err != nil {
+		t.Fatal("Get Max Parent Question Id Error")
+	}
+	t.Logf("Get Max Parent Question Id Success, maxId = %v", maxId)
+}
 
 //////////////////////////////////////////
 //func (abd *AskBoxDao) AddNewQuestion(a *model.Askbox) error {

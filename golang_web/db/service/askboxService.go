@@ -106,6 +106,8 @@ func (a *AskBoxService) GetUnansweredQA(pageNum, pageSize int) ([]model.Askbox, 
 
 func (a *AskBoxService) GetAnsweredQAPage(pageNum, pageSize int) ([]model.Askbox, int, error) {
 	pageStart := (pageNum - 1) * pageSize
+	println(pageStart)
+	println(pageSize)
 	messages, err := a.askboxDao.GetAnsweredQAPage(pageStart, pageSize)
 	if err != nil {
 		utils.Logger().Warning("Get Answered QA error:%v", err)
