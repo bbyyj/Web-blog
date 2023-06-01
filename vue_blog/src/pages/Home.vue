@@ -422,5 +422,6 @@ export default {
     padding-top: 36px;
     padding-bottom: 64px;
     overflow: hidden;
+    min-height: 2000px;
 }
 </style>

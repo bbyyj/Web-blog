@@ -3,10 +3,10 @@
     <div>
         <div class="group-warp">
             <MessageItem :msg="groupMsg.myself"></MessageItem>
-            <button class="like-button" @click="clickLikes(groupMsg.myself)">
+            <button class="follow-btn" @click="clickLikes(groupMsg.myself)">
                 {{ groupMsg.myself.likes }}赞
             </button>
-            <button v-if="shouldDisplayButton" @click="openAppendDialog">追加子问题</button>
+            <button class="follow-btn" v-if="shouldDisplayButton" @click="openAppendDialog">追加子问题</button>
             <div class="count" v-if="groupMsg.children.length">
                 <span @click="hideChildren">
                     {{ groupMsg.children.length }}条追问<span class="arrowUp" :class="{ arrowDown: !showChildren }"></span>
@@ -17,11 +17,11 @@
                     <ul>
                         <li :key="item.id" v-for="(item, index) in groupMsg.children">
                             <MessageItem :msg="item"></MessageItem>
-                            <button class="like-button" @click="clickLikes(item)">
+                            <button class="follow-btn" @click="clickLikes(item)">
                                 {{ item.likes }}赞
                             </button>
                             <!-- 追加子问题的按钮只会在最后一个问题下面显示 -->
-                            <button v-if="index === groupMsg.children.length - 1" @click="openAppendDialog">追加子问题</button>
+                            <button class="follow-btn" v-if="index === groupMsg.children.length - 1" @click="openAppendDialog">追加子问题</button>
                         </li>
                     </ul>
                 </div>
@@ -32,17 +32,17 @@
             <div>
                 <label>
                     问题内容：
-                    <input v-model="newQuestion" type="text">
+                    <input class="rainbow-contain" v-model="newQuestion" type="text">
                 </label>
             </div>
             <div>
-                <label>
+                <label class="rainbow-label">
                     是否为彩虹：
-                    <input v-model="newQuestionRainbow" type="checkbox">
+                    <input v-model="newQuestionRainbow" class="rainbow-input" type="checkbox">
                 </label>
             </div>
-            <button @click="submitAppendDialog(groupMsg.children.length)">提交啦</button>
-            <button @click="closeAppendDialog">关闭</button>
+            <button class="ask-btn" @click="submitAppendDialog(groupMsg.children.length)">提交啦</button>
+            <button class="ask-btn" @click="closeAppendDialog">关闭</button>
         </div>
         <!-- 阴影效果 -->
         <div v-if="showAppendDialog" class="overlay" @click="closeAppendDialog"></div>
@@ -159,12 +159,60 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
-
+.ask-btn{
+    margin-top: 10px;
+    margin-right: 15px;
+    padding: 3px 8px 3px 8px ;
+    border: 2px solid #9990bc;
+    border-radius: 5px;
+}
+.rainbow-label{
+    margin-top: 18px;
+}
+.rainbow-input{
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    outline: none;
+    width:23px;
+    height:23px;
+    background-color:#fdeceb;
+    border:solid 2px #fcdedb;
+    border-radius:50%;
+    margin:0px 0px 1px 2px;
+    padding:0;
+    position:relative;
+    display:inline-block;
+    vertical-align:top;
+    transition:background-color ease 0.1s;
+}
+.rainbow-input:checked {
+    background:#7c80b8;
+    border:solid 2px #3d3952;
+}
+.rainbow-input:checked::after {
+    content:'';
+    top:6px;
+    left:5px;
+    position:absolute;
+    border:#fff solid 2px;
+    border-top:none;
+    border-right:none;
+    height:6px;
+    width:10px;
+    transform:rotate(-45deg);
+}
+.rainbow-contain{
+    border: 2px solid #9990bc;
+    border-radius: 5px;
+}
+.rainbow-contain:focus{
+    outline: 2px solid #3d3952;
+}
 .overlay {
     /*可以实现点击对话框的周围也退出对话框*/
     position: fixed;
@@ -175,9 +223,22 @@ export default {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+.follow-btn{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-right: 15px;
+    padding: 8px 15px 8px 15px ;
+    border: 2px solid #3d3952;
+    background-color: #3d3952;
+    color: #fef6f5; 
+    border-radius: 5px;
+}
 
-ul,
-li {
+.follow-btn:hover{
+    background-color: #fef6f5;
+    color: #3d3952; 
+}
+ul,li {
     margin: 10px;
     padding: 0px;
 }
@@ -202,10 +263,15 @@ li {
     float: right;
     margin-right: 50px;
     cursor: pointer;
-    font-weight: 600;
     font-size: 20px;
     line-height: 1.5;
     position: relative;
+
+    display: block;
+    border: 2px solid #3d3952;
+    background-color: #fef6f5;
+    padding: 8px 15px 8px 15px ;
+    border-radius: 5px;
 }
 
 .arrowUp {
