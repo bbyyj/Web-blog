@@ -42,7 +42,7 @@
                 </div>
                 <!--分页-->
                 <!-- 分页区域 -->
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                <el-pagination popper-class="select-down"  @size-change="handleSizeChange" @current-change="handleCurrentChange"
                     :current-page="queryInfo.pageNum" :page-sizes="[5, 10]" :page-size="queryInfo.pageSize"
                     layout="total, sizes, prev, pager, next, jumper" :total="total">
                 </el-pagination>
@@ -216,7 +216,9 @@ ul,li {
 .el-dropdown {
     vertical-align: top;
 }
-
+.chapter-item{
+    margin-bottom: 50px;
+}
 .el-icon-arrow-down {
     font-size: 14px;
 }
@@ -254,26 +256,13 @@ ul,li {
 /deep/ .el-input__inner{
     color: #565ca4;
     font-size: 16px; 
-}
-/deep/ .el-input__inner:focus, .el-input__inner:hover, .el-input__inner:active{
-    border: 2px solid  #565ca4;
+    border: 2px solid  #565ca4 !important;
 }
 
-// 这里修改不成功
-.el-select-dropdown__item {
-	padding: 0 0.2rem 0 0.2rem;
-	color:#010101;
-	font-size: 16px;
-}
-.el-select-dropdown__item.selected {
-	color: #565ca4;
+/deep/ .el-dropdown-item:hover{
+    color:#010101;
 }
 
-/deep/ .el-select:hover{
-    .el-input__inner:hover{
-        border: 2px solid  #565ca4;
-    }
-}
 /deep/ .btn-prev{
     border-radius: 4px 0 0 4px ;
 }
@@ -306,5 +295,18 @@ ul,li {
 
 .pagebar {
     padding-bottom: 50px;
+}
+</style>
+
+<style lang="less">
+
+.select-down {
+    .el-select-dropdown__item.selected{
+        color: #565ca4 !important;
+    }
+    .el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+        margin: 5px;
+    }
+	
 }
 </style>

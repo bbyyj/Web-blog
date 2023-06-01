@@ -24,7 +24,7 @@
             </el-table>
             <!-- 分页区域 -->
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                           :current-page="queryInfo.pageNum" :page-sizes="[10, 12, 15, 20]" :page-size="queryInfo.pageSize"
+                           :current-page="queryInfo.pagenum" :page-sizes="[10, 12, 15, 20]" :page-size="queryInfo.pagesize"
                            layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
             <!-- 编辑、添加显示页面 -->
@@ -47,7 +47,7 @@
                     </el-form-item>
                     <el-form-item label="图标：">
                         <el-row :gutter="22">
-                            <el-col :span="20">
+                            <el-col :span="15">
                                 <el-input v-model="postInfo.icon" autocomplete="off" clearable></el-input>
                             </el-col>
                             <el-col :span="2">
@@ -115,23 +115,34 @@ export default {
             total: 0,
             selectedCategory: "",
             postInfo: {
-                id: 0,
+                ID: 0,
                 name: "",
                 desc: "",
                 url: "",
                 categoryid: 0,
                 icon: "",
             },
+            //添加、更新资源分类递交用
             categoryPost: {
                 id: 0,
                 name: ""
             },
+            //页码相关
             queryInfo: {
                 pagenum: 1,
                 pagesize: 10
             },
             //所有分类 包括id和名字
             categories: [],
+            //测试
+            respost:{
+                name: "",
+                desc: "",
+                categoryid: ""
+            },
+            respost1:{
+                name: "",
+            },
             uploadIcon: axios.defaults.baseURL + "/admin/uploadIcon"
         }
     },
@@ -187,7 +198,7 @@ export default {
 
         //添加资源button对应
         async handleAdd() {
-            this.postInfo.id = 0
+            this.postInfo.ID = 0
             this.dialogFormVisible = true
         },
 
@@ -199,6 +210,11 @@ export default {
                 return item.id === this.links[index].categoryid
             })
             this.selectedCategory = val.name
+            //
+            this.respost.name = this.postInfo.name
+            this.respost.desc = this.postInfo.desc
+            this.respost.categoryid = this.postInfo.categoryid
+            this.respost1.name = this.postInfo.name
         },
 
         //表格内删除button对应
@@ -216,7 +232,6 @@ export default {
                 } else {
                     this.$message.success("删除成功！")
                     console.log(res);
-                    console.log(id);
                 }
                 if (this.queryInfo.pagenum === Math.ceil(this.total / this.queryInfo.pagesize) && this.links.length === 1) {
                     this.queryInfo.pagenum -= 1
@@ -242,7 +257,7 @@ export default {
         },
         cancel() {
             this.postInfo = {
-                id: 0,
+                ID: 0,
                 name: "",
                 desc: "",
                 url: "",
@@ -254,10 +269,17 @@ export default {
         },
         async commitLink() {
             let res
-            if(this.postInfo.id === 0) {
+            if(this.postInfo.ID === 0) {
                 res = await this.$axios.post("/admin/addLink", this.postInfo)
+                //res = await this.$axios.post("/admin/t/addresource", {params: { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid }})
+                // res = await this.$axios.post("/admin/t/addresource", this.respost)
+
+                console.log(res);
             } else {
                 res = await this.$axios.put("/admin/updateLink", this.postInfo)
+                // res = await this.$axios.put("/admin/t/reupload", this.postInfo.name)
+
+                console.log(res);
             }
             if (res.data.status !== 101) {
                 this.$message.error("操作失败，请重试！")
@@ -270,6 +292,7 @@ export default {
         uploadSuccess(response) {
             this.postInfo.icon = response;
         },
+        //显示资源分类信息
         showCategories() {
             this.dialogCategoryVisible = true
         },
@@ -282,8 +305,10 @@ export default {
             let res
             if(this.categoryPost.id === 0) {
                 res = await this.$axios.post("/admin/addCategory", this.categoryPost);
+                console.log(res);
             } else {
                 res = await this.$axios.put("/admin/updateCategory", this.categoryPost)
+                console.log(res);
             }
 
             if (res.data.status === 101) {

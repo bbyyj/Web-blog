@@ -160,7 +160,7 @@ button:active {
 }
 .rainbow-input:checked::after {
     content:'';
-    top:8px;
+    top:7px;
     left:6px;
     position:absolute;
     border:#fff solid 2px;

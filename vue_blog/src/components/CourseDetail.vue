@@ -1,55 +1,57 @@
 <template>
-    <div class="container">
-        <h1>课程详情</h1>
-        <div class="course-info">
-            <p>课程编号：{{ courseInfo.subject_id }}</p>
-            <p>课程名称：{{ courseInfo.subject_name }}</p>
-            <p>教师：{{ courseInfo.teacher }}</p>
-            <p>课程类型：{{ courseInfo.classification }}</p>
-            <p>学分：{{ courseInfo.credit }}</p>
-            <p>学院：{{ courseInfo.college }}</p>
-            <p>考勤：{{ courseInfo.attendance }}</p>
-            <p>分数：{{ courseInfo.score }}</p>
-            <p>评价：{{ courseInfo.evaluation }}</p>
-        </div>
-        <div>
-            <!-- 评论 -->
-            <!-- 评论栏 -->
-            <textarea class="replay" v-model="comment.content">
-            </textarea>
+    <div class="bg">
+        <div class="container">
+            <h1>课程详情</h1>
+            <div class="course-info">
+                <p>课程编号：{{ courseInfo.subject_id }}</p>
+                <p>课程名称：{{ courseInfo.subject_name }}</p>
+                <p>教师：{{ courseInfo.teacher }}</p>
+                <p>课程类型：{{ courseInfo.classification }}</p>
+                <p>学分：{{ courseInfo.credit }}</p>
+                <p>学院：{{ courseInfo.college }}</p>
+                <p>考勤：{{ courseInfo.attendance }}</p>
+                <p>分数：{{ courseInfo.score }}</p>
+                <p>评价：{{ courseInfo.evaluation }}</p>
+            </div>
+            <div>
+                <!-- 评论 -->
+                <!-- 评论栏 -->
+                <textarea class="replay" v-model="comment.content">
+                </textarea>
 
-            <b-container fluid>
-                <b-row>
-                    <b-col sm="3">
-                        <b-button variant="outline-info" @click="publishComment">
-                            <b-icon icon="pencil-square" font-scale="0.9"></b-icon>
-                            发布评论
-                        </b-button>
-                    </b-col>
-                </b-row>
-            </b-container>
-            <el-card>
-                <div class="comment-outer">
-                    <div class="comment-body">
-                        <div style="font-weight: bold">评论</div>
-                        <hr>
-                        <!-- 评论内容 -->
-                        <div class="comment" :key="item.id" v-for="item in commentList">
-                            <span class="date">
-                                {{ item.createTime | fromatDate("yyyy-MM-dd hh:mm:ss") }}
-                            </span>
-                            <div class="comment-content">
-                                {{ item.comment }}
+                <b-container fluid>
+                    <b-row>
+                        <b-col sm="3">
+                            <b-button variant="outline-info" @click="publishComment">
+                                <b-icon icon="pencil-square" font-scale="0.9"></b-icon>
+                                发布评论
+                            </b-button>
+                        </b-col>
+                    </b-row>
+                </b-container>
+                <el-card>
+                    <div class="comment-outer">
+                        <div class="comment-body">
+                            <div style="font-weight: bold">评论</div>
+                            <hr>
+                            <!-- 评论内容 -->
+                            <div class="comment" :key="item.id" v-for="item in commentList">
+                                <span class="date">
+                                    {{ item.createTime | fromatDate("yyyy-MM-dd hh:mm:ss") }}
+                                </span>
+                                <div class="comment-content">
+                                    {{ item.comment }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- 分页区域 -->
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                    :current-page="queryInfo.pageNum" :page-sizes="[10, 12, 15, 20]" :page-size="queryInfo.pageSize"
-                    layout="total, sizes, prev, pager, next, jumper" :total="total">
-                </el-pagination>
-            </el-card>
+                    <!-- 分页区域 -->
+                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                        :current-page="queryInfo.pageNum" :page-sizes="[10, 12, 15, 20]" :page-size="queryInfo.pageSize"
+                        layout="total, sizes, prev, pager, next, jumper" :total="total">
+                    </el-pagination>
+                </el-card>
+            </div>
         </div>
     </div>
 </template>
@@ -160,14 +162,28 @@ export default {
 }
 </script>
 <style scoped>
+.bg{
+    background: linear-gradient(-45deg, #f5e2e0, #c2bbce, #837cb8, #3d3952);
+    background-size: 300% 300%;
+    animation: gradient 20s ease-in-out infinite;
+    min-height: 1600px;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 .container {
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    padding: 2em;
-    box-sizing: border-box;
 }
 
 h1 {
