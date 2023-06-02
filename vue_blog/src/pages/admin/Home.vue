@@ -72,22 +72,22 @@ export default {
                         { id: "13", index: "/listMottos", icon: "el-icon-menu", name: "查看格言" }
                     ]
                 },
-                {
-                    id: "2",
-                    icon: "el-icon-notebook-2",
-                    name: "分类管理",
-                    submenus: [
-                        { id: "21", index: "/listTypes", icon: "el-icon-menu", name: "查看分类" },
-                    ]
-                },
-                {
-                    id: "3",
-                    icon: "el-icon-paperclip",
-                    name: "标签管理",
-                    submenus: [
-                        { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
-                    ]
-                },
+                // {
+                //     id: "2",
+                //     icon: "el-icon-notebook-2",
+                //     name: "分类管理",
+                //     submenus: [
+                //         { id: "21", index: "/listTypes", icon: "el-icon-menu", name: "查看分类" },
+                //     ]
+                // },
+                // {
+                //     id: "3",
+                //     icon: "el-icon-paperclip",
+                //     name: "标签管理",
+                //     submenus: [
+                //         { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
+                //     ]
+                // },
                 // {
                 //     id :"4",
                 //     icon: "el-icon-picture-outline",
@@ -189,7 +189,7 @@ export default {
     height: 100%;
 }
 .el-header {
-    background-color: #1c436d;
+    background-color: #baaaca;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -209,26 +209,26 @@ export default {
     }
 }
 .el-button--info{
-    background-color: #EA5455;
+    background-color: #9087b0;
     border: none;
     color: #F9F5EB;
     font-size: 16px;
 }
 .el-aside {
-    background-color: #1c436d;
+    background-color: #baaaca;
 
     ele-menu {
-        border-right: 1px solid #1c436d;
+        border-right: 1px solid #baaaca;
     }
 }
 
 .el-main {
-    background-color: #F9F5EB;
+    background-color: #fbd5d155;
 }
 
 .el-menu {
-    border-right: 1px solid #1c436d;
-    background-color: #1c436d;
+    border-right: 1px solid #baaaca;
+    background-color: #baaaca;
     // color: #1d3d39;
     opacity: 1;
     font-weight: 500;
@@ -237,14 +237,14 @@ export default {
 
 /deep/ .el-submenu .el-submenu__title:hover, .el-menu-item:hover, .el-submenu .el-submenu__title:focus, .el-menu-item:focus{
     outline: 0 !important;
-    background-color: #7189a4 !important;
+    background-color: #baaacabe !important;
 }
 .el-menu-item {
-    background-color: #1c436d !important;
+    background-color: #baaaca !important;
     border: none;
 }
 .toggle-button {
-    background-color: #1c436d;
+    background-color: #baaaca;
     font-size: 10px;
     line-height: 30px;
     color: #F9F5EB;
