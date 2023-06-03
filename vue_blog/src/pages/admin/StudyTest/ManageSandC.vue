@@ -1,5 +1,6 @@
 <template>
     <div class="admin-panel">
+        <el-card>
         <!--新增科目-->
         <el-form :model="newSubjectForm" @submit="addSubject" label-width="120px">
             <h2>新增科目</h2>
@@ -61,7 +62,7 @@
                 <el-button type="danger" @click="confirmDeleteChapter">删除</el-button>
             </el-form-item>
         </el-form>
-
+    </el-card>
     </div>
 </template>
 
