@@ -231,7 +231,7 @@ ul {
 }
 
 .box .en {
-    color: #b0a5e9;
+    color: #7266a7;
 }
 
 .box>div {

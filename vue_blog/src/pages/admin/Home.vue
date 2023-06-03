@@ -189,7 +189,7 @@ export default {
     height: 100%;
 }
 .el-header {
-    background-color: #baaaca;
+    background-color: #775f91;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -209,16 +209,16 @@ export default {
     }
 }
 .el-button--info{
-    background-color: #9087b0;
+    background-color: #8d84ae;
     border: none;
     color: #F9F5EB;
     font-size: 16px;
 }
 .el-aside {
-    background-color: #baaaca;
+    background-color: #775f91;
 
     ele-menu {
-        border-right: 1px solid #baaaca;
+        border-right: 1px solid #775f91;
     }
 }
 
@@ -227,8 +227,8 @@ export default {
 }
 
 .el-menu {
-    border-right: 1px solid #baaaca;
-    background-color: #baaaca;
+    border-right: 1px solid #775f91;
+    background-color: #775f91;
     // color: #1d3d39;
     opacity: 1;
     font-weight: 500;
@@ -237,14 +237,14 @@ export default {
 
 /deep/ .el-submenu .el-submenu__title:hover, .el-menu-item:hover, .el-submenu .el-submenu__title:focus, .el-menu-item:focus{
     outline: 0 !important;
-    background-color: #baaacabe !important;
+    background-color: #775f91be !important;
 }
 .el-menu-item {
-    background-color: #baaaca !important;
+    background-color: #775f91 !important;
     border: none;
 }
 .toggle-button {
-    background-color: #baaaca;
+    background-color: #775f91;
     font-size: 10px;
     line-height: 30px;
     color: #F9F5EB;
