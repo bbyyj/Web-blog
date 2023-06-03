@@ -22,6 +22,7 @@
             
             <div class="cloud-bg01"></div>
             <div class="cloud-bg02"></div>
+            <div class="cloud-bg03"></div>
             <TagCloud class="tag-detail"></TagCloud>
             <TypeArea class="type-detail"></TypeArea>
             
@@ -447,9 +448,19 @@ export default {
     top: 1550px;
     left: 0;
     background-image: url('../assets/images/cloud04.png');
-    opacity: 0.58;
+    opacity: 0.68;
     background-repeat: no-repeat;
     height: 520px;
     width: 700px;
+}
+.cloud-bg03{
+    position: absolute;
+    top: 850px;
+    left: 300px;
+    background-image: url('../assets/images/cloud02.png');
+    opacity: 0.58;
+    background-repeat: no-repeat;
+    height: 520px;
+    width: 1000px;
 }
 </style>
