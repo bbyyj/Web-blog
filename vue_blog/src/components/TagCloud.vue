@@ -1,12 +1,11 @@
 <!--标签云组件-->
 <template>
     <div class="wapper">
-        <div class="title">
-            <i class="iconfont icon-biaoqian"></i>
-            <h4>标签</h4>
-        </div>
+        <svg class="star star1"></svg>
+        <svg class="star star2"></svg>
+        <div class="title">标签</div>
         <div class="content">
-            <ul class="clear-fix">
+            <ul>
                 <li :key="item.id" v-for="item in tags" @click="itemClicked(item.id)">
                     <span>{{ item.name }}</span>
                 </li>
@@ -61,65 +60,63 @@ export default {
 
 <style scoped>
 
-ul,
-li {
-    margin: 0;
-    padding: 0;
-    color:#696eae;
-}
-
 .wapper {
-    width: 270px;
-    border-radius: 12px;
-    background-color: #d9dbeb;
-    margin-top: 30px;
+    width: 290px;
+    background-color: #0925f700;
+    margin-top: 0px;
     user-select: none;
 }
 
 .title {
-    border-bottom: 1px solid rgba(14, 14, 14, 0.1);
+    color: rgb(255, 255, 255);
+    opacity: 0.75;
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 10px;
 }
-
-.title i {
-    color: #3d3952;
-    font-size: 17px;
-    margin-left: 10px;
-    margin-right: 5px;
+.content{
+    text-align: center;
 }
-
-.title h4 {
-    height: 45px;
-    line-height: 50px;
-    margin: 0;
-    font-size: 16px;
-    display: inline-block;
-}
-
-ul {
-    padding: 20px 10px;
-}
-
-/*清除浮动*/
-.clear-fix::after {
-    content: '';
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
 ul li {
+    display: inline-block;
+    padding: 2px;
+    color:#ffffff;
+    opacity: 0.7;
     list-style: none;
-    float: left;
-    margin: 5px 8px;
+    margin: 6px 10px;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s;
+    
 }
 
 ul li:hover {
     transform: scale(1.2);
 }
+
+.star {
+    position: relative;
+    background-color: #ffffff;
+    clip-path: path('M29.51068,15.41064C19.78412,13.544,18.456,12.21582,16.58929,2.48926a.60015.60015,0,0,0-1.17871,0C13.54437,12.21582,12.21625,13.544,2.4892,15.41064a.60016.60016,0,0,0,0,1.17872c9.72705,1.86669,11.05517,3.19482,12.92138,12.92138a.60027.60027,0,0,0,1.17871,0c1.8667-9.72656,3.19483-11.05469,12.92139-12.92138a.60016.60016,0,0,0,0-1.17872Z');
+    width: 40px;
+    height: 40px;
+    animation: twinkle 2s ease-out infinite alternate;
+}
+.star1 {  
+    position: absolute;
+    top: 220px;
+    left: 50px;
+    animation-direction:alternate-reverse;
+    }
+.star2 {  
+    position: absolute;
+    top: -10px;
+    left: 210px;
+    }
+@keyframes twinkle {
+    0% {opacity:0.1;}
+    100%{opacity:0.8;}
+ }
 
 </style>
 

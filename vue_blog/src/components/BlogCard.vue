@@ -74,7 +74,7 @@ export default {
     overflow: hidden;
     border-radius: 20px;
     padding: 16px 20px;
-    margin: 20px 200px 50px 200px;
+    margin: 20px 300px 50px 300px;
     position: relative;
     transition: all .5s;
     cursor: pointer;

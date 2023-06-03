@@ -100,7 +100,7 @@ export default {
 .bg{
     background: linear-gradient(-45deg, #f5e2e0, #c2bbce, #837cb8, #3d3952);
     background-size: 300% 300%;
-    animation: gradient 20s ease-in-out infinite;
+    animation: gradient 8s ease-in-out infinite;
     min-height: 1600px;
 }
 @keyframes gradient {

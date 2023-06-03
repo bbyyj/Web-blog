@@ -19,6 +19,11 @@
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
+            
+            <div class="cloud-bg01"></div>
+            <TagCloud class="tag-detail"></TagCloud>
+            <div class="cloud-bg02"></div>
+
             <div class="blog-area">
                 <!--用户信息栏-->
                 <UserInfoCard :count="blogCount"></UserInfoCard>
@@ -45,6 +50,7 @@ import BackToTop from "../components/BackToTop";
 import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
+import TagCloud from "../components/TagCloud";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -55,7 +61,7 @@ import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud },
     data() {
         return {
             firstBGPageInfo: {
@@ -319,14 +325,12 @@ export default {
     right: 0;
     margin: auto;
 }
-
 .console-underscore {
     display: inline-block;
     position: relative;
     top: -0.05em;
     left: 10px;
 }
-
 .scroll-down {
     width: 100%;
     height: 60px;
@@ -365,19 +369,9 @@ export default {
     0% {
         transform: translateY(0);
     }
-
-    20% {
-        transform: translateY(0);
-    }
-
     50% {
         transform: translateY(-20px);
     }
-
-    80% {
-        transform: translateY(0);
-    }
-
     100% {
         transform: translateY(0);
     }
@@ -423,5 +417,32 @@ export default {
     padding-bottom: 64px;
     overflow: hidden;
     min-height: 2000px;
+}
+
+.cloud-bg01{
+    position: absolute;
+    top: 1250px;
+    right: 0;
+    background-image: url('../assets/images/cloud03.png');
+    opacity: 0.48;
+    background-repeat: no-repeat;
+    height: 500px;
+    width: 800px;
+}
+.tag-detail{
+    position: absolute;
+    top: 1350px;
+    right: 20px;
+}
+
+.cloud-bg02{
+    position: absolute;
+    top: 1550px;
+    left: 0;
+    background-image: url('../assets/images/cloud04.png');
+    opacity: 0.58;
+    background-repeat: no-repeat;
+    height: 520px;
+    width: 700px;
 }
 </style>

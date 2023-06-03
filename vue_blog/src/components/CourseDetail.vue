@@ -161,7 +161,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 .bg{
     background: linear-gradient(-45deg, #f5e2e0, #c2bbce, #837cb8, #3d3952);
     background-size: 300% 300%;
@@ -181,30 +181,33 @@ export default {
 }
 
 .container {
+    padding-top: 80px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-h1 {
-    color: #3d3952;
-    margin-bottom: 2em;
+    
+    h1 {
+        color: #f0f0f0;
+        font-size: 48px;
+        margin-bottom: 1em;
+    }
 }
 
 .course-info {
-    background-color: #f0f0f0;
+    background-color: #fefefe;
+    opacity: 0.6;
     padding: 2em;
-    border-radius: 1em;
+    border-radius: 2em;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    p {
+        margin-bottom: 1em;
+        color: #3d3952;
 }
 
-.course-info p {
-    margin-bottom: 1em;
-    color: #3d3952;
 }
 
 /*评论相关的样式 */
-
 .comment-outer {
     width: 76%;
     margin-left: 12%;
@@ -215,13 +218,13 @@ h1 {
     padding: 1.5em;
 
     min-height: 300px;
-    background: #FFF;
+    // background: #FFF;
     opacity: 0.9;
 }
 
 .comment-body {
     position: relative;
-    background: #FFF;
+    // background: #FFF;
     box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
     margin: 0.5rem 0;
     padding: 1em;
@@ -243,18 +246,17 @@ h1 {
 
 .replay {
     width: 100%;
-    min-height: 180px;
-    background: #FFF;
-    margin: 0.5rem 0;
-    padding: 1em;
-    border-radius: .28571429rem;
+    min-height: 280px;
+    background: #fef6f5;
+    opacity: 0.8;
+    margin: 3rem 0;
+    padding: 2em;
+    border-radius: 2rem;
 
-    padding: .78571429em 1em;
-    border: 1px solid rgba(34, 36, 38, .15);
+    border: 0;
     outline: 0;
     color: rgba(0, 0, 0, .87);
-    box-shadow: 0 0 0 0 transparent inset;
-    transition: color .1s ease, border-color .1s ease;
+    // transition: color .1s ease, border-color .1s ease;
     font-size: 1em;
     line-height: 1.2857;
     resize: vertical;
