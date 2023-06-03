@@ -12,7 +12,7 @@
                     </el-option>
                 </el-select>
                 <!-- 新增题目按钮 -->
-                <el-button type="primary" @click="showAddDialog">新增题目</el-button>
+                <el-button class="add" type="primary" @click="showAddDialog" >新增题目</el-button>
             </div>
 
             <!-- 列表区域 -->
@@ -359,3 +359,21 @@ export default {
     }
 }
 </script>
+
+<style>
+
+.add {
+    float: right !important;
+    margin-right: 50px;
+    background-color: #baaaca32;
+    color: #baaaca;
+    border-color: #baaaca;
+}
+
+.add:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+</style>

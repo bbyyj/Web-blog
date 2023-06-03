@@ -1,5 +1,6 @@
 <template>
     <div>
+        <el-card>
         <el-table :data="messages" border stripe>
             <el-table-column type="index"></el-table-column>
             <el-table-column label="昵称" prop="nickname" width="180px"></el-table-column>
@@ -29,6 +30,7 @@
                        :current-page="queryInfo.pageNum" :page-sizes="[10, 12, 15, 20]" :page-size="queryInfo.pageSize"
                        layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
+    </el-card>
     </div>
 </template>
 

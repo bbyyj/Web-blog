@@ -1,13 +1,14 @@
 <template>
     <div>
-        <el-select v-model="selectedCategory" placeholder="选择课程类别" @change="getCourses" clearable>
-            <el-option v-for="item in categories" :key="item" :label="item" :value="item">
-            </el-option>
-        </el-select>
-
-        <!-- 添加新的课程 -->
-        <el-button type="primary" @click="addCourse">添加新课程</el-button>
+        
         <el-card>
+            <!-- 选择区域 -->
+            <el-select v-model="selectedCategory" placeholder="选择课程类别" @change="getCourses" clearable>
+                <el-option v-for="item in categories" :key="item" :label="item" :value="item">
+                </el-option>
+            </el-select>
+            <!-- 添加新的课程 -->
+            <el-button class="add" type="primary" @click="addCourse">添加新课程</el-button>
             <!-- 列表区域  data中是获取到的数据-->
             <el-table :data="courses" border stripe>
                 <el-table-column type="index"></el-table-column>
@@ -308,8 +309,16 @@ export default {
 .add {
     float: right !important;
     margin-right: 50px;
+    background-color: #baaaca32;
+    color: #baaacaee;
+    border-color: #baaacaee;
 }
 
+.add:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
 .show-categories {
     float: right;
     margin-right: 30px;
