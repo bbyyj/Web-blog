@@ -72,30 +72,30 @@ export default {
                         { id: "13", index: "/listMottos", icon: "el-icon-menu", name: "查看格言" }
                     ]
                 },
-                // {
-                //     id: "2",
-                //     icon: "el-icon-notebook-2",
-                //     name: "分类管理",
-                //     submenus: [
-                //         { id: "21", index: "/listTypes", icon: "el-icon-menu", name: "查看分类" },
-                //     ]
-                // },
-                // {
-                //     id: "3",
-                //     icon: "el-icon-paperclip",
-                //     name: "标签管理",
-                //     submenus: [
-                //         { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
-                //     ]
-                // },
-                // {
-                //     id :"4",
-                //     icon: "el-icon-picture-outline",
-                //     name: "图片管理",
-                //     submenus: [
-                //         {id:"41", index: "/listImages", icon:"el-icon-menu", name:"查看图片"},
-                //     ]
-                // },
+                {
+                    id: "2",
+                    icon: "el-icon-notebook-2",
+                    name: "分类管理",
+                    submenus: [
+                        { id: "21", index: "/listTypes", icon: "el-icon-menu", name: "查看分类" },
+                    ]
+                },
+                {
+                    id: "3",
+                    icon: "el-icon-paperclip",
+                    name: "标签管理",
+                    submenus: [
+                        { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
+                    ]
+                },
+                {
+                    id :"4",
+                    icon: "el-icon-picture-outline",
+                    name: "图片管理",
+                    submenus: [
+                        {id:"41", index: "/listImages", icon:"el-icon-menu", name:"查看图片"},
+                    ]
+                },
                 {
                     id: "5",
                     icon: "el-icon-notebook-1",
