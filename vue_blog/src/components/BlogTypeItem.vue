@@ -54,9 +54,9 @@ export default {
     
 }
 .item-count{
-        background-color: #d9dbeb;
-        color: #696eae;
-    }
+    background-color: #d9dbeb;
+    color: #696eae;
+}
 
 .item-name {
     display: inline-block;

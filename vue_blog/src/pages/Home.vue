@@ -21,8 +21,10 @@
             <div id='stars3'></div>
             
             <div class="cloud-bg01"></div>
-            <TagCloud class="tag-detail"></TagCloud>
             <div class="cloud-bg02"></div>
+            <TagCloud class="tag-detail"></TagCloud>
+            <TypeArea class="type-detail"></TypeArea>
+            
 
             <div class="blog-area">
                 <!--用户信息栏-->
@@ -51,6 +53,7 @@ import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
 import TagCloud from "../components/TagCloud";
+import TypeArea from "../components/TypeArea";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -61,7 +64,7 @@ import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud, TypeArea },
     data() {
         return {
             firstBGPageInfo: {
@@ -434,7 +437,11 @@ export default {
     top: 1350px;
     right: 20px;
 }
-
+.type-detail{
+    position: absolute;
+    top: 1650px;
+    left: 20px;
+}
 .cloud-bg02{
     position: absolute;
     top: 1550px;

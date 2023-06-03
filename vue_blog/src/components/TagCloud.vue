@@ -107,12 +107,12 @@ ul li:hover {
     top: 220px;
     left: 50px;
     animation-direction:alternate-reverse;
-    }
+}
 .star2 {  
     position: absolute;
     top: -10px;
     left: 210px;
-    }
+}
 @keyframes twinkle {
     0% {opacity:0.1;}
     100%{opacity:0.8;}
