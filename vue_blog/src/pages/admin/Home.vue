@@ -88,14 +88,14 @@ export default {
                         { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
                     ]
                 },
-                {
-                    id :"4",
-                    icon: "el-icon-picture-outline",
-                    name: "图片管理",
-                    submenus: [
-                        {id:"41", index: "/listImages", icon:"el-icon-menu", name:"查看图片"},
-                    ]
-                },
+                // {
+                //     id :"4",
+                //     icon: "el-icon-picture-outline",
+                //     name: "图片管理",
+                //     submenus: [
+                //         {id:"41", index: "/listImages", icon:"el-icon-menu", name:"查看图片"},
+                //     ]
+                // },
                 {
                     id: "5",
                     icon: "el-icon-notebook-1",
