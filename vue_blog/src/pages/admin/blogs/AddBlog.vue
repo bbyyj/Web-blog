@@ -227,7 +227,7 @@ export default {
 .add {
     float: right !important;
     margin-right: 50px;
-    background-color: #baaaca32;
+    background-color: #baaaca1a;
     color: #baaacaee;
     border-color: #baaacaee;
 }

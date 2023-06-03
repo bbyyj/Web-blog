@@ -19,12 +19,12 @@
 
                 <el-col :span="2">
                     <!-- 推荐选项 -->
-                    <el-checkbox v-model="queryInfo.recommended" label="推荐" border></el-checkbox>
+                    <el-checkbox class="ch" v-model="queryInfo.recommended" label="推荐" border></el-checkbox>
                 </el-col>
 
                 <el-col :span="4">
-                    <el-button @click="clear" type="info">clear</el-button>
-                    <el-button type="primary" @click="getBlogList" icon="el-icon-search">搜索</el-button>
+                    <el-button class="clear" type="info">clear</el-button>
+                    <el-button class="serch" type="primary" @click="getBlogList" icon="el-icon-search">搜索</el-button>
                 </el-col>
             </el-row>
 
@@ -51,8 +51,8 @@
                 </el-table-column>
                <el-table-column label="操作"  width="150">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.row.id)">编辑</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+                        <el-button class="edt" size="mini" @click="handleEdit(scope.row.id)">编辑</el-button>
+                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -196,8 +196,65 @@ export default {
 
 
 
-<style lang="less" scoped>
+<style>
 
 
+.clear {
+    background-color: #7f7f7f0b;
+    color: #838383d2;
+    border-color: #838383ab;
+}
+
+.clear:hover {
+    background-color: #838383d2;
+    color: #fff;
+    border-color: #838383d2;
+}
+
+.serch {
+    background-color: #baaaca13;
+    color: #baaacaee;
+    border-color: #baaacaee;
+}
+
+.serch:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate 
+  .el-checkbox__inner{
+      background-color:#baaacaee;
+      border-color:#baaacaee;
+     }
+  .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: #baaacaee;
+     }
+  .el-checkbox.is-bordered.is-checked{
+      border-color: #baaacaee;
+     }
+  .el-checkbox__input.is-focus .el-checkbox__inner{
+      border-color:  #baaacaee;
+     }
+
+
+.edt:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
+}
 
 </style>

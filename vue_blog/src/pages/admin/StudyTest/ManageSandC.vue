@@ -274,7 +274,7 @@ export default {
 
 <style scoped>
 .admin-panel {
-    width: 800px;
+    width: auto;
     margin: 0 auto;
 }
 </style>

@@ -20,8 +20,8 @@
             </el-table-column>
             <el-table-column label="操作"  width="150">
                 <template slot-scope="scope">
-                    <el-button size="mini" :disabled="scope.row.status === 1" @click="handleStatus(scope.row.id, 1)">通过</el-button>
-                    <el-button size="mini" :disabled="scope.row.status === 2" type="danger" @click="handleStatus(scope.row.id, 2)">禁止</el-button>
+                    <el-button class="pas" size="mini" :disabled="scope.row.status === 1" @click="handleStatus(scope.row.id, 1)">通过</el-button>
+                    <el-button class="del" size="mini" :disabled="scope.row.status === 2" type="danger" @click="handleStatus(scope.row.id, 2)">禁止</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -96,5 +96,23 @@ export default {
 </script>
 
 <style scoped>
+
+.pas:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
+}
 
 </style>

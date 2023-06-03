@@ -24,7 +24,7 @@
                 <el-table-column label="操作" width="150">
                     <template slot-scope="scope">
                         <!-- 编辑和删除按钮 -->
-                        <el-button size="mini" @click="handleDelete(scope.row.id)">删除</el-button>
+                        <el-button class="del" size="mini" @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -199,3 +199,20 @@ export default {
     },
 }
 </script>
+
+
+<style>
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
+}
+
+</style>

@@ -355,7 +355,7 @@ export default {
 .add {
     float: right !important;
     margin-right: 50px;
-    background-color: #baaaca32;
+    background-color: #baaaca1a;
     color: #baaacaee;
     border-color: #baaacaee;
 }
@@ -369,7 +369,7 @@ export default {
 .show-categories {
     float: right;
     margin-right: 30px;
-    background-color: #baaaca32;
+    background-color: #c;
     color: #baaacaee;
     border-color: #baaacaee;
 }

@@ -187,15 +187,17 @@ ul {
     float: left;
     margin-left: 20px;
     margin-bottom: 20px;
-    border: 1px solid #8f8bec;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    border: 1px solid #c5c5c5;
+    border-radius: 5px;
+    /* box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%); */
 }
 
 .box:hover {
-    transform: translate(-3px, -3px);
-    transition: all 0.1s ease;
-    box-shadow: 1px 1px 3px 3px #e3e2e2;
+    /* transform: translate(-3px, -3px);*/
+    transition: all 0.25s ease; 
+    /* box-shadow: 1px 1px 3px 3px #e3e2e2; */
+    -webkit-transform: scale(1.1);
+    transform: scale(1.03);
 }
 
 .box h5 {
@@ -225,11 +227,11 @@ ul {
 }
 
 .box .ch {
-    color: #F47E60;
+    color: #57507def;
 }
 
 .box .en {
-    color: #3498DB;
+    color: #b0a5e9;
 }
 
 .box>div {
