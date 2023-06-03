@@ -253,7 +253,7 @@ a {
 .num {
     width: 60px;
     height: 30px;
-    border: 1px solid skyblue;
+    border: 1px solid #9087b0a7;
     border-radius: 6px;
     box-shadow:none;
     outline: none;
@@ -265,21 +265,21 @@ a {
 }
 
 .del {
-    background-color: #f56c6c;
+    background-color: #fa948a;
 }
 
 .del:hover {
-    background-color: #fa3a3a;
+    background-color: #f67469;
 }
 
 .add,
 .mod {
-    background-color: #409eff;
+    background-color: #9087b0a7;
 }
 
 .add:hover,
 .mod:hover {
-    background-color: #2385e8;
+    background-color: #9087b0;
 }
 
 /*清除浮动*/

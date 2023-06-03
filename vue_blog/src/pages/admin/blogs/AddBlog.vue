@@ -33,7 +33,7 @@
                 </el-col>
                 <el-col :span="2">
                     <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" :action="uploadFirstPic">
-                        <el-button  type="primary" plain>点击上传</el-button>
+                        <el-button  type="primary" plain class="add" >点击上传</el-button>
                         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
                     </el-upload>
                 </el-col>
@@ -53,7 +53,7 @@
             <el-checkbox v-model="postInfo.shareStatement" label="转载"></el-checkbox>
 
             <el-row class="endbtns" type="flex" justify="end">
-                <el-button type="primary" plain @click="saveBlog(false)">保存</el-button>
+                <el-button type="primary" plain @click="saveBlog(false)" class="add">保存</el-button>
                 <el-button type="success" plain @click="publishBlog">发布</el-button>
             </el-row>
         </el-card>
@@ -223,6 +223,21 @@ export default {
 
 
 <style scoped>
+
+.add {
+    float: right !important;
+    margin-right: 50px;
+    background-color: #baaaca32;
+    color: #baaacaee;
+    border-color: #baaacaee;
+}
+
+.add:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
 
 .markdown {
     margin-top: 15px;

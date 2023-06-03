@@ -355,11 +355,23 @@ export default {
 .add {
     float: right !important;
     margin-right: 50px;
+    background-color: #baaaca32;
+    color: #baaacaee;
+    border-color: #baaacaee;
+}
+
+.add:hover,.show-categories:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
 }
 
 .show-categories {
     float: right;
     margin-right: 30px;
+    background-color: #baaaca32;
+    color: #baaacaee;
+    border-color: #baaacaee;
 }
 
 </style>
