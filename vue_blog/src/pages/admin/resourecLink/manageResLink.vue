@@ -369,7 +369,7 @@ export default {
 .show-categories {
     float: right;
     margin-right: 30px;
-    background-color: #c;
+    background-color: #baaaca1a;
     color: #baaacaee;
     border-color: #baaacaee;
 }

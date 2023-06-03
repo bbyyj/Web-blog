@@ -223,7 +223,7 @@ export default {
 }
 
 .el-main {
-    background-color: #fbd5d12f;
+    background-color: #fbd5d155;
 }
 
 .el-menu {

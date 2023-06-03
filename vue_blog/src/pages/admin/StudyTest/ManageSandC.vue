@@ -3,18 +3,18 @@
         <el-card>
         <!--新增科目-->
         <el-form :model="newSubjectForm" @submit="addSubject" label-width="120px">
-            <h2>新增科目</h2>
+            <h4>新增科目</h4>
             <el-form-item label="科目名">
                 <el-input v-model="newSubjectForm.name"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="confirmAddSubject">提交</el-button>
+                <el-button class="sub" type="primary" @click="confirmAddSubject">提交</el-button>
             </el-form-item>
         </el-form>
 
         <!--删除科目-->
         <el-form :model="deleteSubjectForm" @submit="deleteSubject" label-width="120px">
-            <h2>删除科目</h2>
+            <h4>删除科目</h4>
             <el-form-item label="科目名">
                 <el-select v-model="deleteSubjectForm.name" placeholder="请选择">
                     <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
@@ -22,13 +22,13 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="danger" @click="confirmDeleteSubject">删除</el-button>
+                <el-button class="del" type="danger" @click="confirmDeleteSubject">删除</el-button>
             </el-form-item>
         </el-form>
 
         <!--新增章节-->
         <el-form :model="newChapterForm" @submit="addChapter" label-width="120px">
-            <h2>新增章节</h2>
+            <h4>新增章节</h4>
             <el-form-item label="科目名">
                 <el-input v-model="newChapterForm.subject"></el-input>
             </el-form-item>
@@ -39,13 +39,13 @@
                 <el-input v-model="newChapterForm.description"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="confirmAddChapter">提交</el-button>
+                <el-button class="sub" type="primary" @click="confirmAddChapter">提交</el-button>
             </el-form-item>
         </el-form>
 
         <!--删除章节-->
         <el-form :model="deleteChapterForm" @submit="deleteChapter" label-width="120px">
-            <h2>删除章节</h2>
+            <h4>删除章节</h4>
             <el-form-item label="科目名">
                 <el-select v-model="deleteChapterForm.subject" placeholder="请选择" @change="updateChapterList">
                     <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
@@ -59,7 +59,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item>
-                <el-button type="danger" @click="confirmDeleteChapter">删除</el-button>
+                <el-button class="del" type="danger" @click="confirmDeleteChapter">删除</el-button>
             </el-form-item>
         </el-form>
     </el-card>
@@ -276,5 +276,28 @@ export default {
 .admin-panel {
     width: auto;
     margin: 0 auto;
+}
+
+.sub {
+    background-color: #baaaca17;
+    color: #baaacaee;
+    border-color: #baaacaee;
+}
+.sub:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
 }
 </style>
