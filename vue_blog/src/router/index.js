@@ -31,6 +31,9 @@ const ManageComments = () =>
 const ManageSubjects = () =>
   import("../pages/admin/ChooseSubject/ManageSubjects.vue");
 
+const ListTags = () => import("../pages/admin/tags/ListTags.vue");
+const ListTypes = () => import("../pages/admin/types/ListTypes.vue");
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -90,6 +93,16 @@ const routes = [
       {
         path: "/manageComments",
         component: ManageComments,
+        meta: { auth: true },
+      },
+      {
+        path: "/ListTags",
+        component: ListTags,
+        meta: { auth: true },
+      },
+      {
+        path: "/ListTypes",
+        component: ListTypes,
         meta: { auth: true },
       },
       {

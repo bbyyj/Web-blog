@@ -13,8 +13,8 @@
             <!-- 侧边区域 -->
             <el-aside :width="isCollapse ? '65px' : '200px'">
                 <div class="toggle-button" @click="toggleCollapse">|||</div>
-                <el-menu text-color="#eaf0ef" active-text-color="#eaf0ef" unique-opened
-                    :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
+                <el-menu text-color="#eaf0ef" active-text-color="#eaf0ef" unique-opened :collapse="isCollapse"
+                    :collapse-transition="false" router :default-active="activePath">
 
                     <el-submenu :index="menu.id" v-for="(menu, i1) in menus" :key="menu.id">
                         <!-- 一级菜单的模板区域 -->
@@ -77,7 +77,7 @@ export default {
                     icon: "el-icon-notebook-2",
                     name: "分类管理",
                     submenus: [
-                        { id: "21", index: "/listTypes", icon: "el-icon-menu", name: "查看分类" },
+                        { id: "21", index: "/ListTypes", icon: "el-icon-menu", name: "查看分类" },
                     ]
                 },
                 {
@@ -85,7 +85,7 @@ export default {
                     icon: "el-icon-paperclip",
                     name: "标签管理",
                     submenus: [
-                        { id: "31", index: "/listTags", icon: "el-icon-menu", name: "查看标签" },
+                        { id: "31", index: "/ListTags", icon: "el-icon-menu", name: "查看标签" },
                     ]
                 },
                 // {
@@ -188,6 +188,7 @@ export default {
 .home_container {
     height: 100%;
 }
+
 .el-header {
     background-color: #775f91;
     display: flex;
@@ -196,6 +197,7 @@ export default {
     color: #F9F5EB;
     padding-top: 10px;
     padding-bottom: 10px;
+
     >div {
         display: flex;
         align-items: center;
@@ -204,16 +206,18 @@ export default {
             margin-left: 100px;
             font-size: 30px;
             font-weight: bold;
-            
+
         }
     }
 }
-.el-button--info{
+
+.el-button--info {
     background-color: #8d84ae;
     border: none;
     color: #F9F5EB;
     font-size: 16px;
 }
+
 .el-aside {
     background-color: #775f91;
 
@@ -235,14 +239,19 @@ export default {
     font-size: 50px;
 }
 
-/deep/ .el-submenu .el-submenu__title:hover, .el-menu-item:hover, .el-submenu .el-submenu__title:focus, .el-menu-item:focus{
+/deep/ .el-submenu .el-submenu__title:hover,
+.el-menu-item:hover,
+.el-submenu .el-submenu__title:focus,
+.el-menu-item:focus {
     outline: 0 !important;
     background-color: #775f91be !important;
 }
+
 .el-menu-item {
     background-color: #775f91 !important;
     border: none;
 }
+
 .toggle-button {
     background-color: #775f91;
     font-size: 10px;
@@ -251,5 +260,4 @@ export default {
     text-align: center;
     letter-spacing: 0.2em;
     cursor: pointer;
-}
-</style>
+}</style>
