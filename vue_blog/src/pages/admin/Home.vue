@@ -118,6 +118,7 @@ export default {
                     name: "资源库管理",
                     submenus: [
                         { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理文件" },
+                        { id: "72", index: "/manageResourse", icon: "el-icon-menu", name: "审核文件"},
                     ]
                 },
                 {
