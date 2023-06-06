@@ -2,13 +2,29 @@
     <div class="bg" >
         <div class="main">
             <div class="maintitle" align="center">资源库</div>
-            <div style="text-align: center;">
+            <!-- <div style="text-align: center;">
                     <button @click="getLinks">全部</button>
                     <button @click="showdata('2')">计算机组成原理</button>
                     <button @click="showdata('1')">计算机网络</button>
                     <button @click="showdata('3')">数据结构与算法</button>
                     <button @click="showdata('4')">操作系统</button>
-            </div>
+            </div> -->
+            <ul class="categories-area">
+                <el-dropdown>
+                    <el-button type="primary">
+                        更多科目<i class="el-icon-arrow-down el-icon--right"></i>
+                    </el-button>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item v-for="subject in categories" :key="subject.id"
+                            @click.native="showdata(subject.id)">
+                            {{ subject.name }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                
+            </ul>
+
+
             <transition appear
                         name="animate__animated animate__bounce animate__slow"
                         enter-active-class="animate__fadeInUp">
@@ -28,7 +44,7 @@
                             大小：{{ item.filesize }}
                         </p>
                         <p class = "desc">
-                            上传时间：{{ item.CreatedAt }}
+                            更新时间：{{ dateFormat(item.UpdatedAt) }}
                         </p>
                         </a>
                     </div>
@@ -46,6 +62,7 @@
 <script>
 
 import "animate.css"
+import dayjs from "dayjs";
 
 import Pagination from "../components/Pagination";
 
@@ -62,8 +79,10 @@ export default {
             pagesize: 100,
             //页面数量
             pages: 1,
-            //类别
+            //当前类别
             categoryid: 1,
+            //全部类别及其id
+            categories:[],
 
         }
     },
@@ -82,9 +101,19 @@ export default {
                 this.$message.warning("获取资源失败")
                 return
             }
-
-
         },
+
+        //获取全部分类
+        async getAllCategories() {
+            const {data:res} = await this.$axios.get("/admin/categories");
+            if (res.status !== 1) {
+                this.$message.error("获取列表失败，请重试！")
+                return
+            }
+            this.categories = res.data.length > 0 ? res.data[0] : []
+            console.log(res);
+        },
+
         //点击分类展示对应内容
         async showdata(cateid){
             let pagenum = this.pagenum;
@@ -119,17 +148,21 @@ export default {
             link.click();
         },
 
+        dateFormat(d) {
+            return dayjs(d).format("YYYY-MM-DD HH:mm:ss")
+        },
+
 
     },
     created() {
         window.scrollTo(0, 0)
         this.getLinks()
-
+        this.getAllCategories()
     }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 button {
     background-color: #a69ec699;
@@ -203,12 +236,18 @@ button:hover {
     padding-bottom: 80px;
 }
 
+.categories-area {
+    margin: -10px 200px 50px 200px;
+    overflow: hidden;
+}
+
+
 .category {
     display: inline-block;
     border-radius: 7px;
     background-color: #ffffff87;
-    width: aoto;
-    height: aoto;
+    width: 280px;
+    height: 150px;
     padding: 20px;
     margin-top: 2%;
     margin-right: 2%;

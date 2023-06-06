@@ -11,11 +11,15 @@
                 <el-table-column label="文件名" prop="name" width="220px"></el-table-column>
                 <el-table-column label="描述" prop="desc"></el-table-column>
                 <el-table-column label="类别" prop="category" width="150px"></el-table-column>
-                <el-table-column label="更新时间" prop="UpdatedAt"></el-table-column>
-                <el-table-column label="地址" prop="url"></el-table-column>
+                <el-table-column label="更新时间">
+                    <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ dateFormat(scope.row.UpdatedAt) }}</span>
+                </template>
+                </el-table-column>
+                <!-- <el-table-column label="地址" prop="url"></el-table-column> -->
                 <el-table-column label="操作"  width="150">
-                    <!-- <template slot-scope="scope"> -->
-                    <!-- <template v-slot:default="scope"> -->
+
                     <template scope="scope">
                         <el-button size="mini" @click="handleEdit(scope.$index)">编辑</el-button>
                         <el-button size="mini" type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
@@ -99,6 +103,7 @@
 
 <script>
 import axios from "axios";
+import dayjs from "dayjs";
 
 export default {
     name: "manageResLink",
@@ -134,22 +139,12 @@ export default {
             },
             //所有分类 包括id和名字
             categories: [],
-            //测试
-            respost:{
-                name: "",
-                desc: "",
-                categoryid: ""
-            },
-            respost1:{
-                name: "",
-            },
             uploadIcon: axios.defaults.baseURL + "/admin/uploadIcon"
         }
     },
     methods: {
         async getLinkList() {
             const {data:res} = await this.$axios.get("/admin/t/pageresource", {params: this.queryInfo});
-            // const {data:res} = await this.$axios.get("/admin/pageLinks", {params: this.queryInfo});
             if(res.status !== 563) {
                 this.$message.error("获取列表失败，请重试！")
                 return
@@ -194,6 +189,10 @@ export default {
                 return item.name === name
             })
             this.postInfo.categoryid = val.id
+        },
+
+        dateFormat(d) {
+            return dayjs(d).format("YYYY-MM-DD HH:mm:ss")
         },
 
         //添加资源button对应
