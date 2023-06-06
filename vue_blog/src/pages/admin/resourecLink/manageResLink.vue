@@ -209,11 +209,7 @@ export default {
                 return item.id === this.links[index].categoryid
             })
             this.selectedCategory = val.name
-            //
-            this.respost.name = this.postInfo.name
-            this.respost.desc = this.postInfo.desc
-            this.respost.categoryid = this.postInfo.categoryid
-            this.respost1.name = this.postInfo.name
+            
         },
 
         //表格内删除button对应

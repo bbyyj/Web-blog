@@ -8,9 +8,10 @@
                 <el-col :span="3.5">
                     <el-dropdown>
                     <el-button class="button1" type="primary" icon="el-icon-notebook-1">
-                        更多科目<i class="el-icon-arrow-down el-icon--right"></i>
+                        更多分类<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item @click.native="getLinks()">全部</el-dropdown-item>
                         <el-dropdown-item v-for="subject in categories" :key="subject.id"
                             @click.native="showdata(subject.id)">
                             {{ subject.name }}
@@ -54,7 +55,10 @@
                 </div>
             </transition>
             <!-- 分页 -->
-            <!-- 还没写 -->
+            <el-pagination popper-class="select-down"  @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page="queryInfo.pagenum" :page-sizes="[5, 10]" :page-size="queryInfo.pagesize"
+                    layout="total, sizes, prev, pager, next, jumper" :total="total">
+                </el-pagination>
             <!-- 编辑、添加显示页面 -->
             <el-dialog title="资源信息" :visible.sync="dialogFormVisible">
                 <el-form label-width="80px">
@@ -79,7 +83,9 @@
                                 <el-input v-model="postInfo.icon" autocomplete="off" clearable></el-input>
                             </el-col>
                             <el-col :span="2">
-                                <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" :action="uploadIcon">
+                                <!-- <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" :action="uploadIcon"> -->
+                            <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" >
+
                                     <el-button  type="primary" plain>点击上传</el-button>
                                 </el-upload>
                             </el-col>
@@ -111,11 +117,14 @@ export default {
             //接收到的全部数据
             items:[],
            //当前页面
-            pagenum: 1,
-            //页面大小
-            pagesize: 100,
-            //页面数量
+           queryInfo: {
+                pagenum: 1,
+                pagesize: 5,
+            },
+            //页面总数
             pages: 1,
+            //资源总条数
+            total: 0,
             //当前类别
             categoryid: 1,
             //全部类别及其id
@@ -133,24 +142,34 @@ export default {
                 categoryid: 0,
                 icon: "",
             },
+            selectedCategory: "",
 
         }
     },
     methods: { 
         //进入页面默认展示内容   
         async getLinks() {
-            let pagenum = this.pagenum;
-            let pagesize = this.pagesize;
+            // let pagenum = this.pagenum;
+            let pagenum = this.queryInfo.pagenum;
+            // let pagesize = this.pagesize;
+            let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/pageresource", { params: { pagenum: pagenum, pagesize: pagesize } });
 
             if(res.status = 563){
                 this.items = res.data[0];
+                this.total = res.data[1];
+                this.categoryid = 0;
                 console.log(res);
-                
             }
             else{
                 this.$message.warning("获取资源失败")
                 return
+            }
+
+            //分页相关
+            this.pages = Math.ceil(this.total / this.queryInfo.pagesize);
+            if (this.pages <= 0) {
+                this.pages = 1
             }
         },
 
@@ -167,12 +186,15 @@ export default {
 
         //点击分类展示对应内容
         async showdata(cateid){
-            let pagenum = this.pagenum;
-            let pagesize = this.pagesize;
+            // let pagenum = this.pagenum;
+            let pagenum = this.queryInfo.pagenum;
+            // let pagesize = this.pagesize;
+            let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
             
             if(res.status = 563){
                 this.items = res.data[0];
+                this.total = res.data[1];
                 this.categoryid = cateid;
                 console.log(res);
             }
@@ -181,6 +203,11 @@ export default {
                 return
             }
 
+            //分页相关
+            this.pages = Math.ceil(this.total / this.queryInfo.pagesize);
+            if (this.pages <= 0) {
+                this.pages = 1
+            }
         },
 
         //查询
@@ -190,19 +217,47 @@ export default {
 
             if(res.status = 563){
                 this.items = res.data[0];
-                this.categoryid = 1;
+                this.total = res.data[1];
+                this.categoryid = 0;
                 console.log(res);
             }
             else{
                 this.$message.warning("获取资源失败")
                 return
             }
+
+            //分页相关
+            this.pages = Math.ceil(this.total / this.queryInfo.pagesize);
+            if (this.pages <= 0) {
+                this.pages = 1
+            }
         },
 
         //上传资料
+        changeCategory(name) {
+            this.selectedCategory = name
+            const val = this.categories.find(item => {
+                return item.name === name
+            })
+            this.postInfo.categoryid = val.id
+        },
+
         adddata() {
             this.postInfo.ID = 0
             this.dialogFormVisible = true
+        },
+
+        cancel() {
+            this.postInfo = {
+                ID: 0,
+                name: "",
+                desc: "",
+                url: "",
+                categoryid: 0,
+                icon: "",
+            }
+            this.dialogFormVisible = false
+            this.selectedCategory = ""
         },
 
         async commitLink() {
@@ -228,6 +283,10 @@ export default {
             }
         },
 
+        uploadSuccess(response) {
+            this.postInfo.icon = response;
+        },
+
         //下载
         async downloadFile(fileName, data) {
             if (!data) {
@@ -248,6 +307,26 @@ export default {
         //时间格式
         dateFormat(d) {
             return dayjs(d).format("YYYY-MM-DD HH:mm:ss")
+        },
+
+        //页面相关
+        handleSizeChange(newSize) {
+            this.queryInfo.pagesize = newSize;
+            if(this.categoryid == 0) {
+                this.getLinks()
+            } else {
+                this.showdata(this.categoryid);
+            }
+            
+        },
+
+        handleCurrentChange(newPage) {
+            this.queryInfo.pagenum = newPage;
+            if(this.categoryid == 0) {
+                this.getLinks()
+            } else {
+                this.showdata(this.categoryid);
+            }
         },
 
 
@@ -308,12 +387,12 @@ export default {
 
 
 .maintitle{
-    font-size: 48px;
+    font-size: 56px;
     color: #181720;
     margin-bottom: 50px;
     bottom: 0 !important;
     right: 0 !important;
-    font-family: "PingFang SC", "Microsoft YaHei", Lato, sans-serif;
+    font-family: AaMeiSong-2;
     opacity: 0.5;
     padding-top: 6%;
 }
@@ -395,6 +474,16 @@ export default {
 .title {
     font-weight: 700;
     color: #7378ac;
+}
+
+
+/deep/ .el-pagination__jump{
+    color: #eff1f6;
+    font-size: 16px;
+}
+.el-pagination{
+    padding-top: 30px;
+    padding-left: 500px;
 }
 
 
