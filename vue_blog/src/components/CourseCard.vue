@@ -62,7 +62,7 @@ export default {
     height: 46px;
     line-height: 46px;
     text-align: center;
-    font-size: 1.28rem;
+    font-size: 2rem;
 }
 
 .box .course-box .course-title a {
@@ -82,7 +82,7 @@ export default {
     height: 25px;
     text-align: center;
     margin-top: 5px;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 700;
     color: #696eae;
 }

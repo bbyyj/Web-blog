@@ -194,7 +194,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+    font-family: HYYueXiChuKaiJ-2;
     h1 {
         color: #f0f0f0;
         font-size: 48px;
