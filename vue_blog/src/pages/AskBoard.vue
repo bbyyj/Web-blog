@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </transition>
-            <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
+            <!-- <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination> -->
         </div>
     </div>
 </template>
