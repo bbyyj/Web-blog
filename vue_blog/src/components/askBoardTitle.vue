@@ -70,7 +70,7 @@ export default {
 /* 提问箱文字部分 */
 .title {
     font-size: 45px;
-    font-weight: 500;
+    font-weight: bolder;
     color: #7378ac;
     display: block;
     padding-top: 120px;
@@ -92,8 +92,8 @@ export default {
 button {
     background: #c1c3da;
     color: #ffffff;
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 27px;
+    font-weight: normal;
     border: 0;
     border-radius: 10px;
     padding: 15px 30px;

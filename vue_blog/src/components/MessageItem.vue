@@ -96,17 +96,15 @@ a:hover {
     padding: 10px;
     margin: 0px 0;
     border-radius: 5px;
-    font-size: 24px;
-    font-weight: normal;
-    font-family: 华文楷体;
+    font-size: 27px;
+    font-weight: bolder;
 }
 
 /* 答案部分 */
 .answer {
     padding: 10px;
     margin: 10px 0;
-    font-size: 24px;
-    font-weight: bolder;
-    font-family: 华文楷体;
+    font-size: 27px;
+    font-weight: normal;
 }
 </style>
