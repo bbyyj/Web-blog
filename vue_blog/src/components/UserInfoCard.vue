@@ -76,6 +76,7 @@ export default {
     margin: 0px 250px 50px 250px;
     height: 300px;
     user-select: none;
+    font-family: DancingScript-Bold;
     img {
         width: 120px;
         height: 120px;
@@ -141,7 +142,7 @@ export default {
     position: absolute;
     top: 985px; 
     left: 880px;
-    animation: twinkle 2s ease-out infinite alternate-reverse;
+    animation: twinkle 2s ease-out infinite alternate;
     text-decoration: none;
 }
 

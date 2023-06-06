@@ -78,6 +78,7 @@ export default {
     position: relative;
     transition: all .5s;
     cursor: pointer;
+    font-family: NotoSerifSC-Regular;
 }
 
 .box:hover {

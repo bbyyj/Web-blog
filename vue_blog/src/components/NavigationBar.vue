@@ -228,6 +228,9 @@ p {
     height: 60px;
     position: fixed;
     background: rgba(252, 252, 252, 0.35);
+    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
+    font-weight: normal;
+    font-size: 18px;
 }
 
 .navi-bar-center {

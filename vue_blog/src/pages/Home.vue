@@ -259,7 +259,7 @@ export default {
         },
 
         createConsoleText() {
-            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '可能还要换个字体', '先意思一下', '不过紫色还蛮好看'];
+            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '字体换好了:)', '先意思一下', '不过紫色还蛮好看'];
             var colors = ['#9990bc', '#8a84b7', '#7b79b1', "#6c6dac", "#5d62a7"];
 
             var visible = true;
@@ -314,7 +314,9 @@ export default {
 .animate__animated {
     animation-duration: 3s;
 }
-
+#text{
+    font-family: NotoSerifSC-Regular;
+}
 .console-container {
     font-size: 3em;
     text-align: center;

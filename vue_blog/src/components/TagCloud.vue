@@ -3,7 +3,7 @@
     <div class="wapper">
         <svg class="star star1"></svg>
         <svg class="star star2"></svg>
-        <div class="title">标签</div>
+        <div class="title">Label</div>
         <div class="content">
             <ul>
                 <li :key="item.id" v-for="item in tags" @click="itemClicked(item.id)">
@@ -65,13 +65,15 @@ export default {
     background-color: #0925f700;
     margin-top: 0px;
     user-select: none;
+    
 }
 
 .title {
     color: rgb(255, 255, 255);
     opacity: 0.75;
     text-align: center;
-    font-size: 25px;
+    font-family: DancingScript-Bold;
+    font-size: 27px;
     margin-bottom: 10px;
 }
 .content{
@@ -87,6 +89,7 @@ ul li {
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s;
+    font-family: NotoSerifSC-Regular;
     
 }
 

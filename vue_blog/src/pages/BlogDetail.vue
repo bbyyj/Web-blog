@@ -216,11 +216,11 @@ export default {
 .blog_bg {
     min-height: 2000px;
     background-color: #1d1d2b;
+    font-family: NotoSerifSC-Regular;
 }
 .title {
     margin-top: 80px;
     color: #FFFFFF;
-    font-family: STSong;
     text-align: center;
     h1{
         font-size: 50px;
@@ -271,7 +271,6 @@ export default {
 .content-inner {
     padding: 4em 40px 2em;
     box-sizing: border-box;
-    font: 1em/1.5 Tahoma,Helvetica,Arial,'华文中宋',sans-serif !important;
 
     color: #1d1d2b;
     height: auto;

@@ -2,7 +2,7 @@
     <div class="type-area">
         <svg class="star star1"></svg>
         <svg class="star star2"></svg>
-        <div class="title">分类</div>
+        <div class="title">classification</div>
         <ul>
             <li class="li-item" :key="item.id" v-for="item in types">
                 <BlogTypeItem @click.native="getBlogList(item.id)" :typeinfo="item" :activeId="currentTypeId"></BlogTypeItem>
@@ -66,6 +66,7 @@ export default {
 <style lang="less" scoped>
 
 .li-item {
+    font-family:NotoSerifSC-Regular;
     display: inline-block;
     opacity: 0.75;
 }
@@ -74,13 +75,15 @@ export default {
     width: 290px;
     margin: 0 auto;
     text-align: center;
+    
 }
 
 .title {
     color: rgb(255, 255, 255);
     opacity: 0.75;
     text-align: center;
-    font-size: 25px;
+    font-family: DancingScript-Bold;
+    font-size: 28px;
     margin-bottom: 10px;
 }
 .star {
