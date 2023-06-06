@@ -14,22 +14,21 @@
         <!-- 博客信息 -->
         <div class="blogInfo">
             <span>
-                <b-icon icon="person" font-scale="0.9"></b-icon>
+                <i class="iconfont icon-yonghu-yuan"></i>
                 {{ blog.nickname }}
             </span>
             <span>
-                <b-icon icon="calendar2-check" font-scale="1"></b-icon>
+                <i class="iconfont icon-rili"></i>
                 {{ (blog.createTime || '').split('T')[0] }}
             </span>
             <span>
-                <b-icon icon="eye" font-scale="1"></b-icon>
+                <i class="iconfont icon-chakan"></i>
                 {{ blog.views }}
             </span>
             <br><div class="space"></div>
 
-            <b-icon icon="tags" font-scale="1.2"></b-icon>
-            
-            
+            <i class="iconfont icon-xitongguanli"></i>
+
             <span class="tags">    
                 <span class="tag1">{{ blog.flag }}</span>
                 <span class="tag2">{{ blog.typename }}</span> 
@@ -279,6 +278,9 @@ export default {
 
 }
 
+.icon-xiangqingchakan{
+    color: #3d3952;
+}
 .tags {
     padding-top: 3px;
     padding-bottom: 3px;
@@ -304,7 +306,9 @@ export default {
     }
 }
 
-
+.iconfont{
+    font-size: 20px !important;
+}
 </style>
 
 

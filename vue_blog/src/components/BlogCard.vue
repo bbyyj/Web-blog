@@ -18,15 +18,15 @@
             <div class="blog-info">
                 <ul>
                     <li>
-                        <i class="iconfont icon-yonghu"></i>
+                        <i class="iconfont icon-yonghu-yuan"></i>
                         <span>{{item.nickname}}</span>
                     </li>
                     <li>
-                        <i class="iconfont icon-riqi"></i>
+                        <i class="iconfont icon-rili"></i>
                         <span>{{ (item.createTime || '').split('T')[0]}}</span>
                     </li>
                     <li>
-                        <i class="iconfont icon-yanjing"></i>
+                        <i class="iconfont icon-chakan"></i>
                         <span>{{item.views}}</span>
                     </li>
                     <li>
@@ -95,7 +95,7 @@ export default {
 
 //博客信息区域
 .blog-box {
-    width: 650px;
+    width: 760px;
     height: 250px;
     padding-left: 20px;
 }
@@ -214,8 +214,9 @@ export default {
         font-weight: bold;
     }
 
-    .icon-yonghu, .icon-riqi, .icon-yanjing {
+    .icon-yonghu-yuan, .icon-rili, .icon-chakan {
         color: #3d3952;
+        font-size: 20px !important;
     }
 
     a {

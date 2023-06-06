@@ -26,27 +26,27 @@
                 <!--导航按键-->
                 <ul>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="首页" ico-class="icon-shouye" rout="/home">
+                        <NaviItem :activeRoute="activeRoute" index-name="首页" ico-class="icon-home1" rout="/home">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="软工题库" ico-class="icon-yongyan" rout="/ChooseQS">
+                        <NaviItem :activeRoute="activeRoute" index-name="软工题库" ico-class="icon-tikuzidian" rout="/ChooseQS">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-liuyanban" rout="/AskBoard">
+                        <NaviItem :activeRoute="activeRoute" index-name="提问箱" ico-class="icon-icon_icon_tiwen_s" rout="/AskBoard">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="资源库" ico-class="icon-ziyuanku" rout="/resourceLib">
+                        <NaviItem :activeRoute="activeRoute" index-name="资源库" ico-class="icon-ziyuanku1" rout="/resourceLib">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="选课通" ico-class="icon-ziyuanku" rout="/HelpChoose">
+                        <NaviItem :activeRoute="activeRoute" index-name="选课通" ico-class="icon-xuanke-2" rout="/HelpChoose">
                         </NaviItem>
                     </li>
                     <li>
-                        <NaviItem :activeRoute="activeRoute" index-name="后台管理" ico-class="icon-houtaiguanli-jifenguanli"
+                        <NaviItem :activeRoute="activeRoute" index-name="后台管理" ico-class="icon-houtaiguanli"
                             rout="/login"></NaviItem>
                     </li>
                 </ul>
@@ -250,4 +250,8 @@ p {
     cursor: pointer;
     margin: 7px 8px 0px 10px;
 }
+// .iconfont .icon-icon_icon_tiwen_s{
+//     font-size: 30px !important;
+// }
+
 </style>
