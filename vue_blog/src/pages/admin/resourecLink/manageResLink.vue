@@ -269,13 +269,13 @@ export default {
         async commitLink() {
             let res
             if(this.postInfo.ID === 0) {
-                res = await this.$axios.post("/admin/addLink", this.postInfo)
+                // res = await this.$axios.post("/admin/addLink", this.postInfo)
                 //res = await this.$axios.post("/admin/t/addresource", {params: { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid }})
                 // res = await this.$axios.post("/admin/t/addresource", this.respost)
 
                 console.log(res);
             } else {
-                res = await this.$axios.put("/admin/updateLink", this.postInfo)
+                // res = await this.$axios.put("/admin/updateLink", this.postInfo)
                 // res = await this.$axios.put("/admin/t/reupload", this.postInfo.name)
 
                 console.log(res);

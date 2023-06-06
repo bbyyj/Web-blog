@@ -2,16 +2,12 @@
     <div class="bg" >
         <div class="main">
             <div class="maintitle" align="center">资源库</div>
-            <!-- <div style="text-align: center;">
-                    <button @click="getLinks">全部</button>
-                    <button @click="showdata('2')">计算机组成原理</button>
-                    <button @click="showdata('1')">计算机网络</button>
-                    <button @click="showdata('3')">数据结构与算法</button>
-                    <button @click="showdata('4')">操作系统</button>
-            </div> -->
-            <ul class="categories-area">
-                <el-dropdown>
-                    <el-button type="primary">
+            <!-- 分类选择、搜索、上传 -->
+            <div class="categories-area">
+            <el-row :gutter="15" type="flex" justify="center" align="middle">
+                <el-col :span="3.5">
+                    <el-dropdown>
+                    <el-button class="button1" type="primary" icon="el-icon-notebook-1">
                         更多科目<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
@@ -21,21 +17,28 @@
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
-                
-            </ul>
-
-
+                </el-col>
+                <el-col :span="8">
+                    <el-input v-model="info.sname" placeholder="请输入关键词" clearable></el-input>
+                </el-col>
+                <el-col :span="2.5">
+                    <el-button class="button1" type="primary" @click="searchdata" icon="el-icon-search">搜索</el-button>
+                </el-col>
+                <el-col :span="4">
+                    <el-button class="button1" type="primary" @click="adddata" icon="el-icon-paperclip">上传资料</el-button>
+                </el-col>
+            </el-row>                
+            </div>
             <transition appear
                         name="animate__animated animate__bounce animate__slow"
                         enter-active-class="animate__fadeInUp">
                 <div class="center-area" style="text-align: center;">
+
                     <div class="category grow" style="text-align: left;"  :key="item.ID" v-for="item in items" >
                         <a @click="downloadFile(item.name, item.url)">
                             <strong class="title">
                             {{ item.name }}
                         </strong>
-                        
-                        
                         <p class = "desc">
                             {{ item.desc }}
                         </p>
@@ -51,9 +54,43 @@
                 </div>
             </transition>
             <!-- 分页 -->
-            <!-- <Pagination class="pagebar" @jumpPage="jumpPage" :pageInfo="{ pageNum: pagenum, pages: pages }">
-                </Pagination> -->
-
+            <!-- 还没写 -->
+            <!-- 编辑、添加显示页面 -->
+            <el-dialog title="资源信息" :visible.sync="dialogFormVisible">
+                <el-form label-width="80px">
+                    <el-form-item label="标题：">
+                        <el-input v-model="postInfo.name" autocomplete="off" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="链接：">
+                        <el-input v-model="postInfo.url" autocomplete="off" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="类别：">
+                        <el-select :value="selectedCategory" @visible-change="getAllCategories" @change="changeCategory" clearable placeholder="资源类别">
+                            <el-option v-for="item in categories" :key="item.id" :value="item.name">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="描述：">
+                        <el-input type="textarea" :rows="3" v-model="postInfo.desc" autocomplete="off" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="图标：">
+                        <el-row :gutter="22">
+                            <el-col :span="15">
+                                <el-input v-model="postInfo.icon" autocomplete="off" clearable></el-input>
+                            </el-col>
+                            <el-col :span="2">
+                                <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" :action="uploadIcon">
+                                    <el-button  type="primary" plain>点击上传</el-button>
+                                </el-upload>
+                            </el-col>
+                        </el-row>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="cancel">取 消</el-button>
+                    <el-button type="primary" @click="commitLink">确 定</el-button>
+                </div>
+            </el-dialog>
         </div>
     </div>
 
@@ -83,6 +120,19 @@ export default {
             categoryid: 1,
             //全部类别及其id
             categories:[],
+            //搜索用
+            info:{sname: "",},
+            //添加资源显示页面
+            dialogFormVisible: false,
+            //添加资源用
+            postInfo: {
+                ID: 0,
+                name: "",
+                desc: "",
+                url: "",
+                categoryid: 0,
+                icon: "",
+            },
 
         }
     },
@@ -96,6 +146,7 @@ export default {
             if(res.status = 563){
                 this.items = res.data[0];
                 console.log(res);
+                
             }
             else{
                 this.$message.warning("获取资源失败")
@@ -118,12 +169,12 @@ export default {
         async showdata(cateid){
             let pagenum = this.pagenum;
             let pagesize = this.pagesize;
-            const {data: res1} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
+            const {data: res} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
             
-            if(res1.status = 563){
-                this.items = res1.data[0];
+            if(res.status = 563){
+                this.items = res.data[0];
                 this.categoryid = cateid;
-                console.log(res1);
+                console.log(res);
             }
             else{
                 this.$message.warning("获取资源失败")
@@ -132,6 +183,52 @@ export default {
 
         },
 
+        //查询
+        async searchdata() {
+            const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname } });
+            console.log(res);
+
+            if(res.status = 563){
+                this.items = res.data[0];
+                this.categoryid = 1;
+                console.log(res);
+            }
+            else{
+                this.$message.warning("获取资源失败")
+                return
+            }
+        },
+
+        //上传资料
+        adddata() {
+            this.postInfo.ID = 0
+            this.dialogFormVisible = true
+        },
+
+        async commitLink() {
+            let res
+            if(this.postInfo.ID === 0) {
+                res = await this.$axios.post("/admin/addLink", this.postInfo)
+                //res = await this.$axios.post("/admin/t/addresource", {params: { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid }})
+                // res = await this.$axios.post("/admin/t/addresource", this.respost)
+
+                console.log(res);
+            } else {
+                res = await this.$axios.put("/admin/updateLink", this.postInfo)
+                // res = await this.$axios.put("/admin/t/reupload", this.postInfo.name)
+
+                console.log(res);
+            }
+            if (res.data.status !== 101) {
+                this.$message.error("操作失败，请重试！")
+            } else {
+                this.cancel()
+                await this.getLinkList()
+                this.$message.success("操作成功！")
+            }
+        },
+
+        //下载
         async downloadFile(fileName, data) {
             if (!data) {
                 return;
@@ -148,6 +245,7 @@ export default {
             link.click();
         },
 
+        //时间格式
         dateFormat(d) {
             return dayjs(d).format("YYYY-MM-DD HH:mm:ss")
         },
@@ -164,7 +262,7 @@ export default {
 
 <style lang="less" scoped>
 
-button {
+.button1 {
     background-color: #a69ec699;
     margin: 0.5%;
     padding: 0.2em 1em;
@@ -181,7 +279,7 @@ button {
     overflow: hidden;
 }
 
-button:before {
+.button1:before {
     content: "";
     background-color: rgba(255,255,255,0.5);
     height: 100%;
@@ -194,11 +292,19 @@ button:before {
     transition: none;
   }
 
-button:hover {
-    background-color: #7378acb7;
+.button1:hover {
+    background-color: #9b93b7;
     color: #fff;
-    border-bottom: 4px solid darken(#fff, 10%);
-  } 
+    // border-bottom: 4px solid darken(#fff, 10%);
+    border-color: #9b93b7;
+  }
+  
+.button1:focus {
+    background-color: #9b93b7;
+    color: #fff;
+    // border-bottom: 4px solid darken(#fff, 10%);
+    border-color: #9b93b7;
+}
 
 
 .maintitle{
@@ -237,7 +343,9 @@ button:hover {
 }
 
 .categories-area {
-    margin: -10px 200px 50px 200px;
+    // margin: -10px 200px 50px 200px;
+    // margin: 0 auto;
+    margin-left: 5%;
     overflow: hidden;
 }
 
