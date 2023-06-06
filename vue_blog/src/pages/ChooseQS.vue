@@ -4,7 +4,7 @@
         <div class="sun">
         </div>
 
-        <div class="title" align="center">答题测试</div>
+        <div class="title" align="center">Test yourself</div>
         <!-- 科目栏 -->
         <transition appear name="animate__animated animate__bounce animate__slow" enter-active-class="animate__fadeInDown"
             leave-active-class="animate__fadeOutUp">
@@ -194,12 +194,12 @@ export default {
     width: 400px;
 }
 .title {
-    font-size: 80px;
+    font-size: 100px;
     color: #eff1f6;
     top: 50px;
     bottom: 0 !important;
     right: 0 !important;
-    font-family: 'STXingkai';
+    font-family: PoiretOne-Regular;
     opacity: 0.85;
     padding-top: 8%;
 }

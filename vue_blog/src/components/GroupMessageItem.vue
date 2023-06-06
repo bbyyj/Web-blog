@@ -251,6 +251,8 @@ ul,li {
     border-radius: 20px;
     margin: 40px;
     padding: 20px 30px 3px;
+    
+    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
 }
 
 .count {

@@ -33,11 +33,10 @@ import TitleArea from "../components/TitleArea";
 import askBoardTitle from "../components/askBoardTitle";
 import LeaveMessagePanel from "../components/LeaveMessagePanel";
 import GroupMessageItem from "../components/GroupMessageItem";
-import Pagination from "../components/Pagination";
 
 export default {
     name: "MsgBoard",
-    components: { TitleArea, LeaveMessagePanel, GroupMessageItem, Pagination, askBoardTitle },
+    components: { TitleArea, LeaveMessagePanel, GroupMessageItem, askBoardTitle },
     data() {
         return {
             showReplay: false,
@@ -152,17 +151,17 @@ export default {
     border-radius: 20px;
     padding-bottom: 20px;
     padding-top: 1px;
+    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
 }
 
 /*回答过的问题 */
 .total {
     font-size: 32px;
-    line-height: 32px;
+    line-height: 40px;
     font-weight: 1000;
     text-align: center;
     padding-top: 30px;
     padding-bottom: 10px;
-    font-family: 华文楷体;
     position: relative;
 }
 

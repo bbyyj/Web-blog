@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "AaMeiSong-2";
+    src:url("AaMeiSong-2.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "DancingScript-Bold";
+    src:url("DancingScript-Bold.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "GEETYPEQingKongPaoPaoTi-Shan-XiTi";
+    src:url("GEETYPEQingKongPaoPaoTi-Shan-XiTi(GEETYPE-SkyPopGB-Flash-Light)-2.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "NotoSerifSC-Regular";
+    src:url("NotoSerifSC-Regular.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PoiretOne-Regular";
+    src:url("PoiretOne-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "QiaoQiaoXiHuanNiTi-2";
+    src:url("QiaoQiaoXiHuanNiTi-2.ttf");
+    font-weight: normal;
+    font-style: normal;
+}

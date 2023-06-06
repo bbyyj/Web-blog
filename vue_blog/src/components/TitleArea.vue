@@ -19,7 +19,6 @@ export default {
     text-align: center;
     z-index: 0;
     user-select: none;
-    font-family: "PingFang SC", "Microsoft YaHei", Lato, sans-serif;
 }
 
 .bg::before {

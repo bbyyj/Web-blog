@@ -48,7 +48,8 @@ export default {
 .bg {
     user-select: none;
     text-align: center;
-    font-family: 'STXingkai';
+    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
+
     font-size: 50px;
     position: relative;
     z-index: 0;

@@ -8,6 +8,7 @@ import "./plugins/element.js";
 import "element-ui/lib/theme-chalk/index.css";
 import "element-ui/lib/theme-chalk/display.css";
 import "./assets/css/global.css"; //导入全局样式
+import "./assets/icon/font.css"
 import "./plugins/echarts-vue.js";
 
 import mavonEditor from "mavon-editor";
