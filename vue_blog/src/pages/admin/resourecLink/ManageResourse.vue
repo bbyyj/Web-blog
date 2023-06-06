@@ -51,13 +51,6 @@ export default {
     },
     methods: {
         async getMessageList() {
-            // const {data:res} = await this.$axios.get("/admin/msgList", {params: this.queryInfo});
-            // if(res.data.length > 1) {
-            //     this.links.splice(0, this.links.length)
-            //     this.links.push(...res.data[0])
-            //     this.total = res.data[1]
-            // }
-
             const {data:res} = await this.$axios.get("/admin/t/pageresourcecheck", {params: this.queryInfo});
             if(res.status !== 563) {
                 this.$message.error("获取列表失败，请重试！")
