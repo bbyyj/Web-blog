@@ -26,7 +26,7 @@ export default {
 <style scoped>
 a {
     float: left;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 32px;
     color: #393f51;
@@ -39,6 +39,8 @@ a {
     transition: all 0.3s linear;
     outline: none;
     text-decoration: none;
+    font-family: HYYueXiChuKaiJ-2;
+
 }
 
 .active {

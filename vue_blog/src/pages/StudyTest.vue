@@ -169,7 +169,7 @@ export default {
     background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
     background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
     animation: 10s move linear infinite;
-
+    font-family: HYYueXiChuKaiJ-2;
 }
 // 通过修改background的参数形成动画
 @keyframes move {
@@ -253,7 +253,7 @@ ul {
         padding: 20px;
         box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
         h2 {
-            font-size: 24px;
+            font-size: 27px;
             margin-bottom: 20px;
         }
 
@@ -298,7 +298,7 @@ ul {
                 }
 
                 label {
-                    font-size: 16px;
+                    font-size: 18px;
                 }
             }
         }

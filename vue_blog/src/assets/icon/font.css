@@ -39,3 +39,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: "HYYueXiChuKaiJ-2";
+    src:url("HYYueXiChuKaiJ-2.ttf");
+    font-weight: normal;
+    font-style: normal;
+}

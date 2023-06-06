@@ -228,12 +228,14 @@ ul,li {
     padding: 18px;
     border-radius: 10px;
     border: 0;
+    font-family: HYYueXiChuKaiJ-2;
+    font-size: 20px;
 }
 
 .el-dropdown-menu {
     background-color: #eff1f6;
     border-radius: 10px;
-    padding: 15px 20px 15px 20px;
+    padding: 0px 20px 15px 20px;
 }
 /deep/ .el-dropdown-menu__item:hover{
     background-color:#e0e5ed;

@@ -14,8 +14,8 @@
             <div class="blog-info">
                 <ul>
                     <li>
-                        <i class="iconfont icon-yanjing"></i>
-                        <span>{{ item.views }}</span>
+                        <i class="iconfont icon-chakan"></i>
+                        <span style="font-size: 18px;">{{ item.views }}</span>
                     </li>
                     <li>
                         <a href="#">
@@ -118,8 +118,10 @@ export default {
     height: 46px;
     line-height: 50px;
     text-align: center;
-    font-size: 25px;
+    font-size: 30px;
     margin-bottom: 10px;
+    font-family: HYYueXiChuKaiJ-2;
+    font-weight: bolder;
 }
 
 .box .blog-box .blog-title a {
@@ -161,11 +163,12 @@ export default {
 .box .blog-box .blog-desc {
     height: 110px;
     p {
-        padding: 12px 20px;
+        padding: 12px 25px;
         font-size: 16px;
-        line-height: 1.8;
+        line-height: 2;
         color: #3d3952;
         max-height: 100px;
+        font-family: HYYueXiChuKaiJ-2;
     }
 }
 
@@ -179,14 +182,16 @@ export default {
         font-size: 14px;
         font-weight: 700;
         color: #696eae;
+        font-family: HYYueXiChuKaiJ-2;
     }
 
     i {
         font-weight: bold;
     }
 
-    .icon-yanjing {
+    .icon-chakan {
         color: #3d3952;
+        font-size: 20px;
     }
 
     a {
@@ -197,6 +202,8 @@ export default {
         padding: 4px;
         border-radius: 3px;
         color: #696eae;
+        font-family: HYYueXiChuKaiJ-2;
+        font-weight:bold;
     }
 }
 
