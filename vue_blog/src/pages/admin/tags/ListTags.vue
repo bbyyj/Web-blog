@@ -10,7 +10,7 @@
                     <el-input v-model="inputTag" @blur="checkTagExist(false)" @focus="checkTagExist(true)" placeholder="标签名称" clearable></el-input>
                 </el-col>
                 <el-col :span="4">
-                    <el-button type="primary" @click="addTag" :disabled="addBtnDisabled" icon="el-icon-edit">{{btnName}}</el-button>
+                    <el-button class="add" type="primary" @click="addTag" :disabled="addBtnDisabled" icon="el-icon-edit">{{btnName}}</el-button>
                 </el-col>
             </el-row>
 
@@ -20,8 +20,8 @@
                 <el-table-column label="名称" prop="name"></el-table-column>
                <el-table-column align="center" label="操作"  width="150">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.row.id, scope.row.name)">编辑</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
+                        <el-button class="edt" size="mini" @click="handleEdit(scope.row.id, scope.row.name)">编辑</el-button>
+                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
                     </template>
                </el-table-column>
             </el-table>
@@ -164,6 +164,37 @@ export default {
 
 <style scoped>
 
+.add {
+    float: right !important;
+    margin-right: 50px;
+    background-color: #baaaca1a;
+    color: #baaacaee;
+    border-color: #baaacaee;
+}
+
+.add:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.edt:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
+}
 
 
 </style>

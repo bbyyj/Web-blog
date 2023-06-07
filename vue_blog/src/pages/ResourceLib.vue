@@ -149,9 +149,7 @@ export default {
     methods: { 
         //进入页面默认展示内容   
         async getLinks() {
-            // let pagenum = this.pagenum;
             let pagenum = this.queryInfo.pagenum;
-            // let pagesize = this.pagesize;
             let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/pageresource", { params: { pagenum: pagenum, pagesize: pagesize } });
 
@@ -186,9 +184,7 @@ export default {
 
         //点击分类展示对应内容
         async showdata(cateid){
-            // let pagenum = this.pagenum;
             let pagenum = this.queryInfo.pagenum;
-            // let pagesize = this.pagesize;
             let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
             
@@ -212,7 +208,9 @@ export default {
 
         //查询
         async searchdata() {
-            const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname } });
+            let pagenum = this.queryInfo.pagenum;
+            let pagesize = this.queryInfo.pagesize;
+            const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname, pagenum: pagenum, pagesize: pagesize  } });
             console.log(res);
 
             if(res.status = 563){
@@ -422,8 +420,6 @@ export default {
 }
 
 .categories-area {
-    // margin: -10px 200px 50px 200px;
-    // margin: 0 auto;
     margin-left: 5%;
     overflow: hidden;
 }

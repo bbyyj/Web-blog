@@ -232,7 +232,7 @@ export default {
     border-color: #baaacaee;
 }
 
-.add:hover {
+.add:hover, .add:focus {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;

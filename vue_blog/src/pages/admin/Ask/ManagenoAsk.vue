@@ -9,8 +9,8 @@
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <!--回复和删除按钮-->
-                        <el-button size="mini" @click="handleResponse(scope.$index)">回复</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除</el-button>
+                        <el-button class="edt" size="mini" @click="handleResponse(scope.$index)">回复</el-button>
+                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -162,5 +162,23 @@ export default {
 .show-categories {
     float: right;
     margin-right: 30px;
+}
+
+.edt:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
 }
 </style>

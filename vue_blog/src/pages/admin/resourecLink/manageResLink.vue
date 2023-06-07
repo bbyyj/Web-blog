@@ -1,7 +1,13 @@
 <template>
     <div>
         <el-card>
-            <el-row>
+            <el-row :gutter="15">
+                <el-col :span="9">
+                    <el-input v-model="info.sname" placeholder="请输入关键词" clearable></el-input>
+                </el-col>
+                <el-col :span="3">
+                    <el-button class="add" type="primary" @click="searchdata" icon="el-icon-search">搜索</el-button>
+                </el-col>
                 <el-button class="add" type="primary" plain @click="handleAdd">添加资源</el-button>
                 <el-button class="show-categories" type="primary" plain @click="showCategories">查看资源分类</el-button>
             </el-row>
@@ -21,8 +27,8 @@
                 <el-table-column label="操作"  width="150">
 
                     <template scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index)">编辑</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
+                        <el-button class="edt" size="mini" @click="handleEdit(scope.$index)">编辑</el-button>
+                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.ID)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -139,6 +145,9 @@ export default {
             },
             //所有分类 包括id和名字
             categories: [],
+            //搜索用
+            info:{sname: "",},
+            //
             uploadIcon: axios.defaults.baseURL + "/admin/uploadIcon"
         }
     },
@@ -149,8 +158,6 @@ export default {
                 this.$message.error("获取列表失败，请重试！")
                 return
             }
-
-            console.log(res);
 
             let links, categories, count
             if (res.data.length > 2 ) {
@@ -191,6 +198,31 @@ export default {
             this.postInfo.categoryid = val.id
         },
 
+         //查询
+         async searchdata() {
+            let pagenum = this.queryInfo.pagenum;
+            let pagesize = this.queryInfo.pagesize;
+            const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname, pagenum: pagenum, pagesize: pagesize  } });
+            console.log(res);
+
+            if(res.status = 563){
+                this.links = res.data[0];
+                this.total = res.data[1];
+                console.log(res);
+            }
+            else{
+                this.$message.warning("获取资源失败")
+                return
+            }
+
+            // //分页相关
+            // this.pages = Math.ceil(this.total / this.queryInfo.pagesize);
+            // if (this.pages <= 0) {
+            //     this.pages = 1
+            // }
+        },
+
+        //时间格式
         dateFormat(d) {
             return dayjs(d).format("YYYY-MM-DD HH:mm:ss")
         },
@@ -355,7 +387,7 @@ export default {
     border-color: #baaacaee;
 }
 
-.add:hover,.show-categories:hover {
+.add:hover, .add:focus, .show-categories:hover, .show-categories:focus {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;
@@ -368,5 +400,25 @@ export default {
     color: #baaacaee;
     border-color: #baaacaee;
 }
+
+
+.edt:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
+}
+
 
 </style>

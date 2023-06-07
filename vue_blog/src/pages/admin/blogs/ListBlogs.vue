@@ -217,7 +217,7 @@ export default {
     border-color: #baaacaee;
 }
 
-.serch:hover {
+.serch:hover, .serch:focus {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;

@@ -370,7 +370,7 @@ export default {
     border-color: #baaaca;
 }
 
-.add:hover {
+.add:hover, .add:focus {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;

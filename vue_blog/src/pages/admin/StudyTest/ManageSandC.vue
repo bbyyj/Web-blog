@@ -283,7 +283,7 @@ export default {
     color: #baaacaee;
     border-color: #baaacaee;
 }
-.sub:hover {
+.sub:hover, .sub:focus {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;
@@ -295,7 +295,7 @@ export default {
     border-color: #f67272ac;
 }
 
-.del:hover {
+.del:hover, .del:focus {
     background-color: #f67272ac;
     color: #fff;
     border-color: #f67272ac;

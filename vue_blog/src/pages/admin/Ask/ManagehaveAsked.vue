@@ -8,8 +8,8 @@
                 <el-table-column label="答案" prop="answer"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index)">编辑回答</el-button>
-                        <el-button size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除该条</el-button>
+                        <el-button class="edt" size="mini" @click="handleEdit(scope.$index)">编辑回答</el-button>
+                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除该条</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -159,6 +159,24 @@ export default {
 .show-categories {
     float: right;
     margin-right: 30px;
+}
+
+.edt:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+}
+
+.del {
+    background-color: #f6727218;
+    color: #f67272ac;
+    border-color: #f67272ac;
+}
+
+.del:hover {
+    background-color: #f67272ac;
+    color: #fff;
+    border-color: #f67272ac;
 }
 
 </style>
