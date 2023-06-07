@@ -13,7 +13,7 @@
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item @click.native="getLinks()">全部</el-dropdown-item>
                         <el-dropdown-item v-for="subject in categories" :key="subject.id"
-                            @click.native="showdata(subject.id)">
+                            @click.native="showdata(subject.id, '1')">
                             {{ subject.name }}
                         </el-dropdown-item>
                     </el-dropdown-menu>
@@ -23,7 +23,7 @@
                     <el-input v-model="info.sname" placeholder="请输入关键词" clearable></el-input>
                 </el-col>
                 <el-col :span="2.5">
-                    <el-button class="button1" type="primary" @click="searchdata" icon="el-icon-search">搜索</el-button>
+                    <el-button class="button1" type="primary" @click="searchdata('1')" icon="el-icon-search">搜索</el-button>
                 </el-col>
                 <el-col :span="4">
                     <el-button class="button1" type="primary" @click="adddata" icon="el-icon-paperclip">上传资料</el-button>
@@ -183,7 +183,11 @@ export default {
         },
 
         //点击分类展示对应内容
-        async showdata(cateid){
+        async showdata(cateid, flag){
+            if(flag == 1){
+                this.queryInfo.pagenum = 1;
+            }
+            
             let pagenum = this.queryInfo.pagenum;
             let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/pageresourcebycategoryid", { params: { categoryid:cateid, pagenum: pagenum, pagesize: pagesize } });
@@ -207,7 +211,10 @@ export default {
         },
 
         //查询
-        async searchdata() {
+        async searchdata(flag) {
+            if(flag == 1){
+                this.queryInfo.pagenum = 1;
+            }
             let pagenum = this.queryInfo.pagenum;
             let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname, pagenum: pagenum, pagesize: pagesize  } });
@@ -216,7 +223,7 @@ export default {
             if(res.status = 563){
                 this.items = res.data[0];
                 this.total = res.data[1];
-                this.categoryid = 0;
+                this.categoryid = -1;
                 console.log(res);
             }
             else{
@@ -312,8 +319,10 @@ export default {
             this.queryInfo.pagesize = newSize;
             if(this.categoryid == 0) {
                 this.getLinks()
+            } else if(this.categoryid == -1) {
+                this.searchdata('0')
             } else {
-                this.showdata(this.categoryid);
+                this.showdata(this.categoryid,'0');
             }
             
         },
@@ -322,8 +331,10 @@ export default {
             this.queryInfo.pagenum = newPage;
             if(this.categoryid == 0) {
                 this.getLinks()
+            } else if(this.categoryid == -1) {
+                this.searchdata('0')
             } else {
-                this.showdata(this.categoryid);
+                this.showdata(this.categoryid,'0');
             }
         },
 

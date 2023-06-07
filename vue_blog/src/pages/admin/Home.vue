@@ -213,10 +213,16 @@ export default {
 }
 
 .el-button--info {
-    background-color: #8d84ae;
+    background-color: #fbfbfb65;
     border: none;
     color: #F9F5EB;
     font-size: 16px;
+}
+
+.el-button--info:hover,.el-button--info:focus {
+    background-color: #F9F5EB;
+    border: none;
+    color: #8d84ae;
 }
 
 .el-aside {
