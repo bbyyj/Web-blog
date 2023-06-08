@@ -23,7 +23,6 @@
                     <span style="margin-left: 10px">{{ dateFormat(scope.row.UpdatedAt) }}</span>
                 </template>
                 </el-table-column>
-                <!-- <el-table-column label="地址" prop="url"></el-table-column> -->
                 <el-table-column label="操作"  width="150">
 
                     <template scope="scope">
@@ -239,7 +238,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(async () => {
-                //删除博客
+                //删除资源
                 const {data:res} = await this.$axios.delete("/admin/t/deleteresource", {params: {id: id}});
                 if (res.status !== 101) {
                     this.$message.error("删除失败，请重试！")
@@ -291,8 +290,6 @@ export default {
                 .then(response => {
                 // 处理后端返回的数据
                 console.log(response.data);
-                //   console.log(response.data.url);
-
                 this.postInfo.url = response.data.url
                 })
                 .catch(error => {
@@ -308,8 +305,7 @@ export default {
                 res = await this.$axios.post("/admin/t/addresource",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
                 console.log(res);
             } else {
-                // res = await this.$axios.put("/admin/updateLink", this.postInfo)
-                res = await this.$axios.put("/admin/t/reupload", { name: this.postInfo.name })
+                res = await this.$axios.put("/admin/t/updateresource", { ID: this.postInfo.ID, name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid })
 
                 console.log(res);
             }
