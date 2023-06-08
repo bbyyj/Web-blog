@@ -308,8 +308,8 @@ export default {
                 res = await this.$axios.post("/admin/t/addresource",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
                 console.log(res);
             } else {
-                res = await this.$axios.put("/admin/updateLink", this.postInfo)
-                // res = await this.$axios.put("/admin/t/reupload", this.postInfo.name)
+                // res = await this.$axios.put("/admin/updateLink", this.postInfo)
+                res = await this.$axios.put("/admin/t/reupload", { name: this.postInfo.name })
 
                 console.log(res);
             }
