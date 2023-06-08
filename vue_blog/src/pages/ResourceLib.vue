@@ -267,10 +267,11 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
-            axios.post('/admin/t/uploadresource', formData)
+            axios.post('/myblog/t/uploadresourcecheck', formData)
                 .then(response => {
                 // 处理后端返回的数据
                 console.log(response.data);
+                //   console.log(response.data.url);
 
                 this.postInfo.url = response.data.url
                 })
@@ -279,15 +280,16 @@ export default {
                 console.log(error);
                 });
         },
+        
 
         async commitLink() {
             let res
             if(this.postInfo.ID === 0) {
-                res = await this.$axios.post("/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
+                res = await this.$axios.post("/myblog/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
                 console.log(res);
             } else {
-                res = await this.$axios.put("/admin/updateLink", this.postInfo)
-                // res = await this.$axios.put("/admin/t/reupload", this.postInfo.name)
+                // res = await this.$axios.put("/admin/updateLink", this.postInfo)
+                res = await this.$axios.put("/admin/t/reupload", { name: this.postInfo.name })
 
                 console.log(res);
             }
@@ -295,8 +297,8 @@ export default {
                 this.$message.error("操作失败，请重试！")
             } else {
                 this.cancel()
-                await this.getLinkList()
-                this.$message.success("操作成功！")
+                // await this.getLinks()
+                this.$message.success("操作成功，请等待审核！")
             }
         },
 
