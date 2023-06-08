@@ -284,20 +284,13 @@ export default {
 
         async commitLink() {
             let res
-            if(this.postInfo.ID === 0) {
-                res = await this.$axios.post("/myblog/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
-                console.log(res);
-            } else {
-                // res = await this.$axios.put("/admin/updateLink", this.postInfo)
-                res = await this.$axios.put("/admin/t/reupload", { name: this.postInfo.name })
-
-                console.log(res);
-            }
+            res = await this.$axios.post("/myblog/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
+            console.log(res);
+            
             if (res.data.status !== 101) {
                 this.$message.error("操作失败，请重试！")
             } else {
                 this.cancel()
-                // await this.getLinks()
                 this.$message.success("操作成功，请等待审核！")
             }
         },
