@@ -65,9 +65,6 @@
                     <el-form-item label="标题：">
                         <el-input v-model="postInfo.name" autocomplete="off" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="链接：">
-                        <el-input v-model="postInfo.url" autocomplete="off" clearable></el-input>
-                    </el-form-item>
                     <el-form-item label="类别：">
                         <el-select :value="selectedCategory" @visible-change="getAllCategories" @change="changeCategory" clearable placeholder="资源类别">
                             <el-option v-for="item in categories" :key="item.id" :value="item.name">
@@ -77,18 +74,14 @@
                     <el-form-item label="描述：">
                         <el-input type="textarea" :rows="3" v-model="postInfo.desc" autocomplete="off" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="图标：">
+                    <el-form-item label="文件：">
                         <el-row :gutter="22">
-                            <el-col :span="15">
-                                <el-input v-model="postInfo.icon" autocomplete="off" clearable></el-input>
-                            </el-col>
-                            <el-col :span="2">
-                                <!-- <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" :action="uploadIcon"> -->
-                            <el-upload :on-success="uploadSuccess" :show-file-list="false" class="upload-demo" >
+                            
+                            <form @submit.prevent="uploadFile">
+                            <input type="file" ref="fileInput" name="f1">
+                            <button type="submit">上传</button>
+                            </form>
 
-                                    <el-button  type="primary" plain>点击上传</el-button>
-                                </el-upload>
-                            </el-col>
                         </el-row>
                     </el-form-item>
                 </el-form>
@@ -138,9 +131,8 @@ export default {
                 ID: 0,
                 name: "",
                 desc: "",
-                url: "",
                 categoryid: 0,
-                icon: "",
+                url: "",
             },
             selectedCategory: "",
 
@@ -257,21 +249,36 @@ export default {
                 ID: 0,
                 name: "",
                 desc: "",
-                url: "",
                 categoryid: 0,
-                icon: "",
+                url: "",
             }
             this.dialogFormVisible = false
             this.selectedCategory = ""
         },
 
+        //提交文件（仅文件）
+        uploadFile() {
+            const f1 = this.$refs.fileInput.files[0];
+            const formData = new FormData();
+            formData.append('f1', f1);
+
+            axios.post('/admin/t/uploadresource', formData)
+                .then(response => {
+                // 处理后端返回的数据
+                console.log(response.data);
+
+                this.postInfo.url = response.data.url
+                })
+                .catch(error => {
+                // 处理错误
+                console.log(error);
+                });
+        },
+
         async commitLink() {
             let res
             if(this.postInfo.ID === 0) {
-                res = await this.$axios.post("/admin/addLink", this.postInfo)
-                //res = await this.$axios.post("/admin/t/addresource", {params: { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid }})
-                // res = await this.$axios.post("/admin/t/addresource", this.respost)
-
+                res = await this.$axios.post("/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
                 console.log(res);
             } else {
                 res = await this.$axios.put("/admin/updateLink", this.postInfo)
@@ -300,13 +307,14 @@ export default {
             const {data: res} = await this.$axios.get("/myblog/t/downloadresource", { params: {  name: fileName } });
             console.log(res);
 
-            let url = window.URL.createObjectURL(new Blob([data]));
-            let link = document.createElement('a');
-            link.style.display = 'none';
-            link.href = url;
-            link.setAttribute('download', fileName);
-            document.body.appendChild(link);
-            link.click();
+            //突然发现下载是假下载  待更新
+            // let url = window.URL.createObjectURL(new Blob([data]));
+            // let link = document.createElement('a');
+            // link.style.display = 'none';
+            // link.href = url;
+            // link.setAttribute('download', fileName);
+            // document.body.appendChild(link);
+            // link.click();
         },
 
         //时间格式
