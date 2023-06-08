@@ -36,7 +36,9 @@
                 <div class="center-area" style="text-align: center;">
 
                     <div class="category grow" style="text-align: left;"  :key="item.ID" v-for="item in items" >
-                        <a @click="downloadFile(item.name, item.url)">
+                        <!-- <a @click="downloadFile(item.name, item.url)"> -->
+                        <a @click="downloadFile(item.name)">
+
                             <strong class="title">
                             {{ item.name }}
                         </strong>
@@ -99,6 +101,9 @@
 
 import "animate.css"
 import dayjs from "dayjs";
+import axios from "axios";
+
+
 
 import Pagination from "../components/Pagination";
 
@@ -300,14 +305,34 @@ export default {
         },
 
         //下载
-        async downloadFile(fileName, data) {
-            if (!data) {
-                return;
-            }
-            const {data: res} = await this.$axios.get("/myblog/t/downloadresource", { params: {  name: fileName } });
-            console.log(res);
+         downloadFile(fileName) {
+            
+            // const {data: res} = await this.$axios.get("/myblog/t/downloadresource", { params: {  name: fileName } });
+            // console.log(res);
+            
+            
+            // const fileName = 'example.txt'; // 替换为你想要下载的文件名
 
-            //突然发现下载是假下载  待更新
+            axios.get('/myblog/t/downloadresource', {
+                responseType: 'blob',
+                params: {
+                fileName: fileName
+                }
+            })
+            .then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', fileName);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+            //之前的下载方法
             // let url = window.URL.createObjectURL(new Blob([data]));
             // let link = document.createElement('a');
             // link.style.display = 'none';
