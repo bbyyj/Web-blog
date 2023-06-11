@@ -55,16 +55,16 @@
                         <el-row :gutter="22">
                             
                             <form @submit.prevent="uploadFile">
-                            <input type="file" ref="fileInput" name="f1">
-                            <button type="submit">上传</button>
+                            <input   type="file" ref="fileInput" name="f1">
+                            <button class="upload" type="submit">上传</button>
                             </form>
 
                         </el-row>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="cancel">取 消</el-button>
-                    <el-button type="primary" @click="commitLink">确 定</el-button>
+                    <el-button class="edt" @click="cancel">取 消</el-button>
+                    <el-button class="yes" type="primary" @click="commitLink">确 定</el-button>
                 </div>
             </el-dialog>
             <!-- 分类信息展示 -->
@@ -89,8 +89,8 @@
                     append-to-body>
                     <el-input placeholder="分类名称" v-model="categoryPost.name"></el-input>
                     <div slot="footer" class="dialog-footer">
-                        <el-button @click="addCategoryCancel">取 消</el-button>
-                        <el-button type="primary" @click="commitCategory">确 定</el-button>
+                        <el-button class="edt" @click="addCategoryCancel">取 消</el-button>
+                        <el-button class="yes" type="primary" @click="commitCategory">确 定</el-button>
                     </div>
                 </el-dialog>
             </el-dialog>
@@ -413,7 +413,28 @@ export default {
 }
 
 
-.edt:hover {
+.upload {
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    border: 1px solid #DCDFE6;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: 0;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #baaaca19;
+    color: #917ba7ee;
+    border-color: #baaacaee;
+
+}
+
+.edt:hover, .upload:hover {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;
@@ -430,6 +451,33 @@ export default {
     color: #fff;
     border-color: #f67272ac;
 }
+
+.yes {
+    background-color: #947dabee;
+    color: #fff;
+    border-color: #87739aee;
+}
+
+.yes:hover {
+    background-color: #6e5884ee;
+    color: #fff;
+    border-color: #6e5884ee;
+}
+
+::file-selector-button {
+    height: 3rem;
+    border-radius: .25rem;
+    border: 1px solid #baaacaee;
+    background-color: #baaaca19;
+    color: #917ba7ee;
+    cursor: pointer;
+  }
+
+  ::file-selector-button:hover {
+    background-color: #baaacaee;
+    color: #fff;
+    border-color: #baaacaee;
+  }
 
 
 </style>
