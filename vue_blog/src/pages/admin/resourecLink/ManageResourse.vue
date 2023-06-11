@@ -83,11 +83,10 @@ export default {
         },
 
         async handleStatus(id, status) {
-            // const {data:res} = await this.$axios.put("/admin/updateMsgStatus", {id: id, status: status});
             let res
             console.log(id);
             if (status==1) {
-                res = await this.$axios.put("/admin/t/checksucceeded", {id: id});
+                res = await this.$axios.put("/admin/t/checksucceeded", {params: {id: id}});
             } else {
                 res = await this.$axios.delete("/admin/t/checkfailed", {params: {id: id}});
             }
@@ -98,25 +97,19 @@ export default {
                 await this.getMessageList()
             }
         },
+
         handleSizeChange: function(pagesize) {     // 监听pagesize 改变的事件
             this.queryInfo.pageSize = pagesize;
             this.getMessageList();
         },
+
         handleCurrentChange: function(newPage) {  // 页码值发送变化
             this.queryInfo.pageNum = newPage;
             this.getMessageList();
         },
+        
         dateFormat(d) {
             return dayjs(d).format("YYYY-MM-DD HH:mm:ss")
-        },
-        statusStr(status) {
-            if (status === 0) {
-                return "未审核"
-            } else if (status === 1) {
-                return "通过"
-            } else {
-                return "禁止"
-            }
         }
     },
     created() {
