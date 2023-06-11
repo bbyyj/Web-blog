@@ -216,6 +216,7 @@ export default {
         //添加资源button对应
         async handleAdd() {
             this.postInfo.ID = 0
+            this.postInfo.url = ""
             this.dialogFormVisible = true
         },
 
@@ -291,6 +292,7 @@ export default {
                 // 处理后端返回的数据
                 console.log(response.data);
                 this.postInfo.url = response.data.url
+                this.$message.success("上传成功！")
                 })
                 .catch(error => {
                 // 处理错误
@@ -300,6 +302,12 @@ export default {
         
 
         async commitLink() {
+            //若未上传文件报错
+            if(this.postInfo.url == "") {
+                this.$message.error("请先上传文件！")
+                return
+            }
+            
             let res
             if(this.postInfo.ID === 0) {
                 res = await this.$axios.post("/admin/t/addresource",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })

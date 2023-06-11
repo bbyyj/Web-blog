@@ -246,6 +246,7 @@ export default {
 
         adddata() {
             this.postInfo.ID = 0
+            this.postInfo.url = ""
             this.dialogFormVisible = true
         },
 
@@ -270,10 +271,8 @@ export default {
             axios.post('/myblog/t/uploadresourcecheck', formData)
                 .then(response => {
                 // 处理后端返回的数据
-                console.log(response.data);
-                //   console.log(response.data.url);
-
                 this.postInfo.url = response.data.url
+                this.$message.success("上传成功!")
                 })
                 .catch(error => {
                 // 处理错误
@@ -283,6 +282,12 @@ export default {
         
 
         async commitLink() {
+            //若未上传文件报错
+            if(this.postInfo.url == "") {
+                this.$message.error("请先上传文件！")
+                return
+            }
+            
             let res
             res = await this.$axios.post("/myblog/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
             console.log(res);
