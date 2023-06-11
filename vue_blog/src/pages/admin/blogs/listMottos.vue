@@ -228,10 +228,11 @@ ul {
 
 .box .ch {
     color: #57507def;
+    font-weight: 600;
 }
 
 .box .en {
-    color: #7266a7;
+    color: #8677c9;
 }
 
 .box>div {

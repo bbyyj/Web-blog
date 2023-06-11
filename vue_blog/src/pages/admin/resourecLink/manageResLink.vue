@@ -157,6 +157,7 @@ export default {
                 categories = res.data[1]
                 //总数
                 count = res.data[2]
+                console.log(res)
             } else {
                 this.$message.error("获取列表失败，请重试！")
                 return
@@ -418,7 +419,6 @@ export default {
     line-height: 1;
     white-space: nowrap;
     border: 1px solid #DCDFE6;
-    -webkit-appearance: none;
     text-align: center;
     box-sizing: border-box;
     outline: 0;

@@ -16,11 +16,11 @@
                 <el-menu text-color="#eaf0ef" active-text-color="#eaf0ef" unique-opened :collapse="isCollapse"
                     :collapse-transition="false" router :default-active="activePath">
 
-                    <el-submenu :index="menu.id" v-for="(menu, i1) in menus" :key="menu.id">
+                    <el-submenu class="str" :index="menu.id" v-for="(menu, i1) in menus" :key="menu.id">
                         <!-- 一级菜单的模板区域 -->
                         <template slot="title">
                             <!-- 图标 -->
-                            <i :class="menu.icon"></i>
+                            <i class="icon" :class="menu.icon"></i>
                             <!-- 文本 -->
                             <span>{{ menu.name }}</span>
                         </template>
@@ -30,7 +30,7 @@
                             @click="saveNavState(i1, i2)">
                             <template slot="title">
                                 <!-- 图标 -->
-                                <i :class="subMenu.icon"></i>
+                                <i class="icon" :class="subMenu.icon"></i>
                                 <!-- 文本 -->
                                 <span>{{ subMenu.name }}</span>
                             </template>
@@ -88,14 +88,6 @@ export default {
                         { id: "31", index: "/ListTags", icon: "el-icon-menu", name: "查看标签" },
                     ]
                 },
-                // {
-                //     id :"4",
-                //     icon: "el-icon-picture-outline",
-                //     name: "图片管理",
-                //     submenus: [
-                //         {id:"41", index: "/listImages", icon:"el-icon-menu", name:"查看图片"},
-                //     ]
-                // },
                 {
                     id: "5",
                     icon: "el-icon-notebook-1",
@@ -191,7 +183,7 @@ export default {
 }
 
 .el-header {
-    background-color: #775f91;
+    background-color: #988DB5;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -212,6 +204,11 @@ export default {
     }
 }
 
+.str {
+    font-weight: 530;
+    color: #F4EDE1;
+}
+
 .el-button--info {
     background-color: #fbfbfb65;
     border: none;
@@ -226,20 +223,20 @@ export default {
 }
 
 .el-aside {
-    background-color: #775f91;
+    background-color: #988DB5;
 
     ele-menu {
-        border-right: 1px solid #775f91;
+        border-right: 1px solid #988DB5;
     }
 }
 
 .el-main {
-    background-color: #fbd5d155;
+    background-color: #eadbc482;
 }
 
 .el-menu {
-    border-right: 1px solid #775f91;
-    background-color: #775f91;
+    border-right: 1px solid #988DB5;
+    background-color: #988DB5;
     // color: #1d3d39;
     opacity: 1;
     font-weight: 500;
@@ -251,20 +248,26 @@ export default {
 .el-submenu .el-submenu__title:focus,
 .el-menu-item:focus {
     outline: 0 !important;
-    background-color: #775f91be !important;
+    background-color: #988DB5be !important;
 }
 
 .el-menu-item {
-    background-color: #775f91 !important;
+    background-color: #988DB5 !important;
     border: none;
 }
 
 .toggle-button {
-    background-color: #775f91;
+    background-color: #988DB5;
     font-size: 10px;
     line-height: 30px;
     color: #F9F5EB;
     text-align: center;
     letter-spacing: 0.2em;
     cursor: pointer;
-}</style>
+}
+
+.icon {
+    color: #fff;
+}
+
+</style>
