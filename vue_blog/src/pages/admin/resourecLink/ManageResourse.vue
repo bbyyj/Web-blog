@@ -52,7 +52,7 @@ export default {
     methods: {
         async getMessageList() {
             const {data:res} = await this.$axios.get("/admin/t/pageresourcecheck", {params: this.queryInfo});
-           console.log(res);
+            console.log(res);
             if(res.status !== 563) {
                 this.$message.error("获取列表失败，请重试！")
                 return
@@ -86,11 +86,11 @@ export default {
             let res
             console.log(id);
             if (status==1) {
-                res = await this.$axios.put("/admin/t/checksucceeded", {params: {id: id}});
+                res = await this.$axios.put("/admin/t/checksucceeded", {id: id});
             } else {
                 res = await this.$axios.delete("/admin/t/checkfailed", {params: {id: id}});
             }
-            if (res.status !== 200) {
+            if (res.data.status !== 101) {
                 status === 1 ? this.$message.error("文件通过失败，请重试！") : this.$message.error("文件禁止失败，请重试！")
             } else {
                 status === 1 ? this.$message.success("文件通过成功！") : this.$message.success("文件禁止成功！")
