@@ -28,7 +28,7 @@ func NewResponse(status int, code uint32, data ...interface{}) *Response {
 	response.R.Status = code
 	response.R.Message = MessageForCode[code]
 	response.R.Data = data
-	if (len(data) == 0) {
+	if len(data) == 0 {
 		response.R.Data = make([]interface{}, 0)
 	} else {
 		response.R.Data = data
@@ -75,4 +75,12 @@ func ResponseDeleteFailed() *Response {
 
 func ResponseDeleteSuccess() *Response {
 	return NewResponse(http.StatusOK, DeleteSuccess)
+}
+
+func ResponseGetResourceFailed() *Response {
+	return NewResponse(http.StatusOK, GetResourceFailed)
+}
+
+func ResponseGetResourceSuccess(data ...interface{}) *Response {
+	return NewResponse(http.StatusOK, GetResourceSuccess, data...)
 }

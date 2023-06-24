@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
 	"time"
@@ -19,6 +20,8 @@ import (
 var sqldb *sqlx.DB
 var Sqldb *sqlx.DB
 
+var Db *gorm.DB
+
 type MysqlConf struct {
 	DataSourceName string `json:"data_source_name"`
 	MaxOpenConns   uint32 `json:"max_open_conns"`
@@ -32,6 +35,15 @@ var conf = &MysqlConf{
 }
 
 func init() {
+
+	db, err1 := gorm.Open("mysql", "root:a123@tcp(127.0.0.1:3306)/blog?charset=utf8mb4&parseTime=True&loc=Local")
+	if err1 != nil {
+		panic(err1)
+	}
+	db.DB().SetMaxOpenConns(int(conf.MaxOpenConns))
+	db.DB().SetMaxIdleConns(int(conf.MaxIdleConns))
+	Db = db
+	//defer db.Close()
 	fmt.Println("mysql conf:", conf)
 	timeoutCtx, cancel := context.WithTimeout(context.Background(), time.Second*30)
 	defer cancel()

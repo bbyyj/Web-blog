@@ -16,3 +16,8 @@ func DefaultQueryInt(ctx *gin.Context, key, def string) int {
 	i, _ := strconv.Atoi(param)
 	return i
 }
+
+func StrconvAtoiParm(ctx *gin.Context, key string) int {
+	i, _ := strconv.Atoi(ctx.Param(key))
+	return i
+}

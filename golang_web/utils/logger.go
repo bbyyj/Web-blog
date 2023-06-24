@@ -5,12 +5,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/5 13:13
-* @Desc:
- */
-
 var logg *logger.Logger
 
 func Logger() *logger.Logger {

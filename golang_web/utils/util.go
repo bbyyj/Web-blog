@@ -15,6 +15,7 @@ import (
 	_ "image/jpeg"
 	_ "image/png"
 	"io"
+	"os"
 )
 
 // 提取路径中的路径名和后缀 "F:\test\img.jpg" ==> ("F:\test\img", ".jpg")
@@ -39,7 +40,6 @@ func ConvertPathSeparator(path string) string {
 
 	return string(strby)
 }
-
 
 // ImageScale: 对图片进行缩放
 func ImageScale(reader io.Reader, width int) (io.Reader, error) {
@@ -76,4 +76,12 @@ func ImageScale(reader io.Reader, width int) (io.Reader, error) {
 	}
 
 	return buf, nil
+}
+
+func GetFileSize(filename string) (int, error) {
+	fi, err := os.Stat(filename)
+	if err != nil {
+		return 0, err
+	}
+	return int(fi.Size()), nil
 }
