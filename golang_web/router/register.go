@@ -48,6 +48,13 @@ func registerBlogRouters(engine *gin.Engine) {
 	resourceLibRouter := controller.NewResourceLibRouter()
 	{
 		blogGroup.GET("/links", Decorate(resourceLibRouter.LinkList))
+		blogGroup.GET("/t/category", Decorate(resourceLibRouter.GetALLCategory))
+		blogGroup.GET("/t/pageresource", Decorate(resourceLibRouter.GetALLResource))
+		blogGroup.GET("/t/pageresourcebycategoryid", Decorate(resourceLibRouter.GetALLResourceByCategoryId))
+		blogGroup.GET("/t/queryresource", Decorate(resourceLibRouter.GetAllResourceLikeName))
+		blogGroup.GET("/t/downloadresource", resourceLibRouter.DownloadReasourceService)
+		blogGroup.POST("/t/uploadresourcecheck", resourceLibRouter.UploadReasourceCheckService)
+		blogGroup.POST("/t/addresourcecheck", Decorate(resourceLibRouter.AddReasourceCheckService))
 	}
 
 	leaveMessageRouter := controller.NewLeaveMessageRouter()
