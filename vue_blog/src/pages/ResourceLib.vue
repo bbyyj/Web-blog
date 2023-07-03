@@ -268,6 +268,13 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
+            const allowedExtensions = ['.zip']; // 允许的文件类型后缀数组
+
+            if (!this.isValidExtension(f1.name, allowedExtensions)) {
+                this.$message.error("只能上传 ZIP 文件!");
+                return;
+            }
+
             axios.post('/myblog/t/uploadresourcecheck', formData)
                 .then(response => {
                 // 处理后端返回的数据
@@ -279,14 +286,25 @@ export default {
                 console.log(error);
                 });
         },
+
+        isValidExtension(fileName, allowedExtensions) {
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            return allowedExtensions.includes(fileExtension);
+        },   
         
 
         async commitLink() {
+            //若文件名格式错误报错
+            if(!this.postInfo.name.endsWith(".zip")) {
+                this.$message.error("请在文件名后添加.zip后缀！")
+                return
+            }
             //若未上传文件报错
             if(this.postInfo.url == "") {
                 this.$message.error("请先上传文件！")
                 return
             }
+            
             
             let res
             res = await this.$axios.post("/myblog/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
@@ -305,41 +323,17 @@ export default {
         },
 
         //下载
-         downloadFile(fileName) {
+        downloadFile(fileName) {
             
-            // const {data: res} = await this.$axios.get("/myblog/t/downloadresource", { params: {  name: fileName } });
-            // console.log(res);
-            
-            
-            // const fileName = 'example.txt'; // 替换为你想要下载的文件名
 
-            axios.get('/myblog/t/downloadresource', {
-                responseType: 'blob',
-                params: {
-                fileName: fileName
-                }
-            })
-            .then(response => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', fileName);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        const url = `/myblog/t/downloadresource?name=${fileName}`;
+        const newWindow = window.open('', '_blank');
+        newWindow.location.href = axios.defaults.baseURL + url;
+        setTimeout(() => {
+            newWindow.close();
+        }, 500);
 
-            //之前的下载方法
-            // let url = window.URL.createObjectURL(new Blob([data]));
-            // let link = document.createElement('a');
-            // link.style.display = 'none';
-            // link.href = url;
-            // link.setAttribute('download', fileName);
-            // document.body.appendChild(link);
-            // link.click();
+           
         },
 
         //时间格式
@@ -459,7 +453,7 @@ export default {
     background-color: rgba(255, 255, 255, .6);
     margin: 0 auto;
     margin-top: 2%;
-    border-radius: 5px;
+    // border-radius: 5px;
     padding-bottom: 80px;
 }
 
@@ -471,7 +465,7 @@ export default {
 
 .category {
     display: inline-block;
-    border-radius: 7px;
+    // border-radius: 7px;
     background-color: #ffffff87;
     width: 280px;
     height: 150px;
@@ -483,6 +477,7 @@ export default {
 
 .desc{
     font-weight: 500;
+    font-size: 14px;
     color: #979898;
     margin: 0;
     white-space: nowrap;
@@ -531,7 +526,6 @@ export default {
     line-height: 1;
     white-space: nowrap;
     border: 1px solid #DCDFE6;
-    -webkit-appearance: none;
     text-align: center;
     box-sizing: border-box;
     outline: 0;

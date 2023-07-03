@@ -288,6 +288,11 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
+            if (!this.isValidExtension(f1.name, allowedExtensions)) {
+                this.$message.error("只能上传 ZIP 文件!");
+                return;
+            }
+
             axios.post('/admin/t/uploadresource', formData)
                 .then(response => {
                 // 处理后端返回的数据
@@ -300,9 +305,19 @@ export default {
                 console.log(error);
                 });
         },
+
+        isValidExtension(fileName, allowedExtensions) {
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            return allowedExtensions.includes(fileExtension);
+        }, 
         
 
         async commitLink() {
+            //若文件名格式错误报错
+            if(!this.postInfo.name.endsWith(".zip")) {
+                this.$message.error("请在文件名后添加.zip后缀！")
+                return
+            }
             //若未上传文件报错
             if(this.postInfo.url == "") {
                 this.$message.error("请先上传文件！")

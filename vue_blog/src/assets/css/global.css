@@ -24,3 +24,7 @@ html, body, #app {
     margin-top: 15px;
 }
 
+.el-input:focus {
+    border-color: #baaacaee;
+}
+

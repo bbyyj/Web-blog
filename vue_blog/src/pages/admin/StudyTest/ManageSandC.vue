@@ -3,7 +3,7 @@
         <el-card>
         <!--新增科目-->
         <el-form :model="newSubjectForm" @submit="addSubject" label-width="120px">
-            <h4>新增科目</h4>
+            <span>新增科目</span>
             <el-form-item label="科目名">
                 <el-input v-model="newSubjectForm.name"></el-input>
             </el-form-item>
@@ -14,7 +14,7 @@
 
         <!--删除科目-->
         <el-form :model="deleteSubjectForm" @submit="deleteSubject" label-width="120px">
-            <h4>删除科目</h4>
+            <span>删除科目</span>
             <el-form-item label="科目名">
                 <el-select v-model="deleteSubjectForm.name" placeholder="请选择">
                     <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
@@ -28,7 +28,7 @@
 
         <!--新增章节-->
         <el-form :model="newChapterForm" @submit="addChapter" label-width="120px">
-            <h4>新增章节</h4>
+            <span>新增章节</span>
             <el-form-item label="科目名">
                 <el-input v-model="newChapterForm.subject"></el-input>
             </el-form-item>
@@ -45,7 +45,7 @@
 
         <!--删除章节-->
         <el-form :model="deleteChapterForm" @submit="deleteChapter" label-width="120px">
-            <h4>删除章节</h4>
+            <span>删除章节</span>
             <el-form-item label="科目名">
                 <el-select v-model="deleteChapterForm.subject" placeholder="请选择" @change="updateChapterList">
                     <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
