@@ -19,7 +19,6 @@ const Welcome = () => import("../pages/admin/Welcome.vue");
 const ListBlogs = () => import("../pages/admin/blogs/ListBlogs.vue");
 const AddBlog = () => import("../pages/admin/blogs/AddBlog.vue");
 const ManageMessage = () => import("../pages/admin/messages/ManageMessage");
-const ListMottos = () => import("../pages/admin/blogs/listMottos");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
 const ManageResourse = () => import("../pages/admin/resourecLink/ManageResourse");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
@@ -75,7 +74,6 @@ const routes = [
       { path: "/welcome", component: Welcome, meta: { auth: true } },
       { path: "/listBlogs", component: ListBlogs, meta: { auth: true } },
       { path: "/addBlog", component: AddBlog, meta: { auth: true } },
-      { path: "/listMottos", component: ListMottos, meta: { auth: true } },
       { path: "/manageMsg", component: ManageMessage, meta: { auth: true } },
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
       { path: "/manageResourse", component: ManageResourse, meta: {auth: true}},
