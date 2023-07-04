@@ -315,6 +315,13 @@ export default {
             } else {
                 this.cancel()
                 this.$message.success("操作成功，请等待审核！")
+                this.postInfo = {
+                ID: 0,
+                name: "",
+                desc: "",
+                categoryid: 0,
+                url: "",
+            }
             }
         },
 

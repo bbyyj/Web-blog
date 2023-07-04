@@ -289,7 +289,7 @@ export default {
             formData.append('f1', f1);
 
             const allowedExtensions = ['.zip'];
-            
+
             if (!this.isValidExtension(f1.name, allowedExtensions)) {
                 this.$message.error("只能上传 ZIP 文件!");
                 return;
@@ -341,6 +341,13 @@ export default {
                 this.cancel()
                 await this.getLinkList()
                 this.$message.success("操作成功！")
+                this.postInfo = {
+                ID: 0,
+                name: "",
+                desc: "",
+                categoryid: 0,
+                url: "",
+            }
             }
         },
         uploadSuccess(response) {
