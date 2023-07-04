@@ -36,7 +36,9 @@
                     @click.native="blogDetail(item.id)">
                 </BlogCard>
 
-                <div class="wapper">
+                <Pagination  @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
+
+                <div class="wapper-label">
                     <svg class="star star1"></svg>
                     <svg class="star star2"></svg>
                     <div class="title">Label</div>
@@ -48,13 +50,14 @@
                         </ul>
                     </div>
                 </div>
+
+                
             </div>
 
-            <!--分页导航区-->
-            <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
+            
         </div>
 
-
+        
 
     </div>
 </template>
@@ -69,7 +72,6 @@ import BackToTop from "../components/BackToTop";
 import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
-import TagCloud from "../components/TagCloud";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -80,7 +82,7 @@ import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard},
     data() {
         return {
             firstBGPageInfo: {
@@ -154,7 +156,12 @@ export default {
             },
             //获得歌单
             musicList: [],
-            tags: [],
+            tags: [
+            {id:1, name: "Java"},
+              {id:2, name: "C++"},
+              {id:3, name: "Golang"},
+              {id:4, name: "Nginx"},
+            ],
         }
     },
     created() {
@@ -498,7 +505,7 @@ export default {
     width: 1000px;
 }
 
-.wapper {
+.wapper-label {
     width: 290px;
     background-color: #0925f700;
     margin-top: 0px;
