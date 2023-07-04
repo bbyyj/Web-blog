@@ -229,6 +229,8 @@ export default {
                 return item.id === this.links[index].categoryid
             })
             this.selectedCategory = val.name
+            this.postInfo.url = ""
+            console.log(this.postInfo.url)
             
         },
 
@@ -314,18 +316,18 @@ export default {
                 this.$message.error("请在文件名后添加.zip后缀！")
                 return
             }
-            //若未上传文件报错
-            if(this.postInfo.url == "") {
-                this.$message.error("请先上传文件！")
-                return
-            }
             
             let res
             if(this.postInfo.ID === 0) {
+                //若未上传文件报错
+                if(this.postInfo.url == "" ) {
+                    this.$message.error("请先上传文件！")
+                    return
+                }
                 res = await this.$axios.post("/admin/t/addresource",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
                 console.log(res);
             } else {
-                res = await this.$axios.put("/admin/t/updateresource", { ID: this.postInfo.ID, name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid })
+                res = await this.$axios.put("/admin/t/updateresource", { ID: this.postInfo.ID, name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
 
                 console.log(res);
             }
