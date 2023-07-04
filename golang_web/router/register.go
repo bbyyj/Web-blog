@@ -57,11 +57,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/displayMsg", Decorate(leaveMessageRouter.DisplayMessage))
 	}
 
-	essayRouter := controller.NewTacitRouter()
-	{
-		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
-	}
-
 	musicFrontRouter := admin.NewMusicRouter()
 	{
 		blogGroup.GET("/getAllMusic", Decorate(musicFrontRouter.GetAllMusic))
