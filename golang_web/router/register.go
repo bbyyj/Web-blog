@@ -80,10 +80,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/electionCommentList", Decorate(electionCommentRouter.ElectionCommentList))
 		blogGroup.POST("/addElectionComment", Decorate(electionCommentRouter.AddElectionComment))
 	}
-	musicFrontRouter := admin.NewMusicRouter()
-	{
-		blogGroup.GET("/getAllMusic", Decorate(musicFrontRouter.GetAllMusic))
-	}
 
 	askboxFrontRouter := controller.NewAskboxFrontRouter()
 	{
