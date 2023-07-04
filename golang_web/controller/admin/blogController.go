@@ -90,34 +90,3 @@ func (b *BlogController) AddBlog(ctx *gin.Context) *response.Response {
 
 	return response.ResponseOperateSuccess()
 }
-
-func (b *BlogController) AddMotto(ctx *gin.Context) *response.Response {
-	var motto model.Motto
-	err := ctx.ShouldBind(&motto)
-	if response.CheckError(err, "Bind param error") {
-		return response.ResponseOperateFailed()
-	}
-
-	motto.CreateTime = time.Now()
-
-	return response.ResponseOperateSuccess()
-}
-
-func (b *BlogController) DeleteMotto(ctx *gin.Context) *response.Response {
-	id := utils.QueryInt(ctx, "id")
-	if id == 0 {
-		return response.ResponseDeleteFailed()
-	}
-
-	return response.ResponseDeleteSuccess()
-}
-
-func (b *BlogController) UpdateMotto(ctx *gin.Context) *response.Response {
-	var motto model.Motto
-	err := ctx.ShouldBind(&motto)
-	if response.CheckError(err, "Bind param error") {
-		return response.ResponseOperateFailed()
-	}
-
-	return response.ResponseOperateSuccess()
-}

@@ -101,9 +101,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteBlog", Decorate(blogRouter.DeleteBlog))
 		adminGroup.GET("/getFullBlog", Decorate(blogRouter.GetFullBlog))
 		adminGroup.PUT("/updateBlog", Decorate(blogRouter.AddBlog))
-		adminGroup.POST("addMotto", Decorate(blogRouter.AddMotto))
-		adminGroup.PUT("/updateMotto", Decorate(blogRouter.UpdateMotto))
-		adminGroup.DELETE("/deleteMotto", Decorate(blogRouter.DeleteMotto))
 	}
 
 	typeRouter := admin.NewTypeRouter()
