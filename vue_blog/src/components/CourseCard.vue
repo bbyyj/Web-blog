@@ -53,7 +53,7 @@ export default {
 
 .box .course-box {
     width: 450px;
-    height: 190px;
+    height: 120px;
     padding-left: 20px;
 }
 
