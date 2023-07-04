@@ -177,6 +177,10 @@ func (l *LinksController) UpdateResource(ctx *gin.Context) *response.Response {
 		ctx.Status(http.StatusInternalServerError)
 		return nil
 	}
+	if resource.Url != "" {
+		r := l.linkService.GetResourceUrl(resource.ID)
+		os.Remove(r.Url)
+	}
 	if resource.Name != "" {
 		err = l.linkService.CheckResourceName(resource.ID, resource.Name)
 		if response.CheckError(err, "change name failed") {
