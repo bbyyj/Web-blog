@@ -19,13 +19,13 @@
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
-            
+
             <div class="cloud-bg01"></div>
             <div class="cloud-bg02"></div>
             <div class="cloud-bg03"></div>
-            <TagCloud class="tag-detail"></TagCloud>
+            <!-- <TagCloud class="tag-detail"></TagCloud>
             <TypeArea class="type-detail"></TypeArea>
-            
+             -->
 
             <div class="blog-area">
                 <!--用户信息栏-->
@@ -35,10 +35,29 @@
                 <BlogCard :key="item.id" v-for="(item, index) in blogDetails" :item="item" :imgRight="index % 2 === 0"
                     @click.native="blogDetail(item.id)">
                 </BlogCard>
-                <!--分页导航区-->
-                <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
+
+                <Pagination  @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
+
+                <div class="wapper-label">
+                    <svg class="star star1"></svg>
+                    <svg class="star star2"></svg>
+                    <div class="title">Label</div>
+                    <div class="content">
+                        <ul>
+                            <li :key="item.id" v-for="item in tags" @click="itemClicked(item.id)">
+                                <span>{{ item.name }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                
             </div>
+
+            
         </div>
+
+        
 
     </div>
 </template>
@@ -53,7 +72,6 @@ import BackToTop from "../components/BackToTop";
 import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
-import TagCloud from "../components/TagCloud";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -64,7 +82,7 @@ import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard},
     data() {
         return {
             firstBGPageInfo: {
@@ -137,7 +155,13 @@ export default {
                 ]
             },
             //获得歌单
-            musicList: []
+            musicList: [],
+            tags: [
+            {id:1, name: "Java"},
+              {id:2, name: "C++"},
+              {id:3, name: "Golang"},
+              {id:4, name: "Nginx"},
+            ],
         }
     },
     created() {
@@ -162,6 +186,7 @@ export default {
 
         document.addEventListener('scroll', this.parallax, true);
         this.createConsoleText();
+        this.getTagList();
     },
     deactivated() {
         this.showMotto = false
@@ -302,6 +327,23 @@ export default {
                 }
             }, 120)
         },
+        itemClicked(id) {
+            this.$router.push({
+                path: "/tags",
+                query: {
+                    id: id
+                }
+            })
+        },
+        // 获取所有博客标签
+        async getTagList() {
+            const { data: res } = await this.$axios.get("/myblog/tagList");
+            if (res.status === 1) {
+                this.tags = res.data.length > 0 ? res.data[0] : this.tags;
+            } else {
+                this.$message.warning("获取标签列表失败！")
+            }
+        },
     }
 }
 </script>
@@ -313,9 +355,11 @@ export default {
 .animate__animated {
     animation-duration: 3s;
 }
-#text{
+
+#text {
     font-family: NotoSerifSC-Regular;
 }
+
 .console-container {
     font-size: 3em;
     text-align: center;
@@ -330,12 +374,14 @@ export default {
     right: 0;
     margin: auto;
 }
+
 .console-underscore {
     display: inline-block;
     position: relative;
     top: -0.05em;
     left: 10px;
 }
+
 .scroll-down {
     width: 100%;
     height: 60px;
@@ -374,9 +420,11 @@ export default {
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-20px);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -424,7 +472,7 @@ export default {
     min-height: 2000px;
 }
 
-.cloud-bg01{
+.cloud-bg01 {
     position: absolute;
     top: 1250px;
     right: 0;
@@ -434,17 +482,8 @@ export default {
     height: 500px;
     width: 800px;
 }
-.tag-detail{
-    position: absolute;
-    top: 1350px;
-    right: 20px;
-}
-.type-detail{
-    position: absolute;
-    top: 1650px;
-    left: 20px;
-}
-.cloud-bg02{
+
+.cloud-bg02 {
     position: absolute;
     top: 1550px;
     left: 0;
@@ -454,7 +493,8 @@ export default {
     height: 520px;
     width: 700px;
 }
-.cloud-bg03{
+
+.cloud-bg03 {
     position: absolute;
     top: 850px;
     left: 300px;
@@ -463,5 +503,80 @@ export default {
     background-repeat: no-repeat;
     height: 520px;
     width: 1000px;
+}
+
+.wapper-label {
+    width: 290px;
+    background-color: #0925f700;
+    margin-top: 0px;
+    user-select: none;
+
+    position: absolute;
+    top: 1350px;
+    right: 20px;
+
+    .title {
+        color: rgb(255, 255, 255);
+        opacity: 0.75;
+        text-align: center;
+        font-family: DancingScript-Bold;
+        font-size: 27px;
+        margin-bottom: 10px;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    ul li {
+        display: inline-block;
+        padding: 2px;
+        color: #ffffff;
+        opacity: 0.7;
+        list-style: none;
+        margin: 6px 10px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        font-family: NotoSerifSC-Regular;
+
+    }
+
+    ul li:hover {
+        transform: scale(1.2);
+    }
+
+    .star {
+        position: relative;
+        background-color: #ffffff;
+        clip-path: path('M29.51068,15.41064C19.78412,13.544,18.456,12.21582,16.58929,2.48926a.60015.60015,0,0,0-1.17871,0C13.54437,12.21582,12.21625,13.544,2.4892,15.41064a.60016.60016,0,0,0,0,1.17872c9.72705,1.86669,11.05517,3.19482,12.92138,12.92138a.60027.60027,0,0,0,1.17871,0c1.8667-9.72656,3.19483-11.05469,12.92139-12.92138a.60016.60016,0,0,0,0-1.17872Z');
+        width: 40px;
+        height: 40px;
+        animation: twinkle 2s ease-out infinite alternate;
+    }
+
+    .star1 {
+        position: absolute;
+        top: 220px;
+        left: 50px;
+        animation-direction: alternate-reverse;
+    }
+
+    .star2 {
+        position: absolute;
+        top: -10px;
+        left: 210px;
+    }
+
+    @keyframes twinkle {
+        0% {
+            opacity: 0.1;
+        }
+
+        100% {
+            opacity: 0.8;
+        }
+    }
+
 }
 </style>

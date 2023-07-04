@@ -8,16 +8,16 @@ import (
 )
 
 type HomeController struct {
-	blogService  *service.BlogService
-	mottoService *service.MottoService
-	userService  *service.UserService
+	blogService    *service.BlogService
+	bgImageService *service.BGImageService
+	userService    *service.UserService
 }
 
 func NewHomeRouter() *HomeController {
 	return &HomeController{
-		blogService:  service.NewBlogService(),
-		mottoService: service.NewMottoService(),
-		userService:  service.NewUserService(),
+		blogService:    service.NewBlogService(),
+		bgImageService: service.NewBGImageService(),
+		userService:    service.NewUserService(),
 	}
 }
 
@@ -73,11 +73,33 @@ func (h *HomeController) SearchBlog(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(blogs)
 }
 
-func (h *HomeController) GetMottos(ctx *gin.Context) *response.Response {
-	mottos, err := h.mottoService.GetAllMotto()
-	if response.CheckError(err, "Get Mottos error") {
+func (h *HomeController) GetBgImages(ctx *gin.Context) *response.Response {
+	urls, err := h.bgImageService.GetAllUrl()
+	if response.CheckError(err, "Get Background Images error") {
 		return response.ResponseQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(mottos)
+	return response.ResponseQuerySuccess(urls)
+}
+
+// 获取最新推荐博客
+func (h *HomeController) GetNewBlogs(ctx *gin.Context) *response.Response {
+	limit := utils.DefaultQueryInt(ctx, "countLimit", "10")
+	blogs, err := h.blogService.GetNewBlogs(limit)
+	if response.CheckError(err, "Get New Blogs error") {
+		return response.ResponseQueryFailed()
+	}
+
+	return response.ResponseQuerySuccess(blogs)
+}
+
+// 获取热门博客
+func (h *HomeController) GetHotBlogs(ctx *gin.Context) *response.Response {
+	limit := utils.DefaultQueryInt(ctx, "countLimit", "10")
+	blogs, err := h.blogService.GetHotBlogs(limit)
+	if response.CheckError(err, "Get Hot Blogs error") {
+		return response.ResponseQueryFailed()
+	}
+
+	return response.ResponseQuerySuccess(blogs)
 }

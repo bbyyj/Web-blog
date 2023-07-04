@@ -288,7 +288,7 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
-            if (!this.isValidExtension(f1.name, allowedExtensions)) {
+            if (!f1.name.endsWith(".zip")) {
                 this.$message.error("只能上传 ZIP 文件!");
                 return;
             }
@@ -306,10 +306,6 @@ export default {
                 });
         },
 
-        isValidExtension(fileName, allowedExtensions) {
-            const fileExtension = fileName.split('.').pop().toLowerCase();
-            return allowedExtensions.includes(fileExtension);
-        }, 
         
 
         async commitLink() {
@@ -339,6 +335,13 @@ export default {
                 this.cancel()
                 await this.getLinkList()
                 this.$message.success("操作成功！")
+                this.postInfo = {
+                ID: 0,
+                name: "",
+                desc: "",
+                categoryid: 0,
+                url: "",
+            }
             }
         },
         uploadSuccess(response) {

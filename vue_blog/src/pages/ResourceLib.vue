@@ -268,9 +268,8 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
-            const allowedExtensions = ['.zip']; // 允许的文件类型后缀数组
 
-            if (!this.isValidExtension(f1.name, allowedExtensions)) {
+            if (!f1.name.endsWith(".zip")) {
                 this.$message.error("只能上传 ZIP 文件!");
                 return;
             }
@@ -286,12 +285,7 @@ export default {
                 console.log(error);
                 });
         },
-
-        isValidExtension(fileName, allowedExtensions) {
-            const fileExtension = fileName.split('.').pop().toLowerCase();
-            return allowedExtensions.includes(fileExtension);
-        },   
-        
+    
 
         async commitLink() {
             //若文件名格式错误报错
@@ -315,6 +309,13 @@ export default {
             } else {
                 this.cancel()
                 this.$message.success("操作成功，请等待审核！")
+                this.postInfo = {
+                ID: 0,
+                name: "",
+                desc: "",
+                categoryid: 0,
+                url: "",
+            }
             }
         },
 

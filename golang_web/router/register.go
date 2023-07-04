@@ -17,7 +17,9 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/blogLists", Decorate(homeRouter.HomeListBlogs))
 		blogGroup.GET("/userInfo", Decorate(homeRouter.GetHomePageUInfo))
-		//blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
+		blogGroup.GET("/bgs", Decorate(homeRouter.GetBgImages))
+		blogGroup.GET("/newBlogs", Decorate(homeRouter.GetNewBlogs))
+		blogGroup.GET("/hotBlogs", Decorate(homeRouter.GetHotBlogs))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
 	}
@@ -50,6 +52,33 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/getAllMusic", Decorate(musicFrontRouter.GetAllMusic))
 	}
+	subjectRouter := controller.NewSubjectRouter()
+	{
+		blogGroup.GET("/subjectList", Decorate(subjectRouter.SubjectList))
+	}
+
+	chapterRouter := controller.NewChapterRouter()
+	{
+		blogGroup.GET("/chapterList", Decorate(chapterRouter.ChapterList))
+	}
+
+	examRouter := controller.NewExamRouter()
+	{
+		blogGroup.GET("/examList", Decorate(examRouter.ExamList))
+	}
+
+	electionRouter := controller.NewElectionRouter()
+	{
+		blogGroup.GET("/electionList", Decorate(electionRouter.ElectionList))
+		blogGroup.GET("/electionDetailedList", Decorate(electionRouter.ElectionDetailedList))
+		blogGroup.GET("/electionListNoClass", Decorate(electionRouter.ElectionListNoClass))
+	}
+
+	electionCommentRouter := controller.NewElectionCommentRouter()
+	{
+		blogGroup.GET("/electionCommentList", Decorate(electionCommentRouter.ElectionCommentList))
+		blogGroup.POST("/addElectionComment", Decorate(electionCommentRouter.AddElectionComment))
+	}
 
 	askboxFrontRouter := controller.NewAskboxFrontRouter()
 	{
@@ -72,10 +101,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteBlog", Decorate(blogRouter.DeleteBlog))
 		adminGroup.GET("/getFullBlog", Decorate(blogRouter.GetFullBlog))
 		adminGroup.PUT("/updateBlog", Decorate(blogRouter.AddBlog))
-		//adminGroup.GET("/mottoList", Decorate(blogRouter.MottoList))
-		//adminGroup.POST("addMotto", Decorate(blogRouter.AddMotto))
-		//adminGroup.PUT("/updateMotto", Decorate(blogRouter.UpdateMotto))
-		//adminGroup.DELETE("/deleteMotto", Decorate(blogRouter.DeleteMotto))
 	}
 
 	typeRouter := admin.NewTypeRouter()
@@ -97,6 +122,15 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/updateTag", Decorate(tagRouter.UpdateTag))
 		adminGroup.POST("/addTag", Decorate(tagRouter.AddTag))
 	}
+
+	// 可以选择使用本地服务器的图片存储或者阿里云OSS对象存储服务
+	//imageUploadRouter := admin.NewLocalImageUploadRouter()
+	imageUploadRouter := admin.NewAliOSSImageUploadRouter()
+	{
+		adminGroup.POST("/saveImages", imageUploadRouter.UploadBlogImage)
+	}
+	engine.POST("/api/admin/uploadImages", imageUploadRouter.UploadImage)
+	engine.POST("/api/admin/uploadIcon", imageUploadRouter.UploadIcon)
 
 	linksRouter := admin.NewLinksRouter()
 	{
@@ -135,5 +169,41 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/addAnswer", Decorate(askboxBackRouter.AddAnswer))
 		adminGroup.PUT("/modifyAnswer", Decorate(askboxBackRouter.ModifyAnswer))
 		adminGroup.DELETE("/deleteQuestion", Decorate(askboxBackRouter.DeleteQuestion))
+	}
+	subjectRouter := admin.NewSubjectRouter()
+	{
+		adminGroup.POST("/addSubject", Decorate(subjectRouter.AddSubject))
+		adminGroup.DELETE("/deleteSubject", Decorate(subjectRouter.DeleteSubject))
+	}
+
+	chapterRouter := admin.NewChapterRouter()
+	{
+		adminGroup.GET("/chapterList", Decorate(chapterRouter.ChapterList))
+		adminGroup.POST("/addChapter", Decorate(chapterRouter.AddChapter))
+		adminGroup.DELETE("/deleteChapter", Decorate(chapterRouter.DeleteChapter))
+	}
+	examRouter := admin.NewExamRouter()
+	{
+		adminGroup.GET("/examList", Decorate(examRouter.ExamList))
+		adminGroup.DELETE("/deleteExam", Decorate(examRouter.DeleteExam))
+		adminGroup.POST("/createExam", Decorate(examRouter.CreateExam))
+		adminGroup.PUT("/updateExam", Decorate(examRouter.UpdateExam))
+	}
+
+	electionRouter := admin.NewElectionRouter()
+	{
+		adminGroup.GET("/electionByClass", Decorate(electionRouter.ElectionByClass))
+		adminGroup.GET("/electionList", Decorate(electionRouter.ElectionAllList))
+		adminGroup.DELETE("/deleteElection", Decorate(electionRouter.DeleteElection))
+		adminGroup.POST("/addElection", Decorate(electionRouter.AddElection))
+		adminGroup.PUT("/updateElection", Decorate(electionRouter.UpdateElection))
+		adminGroup.GET("/electionNoPage", Decorate(electionRouter.ElectionListNoPage))
+	}
+
+	electionCommentRouter := admin.NewElectionCommentRouter()
+	{
+		adminGroup.GET("/electionCommentList", Decorate(electionCommentRouter.ElectionCommentAllList))
+		adminGroup.GET("/electionByClassification", Decorate(electionCommentRouter.ElectionCommentListByClassification))
+		adminGroup.DELETE("/deleteElectionComment", Decorate(electionCommentRouter.DeleteElectionComment))
 	}
 }
