@@ -18,13 +18,11 @@ import (
 
 type BlogController struct {
 	blogService *service.BlogService
-	mottoService *service.MottoService
 }
 
 func NewBlogRouter() *BlogController {
 	return &BlogController{
 		blogService: service.NewBlogService(),
-		mottoService: service.NewMottoService(),
 	}
 }
 
@@ -88,60 +86,6 @@ func (b *BlogController) AddBlog(ctx *gin.Context) *response.Response {
 		if response.CheckError(err, "Update blog error") {
 			return response.ResponseOperateFailed()
 		}
-	}
-
-	return response.ResponseOperateSuccess()
-}
-
-func (b *BlogController) MottoList(ctx *gin.Context) *response.Response {
-	mottos, err := b.mottoService.GetAllMottoWithCreateTime()
-	if response.CheckError(err, "Get mottos error") {
-		return response.ResponseQueryFailed()
-	}
-
-	return response.ResponseQuerySuccess(mottos)
-}
-
-func (b *BlogController) AddMotto(ctx *gin.Context) *response.Response {
-	var motto model.Motto
-	err := ctx.ShouldBind(&motto)
-	if response.CheckError(err, "Bind param error") {
-		return response.ResponseOperateFailed()
-	}
-
-	motto.CreateTime = time.Now()
-	err = b.mottoService.AddOne(&motto)
-	if response.CheckError(err, "Add motto error") {
-		return response.ResponseOperateFailed()
-	}
-
-	return response.ResponseOperateSuccess()
-}
-
-func (b *BlogController) DeleteMotto(ctx *gin.Context) *response.Response {
-	id := utils.QueryInt(ctx, "id")
-	if id == 0 {
-		return response.ResponseDeleteFailed()
-	}
-
-	err := b.mottoService.DeleteOne(uint32(id))
-	if response.CheckError(err, "Delete motto error") {
-		return response.ResponseDeleteFailed()
-	}
-
-	return response.ResponseDeleteSuccess()
-}
-
-func (b *BlogController) UpdateMotto(ctx *gin.Context) *response.Response {
-	var motto model.Motto
-	err := ctx.ShouldBind(&motto)
-	if response.CheckError(err, "Bind param error") {
-		return response.ResponseOperateFailed()
-	}
-
-	err = b.mottoService.UpdateOne(&motto)
-	if response.CheckError(err, "Update motto error") {
-		return response.ResponseOperateFailed()
 	}
 
 	return response.ResponseOperateSuccess()
