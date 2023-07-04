@@ -20,7 +20,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/bgs", Decorate(homeRouter.GetBgImages))
 		blogGroup.GET("/newBlogs", Decorate(homeRouter.GetNewBlogs))
 		blogGroup.GET("/hotBlogs", Decorate(homeRouter.GetHotBlogs))
-		blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
 	}
@@ -75,7 +74,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.DELETE("/deleteBlog", Decorate(blogRouter.DeleteBlog))
 		adminGroup.GET("/getFullBlog", Decorate(blogRouter.GetFullBlog))
 		adminGroup.PUT("/updateBlog", Decorate(blogRouter.AddBlog))
-		adminGroup.GET("/mottoList", Decorate(blogRouter.MottoList))
 		adminGroup.POST("addMotto", Decorate(blogRouter.AddMotto))
 		adminGroup.PUT("/updateMotto", Decorate(blogRouter.UpdateMotto))
 		adminGroup.DELETE("/deleteMotto", Decorate(blogRouter.DeleteMotto))

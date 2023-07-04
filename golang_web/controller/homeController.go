@@ -7,16 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 19:04
-* @Desc: 博客主页对应的Routers
- */
-
 type HomeController struct {
 	blogService    *service.BlogService
 	bgImageService *service.BGImageService
-	mottoService   *service.MottoService
 	userService    *service.UserService
 }
 
@@ -24,7 +17,6 @@ func NewHomeRouter() *HomeController {
 	return &HomeController{
 		blogService:    service.NewBlogService(),
 		bgImageService: service.NewBGImageService(),
-		mottoService:   service.NewMottoService(),
 		userService:    service.NewUserService(),
 	}
 }
@@ -88,15 +80,6 @@ func (h *HomeController) GetBgImages(ctx *gin.Context) *response.Response {
 	}
 
 	return response.ResponseQuerySuccess(urls)
-}
-
-func (h *HomeController) GetMottos(ctx *gin.Context) *response.Response {
-	mottos, err := h.mottoService.GetAllMotto()
-	if response.CheckError(err, "Get Mottos error") {
-		return response.ResponseQueryFailed()
-	}
-
-	return response.ResponseQuerySuccess(mottos)
 }
 
 // 获取最新推荐博客
