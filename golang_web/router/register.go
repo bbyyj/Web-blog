@@ -51,12 +51,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.POST("/t/addresourcecheck", Decorate(resourceLibRouter.AddReasourceCheckService))
 	}
 
-	leaveMessageRouter := controller.NewLeaveMessageRouter()
-	{
-		blogGroup.POST("/leaveMsg", Decorate(leaveMessageRouter.LeaveMessage))
-		blogGroup.GET("/displayMsg", Decorate(leaveMessageRouter.DisplayMessage))
-	}
-
 	musicFrontRouter := admin.NewMusicRouter()
 	{
 		blogGroup.GET("/getAllMusic", Decorate(musicFrontRouter.GetAllMusic))
@@ -138,20 +132,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/t/checksucceeded", Decorate(linksRouter.CheckSucceededAddToResource))
 		adminGroup.DELETE("/t/checkfailed", Decorate(linksRouter.CheckFailedResource))
 		adminGroup.GET("/t/pageresourcecheck", Decorate(linksRouter.ResourceCheckList))
-	}
-
-	//essayRouter := admin.NewEssayRouter()
-	//{
-	//	adminGroup.GET("/essayList", Decorate(essayRouter.EssayList))
-	//	adminGroup.POST("/addEssay", Decorate(essayRouter.AddEssay))
-	//	adminGroup.DELETE("/deleteEssay", Decorate(essayRouter.DeleteEssay))
-	//	adminGroup.PUT("/updateEssay", Decorate(essayRouter.UpdateEssay))
-	//}
-
-	messageRouter := admin.NewMessageRouter()
-	{
-		adminGroup.GET("/msgList", Decorate(messageRouter.MessageList))
-		adminGroup.PUT("/updateMsgStatus", Decorate(messageRouter.UpdateStatus))
 	}
 
 	musicRouter := admin.NewMusicRouter()
