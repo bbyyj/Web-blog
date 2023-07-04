@@ -11,11 +11,11 @@ type MusicDao struct {
 func NewMusicDao() *MusicDao {
 	return &MusicDao{
 		sql: []string{
-			`SELECT id, name, artist, url, cover FROM t_music;`,
-			`SELECT id, name, artist, url, cover FROM t_music ORDER BY artist LIMIT ?, ? ;`,
-			`SELECT COUNT(*) FROM t_music`,
-			`INSERT INTO t_music (name, artist, url, cover) VALUES (?, ?, ?, ?);`,
-			`DELETE FROM t_music WHERE id = ?;`,
+			`SELECT id, name, artist, url, cover FROM music;`,
+			`SELECT id, name, artist, url, cover FROM music ORDER BY artist LIMIT ?, ? ;`,
+			`SELECT COUNT(*) FROM music`,
+			`INSERT INTO music (name, artist, url, cover) VALUES (?, ?, ?, ?);`,
+			`DELETE FROM music WHERE id = ?;`,
 		},
 	}
 }
@@ -46,7 +46,7 @@ func (m *MusicDao) Delete(id int) error {
 }
 
 func (m *MusicDao) GetMaxMusicId() (maxID int, err error) {
-	err = sqldb.Get(&maxID, "SELECT Max(id) FROM t_music")
+	err = sqldb.Get(&maxID, "SELECT Max(id) FROM music")
 	//println(maxID)
 	return
 }

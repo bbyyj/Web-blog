@@ -1,11 +1,5 @@
 package main
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 18:33
-* @Desc:
- */
-
 import (
 	"blog_web/db/dao"
 	"blog_web/router"

@@ -20,16 +20,11 @@ type ExamDao struct {
 func NewSubjectDao() *SubjectDao {
 	return &SubjectDao{
 		sql: []string{
-			`SELECT id,subject FROM t_subject ORDER BY id ASC;`,
-			`INSERT INTO t_subject (subject) VALUES (?);`,
-			`UPDATE t_subject SET subject=? WHERE subject=?;`,
-			`DELETE FROM t_subject WHERE subject=?;`,
-			`SELECT COUNT(*) FROM t_chapter WHERE subject=?;`,
-			//`SELECT id, Question,FirstAnswer,SecondAnswer,ThirdAnswer,FourthAnswer FROM t_tacit ORDER BY id DESC LIMIT ?, ?;`,
-			//`SELECT COUNT(*) FROM t_tacit`,
-			//`INSERT INTO t_tacit ( question,first_answer,second_answer,third_answer,fourth_answer,,correct_answer) VALUES (?,?,?,?,?,?);`,
-			//`DELETE FROM t_tacit WHERE id = ?;`,
-			//`UPDATE t_tacit SET question=?,first_answer=?,second_answer=?,third_answer=?,fourth_answer=?,,correct_answer=? WHERE id = ?;`,
+			`SELECT id,subject FROM subject ORDER BY id ASC;`,
+			`INSERT INTO subject (subject) VALUES (?);`,
+			`UPDATE subject SET subject=? WHERE subject=?;`,
+			`DELETE FROM subject WHERE subject=?;`,
+			`SELECT COUNT(*) FROM chapter WHERE subject=?;`,
 		},
 	}
 }
@@ -37,10 +32,10 @@ func NewSubjectDao() *SubjectDao {
 func NewChapterDao() *ChapterDao {
 	return &ChapterDao{
 		sql: []string{
-			`SELECT * FROM t_chapter WHERE subject=? ORDER BY id ASC LIMIT ?,?;`,
-			`INSERT INTO t_chapter(subject,chapter,description,views) VALUES (?,?,?,0);`,
-			`DELETE FROM t_chapter WHERE subject=? and chapter=?;`,
-			`SELECT * FROM t_chapter WHERE subject=? ORDER BY id ASC;`,
+			`SELECT * FROM chapter WHERE subject=? ORDER BY id ASC LIMIT ?,?;`,
+			`INSERT INTO chapter(subject,chapter,description,views) VALUES (?,?,?,0);`,
+			`DELETE FROM chapter WHERE subject=? and chapter=?;`,
+			`SELECT * FROM chapter WHERE subject=? ORDER BY id ASC;`,
 		},
 	}
 }
@@ -49,16 +44,16 @@ func NewExamDao() *ExamDao {
 	return &ExamDao{
 		sql: []string{
 			`SELECT id,subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer 
-FROM t_exam WHERE subject=? and chapter=? ORDER BY id ASC;`,
-			`SELECT COUNT(*) FROM t_exam WHERE subject=? and chapter=?`,
-			`DELETE FROM t_exam WHERE id=?`,
-			`INSERT INTO t_exam(subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer)
+FROM exam WHERE subject=? and chapter=? ORDER BY id ASC;`,
+			`SELECT COUNT(*) FROM exam WHERE subject=? and chapter=?`,
+			`DELETE FROM exam WHERE id=?`,
+			`INSERT INTO exam(subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer)
 VALUES (?,?,?,?,?,?,?,?)`,
-			`UPDATE t_exam SET subject=?,chapter=?,question=?,first_answer=?,second_answer=?,third_answer=?,
+			`UPDATE exam SET subject=?,chapter=?,question=?,first_answer=?,second_answer=?,third_answer=?,
             fourth_answer=?,correct_answer=? WHERE id=?`,
-			`UPDATE t_chapter SET views=views+1 WHERE subject=? and chapter=?`,
+			`UPDATE chapter SET views=views+1 WHERE subject=? and chapter=?`,
 			`SELECT id,subject,chapter,question,first_answer,second_answer,third_answer,fourth_answer,correct_answer 
-FROM t_exam WHERE subject=? and chapter=? ORDER BY id ASC LIMIT ?,?;`,
+FROM exam WHERE subject=? and chapter=? ORDER BY id ASC LIMIT ?,?;`,
 		},
 	}
 }
@@ -216,7 +211,7 @@ func (e *ExamDao) UpdateExam(exam *model.Exam) error {
 }
 
 func (e *ExamDao) GetMaxId() (maxID int, err error) {
-	err = sqldb.Get(&maxID, "SELECT MAX(id) FROM t_exam")
+	err = sqldb.Get(&maxID, "SELECT MAX(id) FROM exam")
 	//println(maxID)
 	return
 }

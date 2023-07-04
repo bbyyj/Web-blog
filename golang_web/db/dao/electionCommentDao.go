@@ -9,15 +9,15 @@ type ElectionCommentDao struct {
 func NewElectionCommentDao() *ElectionCommentDao {
 	return &ElectionCommentDao{
 		sql: []string{
-			`SELECT * FROM t_election_comment WHERE subject_id=? ORDER BY id ASC LIMIT ?,?;`,
-			`SELECT * FROM t_election_comment ORDER BY id ASC LIMIT ?,?;`,
-			`DELETE FROM t_election_comment WHERE id=?`,
-			`INSERT INTO t_election_comment(subject_id,subject_name,classification,comment) VALUES (?,?,?,?)`,
-			`SELECT COUNT(*) FROM t_election_comment `,
-			`SELECT COUNT(*) FROM t_election_comment WHERE subject_id=?`,
+			`SELECT * FROM election_comment WHERE subject_id=? ORDER BY id ASC LIMIT ?,?;`,
+			`SELECT * FROM election_comment ORDER BY id ASC LIMIT ?,?;`,
+			`DELETE FROM election_comment WHERE id=?`,
+			`INSERT INTO election_comment(subject_id,subject_name,classification,comment) VALUES (?,?,?,?)`,
+			`SELECT COUNT(*) FROM election_comment `,
+			`SELECT COUNT(*) FROM election_comment WHERE subject_id=?`,
 			`SELECT subject_name FROM t_election WHERE subject_id=?`,
-			`SELECT * FROM t_election_comment WHERE classification=? and subject_name=? ORDER BY id ASC LIMIT ?,?;`,
-			`SELECT COUNT(*) FROM t_election_comment WHERE classification=?`,
+			`SELECT * FROM election_comment WHERE classification=? and subject_name=? ORDER BY id ASC LIMIT ?,?;`,
+			`SELECT COUNT(*) FROM election_comment WHERE classification=?`,
 			`SELECT classification FROM t_election WHERE subject_id=?`,
 		},
 	}
@@ -68,7 +68,7 @@ func (e *ElectionCommentDao) AddElectionComment(comment *model.ElectionComment) 
 }
 
 func (e *ElectionCommentDao) GetMaxId() (maxID int, err error) {
-	err = sqldb.Get(&maxID, "SELECT MAX(id) FROM t_election_comment")
+	err = sqldb.Get(&maxID, "SELECT MAX(id) FROM election_comment")
 	//println(maxID)
 	return
 }

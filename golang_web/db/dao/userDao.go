@@ -9,8 +9,8 @@ type UserDao struct {
 func NewUserDao() *UserDao {
 	return &UserDao{
 		sql: []string{
-			`SELECT * FROM t_user WHERE username = ? AND password = ?;`,
-			`SELECT nickname, email, avatar, github, csdn FROM t_user Limit 1`,
+			`SELECT * FROM user WHERE username = ? AND password = ?;`,
+			`SELECT nickname, email, avatar, github, csdn FROM user Limit 1`,
 		},
 	}
 }

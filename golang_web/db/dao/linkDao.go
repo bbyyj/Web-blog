@@ -16,15 +16,15 @@ func NewLinkDao() *LinkDao {
 	return &LinkDao{
 		sql: []string{
 			"SELECT id, `name`, `desc`, url, category_id, icon FROM t_resource_link;",
-			"SELECT id, `name` FROM t_resource_category;",
+			"SELECT id, `name` FROM resource_category;",
 			"SELECT id, `name`, `desc`, url, category_id, icon FROM t_resource_link LIMIT ?, ?;",
 			"SELECT COUNT(*) FROM t_resource_link;",
 			"INSERT INTO t_resource_link (`name`, `desc`, url, category_id, icon) VALUES (?, ?, ?, ?, ?);",
 			"DELETE FROM t_resource_link WHERE id = ?",
 			"UPDATE t_resource_link SET `name` = ?, `desc` = ?, url = ?, category_id = ?, icon = ? WHERE id = ?;",
-			"INSERT INTO t_resource_category (`name`) VALUES (?);",
-			"DELETE FROM t_resource_category WHERE id = ?;",
-			"UPDATE t_resource_category SET `name` = ? WHERE id = ?;",
+			"INSERT INTO resource_category (`name`) VALUES (?);",
+			"DELETE FROM resource_category WHERE id = ?;",
+			"UPDATE resource_category SET `name` = ? WHERE id = ?;",
 		},
 	}
 }
@@ -139,7 +139,7 @@ func (l *LinkDao) UpdateResourceDownloadNumByName(name string) (err error) {
 }
 
 func (l *LinkDao) FindAllCategory() (category []model.LinkCategory, err error) {
-	err = Db.Table("t_resource_category").Find(&category).Error
+	err = Db.Table("resource_category").Find(&category).Error
 	if len(category) == 0 {
 		err = errors.New("No matching records found")
 	}

@@ -9,19 +9,19 @@ type ElectionDao struct {
 func NewElectionDao() *ElectionDao {
 	return &ElectionDao{
 		sql: []string{
-			`SELECT * FROM t_election WHERE subject_id=? ORDER BY subject_id ASC;`,
-			`SELECT subject_id,subject_name,teacher FROM t_election WHERE classification=? ORDER BY subject_id ASC LIMIT ?,?;`,
-			`SELECT * FROM t_election WHERE classification=? ORDER BY subject_id ASC LIMIT ?,?;`,
-			`DELETE FROM t_election WHERE subject_id=?`,
-			`INSERT INTO t_election(subject_id,subject_name,teacher,classification,credit,college,attendance,score,evaluation)
+			`SELECT * FROM election WHERE subject_id=? ORDER BY subject_id ASC;`,
+			`SELECT subject_id,subject_name,teacher FROM election WHERE classification=? ORDER BY subject_id ASC LIMIT ?,?;`,
+			`SELECT * FROM election WHERE classification=? ORDER BY subject_id ASC LIMIT ?,?;`,
+			`DELETE FROM election WHERE subject_id=?`,
+			`INSERT INTO election(subject_id,subject_name,teacher,classification,credit,college,attendance,score,evaluation)
 VALUES (?,?,?,?,?,?,?,?,?)`,
-			`UPDATE t_election SET subject_name=?,teacher=?,classification=?,credit=?,college=?,attendance=?,
+			`UPDATE election SET subject_name=?,teacher=?,classification=?,credit=?,college=?,attendance=?,
             score=?,evaluation=? WHERE subject_id=?`,
-			`SELECT * FROM t_election ORDER BY subject_id ASC LIMIT ?,?;`,
-			`SELECT COUNT(*) FROM t_election WHERE classification=?;`,
-			`SELECT COUNT(*) FROM t_election ;`,
-			`SELECT subject_id,subject_name,teacher FROM t_election WHERE classification=? ORDER BY subject_id ASC;`,
-			`SELECT subject_id,subject_name,teacher FROM t_election ORDER BY subject_id ASC LIMIT ?,?;`,
+			`SELECT * FROM election ORDER BY subject_id ASC LIMIT ?,?;`,
+			`SELECT COUNT(*) FROM election WHERE classification=?;`,
+			`SELECT COUNT(*) FROM election ;`,
+			`SELECT subject_id,subject_name,teacher FROM election WHERE classification=? ORDER BY subject_id ASC;`,
+			`SELECT subject_id,subject_name,teacher FROM election ORDER BY subject_id ASC LIMIT ?,?;`,
 		},
 	}
 }

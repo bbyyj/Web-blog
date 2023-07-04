@@ -17,107 +17,107 @@ func NewBlogDao() *BlogDao {
 			// 0、查询博客列表
 			`SELECT b.id, b.title, b.description, b.first_picture, b.create_time,
 			b.views, u.nickname nickname, t.name typename
-			FROM t_blog b, t_user u, t_type t
+			FROM blog b, user u, type t
 			WHERE b.user_id = u.id and b.type_id = t.id and b.published = 1
 			ORDER BY b.create_time DESC
 			LIMIT ?, ?`,
 
 			// 1、查询博客数量
-			"SELECT COUNT(*) FROM t_blog;",
+			"SELECT COUNT(*) FROM blog;",
 
 			// 2、更新浏览次数
-			"UPDATE t_blog SET views = views + 1 WHERE id = ?;",
+			"UPDATE blog SET views = views + 1 WHERE id = ?;",
 
 			// 3、查询博客详情
 			`SELECT b.id, b.title, b.create_time, b.update_time, b.flag, b.appreciation, b.views, b.content, u.nickname nickname, t.name typename
-			FROM t_blog b JOIN t_user u ON b.user_id = u.id 
-			JOIN t_type t ON b.type_id = t.id 
+			FROM blog b JOIN user u ON b.user_id = u.id 
+			JOIN type t ON b.type_id = t.id 
 			WHERE b.id = ?;`,
 
 			// 4、查询所有的type
-			`SELECT type_id FROM t_blog;`,
+			`SELECT type_id FROM blog;`,
 
 			// 5、根据博客类型id查询博客列表
 			`SELECT b.id, b.title, b.description, b.first_picture, b.create_time,
 			b.views, u.nickname nickname, t.name typename
-        	FROM t_blog b, t_user u, t_type t
+        	FROM blog b, user u, type t
         	WHERE b.user_id = u.id AND b.type_id = t.id AND b.published = 1 AND b.type_id = ?
 			ORDER BY b.create_time DESC
 			LIMIT ?, ?`,
 
 			// 6、查询一个博客类型下的博客数量
-			`SELECT COUNT(*) FROM t_blog b, t_user u, t_type t WHERE 
+			`SELECT COUNT(*) FROM blog b, user u, type t WHERE 
 			b.user_id = u.id AND b.type_id = t.id AND b.published = 1 AND b.type_id = ?;`,
 
 			// 7、根据博客标签id查询博客列表
 			`SELECT b.id, b.title, b.description, b.first_picture, b.create_time,
         	b.views, u.nickname nickname, t.name typename
-        	FROM t_blog b, t_user u, t_type t
+        	FROM blog b, user u, type t
         	WHERE b.user_id = u.id AND b.type_id = t.id AND b.published = 1 AND b.id in (
-            SELECT blog_id from t_blog_tags WHERE tag_id = ?)
+            SELECT blog_id from blog_tags WHERE tag_id = ?)
 			ORDER BY b.create_time DESC 
 			LIMIT ?, ?;`,
 
 			// 8、查询一个博客标签下的博客数量
-			`SELECT COUNT(*) FROM t_blog b, t_user u, t_type t WHERE
+			`SELECT COUNT(*) FROM blog b, user u, type t WHERE
 			b.user_id = u.id AND b.type_id = t.id AND b.published = 1 AND b.id in (
-            SELECT blog_id FROM t_blog_tags WHERE tag_id = ?)`,
+            SELECT blog_id FROM blog_tags WHERE tag_id = ?)`,
 
 			// 9、查询时间线
-			`SELECT DISTINCT DATE_FORMAT(t_blog.create_time, '%Y') ut FROM t_blog ORDER BY ut DESC;`,
+			`SELECT DISTINCT DATE_FORMAT(blog.create_time, '%Y') ut FROM blog ORDER BY ut DESC;`,
 
 			// 10、根据某年查询该年发布的博客
 			`SELECT b.title, b.create_time, b.id, b.flag
-        	FROM t_blog b
+        	FROM blog b
         	WHERE DATE_FORMAT(b.create_time, "%Y") = ? ORDER BY b.create_time DESC;`,
 
 			// 11、根据博客标题或博客内容搜索关键字
 			`SELECT id, title
-			FROM t_blog WHERE title LIKE ? OR content LIKE ?
+			FROM blog WHERE title LIKE ? OR content LIKE ?
 			ORDER BY create_time DESC;`,
 
 			// 12、获取搜索的博客的总条数
 			`SELECT COUNT(*)
-			FROM t_blog
+			FROM blog
 			WHERE title LIKE ? OR content LIKE ?;`,
 
 			// 13、根据博客标题、博客类型、是否推荐来查询博客信息，包括博客类型名
 			// 在方法中拼接sql
 			`SELECT b.id, b.title, b.create_time, b.recommend, b.published, b.type_id, t.name typename 
-			FROM t_blog b ,t_type t 
+			FROM blog b ,type t 
 			WHERE  b.type_id = t.id`,
 
 			// 13、根据博客标题、博客类型、是否推荐来查询博客条数
-			`SELECT COUNT(*) FROM t_blog b, t_type t WHERE  b.type_id = t.id `,
+			`SELECT COUNT(*) FROM blog b, type t WHERE  b.type_id = t.id `,
 
 			// 15、根据博客id删除博客
-			`DELETE FROM t_blog WHERE id = ?;`,
+			`DELETE FROM blog WHERE id = ?;`,
 
 			// 16、根据博客id查询博客详情，管理界面修改博客使用
 			`SELECT b.id, b.first_picture, b.flag, b.title, b.content, b.views,
         	b.update_time, b.commentabled, b.recommend, b.share_statement, b.appreciation, b.description,
         	t.name typename, t.id type_id
-        	FROM t_blog b, t_type t
+        	FROM blog b, type t
         	WHERE b.type_id = t.id AND  b.id = ?;`,
 
 			// 17、根据博客id更新博客内容
-			`UPDATE t_blog SET title=?, content=?, first_picture=?, flag=?, appreciation=?, share_statement=?,
+			`UPDATE blog SET title=?, content=?, first_picture=?, flag=?, appreciation=?, share_statement=?,
 			commentabled=?, published=?, recommend=?, update_time=?, type_id=?, user_id=?, description=? WHERE id=?`,
 
 			// 18、新增博客
-			`INSERT INTO t_blog(title, content, first_picture, flag, views,
+			`INSERT INTO blog(title, content, first_picture, flag, views,
         	appreciation, share_statement, commentabled, published, recommend,
         	create_time, update_time, type_id, user_id, description) VALUES(?, ?,
         	?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?,?, ?)`,
 
 			// 19、添加博客标签
-			`INSERT INTO t_blog_tags (blog_id, tag_id) VALUES (:blog_id, :tag_id)`,
+			`INSERT INTO blog_tags (blog_id, tag_id) VALUES (:blog_id, :tag_id)`,
 
 			// 20、删除博客
-			`DELETE FROM t_blog_tags WHERE blog_id = ?;`,
+			`DELETE FROM blog_tags WHERE blog_id = ?;`,
 
 			// 21、根据博客类型对博客分组、计算每个分组的数量
-			`SELECT t.id, count(*) 'count',  t.name FROM t_blog b JOIN t_type t ON b.type_id = t.id GROUP BY type_id;`,
+			`SELECT t.id, count(*) 'count',  t.name FROM blog b JOIN type t ON b.type_id = t.id GROUP BY type_id;`,
 		},
 	}
 }

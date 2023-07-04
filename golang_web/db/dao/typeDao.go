@@ -9,13 +9,13 @@ type TypeDao struct {
 func NewTypeDao() *TypeDao {
 	return &TypeDao{
 		sql: []string{
-			`SELECT * FROM t_type;`,
-			`SELECT * FROM t_type LIMIT ?, ?;`,
-			`SELECT * FROM t_type WHERE name = ?;`,
-			`DELETE FROM t_type WHERE id = ?;`,
-			`UPDATE t_type SET name = ? WHERE id = ?;`,
-			`INSERT INTO t_type (name) values (?);`,
-			`SELECT COUNT(*) FROM t_type;`,
+			`SELECT * FROM type;`,
+			`SELECT * FROM type LIMIT ?, ?;`,
+			`SELECT * FROM type WHERE name = ?;`,
+			`DELETE FROM type WHERE id = ?;`,
+			`UPDATE type SET name = ? WHERE id = ?;`,
+			`INSERT INTO type (name) values (?);`,
+			`SELECT COUNT(*) FROM type;`,
 		},
 	}
 }
