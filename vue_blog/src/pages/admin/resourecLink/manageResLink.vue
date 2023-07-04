@@ -288,9 +288,7 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
-            const allowedExtensions = ['.zip'];
-
-            if (!this.isValidExtension(f1.name, allowedExtensions)) {
+            if (!f1.name.endsWith(".zip")) {
                 this.$message.error("只能上传 ZIP 文件!");
                 return;
             }
@@ -308,10 +306,6 @@ export default {
                 });
         },
 
-        isValidExtension(fileName, allowedExtensions) {
-            const fileExtension = fileName.split('.').pop().toLowerCase();
-            return allowedExtensions.includes(fileExtension);
-        }, 
         
 
         async commitLink() {
