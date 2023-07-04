@@ -8,18 +8,16 @@ import (
 )
 
 type HomeController struct {
-	blogService    *service.BlogService
-	bgImageService *service.BGImageService
-	mottoService   *service.MottoService
-	userService    *service.UserService
+	blogService  *service.BlogService
+	mottoService *service.MottoService
+	userService  *service.UserService
 }
 
 func NewHomeRouter() *HomeController {
 	return &HomeController{
-		blogService:    service.NewBlogService(),
-		bgImageService: service.NewBGImageService(),
-		mottoService:   service.NewMottoService(),
-		userService:    service.NewUserService(),
+		blogService:  service.NewBlogService(),
+		mottoService: service.NewMottoService(),
+		userService:  service.NewUserService(),
 	}
 }
 
@@ -73,15 +71,6 @@ func (h *HomeController) SearchBlog(ctx *gin.Context) *response.Response {
 	}
 
 	return response.ResponseQuerySuccess(blogs)
-}
-
-func (h *HomeController) GetBgImages(ctx *gin.Context) *response.Response {
-	urls, err := h.bgImageService.GetAllUrl()
-	if response.CheckError(err, "Get Background Images error") {
-		return response.ResponseQueryFailed()
-	}
-
-	return response.ResponseQuerySuccess(urls)
 }
 
 func (h *HomeController) GetMottos(ctx *gin.Context) *response.Response {

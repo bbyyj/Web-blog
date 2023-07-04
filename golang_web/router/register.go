@@ -17,7 +17,6 @@ func registerBlogRouters(engine *gin.Engine) {
 	{
 		blogGroup.GET("/blogLists", Decorate(homeRouter.HomeListBlogs))
 		blogGroup.GET("/userInfo", Decorate(homeRouter.GetHomePageUInfo))
-		blogGroup.GET("/bgs", Decorate(homeRouter.GetBgImages))
 		//blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
@@ -98,15 +97,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/updateTag", Decorate(tagRouter.UpdateTag))
 		adminGroup.POST("/addTag", Decorate(tagRouter.AddTag))
 	}
-
-	// 可以选择使用本地服务器的图片存储或者阿里云OSS对象存储服务
-	//imageUploadRouter := admin.NewLocalImageUploadRouter()
-	imageUploadRouter := admin.NewAliOSSImageUploadRouter()
-	{
-		adminGroup.POST("/saveImages", imageUploadRouter.UploadBlogImage)
-	}
-	engine.POST("/api/admin/uploadImages", imageUploadRouter.UploadImage)
-	engine.POST("/api/admin/uploadIcon", imageUploadRouter.UploadIcon)
 
 	linksRouter := admin.NewLinksRouter()
 	{
