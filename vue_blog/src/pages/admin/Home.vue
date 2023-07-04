@@ -69,7 +69,6 @@ export default {
                     submenus: [
                         { id: "11", index: "/listBlogs", icon: "el-icon-menu", name: "查看博客" },
                         { id: "12", index: "/addBlog", icon: "el-icon-plus", name: "新增博客" },
-                        { id: "13", index: "/listMottos", icon: "el-icon-menu", name: "查看格言" }
                     ]
                 },
                 {

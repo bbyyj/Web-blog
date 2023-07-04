@@ -13,7 +13,7 @@ require (
 	github.com/go-playground/validator/v10 v10.14.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/goccy/go-json v0.10.2 // indirect
-	github.com/jinzhu/gorm v1.9.16 // indirect
+	github.com/jinzhu/gorm v1.9.16
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect

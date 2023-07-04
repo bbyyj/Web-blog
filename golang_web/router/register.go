@@ -22,8 +22,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/hotBlogs", Decorate(homeRouter.GetHotBlogs))
 		blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
-		blogGroup.GET("/commentList", Decorate(homeRouter.GetCommentList))
-		blogGroup.POST("/publishComment", Decorate(homeRouter.PublishComment))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
 	}
 
@@ -39,12 +37,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/tagBlogList", Decorate(tagListRouter.GetBlogListByTagId))
 	}
 
-	timeLineRouter := controller.NewTimeLineRouter()
-	{
-		blogGroup.GET("/timeLine", Decorate(timeLineRouter.GetTimeLinedBlogs))
-		blogGroup.GET("/staticsBlog", Decorate(timeLineRouter.GetGroupedBlogs))
-	}
-
 	resourceLibRouter := controller.NewResourceLibRouter()
 	{
 		blogGroup.GET("/links", Decorate(resourceLibRouter.LinkList))
@@ -57,15 +49,9 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.POST("/t/addresourcecheck", Decorate(resourceLibRouter.AddReasourceCheckService))
 	}
 
-	leaveMessageRouter := controller.NewLeaveMessageRouter()
+	musicFrontRouter := admin.NewMusicRouter()
 	{
-		blogGroup.POST("/leaveMsg", Decorate(leaveMessageRouter.LeaveMessage))
-		blogGroup.GET("/displayMsg", Decorate(leaveMessageRouter.DisplayMessage))
-	}
-
-	essayRouter := controller.NewTacitRouter()
-	{
-		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
+		blogGroup.GET("/getAllMusic", Decorate(musicFrontRouter.GetAllMusic))
 	}
 	subjectRouter := controller.NewSubjectRouter()
 	{
@@ -101,8 +87,7 @@ func registerBlogRouters(engine *gin.Engine) {
 
 	askboxFrontRouter := controller.NewAskboxFrontRouter()
 	{
-		//GetAnsweredQA 正报错
-		//blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
+		blogGroup.GET("/getAnsweredQA", Decorate(askboxFrontRouter.GetAnsweredQA))
 		blogGroup.POST("/addNewQuestion", Decorate(askboxFrontRouter.AddNewQuestion))
 		blogGroup.POST("/appendOldQuestion", Decorate(askboxFrontRouter.AppendOldQuestion))
 		blogGroup.PUT("/clickLikes", Decorate(askboxFrontRouter.ClickLikes))
@@ -176,20 +161,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/t/checksucceeded", Decorate(linksRouter.CheckSucceededAddToResource))
 		adminGroup.DELETE("/t/checkfailed", Decorate(linksRouter.CheckFailedResource))
 		adminGroup.GET("/t/pageresourcecheck", Decorate(linksRouter.ResourceCheckList))
-	}
-
-	//essayRouter := admin.NewEssayRouter()
-	//{
-	//	adminGroup.GET("/essayList", Decorate(essayRouter.EssayList))
-	//	adminGroup.POST("/addEssay", Decorate(essayRouter.AddEssay))
-	//	adminGroup.DELETE("/deleteEssay", Decorate(essayRouter.DeleteEssay))
-	//	adminGroup.PUT("/updateEssay", Decorate(essayRouter.UpdateEssay))
-	//}
-
-	messageRouter := admin.NewMessageRouter()
-	{
-		adminGroup.GET("/msgList", Decorate(messageRouter.MessageList))
-		adminGroup.PUT("/updateMsgStatus", Decorate(messageRouter.UpdateStatus))
 	}
 
 	musicRouter := admin.NewMusicRouter()

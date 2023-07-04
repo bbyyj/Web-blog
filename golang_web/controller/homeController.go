@@ -2,7 +2,6 @@ package controller
 
 import (
 	"blog_web/db/service"
-	"blog_web/model"
 	"blog_web/response"
 	"blog_web/utils"
 	"github.com/gin-gonic/gin"
@@ -16,19 +15,17 @@ import (
 
 type HomeController struct {
 	blogService    *service.BlogService
-	commentService *service.CommentService
 	bgImageService *service.BGImageService
-	mottoService *service.MottoService
-	userService *service.UserService
+	mottoService   *service.MottoService
+	userService    *service.UserService
 }
 
 func NewHomeRouter() *HomeController {
 	return &HomeController{
 		blogService:    service.NewBlogService(),
-		commentService: service.NewCommentService(),
 		bgImageService: service.NewBGImageService(),
-		mottoService: service.NewMottoService(),
-		userService: service.NewUserService(),
+		mottoService:   service.NewMottoService(),
+		userService:    service.NewUserService(),
 	}
 }
 
@@ -73,33 +70,6 @@ func (h *HomeController) GetDetailedBlog(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(blog, tags)
 }
 
-// 发布一条评论
-func (h *HomeController) PublishComment(ctx *gin.Context) *response.Response {
-	var comment model.Comment
-	err := ctx.ShouldBind(&comment)
-	if response.CheckError(err, "Bind param error") {
-		return response.ResponseOperateFailed()
-	}
-
-	err = h.commentService.Publish(&comment)
-	if response.CheckError(err, "Publish comment error") {
-		return response.ResponseOperateFailed()
-	}
-
-	return response.ResponseOperateSuccess()
-}
-
-// 获取评论列表
-func (h *HomeController) GetCommentList(ctx *gin.Context) *response.Response {
-	id := utils.QueryInt(ctx, "id")
-	comments, err := h.commentService.GetCommentList(id)
-	if response.CheckError(err, "Get Comment List error") {
-		return response.ResponseQueryFailed()
-	}
-
-	return response.ResponseQuerySuccess(comments)
-}
-
 // 搜索博客
 func (h *HomeController) SearchBlog(ctx *gin.Context) *response.Response {
 	keyWord := ctx.Query("keyWord")
@@ -129,7 +99,7 @@ func (h *HomeController) GetMottos(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(mottos)
 }
 
-//获取最新推荐博客
+// 获取最新推荐博客
 func (h *HomeController) GetNewBlogs(ctx *gin.Context) *response.Response {
 	limit := utils.DefaultQueryInt(ctx, "countLimit", "10")
 	blogs, err := h.blogService.GetNewBlogs(limit)

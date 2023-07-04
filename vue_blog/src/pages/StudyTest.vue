@@ -39,13 +39,11 @@
 <script>
 
 import "../assets/icon/iconfont.css"
-//声明组件
-import TitleArea from "../components/TitleArea";
+
 
 import "animate.css"
 
 export default {
-    components: { TitleArea },
     data() {
         return {
             //所有可选科目

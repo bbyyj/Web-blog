@@ -36,7 +36,7 @@ var conf = &MysqlConf{
 
 func init() {
 
-	db, err1 := gorm.Open("mysql", "root:a123@tcp(127.0.0.1:3306)/blog?charset=utf8mb4&parseTime=True&loc=Local")
+	db, err1 := gorm.Open("mysql", "root:AKASHI1220@tcp(127.0.0.1:3306)/blog?charset=utf8mb4&parseTime=True&loc=Local")
 	if err1 != nil {
 		panic(err1)
 	}
