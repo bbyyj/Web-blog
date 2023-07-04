@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             userInfo: {
-                avatar: "https://placekitten.com/300/300",
+                avatar: "https://tse3-mm.cn.bing.net/th/id/OIP-C.OV6k7M8MYtUb4tjeO3ppcwAAAA?w=204&h=204&c=7&r=0&o=5&dpr=1.3&pid=1.7",
                 nickname: "随便你",
                 github: "https://www.baidu.com",
                 csdn: "https://www.baidu.com "
