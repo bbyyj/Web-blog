@@ -39,12 +39,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/tagBlogList", Decorate(tagListRouter.GetBlogListByTagId))
 	}
 
-	timeLineRouter := controller.NewTimeLineRouter()
-	{
-		blogGroup.GET("/timeLine", Decorate(timeLineRouter.GetTimeLinedBlogs))
-		blogGroup.GET("/staticsBlog", Decorate(timeLineRouter.GetGroupedBlogs))
-	}
-
 	resourceLibRouter := controller.NewResourceLibRouter()
 	{
 		blogGroup.GET("/links", Decorate(resourceLibRouter.LinkList))
