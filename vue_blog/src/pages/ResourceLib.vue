@@ -170,7 +170,7 @@ export default {
 
         //获取全部分类
         async getAllCategories() {
-            const {data:res} = await this.$axios.get("/admin/categories");
+            const {data:res} = await this.$axios.get("/myblog/t/category");
             if (res.status !== 1) {
                 this.$message.error("获取分类列表失败，请重试！")
                 return
