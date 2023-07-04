@@ -18,8 +18,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/blogLists", Decorate(homeRouter.HomeListBlogs))
 		blogGroup.GET("/userInfo", Decorate(homeRouter.GetHomePageUInfo))
 		blogGroup.GET("/bgs", Decorate(homeRouter.GetBgImages))
-		blogGroup.GET("/newBlogs", Decorate(homeRouter.GetNewBlogs))
-		blogGroup.GET("/hotBlogs", Decorate(homeRouter.GetHotBlogs))
 		//blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))

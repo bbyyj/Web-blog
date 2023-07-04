@@ -15,7 +15,6 @@ func NewTagService() *TagService {
 	}
 }
 
-// 获取所有标签
 func (t *TagService) GetAllTags() ([]model.Tag, error) {
 	return t.tagDao.FindAllTags()
 }
