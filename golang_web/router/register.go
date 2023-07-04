@@ -22,8 +22,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/hotBlogs", Decorate(homeRouter.GetHotBlogs))
 		blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
-		blogGroup.GET("/commentList", Decorate(homeRouter.GetCommentList))
-		blogGroup.POST("/publishComment", Decorate(homeRouter.PublishComment))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
 	}
 
@@ -49,17 +47,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/t/downloadresource", resourceLibRouter.DownloadReasourceService)
 		blogGroup.POST("/t/uploadresourcecheck", resourceLibRouter.UploadReasourceCheckService)
 		blogGroup.POST("/t/addresourcecheck", Decorate(resourceLibRouter.AddReasourceCheckService))
-	}
-
-	leaveMessageRouter := controller.NewLeaveMessageRouter()
-	{
-		blogGroup.POST("/leaveMsg", Decorate(leaveMessageRouter.LeaveMessage))
-		blogGroup.GET("/displayMsg", Decorate(leaveMessageRouter.DisplayMessage))
-	}
-
-	essayRouter := controller.NewTacitRouter()
-	{
-		blogGroup.GET("/tacitList", Decorate(essayRouter.TacitList))
 	}
 
 	musicFrontRouter := admin.NewMusicRouter()
@@ -143,20 +130,6 @@ func registerBlogManageRouter(engine *gin.Engine) {
 		adminGroup.PUT("/t/checksucceeded", Decorate(linksRouter.CheckSucceededAddToResource))
 		adminGroup.DELETE("/t/checkfailed", Decorate(linksRouter.CheckFailedResource))
 		adminGroup.GET("/t/pageresourcecheck", Decorate(linksRouter.ResourceCheckList))
-	}
-
-	//essayRouter := admin.NewEssayRouter()
-	//{
-	//	adminGroup.GET("/essayList", Decorate(essayRouter.EssayList))
-	//	adminGroup.POST("/addEssay", Decorate(essayRouter.AddEssay))
-	//	adminGroup.DELETE("/deleteEssay", Decorate(essayRouter.DeleteEssay))
-	//	adminGroup.PUT("/updateEssay", Decorate(essayRouter.UpdateEssay))
-	//}
-
-	messageRouter := admin.NewMessageRouter()
-	{
-		adminGroup.GET("/msgList", Decorate(messageRouter.MessageList))
-		adminGroup.PUT("/updateMsgStatus", Decorate(messageRouter.UpdateStatus))
 	}
 
 	musicRouter := admin.NewMusicRouter()
