@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/8 17:07
-* @Desc:
- */
-
 type LogLevel uint8
 
 const (

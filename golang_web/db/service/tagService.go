@@ -5,12 +5,6 @@ import (
 	"blog_web/model"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/1 11:52
-* @Desc:
- */
-
 type TagService struct {
 	tagDao *dao.TagDao
 }
@@ -21,7 +15,6 @@ func NewTagService() *TagService {
 	}
 }
 
-// 获取所有标签
 func (t *TagService) GetAllTags() ([]model.Tag, error) {
 	return t.tagDao.FindAllTags()
 }

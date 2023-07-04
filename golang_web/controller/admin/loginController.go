@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/2 11:10
-* @Desc:
- */
-
 type LoginController struct {
 	userService *service.UserService
 }

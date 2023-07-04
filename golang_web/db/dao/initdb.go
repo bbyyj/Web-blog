@@ -11,12 +11,6 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/23 21:32
-* @Desc:
- */
-
 var sqldb *sqlx.DB
 var Sqldb *sqlx.DB
 

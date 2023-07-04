@@ -2,12 +2,6 @@ package model
 
 import "time"
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 18:52
-* @Desc:
- */
-
 type User struct {
 	Id         int       `db:"id" json:"id"`
 	Nickname   string    `db:"nickname" json:"nickname"`

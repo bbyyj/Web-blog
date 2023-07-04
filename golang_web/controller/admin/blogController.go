@@ -10,12 +10,6 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/2 10:53
-* @Desc:
- */
-
 type BlogController struct {
 	blogService *service.BlogService
 }
