@@ -22,8 +22,6 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/hotBlogs", Decorate(homeRouter.GetHotBlogs))
 		blogGroup.GET("/mottos", Decorate(homeRouter.GetMottos))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
-		blogGroup.GET("/commentList", Decorate(homeRouter.GetCommentList))
-		blogGroup.POST("/publishComment", Decorate(homeRouter.PublishComment))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
 	}
 
