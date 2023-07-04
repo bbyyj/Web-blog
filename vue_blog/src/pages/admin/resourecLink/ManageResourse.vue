@@ -99,12 +99,12 @@ export default {
         },
 
         handleSizeChange: function(pagesize) {     // 监听pagesize 改变的事件
-            this.queryInfo.pageSize = pagesize;
+            this.queryInfo.pagesize = pagesize;
             this.getMessageList();
         },
 
         handleCurrentChange: function(newPage) {  // 页码值发送变化
-            this.queryInfo.pageNum = newPage;
+            this.queryInfo.pagenum = newPage;
             this.getMessageList();
         },
         
