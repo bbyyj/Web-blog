@@ -116,13 +116,7 @@ func NewBlogDao() *BlogDao {
 			// 20、删除博客
 			`DELETE FROM t_blog_tags WHERE blog_id = ?;`,
 
-			// 21、根据创建时间获取最新推荐的n篇博客
-			`SELECT id, title FROM t_blog WHERE recommend = 1 ORDER BY create_time DESC LIMIT ?;`,
-
-			// 22、根据浏览次数获取最热门的n篇博客
-			`SELECT id, title FROM t_blog ORDER BY views DESC LIMIT ?;`,
-
-			// 23、根据博客类型对博客分组、计算每个分组的数量
+			// 21、根据博客类型对博客分组、计算每个分组的数量
 			`SELECT t.id, count(*) 'count',  t.name FROM t_blog b JOIN t_type t ON b.type_id = t.id GROUP BY type_id;`,
 		},
 	}
@@ -300,20 +294,8 @@ func (b *BlogDao) DeleteBlogTagsByBlogId(tx *sqlx.Tx, id int) error {
 	return err
 }
 
-// 21、根据创建时间获取最新的n篇博客
-func (b *BlogDao) FindBlogsByCreateTime(n int) (blogs []model.BlogSection, err error) {
-	err = sqldb.Select(&blogs, b.sql[21], n)
-	return
-}
-
-// 22、根据浏览次数获取最热门的n篇博客
-func (b *BlogDao) FindBlogsByViews(n int) (blogs []model.BlogSection, err error) {
-	err = sqldb.Select(&blogs, b.sql[22], n)
-	return
-}
-
-// 23、根据博客类型对博客分组、计算每个分组的数量
+// 21、根据博客类型对博客分组、计算每个分组的数量
 func (b *BlogDao) FindTypeAndBlogCount() (types []model.TheType, err error) {
-	err = sqldb.Select(&types, b.sql[23])
+	err = sqldb.Select(&types, b.sql[21])
 	return
 }

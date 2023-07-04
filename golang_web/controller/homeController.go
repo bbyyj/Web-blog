@@ -92,25 +92,3 @@ func (h *HomeController) GetMottos(ctx *gin.Context) *response.Response {
 
 	return response.ResponseQuerySuccess(mottos)
 }
-
-// 获取最新推荐博客
-func (h *HomeController) GetNewBlogs(ctx *gin.Context) *response.Response {
-	limit := utils.DefaultQueryInt(ctx, "countLimit", "10")
-	blogs, err := h.blogService.GetNewBlogs(limit)
-	if response.CheckError(err, "Get New Blogs error") {
-		return response.ResponseQueryFailed()
-	}
-
-	return response.ResponseQuerySuccess(blogs)
-}
-
-// 获取热门博客
-func (h *HomeController) GetHotBlogs(ctx *gin.Context) *response.Response {
-	limit := utils.DefaultQueryInt(ctx, "countLimit", "10")
-	blogs, err := h.blogService.GetHotBlogs(limit)
-	if response.CheckError(err, "Get Hot Blogs error") {
-		return response.ResponseQueryFailed()
-	}
-
-	return response.ResponseQuerySuccess(blogs)
-}

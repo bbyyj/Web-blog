@@ -215,16 +215,6 @@ func (b *BlogService) AddBlog(blog *model.FullBlog) error {
 	return nil
 }
 
-// 根据创建时间获取最新的n篇博客
-func (b *BlogService) GetNewBlogs(n int) ([]model.BlogSection, error) {
-	return b.blogDao.FindBlogsByCreateTime(n)
-}
-
-// 根据浏览次数获取最热门的n篇博客
-func (b *BlogService) GetHotBlogs(n int) ([]model.BlogSection, error) {
-	return b.blogDao.FindBlogsByViews(n)
-}
-
 // 获取每个类型以及该类型下的博客数量
 func (b *BlogService) GetTypeAndBlogCount() ([]model.TheType, error) {
 	return b.blogDao.FindTypeAndBlogCount()
