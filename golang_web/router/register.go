@@ -91,7 +91,7 @@ func registerBlogManageRouter(engine *gin.Engine) {
 	engine.POST("/api/admin/login", Decorate(loginRouter.Login))
 
 	adminGroup := engine.Group("/api/admin")
-	//adminGroup.Use(admin.LoginAuthenticationMiddleware())
+	adminGroup.Use(admin.LoginAuthenticationMiddleware())
 	blogRouter := admin.NewBlogRouter()
 	{
 		adminGroup.GET("/searchBlogs", Decorate(blogRouter.SearchBlogs))

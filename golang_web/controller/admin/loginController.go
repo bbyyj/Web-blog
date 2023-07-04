@@ -23,20 +23,15 @@ func NewLoginRouter() *LoginController {
 // 博客后台登录的router
 func (l *LoginController) Login(ctx *gin.Context) *response.Response {
 	var u model.User
-	println("note here 1")
 	err := ctx.ShouldBind(&u)
-	println("note here 2")
 	if response.CheckError(err, "Bind param error") {
 		return response.NewResponseOkND(response.LoginFailed)
 	}
-	println("note here 3")
 	if u.Username == "" || u.Password == "" {
 		return response.NewResponseOkND(response.LoginFailed)
-		println("note here 4 error")
 	}
 
 	user, err := l.userService.CheckUser(u.Username, u.Password)
-	println("note here 5")
 	if response.CheckError(err, "Username or Password incorrect, IP:%s", ctx.GetHeader("X-Forwarded-For")) {
 		println("note here 6 error")
 		return response.NewResponseOkND(response.LoginFailed)
@@ -47,11 +42,9 @@ func (l *LoginController) Login(ctx *gin.Context) *response.Response {
 		ctx.Status(http.StatusInternalServerError)
 		return nil
 	}
-
 	return response.NewResponseOk(response.LoginSuccess, token, user.Id)
 }
 
-// 用户鉴权middleware
 func LoginAuthenticationMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token := ctx.GetHeader("Authorization")
