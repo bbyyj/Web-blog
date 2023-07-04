@@ -29,14 +29,14 @@
 
 <script>
 
-import TitleArea from "../components/TitleArea";
+
 import askBoardTitle from "../components/askBoardTitle";
 import LeaveMessagePanel from "../components/LeaveMessagePanel";
 import GroupMessageItem from "../components/GroupMessageItem";
 
 export default {
     name: "MsgBoard",
-    components: { TitleArea, LeaveMessagePanel, GroupMessageItem, askBoardTitle },
+    components: {  LeaveMessagePanel, GroupMessageItem, askBoardTitle },
     data() {
         return {
             showReplay: false,

@@ -54,7 +54,6 @@ import BlogCard from "../components/BlogCard";
 import UserInfoCard from "../components/UserInfoCard";
 import Pagination from "../components/Pagination";
 import TagCloud from "../components/TagCloud";
-import TypeArea from "../components/TypeArea";
 
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
@@ -65,7 +64,7 @@ import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud, TypeArea },
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard, TagCloud },
     data() {
         return {
             firstBGPageInfo: {
