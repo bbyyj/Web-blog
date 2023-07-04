@@ -47,7 +47,7 @@
                         </p>
                         <p class = "desc">
                             下载总数：{{ item.downloadnum }}
-                            大小：{{ item.filesize }}
+                            大小：{{ (item.filesize/1048576).toFixed(2) }}MB
                         </p>
                         <p class = "desc">
                             更新时间：{{ dateFormat(item.UpdatedAt) }}
@@ -172,7 +172,7 @@ export default {
         async getAllCategories() {
             const {data:res} = await this.$axios.get("/admin/categories");
             if (res.status !== 1) {
-                this.$message.error("获取列表失败，请重试！")
+                this.$message.error("获取分类列表失败，请重试！")
                 return
             }
             this.categories = res.data.length > 0 ? res.data[0] : []
