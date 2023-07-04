@@ -2,12 +2,6 @@ package dao
 
 import "blog_web/model"
 
-/*
-* @Author: mgh
-* @Date: 2022/3/1 9:48
-* @Desc: 操作t_tag表的dao
- */
-
 type TagDao struct {
 	sql []string
 }
@@ -15,14 +9,14 @@ type TagDao struct {
 func NewTagDao() *TagDao {
 	return &TagDao{
 		sql: []string{
-			`SELECT t.id, t.name FROM t_blog_tags bt JOIN t_tag t ON t.id = bt.tag_id WHERE bt.blog_id = ?;`,
-			`SELECT * FROM t_tag ORDER BY id ASC;`,
-			`SELECT * FROM t_tag LIMIT ?, ?;`,
-			`SELECT * FROM t_tag WHERE name = ?;`,
-			`DELETE FROM t_tag WHERE id = ?;`,
-			`UPDATE t_tag SET name = ? WHERE id = ?;`,
-			`INSERT INTO t_tag (name) VALUES(?);`,
-			`SELECT COUNT(*) FROM t_tag;`,
+			`SELECT t.id, t.name FROM blog_tags bt JOIN tag t ON t.id = bt.tag_id WHERE bt.blog_id = ?;`,
+			`SELECT * FROM tag ORDER BY id ASC;`,
+			`SELECT * FROM tag LIMIT ?, ?;`,
+			`SELECT * FROM tag WHERE name = ?;`,
+			`DELETE FROM tag WHERE id = ?;`,
+			`UPDATE tag SET name = ? WHERE id = ?;`,
+			`INSERT INTO tag (name) VALUES(?);`,
+			`SELECT COUNT(*) FROM tag;`,
 		},
 	}
 }
@@ -35,7 +29,6 @@ func (t *TagDao) GetTagsByBlogId(id int) (tags []model.Tag, err error) {
 
 // 查询所有标签
 func (t *TagDao) FindAllTags() (tags []model.Tag, err error) {
-	// `SELECT * FROM t_tag ORDER BY id ASC;`,
 	err = sqldb.Select(&tags, t.sql[1])
 	return
 }

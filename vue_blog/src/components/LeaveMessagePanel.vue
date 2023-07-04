@@ -6,7 +6,7 @@
             <!-- 彩虹模式选择框 -->
             <label class="rainbow">
                 <input v-model="postInfo.rainbow" type="checkbox" class="rainbow-input">
-                是否为彩虹
+                非学习相关
             </label>
             <!-- 提交按钮 -->
             <button @click="commit">发送</button>

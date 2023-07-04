@@ -229,6 +229,8 @@ export default {
                 return item.id === this.links[index].categoryid
             })
             this.selectedCategory = val.name
+            this.postInfo.url = ""
+            console.log(this.postInfo.url)
             
         },
 
@@ -288,7 +290,7 @@ export default {
             const formData = new FormData();
             formData.append('f1', f1);
 
-            if (!this.isValidExtension(f1.name, allowedExtensions)) {
+            if (!f1.name.endsWith(".zip")) {
                 this.$message.error("只能上传 ZIP 文件!");
                 return;
             }
@@ -306,10 +308,6 @@ export default {
                 });
         },
 
-        isValidExtension(fileName, allowedExtensions) {
-            const fileExtension = fileName.split('.').pop().toLowerCase();
-            return allowedExtensions.includes(fileExtension);
-        }, 
         
 
         async commitLink() {
@@ -318,18 +316,18 @@ export default {
                 this.$message.error("请在文件名后添加.zip后缀！")
                 return
             }
-            //若未上传文件报错
-            if(this.postInfo.url == "") {
-                this.$message.error("请先上传文件！")
-                return
-            }
             
             let res
             if(this.postInfo.ID === 0) {
+                //若未上传文件报错
+                if(this.postInfo.url == "" ) {
+                    this.$message.error("请先上传文件！")
+                    return
+                }
                 res = await this.$axios.post("/admin/t/addresource",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
                 console.log(res);
             } else {
-                res = await this.$axios.put("/admin/t/updateresource", { ID: this.postInfo.ID, name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid })
+                res = await this.$axios.put("/admin/t/updateresource", { ID: this.postInfo.ID, name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
 
                 console.log(res);
             }
@@ -339,6 +337,13 @@ export default {
                 this.cancel()
                 await this.getLinkList()
                 this.$message.success("操作成功！")
+                this.postInfo = {
+                ID: 0,
+                name: "",
+                desc: "",
+                categoryid: 0,
+                url: "",
+            }
             }
         },
         uploadSuccess(response) {

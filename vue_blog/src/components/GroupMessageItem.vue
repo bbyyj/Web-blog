@@ -1,7 +1,7 @@
 <!--一组评论，包含父评论和子评论-->
 <template>
     <div>
-        <div class="group-warp">
+        <div class="group-warp" :class="{ 'rainbow-item': groupMsg.myself.rainbow }">
             <MessageItem :msg="groupMsg.myself"></MessageItem>
             <button class="follow-btn" @click="clickLikes(groupMsg.myself)">
                 {{ groupMsg.myself.likes }}赞
@@ -27,6 +27,7 @@
                 </div>
             </transition>
         </div>
+
         <!-- 追加子问题的对话框 -->
         <div v-if="showAppendDialog" class="append-dialog">
             <div>
@@ -37,7 +38,7 @@
             </div>
             <div>
                 <label class="rainbow-label">
-                    是否为彩虹：
+                    非学习相关：
                     <input v-model="newQuestionRainbow" class="rainbow-input" type="checkbox">
                 </label>
             </div>
@@ -64,6 +65,7 @@ export default {
             newQuestion: '',
             //新写的问题是否加彩虹
             newQuestionRainbow: false,
+
         }
     },
     computed: {
@@ -175,20 +177,15 @@ export default {
     margin-top: 18px;
 }
 .rainbow-input{
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    outline: none;
-    width:23px;
-    height:23px;
-    background-color:#fdeceb;
-    border:solid 2px #fcdedb;
-    border-radius:50%;
-    margin:0px 0px 1px 2px;
-    padding:0;
-    position:relative;
-    display:inline-block;
-    vertical-align:top;
-    transition:background-color ease 0.1s;
+    background-color:#c1c3da;
+    border: 1px solid #c1c3da;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgba(16, 10, 10, 0.18) !important;
+
+    border-radius: 20px;
+    margin: 40px;
+    padding: 20px 30px 3px;
+    
+    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
 }
 .rainbow-input:checked {
     background:#7c80b8;
@@ -254,7 +251,17 @@ ul,li {
     
     font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
 }
+.rainbow-item{
+    background: linear-gradient(70deg,rgb(222, 118, 118), rgb(240, 240, 156), rgb(160, 233, 158), rgb(112, 107, 216));
+    border: 0px solid;
+    box-shadow: 0 15px 35px rgb(50 50 93 / 18%), 0 5px 15px rgba(16, 10, 10, 0.18) !important;
 
+    border-radius: 20px;
+    margin: 40px;
+    padding: 20px 30px 3px;
+    
+    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
+}
 .count {
     overflow: hidden;
     padding-bottom: 10px;

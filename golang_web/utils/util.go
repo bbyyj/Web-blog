@@ -1,11 +1,5 @@
 package utils
 
-/*
-* @Author: mgh
-* @Date: 2022/3/3 11:35
-* @Desc:
- */
-
 import (
 	"bytes"
 	"errors"

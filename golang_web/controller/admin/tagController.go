@@ -8,12 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/2 11:13
-* @Desc:
- */
-
 type TagController struct {
 	tagService *service.TagService
 }
@@ -44,20 +38,18 @@ func (t *TagController) GetOnePageTags(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(tags, count)
 }
 
-func (t *TagController) CheckTagExist(ctx *gin.Context) *response.Response {
-	name := ctx.Query("name")
-	exist := t.tagService.CheckTagExist(name)
-	return response.ResponseQuerySuccess(exist)
-}
-
-func (t *TagController) DeleteTag(ctx *gin.Context) *response.Response {
-	id := utils.QueryInt(ctx, "id")
-	err := t.tagService.DeleteTagById(id)
-	if response.CheckError(err, "Delete tag error") {
-		return response.ResponseDeleteFailed()
+func (t *TagController) AddTag(ctx *gin.Context) *response.Response {
+	var tag model.Tag
+	if err := ctx.ShouldBind(&tag); err != nil {
+		return response.ResponseOperateFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	err := t.tagService.AddTag(tag.Name)
+	if response.CheckError(err, "Add tag error") {
+		return response.ResponseOperateFailed()
+	}
+
+	return response.ResponseOperateSuccess()
 }
 
 func (t *TagController) UpdateTag(ctx *gin.Context) *response.Response {
@@ -74,16 +66,18 @@ func (t *TagController) UpdateTag(ctx *gin.Context) *response.Response {
 	return response.ResponseOperateSuccess()
 }
 
-func (t *TagController) AddTag(ctx *gin.Context) *response.Response {
-	var tag model.Tag
-	if err := ctx.ShouldBind(&tag); err != nil {
-		return response.ResponseOperateFailed()
+func (t *TagController) CheckTagExist(ctx *gin.Context) *response.Response {
+	name := ctx.Query("name")
+	exist := t.tagService.CheckTagExist(name)
+	return response.ResponseQuerySuccess(exist)
+}
+
+func (t *TagController) DeleteTag(ctx *gin.Context) *response.Response {
+	id := utils.QueryInt(ctx, "id")
+	err := t.tagService.DeleteTagById(id)
+	if response.CheckError(err, "Delete tag error") {
+		return response.ResponseDeleteFailed()
 	}
 
-	err := t.tagService.AddTag(tag.Name)
-	if response.CheckError(err, "Add tag error") {
-		return response.ResponseOperateFailed()
-	}
-
-	return response.ResponseOperateSuccess()
+	return response.ResponseDeleteSuccess()
 }
