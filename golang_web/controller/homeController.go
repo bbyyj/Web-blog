@@ -7,12 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 19:04
-* @Desc: 博客主页对应的Routers
- */
-
 type HomeController struct {
 	blogService    *service.BlogService
 	bgImageService *service.BGImageService

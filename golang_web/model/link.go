@@ -77,4 +77,4 @@ type ResResult struct {
 		DeletedAt   *time.Time `sql:"index" json:"deletedat" db:"deletedat"`
 	}
 */
-var FileRoot = "D:/Go project/Go_UPandDownload/downloads/%s"
+var FileRoot = "./downloads/%s"

@@ -5,12 +5,6 @@ import (
 	"blog_web/model"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/1 11:52
-* @Desc:
- */
-
 type TagService struct {
 	tagDao *dao.TagDao
 }

@@ -12,12 +12,6 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/3 11:08
-* @Desc: 图片上传的router
- */
-
 type ImageUploadController struct {
 	uploadService service.UploadServicer
 }
@@ -33,8 +27,8 @@ func NewAliOSSImageUploadRouter() *ImageUploadController {
 }
 
 func NewLocalImageUploadRouter() *ImageUploadController {
-	srv := service.NewLocalUploadService(viper.GetString("server.imagePath") + "images",
-		viper.GetString("server.imageBaseUrl") + "/images")
+	srv := service.NewLocalUploadService(viper.GetString("server.imagePath")+"images",
+		viper.GetString("server.imageBaseUrl")+"/images")
 	return &ImageUploadController{
 		uploadService: srv,
 	}
@@ -75,7 +69,7 @@ func (ir *ImageUploadController) UploadIcon(ctx *gin.Context) {
 
 // 接收图片并保存   dir: firstPic, ico
 func (ir *ImageUploadController) uploadImage(ctx *gin.Context, dir string) (string, error) {
-	file, err := ctx.FormFile("file")     // filename: bg.jpg
+	file, err := ctx.FormFile("file") // filename: bg.jpg
 	if err != nil {
 		return "", err
 	}
@@ -84,9 +78,9 @@ func (ir *ImageUploadController) uploadImage(ctx *gin.Context, dir string) (stri
 	// 在文件名后添加时间戳后缀，防止重复
 	now := time.Now().Unix()
 	fp, suf := utils.FileSuffixSplit(file.Filename)
-	filename := fmt.Sprintf("%s_%d%s", fp, now, suf)   // filename: bg_156435453.jpg
+	filename := fmt.Sprintf("%s_%d%s", fp, now, suf) // filename: bg_156435453.jpg
 	utils.Logger().Debug("%v", filename)
-	objName := path.Join(dir, filename)                    // objName: firstPic/bg_156435453.jpg
+	objName := path.Join(dir, filename) // objName: firstPic/bg_156435453.jpg
 	utils.Logger().Debug("objName:%v", objName)
 	f, err := file.Open()
 	if err != nil {
@@ -96,7 +90,7 @@ func (ir *ImageUploadController) uploadImage(ctx *gin.Context, dir string) (stri
 
 	maxImageSize := viper.GetInt64("aliOSS.maxImageSize")
 	// 如果图片超出了大小，对图片进行一个缩放，缩放为1920*1080
-	if( maxImageSize != 0 && file.Size > maxImageSize) {
+	if maxImageSize != 0 && file.Size > maxImageSize {
 		buf, err := utils.ImageScale(f, 1920)
 		if err != nil {
 			return "", err

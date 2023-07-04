@@ -7,12 +7,6 @@ import (
 	"strconv"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 19:08
-* @Desc: 操作t_blog表的dao
- */
-
 type BlogDao struct {
 	sql []string
 }
@@ -311,7 +305,6 @@ func (b *BlogDao) FindBlogsByCreateTime(n int) (blogs []model.BlogSection, err e
 	err = sqldb.Select(&blogs, b.sql[21], n)
 	return
 }
-
 
 // 22、根据浏览次数获取最热门的n篇博客
 func (b *BlogDao) FindBlogsByViews(n int) (blogs []model.BlogSection, err error) {

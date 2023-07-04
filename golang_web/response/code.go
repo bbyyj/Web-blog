@@ -1,11 +1,5 @@
 package response
 
-/*
-* @Author: mgh
-* @Date: 2022/2/24 18:45
-* @Desc:
- */
-
 const (
 	QueryFailed uint32 = iota
 	QuerySuccess

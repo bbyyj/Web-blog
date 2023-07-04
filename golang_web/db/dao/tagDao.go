@@ -2,12 +2,6 @@ package dao
 
 import "blog_web/model"
 
-/*
-* @Author: mgh
-* @Date: 2022/3/1 9:48
-* @Desc: 操作t_tag表的dao
- */
-
 type TagDao struct {
 	sql []string
 }

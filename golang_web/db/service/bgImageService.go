@@ -2,12 +2,6 @@ package service
 
 import "blog_web/db/dao"
 
-/*
-* @Author: mgh
-* @Date: 2022/3/19 11:33
-* @Desc:
- */
-
 type BGImageService struct {
 	bgImageDao *dao.BGImageDao
 }

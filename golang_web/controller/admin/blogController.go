@@ -10,20 +10,14 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/2 10:53
-* @Desc:
- */
-
 type BlogController struct {
-	blogService *service.BlogService
+	blogService  *service.BlogService
 	mottoService *service.MottoService
 }
 
 func NewBlogRouter() *BlogController {
 	return &BlogController{
-		blogService: service.NewBlogService(),
+		blogService:  service.NewBlogService(),
 		mottoService: service.NewMottoService(),
 	}
 }

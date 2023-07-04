@@ -5,12 +5,6 @@ import (
 	"time"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/24 18:59
-* @Desc:
- */
-
 type Claim struct {
 	Username string
 	UserId   uint32

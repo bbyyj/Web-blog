@@ -5,12 +5,6 @@ import (
 	"blog_web/model"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/2/28 19:08
-* @Desc:
- */
-
 type BlogService struct {
 	blogDao *dao.BlogDao
 	tagDao  *dao.TagDao
@@ -115,7 +109,7 @@ func (b *BlogService) GetBlogsByKeyWord(keyWord string) ([]model.BlogSection, er
 
 // 根据title、type、recommend来筛选博客
 func (b *BlogService) GetBlogsByTitleOrTypeOrRecommend(pageNum, pageSize int, title string, typeId int,
-										recommend string) ([]model.BlogUserType, int, error) {
+	recommend string) ([]model.BlogUserType, int, error) {
 	pageStart := (pageNum - 1) * pageSize
 	blogs, count, err := b.blogDao.FindBlogsByTitleOrTypeOrRecommend(pageStart, pageSize, title, typeId, recommend)
 	if err != nil {
@@ -225,7 +219,6 @@ func (b *BlogService) AddBlog(blog *model.FullBlog) error {
 func (b *BlogService) GetNewBlogs(n int) ([]model.BlogSection, error) {
 	return b.blogDao.FindBlogsByCreateTime(n)
 }
-
 
 // 根据浏览次数获取最热门的n篇博客
 func (b *BlogService) GetHotBlogs(n int) ([]model.BlogSection, error) {

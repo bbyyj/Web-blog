@@ -1,11 +1,5 @@
 package dao
 
-/*
-* @Author: mgh
-* @Date: 2022/3/19 11:28
-* @Desc:
- */
-
 type BGImageDao struct {
 	sql []string
 }

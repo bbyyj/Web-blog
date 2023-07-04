@@ -5,12 +5,6 @@ import (
 	"blog_web/model"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/19 11:41
-* @Desc:
- */
-
 type MottoService struct {
 	mottoDao *dao.MottoDao
 }
@@ -40,5 +34,3 @@ func (m *MottoService) UpdateOne(motto *model.Motto) error {
 func (m *MottoService) GetAllMottoWithCreateTime() ([]model.Motto, error) {
 	return m.mottoDao.FindAllWithCreateTime()
 }
-
-

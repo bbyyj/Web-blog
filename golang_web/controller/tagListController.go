@@ -7,12 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/1 11:51
-* @Desc:
- */
-
 type TagListController struct {
 	tagService  *service.TagService
 	blogService *service.BlogService

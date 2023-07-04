@@ -2,12 +2,6 @@ package dao
 
 import "blog_web/model"
 
-/*
-* @Author: mgh
-* @Date: 2022/3/1 11:12
-* @Desc: 操作t_type表的dao
- */
-
 type TypeDao struct {
 	sql []string
 }

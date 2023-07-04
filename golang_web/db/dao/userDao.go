@@ -2,12 +2,6 @@ package dao
 
 import "blog_web/model"
 
-/*
-* @Author: mgh
-* @Date: 2022/3/2 11:30
-* @Desc:
- */
-
 type UserDao struct {
 	sql []string
 }

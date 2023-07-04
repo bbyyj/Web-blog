@@ -2,12 +2,6 @@ package dao
 
 import "blog_web/model"
 
-/*
-* @Author: mgh
-* @Date: 2022/3/19 11:38
-* @Desc:
- */
-
 type MottoDao struct {
 	sql []string
 }
@@ -48,6 +42,3 @@ func (m *MottoDao) FindAllWithCreateTime() (mottos []model.Motto, err error) {
 	err = sqldb.Select(&mottos, m.sql[4])
 	return
 }
-
-
-

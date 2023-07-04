@@ -8,12 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-/*
-* @Author: mgh
-* @Date: 2022/3/2 11:11
-* @Desc:
- */
-
 type TypeController struct {
 	typeService *service.TypeService
 }
