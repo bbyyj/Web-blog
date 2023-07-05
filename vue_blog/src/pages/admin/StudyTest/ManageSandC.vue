@@ -1,76 +1,79 @@
 <template>
     <div class="admin-panel">
         <el-card>
-        <!--新增科目-->
-        <div class="crd">
-        <el-form :model="newSubjectForm" @submit="addSubject" label-width="120px">
-            <div class="title">新增科目</div>
-            <el-form-item label="科目名">
-                <el-input class="inp" v-model="newSubjectForm.name"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button class="sub" type="primary" @click="confirmAddSubject">提交</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
+            <!--新增科目-->
+            <div class="crd">
+                <el-form :model="newSubjectForm" @submit="addSubject" label-width="120px">
+                    <div class="title">新增科目</div>
+                    <el-form-item label="科目名">
+                        <el-input class="inp" v-model="newSubjectForm.name"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="sub" type="primary" @click="confirmAddSubject">提交</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
 
-        <!--删除科目-->
-        <div class="crd">
-        <el-form :model="deleteSubjectForm" @submit="deleteSubject" label-width="120px">
-            <div class="title">删除科目</div>
-            <el-form-item label="科目名">
-                <el-select v-model="deleteSubjectForm.name" placeholder="请选择">
-                    <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item>
-                <el-button class="del" type="danger" @click="confirmDeleteSubject">删除</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
+            <!--删除科目-->
+            <div class="crd">
+                <el-form :model="deleteSubjectForm" @submit="deleteSubject" label-width="120px">
+                    <div class="title">删除科目</div>
+                    <el-form-item label="科目名">
+                        <el-select v-model="deleteSubjectForm.name" placeholder="请选择">
+                            <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="del" type="danger" @click="confirmDeleteSubject">删除</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
 
-        <!--新增章节-->
-        <div class="crd">
-        <el-form :model="newChapterForm" @submit="addChapter" label-width="120px">
-            <div class="title">新增章节</div>
-            <el-form-item label="科目名">
-                <el-input class="inp" v-model="newChapterForm.subject"></el-input>
-            </el-form-item>
-            <el-form-item label="章节名">
-                <el-input class="inp" v-model="newChapterForm.chapter"></el-input>
-            </el-form-item>
-            <el-form-item label="描述">
-                <el-input class="inp" v-model="newChapterForm.description"></el-input>
-            </el-form-item>
-            <el-form-item>
-                <el-button class="sub" type="primary" @click="confirmAddChapter">提交</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
+            <!--新增章节-->
+            <div class="crd">
+                <el-form :model="newChapterForm" @submit="addChapter" label-width="120px">
+                    <div class="title">新增章节</div>
+                    <el-form-item label="科目名">
+                        <el-select v-model="newChapterForm.subject" placeholder="请选择" @change="updateChapterList">
+                            <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="章节名">
+                        <el-input class="inp" v-model="newChapterForm.chapter"></el-input>
+                    </el-form-item>
+                    <el-form-item label="描述">
+                        <el-input class="inp" v-model="newChapterForm.description"></el-input>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="sub" type="primary" @click="confirmAddChapter">提交</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
 
-        <!--删除章节-->
-        <div class="crd">
-        <el-form :model="deleteChapterForm" @submit="deleteChapter" label-width="120px">
-            <div class="title">删除章节</div>
-            <el-form-item label="科目名">
-                <el-select v-model="deleteChapterForm.subject" placeholder="请选择" @change="updateChapterList">
-                    <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="章节名">
-                <el-select v-model="deleteChapterForm.chapter" placeholder="请选择">
-                    <el-option v-for="item in chapters" :key="item.id" :label="item.title" :value="item.title">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item>
-                <el-button class="del" type="danger" @click="confirmDeleteChapter">删除</el-button>
-            </el-form-item>
-        </el-form>
-        </div>
-    </el-card>
+            <!--删除章节-->
+            <div class="crd">
+                <el-form :model="deleteChapterForm" @submit="deleteChapter" label-width="120px">
+                    <div class="title">删除章节</div>
+                    <el-form-item label="科目名">
+                        <el-select v-model="deleteChapterForm.subject" placeholder="请选择" @change="updateChapterList">
+                            <el-option v-for="item in subjects" :key="item.id" :label="item.name" :value="item.name">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="章节名">
+                        <el-select v-model="deleteChapterForm.chapter" placeholder="请选择">
+                            <el-option v-for="item in chapters" :key="item.id" :label="item.title" :value="item.title">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button class="del" type="danger" @click="confirmDeleteChapter">删除</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-card>
     </div>
 </template>
 
@@ -204,7 +207,7 @@ export default {
         async addSubject() {
             try {
                 const { data: res } = await this.$axios.post("/admin/addSubject", {
-                    name: this.newSubjectForm.name, //假设你的新科目名称存在这个变量里
+                    name: this.newSubjectForm.name, //假设新科目名称存在这个变量里
                 });
                 if (res.status === 101) {
                     this.$message.success("新增科目成功");
@@ -289,7 +292,9 @@ export default {
     color: #baaacaee;
     border-color: #baaacaee;
 }
-.sub:hover, .sub:focus {
+
+.sub:hover,
+.sub:focus {
     background-color: #baaacaee;
     color: #fff;
     border-color: #baaacaee;
@@ -301,7 +306,8 @@ export default {
     border-color: #f67272ac;
 }
 
-.del:hover, .del:focus {
+.del:hover,
+.del:focus {
     background-color: #f67272ac;
     color: #fff;
     border-color: #f67272ac;
@@ -312,23 +318,23 @@ export default {
     font-family: "黑体";
     font-size: 18px;
     font-weight: 500;
-    margin-left: 5% ;
+    margin-left: 5%;
     margin-bottom: 1%;
 }
 
 .inp {
     width: 500px;
 }
+
 .crd {
-    border-style:solid;
-    border-color:#d2bdda93;
+    border-style: solid;
+    border-color: #d2bdda93;
     border-width: 1px;
     border-radius: 0.5ch;
     margin-left: 5%;
     margin-bottom: 5ch;
     padding: 10px;
     width: 700px;
-    
-}
 
+}
 </style>
