@@ -151,9 +151,24 @@ func (e *ExamDao) FindExamLimited(a string, b string) (examvuelist []model.ExamV
 	for i := 0; i < len(arr); i++ {
 		arr[i] = 0
 	}
-	for count < 10 {
-		s := rand.Intn(num - 1)
-		if arr[s] != 1 {
+	if num > 10 {
+		for count < 10 {
+			s := rand.Intn(num - 1)
+			if arr[s] != 1 {
+				examvue := model.ExamVue{
+					Id:            examlist[s].Id,
+					Question:      examlist[s].Question,
+					Answers:       []string{examlist[s].FirstAnswer, examlist[s].SecondAnswer, examlist[s].ThirdAnswer, examlist[s].FourthAnswer},
+					CorrectAnswer: examlist[s].CorrectAnswer,
+				}
+				examvuelist = append(examvuelist, examvue)
+				count += 1
+				arr[s] = 1
+			}
+		}
+
+	} else {
+		for s := 0; s < num; s++ {
 			examvue := model.ExamVue{
 				Id:            examlist[s].Id,
 				Question:      examlist[s].Question,
@@ -161,10 +176,10 @@ func (e *ExamDao) FindExamLimited(a string, b string) (examvuelist []model.ExamV
 				CorrectAnswer: examlist[s].CorrectAnswer,
 			}
 			examvuelist = append(examvuelist, examvue)
-			count += 1
-			arr[s] = 1
 		}
+
 	}
+
 	return
 }
 
