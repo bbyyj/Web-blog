@@ -36,7 +36,7 @@
                     @click.native="blogDetail(item.id)">
                 </BlogCard>
 
-                <Pagination  @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
+                <Pagination @jumpPage="jumpPage" :pageInfo="{ pageNum: queryInfo.pageNum, pages: pages }"></Pagination>
 
                 <div class="wapper-label">
                     <svg class="star star1"></svg>
@@ -51,13 +51,13 @@
                     </div>
                 </div>
 
-                
+
             </div>
 
-            
+
         </div>
 
-        
+
 
     </div>
 </template>
@@ -82,7 +82,7 @@ import { set } from "vue";
 export default {
 
     name: "Home",
-    components: { BackToTop, BlogCard, Pagination, UserInfoCard},
+    components: { BackToTop, BlogCard, Pagination, UserInfoCard },
     data() {
         return {
             firstBGPageInfo: {
@@ -156,11 +156,12 @@ export default {
             },
             //获得歌单
             musicList: [],
+            //博客的标签_通过函数获取全部标签
             tags: [
-            {id:1, name: "Java"},
-              {id:2, name: "C++"},
-              {id:3, name: "Golang"},
-              {id:4, name: "Nginx"},
+                { id: 1, name: "Java" },
+                { id: 2, name: "C++" },
+                { id: 3, name: "Golang" },
+                { id: 4, name: "Nginx" },
             ],
         }
     },
@@ -327,13 +328,9 @@ export default {
                 }
             }, 120)
         },
+        //获取对应标签下的文章
         itemClicked(id) {
-            this.$router.push({
-                path: "/tags",
-                query: {
-                    id: id
-                }
-            })
+            this.getBlogsByTag(id);
         },
         // 获取所有博客标签
         async getTagList() {
@@ -344,6 +341,22 @@ export default {
                 this.$message.warning("获取标签列表失败！")
             }
         },
+        async getBlogsByTag(tagId) {
+            const { data: res } = await this.$axios.get("/myblog/blogsByTag", { params: { pageNum: this.queryInfo.pageNum, pageSize: this.queryInfo.pageSize, tagId: tagId } });
+            if (res.status === 1) {
+                this.blogDetails = res.data.length > 0 ? res.data[0] : this.blogDetails
+                this.blogCount = res.data.length > 1 ? res.data[1] : this.blogCount
+                console.log("test")
+                console.log(data[0])
+                this.pages = Math.ceil(this.blogCount / this.queryInfo.pageSize)
+                if (this.pages <= 0) {
+                    this.pages = 1
+                }
+            } else {
+                this.$message.error("获取对应标签下的博客失败,请重试")
+            }
+        },
+
     }
 }
 </script>
