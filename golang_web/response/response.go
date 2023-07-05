@@ -45,42 +45,38 @@ func NewResponseOk(code uint32, data ...interface{}) *Response {
 	return NewResponse(http.StatusOK, code, data...)
 }
 
-func NewResponseNoData(status int, code uint32) *Response {
-	return NewResponse(status, code)
-}
-
 func NewResponseOkND(code uint32) *Response {
 	return NewResponse(http.StatusOK, code)
 }
 
-func ResponseQuerySuccess(data ...interface{}) *Response {
+func RQuerySuccess(data ...interface{}) *Response {
 	return NewResponse(http.StatusOK, QuerySuccess, data...)
 }
 
-func ResponseQueryFailed() *Response {
+func RQueryFailed() *Response {
 	return NewResponse(http.StatusOK, QueryFailed)
 }
 
-func ResponseOperateFailed() *Response {
+func ROperateFailed() *Response {
 	return NewResponse(http.StatusOK, OperateFailed)
 }
 
-func ResponseOperateSuccess() *Response {
+func ROperateSuccess() *Response {
 	return NewResponse(http.StatusOK, OperateSuccess)
 }
 
-func ResponseDeleteFailed() *Response {
+func RDeleteFailed() *Response {
 	return NewResponse(http.StatusOK, DeleteFailed)
 }
 
-func ResponseDeleteSuccess() *Response {
+func RDeleteSuccess() *Response {
 	return NewResponse(http.StatusOK, DeleteSuccess)
 }
 
-func ResponseGetResourceFailed() *Response {
+func RGetResourceFailed() *Response {
 	return NewResponse(http.StatusOK, GetResourceFailed)
 }
 
-func ResponseGetResourceSuccess(data ...interface{}) *Response {
+func RGetResourceSuccess(data ...interface{}) *Response {
 	return NewResponse(http.StatusOK, GetResourceSuccess, data...)
 }

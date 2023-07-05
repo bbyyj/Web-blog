@@ -26,10 +26,10 @@ func (m *MusicController) MusicList(ctx *gin.Context) *response.Response {
 	messages, count, err := m.musicService.MusicList(pageNum, pageSize)
 
 	if response.CheckError(err, "Get MusicList error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(messages, count)
+	return response.RQuerySuccess(messages, count)
 }
 
 func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
@@ -48,10 +48,10 @@ func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
 	err = m.musicService.AddMusic(&music)
 
 	if response.CheckError(err, "Add music error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (m *MusicController) DeleteMusic(ctx *gin.Context) *response.Response {
@@ -61,16 +61,16 @@ func (m *MusicController) DeleteMusic(ctx *gin.Context) *response.Response {
 
 	err := m.musicService.DeleteMusic(id)
 	if response.CheckError(err, "Delete music error") {
-		return response.ResponseDeleteFailed()
+		return response.RDeleteFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 func (m *MusicController) GetAllMusic(ctx *gin.Context) *response.Response {
 	musics, err := m.musicService.GetAll()
 	if response.CheckError(err, "Get AllMusic error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(musics)
+	return response.RQuerySuccess(musics)
 }

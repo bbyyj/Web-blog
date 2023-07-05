@@ -23,9 +23,9 @@ func NewTagListRouter() *TagListController {
 func (t *TagListController) GetTagList(ctx *gin.Context) *response.Response {
 	tags, err := t.tagService.GetAllTags()
 	if response.CheckError(err, "Get tags error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(tags)
+	return response.RQuerySuccess(tags)
 }
 
 // 标签页根据标签ID获取博客
@@ -36,8 +36,8 @@ func (t *TagListController) GetBlogListByTagId(ctx *gin.Context) *response.Respo
 
 	blogs, i, err := t.blogService.GetBlogsByTagId(id, pageNum, pageSize)
 	if response.CheckError(err, "get blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blogs, i)
+	return response.RQuerySuccess(blogs, i)
 }

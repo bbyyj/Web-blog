@@ -24,11 +24,11 @@ func NewTypeListRouter() *TypeListController {
 func (t *TypeListController) GetTypeList(ctx *gin.Context) *response.Response {
 	allTypes, err := t.typeService.FindAll()
 	if response.CheckError(err, "Get all types error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	typeIds, err := t.blogService.GetAllTypes()
 	if response.CheckError(err, "Get all types error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	m := make(map[int]*model.TheType)
 	for i := 0; i < len(allTypes); i++ {
@@ -39,7 +39,7 @@ func (t *TypeListController) GetTypeList(ctx *gin.Context) *response.Response {
 		m[v].Count++
 	}
 
-	return response.ResponseQuerySuccess(allTypes)
+	return response.RQuerySuccess(allTypes)
 }
 
 // 博客类型页面根据博客类型ID获取博客
@@ -50,8 +50,8 @@ func (t *TypeListController) GetBlogListByTypeid(ctx *gin.Context) *response.Res
 
 	blogs, count, err := t.blogService.GetBlogListByTypeId(typeId, pageNum, pageSize)
 	if response.CheckError(err, "Get blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blogs, count)
+	return response.RQuerySuccess(blogs, count)
 }

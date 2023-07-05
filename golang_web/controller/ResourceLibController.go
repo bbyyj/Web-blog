@@ -27,15 +27,15 @@ func NewResourceLibRouter() *ResourceLibController {
 func (r *ResourceLibController) LinkList(ctx *gin.Context) *response.Response {
 	links, err := r.linkService.GetAllLinks()
 	if response.CheckError(err, "Get links error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	categories, err := r.linkService.GetAllCategory()
 
 	if response.CheckError(err, "Get categories error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(links, categories)
+	return response.RQuerySuccess(links, categories)
 }
 
 func (r *ResourceLibController) GetALLResource(ctx *gin.Context) *response.Response {
@@ -47,9 +47,9 @@ func (r *ResourceLibController) GetALLResource(ctx *gin.Context) *response.Respo
 	resource, count, err := r.linkService.GetLimitedResource(pagestart, pagesize)
 	fmt.Println(count)
 	if response.CheckError(err, "Get AllResource error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
-	return response.ResponseGetResourceSuccess(resource, count)
+	return response.RGetResourceSuccess(resource, count)
 }
 
 func (r *ResourceLibController) GetALLResourceByCategoryId(ctx *gin.Context) *response.Response {
@@ -61,9 +61,9 @@ func (r *ResourceLibController) GetALLResourceByCategoryId(ctx *gin.Context) *re
 	pageSize := utils.DefaultQueryInt(ctx, "pagesize", "10")
 	resource, count, err := r.linkService.GetAllResourceByCategoryId(categoryId, pageStart, pageSize)
 	if response.CheckError(err, "Get AllResourceByCategoryId error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
-	return response.ResponseGetResourceSuccess(resource, count)
+	return response.RGetResourceSuccess(resource, count)
 }
 
 func (r *ResourceLibController) GetAllResourceLikeName(ctx *gin.Context) *response.Response {
@@ -74,9 +74,9 @@ func (r *ResourceLibController) GetAllResourceLikeName(ctx *gin.Context) *respon
 	name = ("%" + name + "%")
 	resource, count, err := r.linkService.GetAllResourceLikeName(name, pagenum, pagesize)
 	if response.CheckError(err, "Get AllResourceLikeName error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
-	return response.ResponseGetResourceSuccess(resource, count)
+	return response.RGetResourceSuccess(resource, count)
 
 }
 
@@ -119,18 +119,18 @@ func (r *ResourceLibController) GetResourceDetailByName(ctx *gin.Context) *respo
 	name := ctx.Query("name")
 	resource, err := r.linkService.GetAllResourceByName(name)
 	if response.CheckError(err, "Get AllResourceLikeName error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
-	return response.ResponseGetResourceSuccess(resource)
+	return response.RGetResourceSuccess(resource)
 
 }
 
 func (r *ResourceLibController) GetALLCategory(ctx *gin.Context) *response.Response {
 	category, err := r.linkService.GetAllCategoryNew()
 	if response.CheckError(err, "Get AllResource error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(category)
+	return response.RQuerySuccess(category)
 }
 
 func (l *ResourceLibController) AddReasourceCheckService(ctx *gin.Context) *response.Response {
@@ -146,7 +146,7 @@ func (l *ResourceLibController) AddReasourceCheckService(ctx *gin.Context) *resp
 	err = l.linkService.CheckResourceCheckName(resource.ID, resource.Name)
 	if response.CheckError(err, "find same name") {
 		fmt.Println(err)
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	resource.DownloadNum = 0
 	//resource.Url = "D:/Go project/Go_UPandDownload/downloads/" + resource.Name
@@ -155,9 +155,9 @@ func (l *ResourceLibController) AddReasourceCheckService(ctx *gin.Context) *resp
 	err = l.linkService.AddResourceCheck(&resource)
 	if response.CheckError(err, "Add ResourceCheck error") {
 		fmt.Println(err)
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *ResourceLibController) UploadReasourceCheckService(ctx *gin.Context) {

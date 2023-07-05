@@ -22,9 +22,9 @@ func (e *ElectionController) ElectionListNoPage(ctx *gin.Context) *response.Resp
 	classification := ctx.Query("classification")
 	essays, err := e.electionDao.FindAllElectionNopage(classification)
 	if response.CheckError(err, "Get Election List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays)
+	return response.RQuerySuccess(essays)
 }
 
 func (e *ElectionController) ElectionByClass(ctx *gin.Context) *response.Response {
@@ -33,26 +33,26 @@ func (e *ElectionController) ElectionByClass(ctx *gin.Context) *response.Respons
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionDao.FindElectionByClass(classification, pageNum, pageSize)
 	if response.CheckError(err, "Get Election List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 func (e *ElectionController) ElectionAllList(ctx *gin.Context) *response.Response {
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionDao.FindAllDetailedElection(pageNum, pageSize)
 	if response.CheckError(err, "Get Election List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 func (e *ElectionController) DeleteElection(ctx *gin.Context) *response.Response {
 	subjectId := ctx.Query("subject_id")
 	err := e.electionDao.DeleteElection(subjectId)
 	if response.CheckError(err, "Delete exam error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 func (e *ElectionController) AddElection(ctx *gin.Context) *response.Response {
 	var election model.ElectionDetailed
@@ -63,9 +63,9 @@ func (e *ElectionController) AddElection(ctx *gin.Context) *response.Response {
 	}
 	err = e.electionDao.CreateElection(&election)
 	if response.CheckError(err, "Add Election error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 func (e *ElectionController) UpdateElection(ctx *gin.Context) *response.Response {
 	var election model.ElectionDetailed
@@ -76,7 +76,7 @@ func (e *ElectionController) UpdateElection(ctx *gin.Context) *response.Response
 	}
 	err = e.electionDao.UpdateElection(&election)
 	if response.CheckError(err, "Add Election error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

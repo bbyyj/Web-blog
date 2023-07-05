@@ -21,10 +21,10 @@ func NewTypeRouter() *TypeController {
 func (t *TypeController) GetAllTypes(ctx *gin.Context) *response.Response {
 	types, err := t.typeService.FindAll()
 	if response.CheckError(err, "Find types error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(types)
+	return response.RQuerySuccess(types)
 }
 
 func (t *TypeController) GetOnePageTypes(ctx *gin.Context) *response.Response {
@@ -32,41 +32,41 @@ func (t *TypeController) GetOnePageTypes(ctx *gin.Context) *response.Response {
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "5")
 	types, count, err := t.typeService.GetOnePage(pageNum, pageSize)
 	if response.CheckError(err, "Get one page types error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(types, count)
+	return response.RQuerySuccess(types, count)
 }
 
 func (t *TypeController) CheckTypeExist(ctx *gin.Context) *response.Response {
 	typename := ctx.Query("typename")
 	exist := t.typeService.CheckTypeExist(typename)
-	return response.ResponseQuerySuccess(exist)
+	return response.RQuerySuccess(exist)
 }
 
 func (t *TypeController) DeleteType(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	err := t.typeService.DeleteById(id)
 	if response.CheckError(err, "Delete type error") {
-		return response.ResponseDeleteFailed()
+		return response.RDeleteFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 func (t *TypeController) UpdateType(ctx *gin.Context) *response.Response {
 	var tp model.TheType
 	err := ctx.ShouldBind(&tp)
 	if response.CheckError(err, "Bind param error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
 	err = t.typeService.UpdateName(tp.Id, tp.Name)
 	if response.CheckError(err, "Update type error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (t *TypeController) AddType(ctx *gin.Context) *response.Response {
@@ -74,8 +74,8 @@ func (t *TypeController) AddType(ctx *gin.Context) *response.Response {
 	ctx.ShouldBind(&tp)
 	err := t.typeService.AddType(tp.Name)
 	if response.CheckError(err, "Add type error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

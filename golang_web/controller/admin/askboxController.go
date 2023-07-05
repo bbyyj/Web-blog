@@ -27,9 +27,9 @@ func (a *AskBoxBackController) GetAllQA(ctx *gin.Context) *response.Response {
 	messages, count, err := a.askBoxService.GetAllQA(pageNum, pageSize)
 
 	if response.CheckError(err, "Get messages error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(messages, count)
+	return response.RQuerySuccess(messages, count)
 }
 
 func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Response {
@@ -39,10 +39,10 @@ func (a *AskBoxBackController) GetUnansweredQA(ctx *gin.Context) *response.Respo
 	messages, count, err := a.askBoxService.GetUnansweredQA(pageNum, pageSize)
 
 	if response.CheckError(err, "Find Unanswered QA error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(messages, count)
+	return response.RQuerySuccess(messages, count)
 }
 
 func (a *AskBoxBackController) GetAnsweredQAPage(ctx *gin.Context) *response.Response {
@@ -52,10 +52,10 @@ func (a *AskBoxBackController) GetAnsweredQAPage(ctx *gin.Context) *response.Res
 	messages, count, err := a.askBoxService.GetAnsweredQAPage(pageNum, pageSize)
 
 	if response.CheckError(err, "Find Answered QA error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(messages, count)
+	return response.RQuerySuccess(messages, count)
 }
 
 func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
@@ -71,10 +71,10 @@ func (a *AskBoxBackController) AddAnswer(ctx *gin.Context) *response.Response {
 
 	err = a.askBoxService.AddAnswer(&msg)
 	if response.CheckError(err, "Add answer error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response {
@@ -90,18 +90,18 @@ func (a *AskBoxBackController) ModifyAnswer(ctx *gin.Context) *response.Response
 
 	err = a.askBoxService.ModifyAnswer(&msg)
 	if response.CheckError(err, "Modify answer error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (a *AskBoxBackController) DeleteQuestion(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "parent_id")
 	err := a.askBoxService.DeleteQuestion(id)
 	if response.CheckError(err, "Delete Question error") {
-		return response.ResponseDeleteFailed()
+		return response.RDeleteFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }

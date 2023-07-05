@@ -23,9 +23,9 @@ func (e *ElectionCommentController) ElectionCommentAllList(ctx *gin.Context) *re
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionCommentDao.FindAllElectionComment(pageNum, pageSize)
 	if response.CheckError(err, "Get Election Comment List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 
 func (e *ElectionCommentController) ElectionCommentListByClassification(ctx *gin.Context) *response.Response {
@@ -35,16 +35,16 @@ func (e *ElectionCommentController) ElectionCommentListByClassification(ctx *gin
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionCommentDao.FindElectionCommentByClassification(classification, subject_name, pageNum, pageSize)
 	if response.CheckError(err, "Get Election Comment List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 
 func (e *ElectionCommentController) DeleteElectionComment(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	err := e.electionCommentDao.DeleteElectionComment(id)
 	if response.CheckError(err, "Delete Election Comment error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

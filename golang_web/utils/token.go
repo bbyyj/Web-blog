@@ -5,48 +5,48 @@ import (
 	"time"
 )
 
-type Claim struct {
+type MyCustomClaims struct {
 	Username string
 	UserId   uint32
 	jwt.StandardClaims
 }
 
-var jwtKey = []byte("golang-im-server")
+var mySigningKey = []byte("web-homework")
 
-func CreateToken(id uint32, username string, expireDuration time.Duration) (string, error) {
-	claims := &Claim{
-		Username: username,
+func CreateToken(id uint32, userName string, expireDuration time.Duration) (string, error) {
+	myClaims := &MyCustomClaims{
+		Username: userName,
 		UserId:   id,
 		StandardClaims: jwt.StandardClaims{
 			IssuedAt:  time.Now().Unix(),
-			Issuer:    "mgh",
-			Subject:   "User_Token",
+			Issuer:    "web-blog",
+			Subject:   "myToken",
 			ExpiresAt: time.Now().Add(expireDuration).Unix(),
 		},
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenStr, err := token.SignedString(jwtKey)
+	myToken := jwt.NewWithClaims(jwt.SigningMethodHS256, myClaims)
+	myTokenStr, err := myToken.SignedString(mySigningKey)
 	if err != nil {
 		return "", err
 	}
 
-	return tokenStr, nil
+	return myTokenStr, nil
 }
 
-func VerifyToken(token string) (string, uint32, bool) {
-	if token == "" {
+func VerifyToken(mytoken string) (string, uint32, bool) {
+	if mytoken == "" {
 		return "", 0, false
 	}
 
-	tok, err := jwt.ParseWithClaims(token, &Claim{}, func(token *jwt.Token) (interface{}, error) {
-		return jwtKey, nil
+	tok, err := jwt.ParseWithClaims(mytoken, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return mySigningKey, nil
 	})
 	if err != nil {
 		Logger().Warning("ParseWithClaims error %v", err)
 		return "", 0, false
 	}
 
-	if claims, ok := tok.Claims.(*Claim); ok && tok.Valid {
+	if claims, ok := tok.Claims.(*MyCustomClaims); ok && tok.Valid {
 		return claims.Username, claims.UserId, true
 	} else {
 		Logger().Warning("%v", err)

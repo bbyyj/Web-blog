@@ -26,27 +26,27 @@ func (h *HomeController) HomeListBlogs(ctx *gin.Context) *response.Response {
 	utils.Logger().Debug("pageNum:%v, pageSize:%v", pageNum, pageSize)
 
 	if pageNum <= 0 || pageSize <= 0 {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	blogs, err := h.blogService.GetHomePageBlogs(pageNum, pageSize)
 	if response.CheckError(err, "Get Blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	count, err := h.blogService.GetBolgCount()
 	if response.CheckError(err, "Get Blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blogs, count)
+	return response.RQuerySuccess(blogs, count)
 }
 
 func (h *HomeController) GetHomePageUInfo(ctx *gin.Context) *response.Response {
 	user, tagn, err := h.userService.GetInfo()
 	if response.CheckError(err, "Get Userinfo error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(user, tagn)
+	return response.RQuerySuccess(user, tagn)
 }
 
 // 浏览博客详情
@@ -54,10 +54,10 @@ func (h *HomeController) GetDetailedBlog(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	blog, tags, err := h.blogService.GetDetailedBlog(id)
 	if response.CheckError(err, "Get Detailed blog error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blog, tags)
+	return response.RQuerySuccess(blog, tags)
 }
 
 // 搜索博客
@@ -65,8 +65,8 @@ func (h *HomeController) SearchBlog(ctx *gin.Context) *response.Response {
 	keyWord := ctx.Query("keyWord")
 	blogs, err := h.blogService.GetBlogsByKeyWord(keyWord)
 	if response.CheckError(err, "Search Blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blogs)
+	return response.RQuerySuccess(blogs)
 }

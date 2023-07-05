@@ -39,28 +39,10 @@ func NewExamRouter() *ExamController {
 func (e *SubjectController) SubjectList(ctx *gin.Context) *response.Response {
 	essays, err := e.subjectDao.FindAll()
 	if response.CheckError(err, "Get Subject List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays)
+	return response.RQuerySuccess(essays)
 }
-
-//func (e *SubjectController) UpdateSubject(ctx *gin.Context) *response.Response {
-//	updatesub := struct {
-//		Old_sub string `json:"old_subject"`
-//		New_sub string `json:"new_subject"`
-//	}{}
-//	err := ctx.ShouldBind(&updatesub)
-//	if response.CheckError(err, "Bind param error") {
-//		ctx.Status(http.StatusInternalServerError)
-//		return nil
-//	}
-//	err = e.subjectDao.UpdateSub(updatesub.Old_sub, updatesub.New_sub)
-//	if response.CheckError(err, "Update subject error") {
-//		return response.ResponseOperateFailed()
-//	}
-//	return response.ResponseOperateSuccess()
-//
-//}
 
 func (e *ChapterController) ChapterList(ctx *gin.Context) *response.Response {
 	name := ctx.Query("name")
@@ -68,9 +50,9 @@ func (e *ChapterController) ChapterList(ctx *gin.Context) *response.Response {
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	chapters, err := e.chapterDao.FindChapter(name, pageNum, pageSize)
 	if response.CheckError(err, "Get Chapter List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(chapters)
+	return response.RQuerySuccess(chapters)
 }
 
 func (e *ExamController) ExamList(ctx *gin.Context) *response.Response {
@@ -78,8 +60,8 @@ func (e *ExamController) ExamList(ctx *gin.Context) *response.Response {
 	b := ctx.Query("title")
 	exams, err := e.examDao.FindExamLimited(a, b)
 	if response.CheckError(err, "Get Exam List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(exams)
+	return response.RQuerySuccess(exams)
 
 }
