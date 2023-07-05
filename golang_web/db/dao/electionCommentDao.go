@@ -19,6 +19,7 @@ func NewElectionCommentDao() *ElectionCommentDao {
 			`SELECT * FROM election_comment WHERE classification=? and subject_name=? ORDER BY id ASC LIMIT ?,?;`,
 			`SELECT COUNT(*) FROM election_comment WHERE classification=?`,
 			`SELECT classification FROM t_election WHERE subject_id=?`,
+			`SELECT COUNT(*) FROM election_comment WHERE classification=? and subject_name=?`,
 		},
 	}
 }
@@ -41,7 +42,7 @@ func (e *ElectionCommentDao) FindAllElectionComment(pageNum int, pageSize int) (
 func (e *ElectionCommentDao) FindElectionCommentByClassification(classification string, subjectName string, pageNum int, pageSize int) (electionCommentList []model.ElectionComment, count int, err error) {
 	pageStart := (pageNum - 1) * pageSize
 	err = sqldb.Select(&electionCommentList, e.sql[7], classification, subjectName, pageStart, pageSize)
-	err = sqldb.Get(&count, e.sql[8], classification)
+	err = sqldb.Get(&count, e.sql[10], classification, subjectName)
 	if err != nil {
 		println(err.Error())
 	}
