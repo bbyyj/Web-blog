@@ -76,7 +76,6 @@ export default {
                 this.getSubject();
             }
         },
-
     },
     created() {
         this.getALLcomments()
@@ -121,12 +120,22 @@ export default {
         // 监听pagesize 改变的事件
         handleSizeChange: function (pagesize) {
             this.queryInfo.pageSize = pagesize;
-            this.getComments()
+            if (this.selectedSubject != "") {
+                this.getComments()  //选择对应的科目
+            }
+            else {
+                this.getALLcomments()  //获取全部的
+            }
         },
         // 页码值发送变化
         handleCurrentChange: function (newPage) {
             this.queryInfo.pageNum = newPage;
-            this.getComments()
+            if (this.selectedSubject != "") {
+                this.getComments()  //没有选择对应的科目
+            }
+            else {
+                this.getALLcomments()  //获取全部的
+            }
         },
         //删除的操作
         async handleDelete(index) {
@@ -178,7 +187,6 @@ export default {
         },
         //获取对应类型+学科的全部评论
         async getComments() {
-
             const { data: res } = await this.$axios.get("/admin/electionByClassification", {
                 params: {
                     classification: this.selectedCategory,
@@ -202,7 +210,6 @@ export default {
 
 
 <style>
-
 .del {
     background-color: #f6727218;
     color: #f67272ac;
@@ -214,5 +221,4 @@ export default {
     color: #fff;
     border-color: #f67272ac;
 }
-
 </style>
