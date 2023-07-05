@@ -154,7 +154,6 @@ export default {
                 this.items = res.data[0];
                 this.total = res.data[1];
                 this.categoryid = 0;
-                console.log(res);
             }
             else{
                 this.$message.warning("获取资源失败")
@@ -176,7 +175,6 @@ export default {
                 return
             }
             this.categories = res.data.length > 0 ? res.data[0] : []
-            console.log(res);
         },
 
         //点击分类展示对应内容
@@ -193,7 +191,7 @@ export default {
                 this.items = res.data[0];
                 this.total = res.data[1];
                 this.categoryid = cateid;
-                console.log(res);
+
             }
             else{
                 this.$message.warning("获取资源失败")
@@ -215,13 +213,11 @@ export default {
             let pagenum = this.queryInfo.pagenum;
             let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname, pagenum: pagenum, pagesize: pagesize  } });
-            console.log(res);
 
             if(res.status = 563){
                 this.items = res.data[0];
                 this.total = res.data[1];
                 this.categoryid = -1;
-                console.log(res);
             }
             else{
                 this.$message.warning("获取资源失败")
@@ -276,12 +272,10 @@ export default {
 
             axios.post('/myblog/t/uploadresourcecheck', formData)
                 .then(response => {
-                // 处理后端返回的数据
                 this.postInfo.url = response.data.url
                 this.$message.success("上传成功!")
                 })
                 .catch(error => {
-                // 处理错误
                 console.log(error);
                 });
         },
@@ -302,7 +296,6 @@ export default {
             
             let res
             res = await this.$axios.post("/myblog/t/addresourcecheck",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
-            console.log(res);
             
             if (res.data.status !== 101) {
                 this.$message.error("操作失败，请重试！")

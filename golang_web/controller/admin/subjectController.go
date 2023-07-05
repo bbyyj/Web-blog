@@ -31,25 +31,25 @@ func (e *SubjectController) AddSubject(ctx *gin.Context) *response.Response {
 	if subject.Id == 0 { // 新增学科
 		err = e.subjectDao.AddSub(&subject)
 		if response.CheckError(err, "Add subject error") {
-			return response.ResponseOperateFailed()
+			return response.ROperateFailed()
 		}
 	}
 	//else { // 更新博客
 	//	err = e.subjectDao.UpdateSub(&subject)
 	//	if response.CheckError(err, "Update subject error") {
-	//		return response.ResponseOperateFailed()
+	//		return response.ROperateFailed()
 	//	}
 	//}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (e *SubjectController) DeleteSubject(ctx *gin.Context) *response.Response {
 	err := e.subjectDao.DeleteSub(ctx.Query("name"))
 	if response.CheckError(err, "Delete subject error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 //章节部分的后台管理
@@ -69,9 +69,9 @@ func (e *ChapterController) ChapterList(ctx *gin.Context) *response.Response {
 	//pageSize := utils.QueryInt(ctx, "pageSize")
 	chapters, err := e.chapterDao.FindAllChapter(name)
 	if response.CheckError(err, "Get Chapter List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(chapters)
+	return response.RQuerySuccess(chapters)
 }
 
 func (e *ChapterController) AddChapter(ctx *gin.Context) *response.Response {
@@ -83,17 +83,17 @@ func (e *ChapterController) AddChapter(ctx *gin.Context) *response.Response {
 	}
 	err = e.chapterDao.AddChapter(chapter.Subject, chapter.Chapter, chapter.Description)
 	if response.CheckError(err, "Add chapter error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (e *ChapterController) DeleteChapter(ctx *gin.Context) *response.Response {
 	err := e.chapterDao.DeleteChapter(ctx.Query("subjectName"), ctx.Query("chapterName"))
 	if response.CheckError(err, "Delete chapter error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 
 }
 
@@ -116,9 +116,9 @@ func (e *ExamController) ExamList(ctx *gin.Context) *response.Response {
 
 	exams, count, err := e.examDao.FindExam(a, b, pageNum, pageSize)
 	if response.CheckError(err, "Get Exam List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(exams, count)
+	return response.RQuerySuccess(exams, count)
 
 }
 
@@ -127,9 +127,9 @@ func (e *ExamController) DeleteExam(ctx *gin.Context) *response.Response {
 	id, _ := strconv.Atoi(s)
 	err := e.examDao.DeleteExam(id)
 	if response.CheckError(err, "Delete exam error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 func (e *ExamController) CreateExam(ctx *gin.Context) *response.Response {
@@ -141,9 +141,9 @@ func (e *ExamController) CreateExam(ctx *gin.Context) *response.Response {
 	}
 	err = e.examDao.CreateExam(&exam)
 	if response.CheckError(err, "Add Exam error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 
 }
 
@@ -156,7 +156,7 @@ func (e *ExamController) UpdateExam(ctx *gin.Context) *response.Response {
 	}
 	err = e.examDao.UpdateExam(&exam)
 	if response.CheckError(err, "update Exam error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

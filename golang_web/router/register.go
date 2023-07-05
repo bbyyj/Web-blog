@@ -19,6 +19,7 @@ func registerBlogRouters(engine *gin.Engine) {
 		blogGroup.GET("/userInfo", Decorate(homeRouter.GetHomePageUInfo))
 		blogGroup.GET("/detailedBlog", Decorate(homeRouter.GetDetailedBlog))
 		blogGroup.GET("/search", Decorate(homeRouter.SearchBlog))
+		blogGroup.GET("/blogsByTag", Decorate(homeRouter.GetAllBlogByTags))
 	}
 
 	typeListRouter := controller.NewTypeListRouter()

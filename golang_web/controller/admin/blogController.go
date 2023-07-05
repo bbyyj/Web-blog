@@ -30,20 +30,20 @@ func (b *BlogController) SearchBlogs(ctx *gin.Context) *response.Response {
 
 	blogs, count, err := b.blogService.GetBlogsByTitleOrTypeOrRecommend(pageNum, pageSize, blogTitle, typeId, recommended)
 	if response.CheckError(err, "Search blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blogs, count)
+	return response.RQuerySuccess(blogs, count)
 }
 
 func (b *BlogController) DeleteBlog(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	err := b.blogService.DeleteBlog(id)
 	if response.CheckError(err, "Delete blog error") {
-		return response.ResponseDeleteFailed()
+		return response.RDeleteFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 // 包括文章正文内容的 并使用tag服务里的操作返回一串tag
@@ -51,10 +51,10 @@ func (b *BlogController) GetFullBlog(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	blogs, tags, err := b.blogService.GetFullBlog(id)
 	if response.CheckError(err, "Get Full blog error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(blogs, tags)
+	return response.RQuerySuccess(blogs, tags)
 }
 
 func (b *BlogController) AddBlog(ctx *gin.Context) *response.Response {
@@ -76,14 +76,14 @@ func (b *BlogController) AddBlog(ctx *gin.Context) *response.Response {
 	if blog.Id == 0 { // 新记录插入
 		err = b.blogService.AddBlog(&blog)
 		if response.CheckError(err, "Add blog error") {
-			return response.ResponseOperateFailed()
+			return response.ROperateFailed()
 		}
 	} else { // 旧记录更新
 		err = b.blogService.UpdateBlog(&blog)
 		if response.CheckError(err, "Update blog error") {
-			return response.ResponseOperateFailed()
+			return response.ROperateFailed()
 		}
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

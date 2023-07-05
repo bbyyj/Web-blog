@@ -178,7 +178,7 @@ export default {
         },
         //获取对应类型+学科的全部评论
         async getComments() {
-            console.log("test")
+
             const { data: res } = await this.$axios.get("/admin/electionByClassification", {
                 params: {
                     classification: this.selectedCategory,

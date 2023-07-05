@@ -17,10 +17,6 @@
                     </el-select>
                 </el-col>
 
-                <el-col :span="2">
-                    <!-- 推荐选项 -->
-                    <el-checkbox class="ch" v-model="queryInfo.recommended" label="推荐" border></el-checkbox>
-                </el-col>
 
                 <el-col :span="4">
                     <el-button class="clear" type="info">clear</el-button>

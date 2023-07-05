@@ -157,7 +157,6 @@ export default {
                 categories = res.data[1]
                 //总数
                 count = res.data[2]
-                console.log(res)
             } else {
                 this.$message.error("获取列表失败，请重试！")
                 return
@@ -181,7 +180,6 @@ export default {
                 return
             }
             this.categories = res.data.length > 0 ? res.data[0] : []
-            console.log(res);
         },
         changeCategory(name) {
             this.selectedCategory = name
@@ -196,12 +194,10 @@ export default {
             let pagenum = this.queryInfo.pagenum;
             let pagesize = this.queryInfo.pagesize;
             const {data: res} = await this.$axios.get("/myblog/t/queryresource", { params: {  name: this.info.sname, pagenum: pagenum, pagesize: pagesize  } });
-            console.log(res);
 
             if(res.status = 563){
                 this.links = res.data[0];
                 this.total = res.data[1];
-                console.log(res);
             }
             else{
                 this.$message.warning("获取资源失败")
@@ -230,13 +226,11 @@ export default {
             })
             this.selectedCategory = val.name
             this.postInfo.url = ""
-            console.log(this.postInfo.url)
             
         },
 
         //表格内删除button对应
         async handleDelete(id) {
-            console.log(id);
             this.$messageBox.confirm('确认删除该资源?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
@@ -248,7 +242,7 @@ export default {
                     this.$message.error("删除失败，请重试！")
                 } else {
                     this.$message.success("删除成功！")
-                    console.log(res);
+
                 }
                 if (this.queryInfo.pagenum === Math.ceil(this.total / this.queryInfo.pagesize) && this.links.length === 1) {
                     this.queryInfo.pagenum -= 1
@@ -297,13 +291,10 @@ export default {
 
             axios.post('/admin/t/uploadresource', formData)
                 .then(response => {
-                // 处理后端返回的数据
-                console.log(response.data);
                 this.postInfo.url = response.data.url
                 this.$message.success("上传成功！")
                 })
                 .catch(error => {
-                // 处理错误
                 console.log(error);
                 });
         },
@@ -325,11 +316,8 @@ export default {
                     return
                 }
                 res = await this.$axios.post("/admin/t/addresource",  { name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
-                console.log(res);
             } else {
                 res = await this.$axios.put("/admin/t/updateresource", { ID: this.postInfo.ID, name: this.postInfo.name, desc: this.postInfo.desc, categoryid: this.postInfo.categoryid, url: this.postInfo.url })
-
-                console.log(res);
             }
             if (res.data.status !== 101) {
                 this.$message.error("操作失败，请重试！")
@@ -364,10 +352,8 @@ export default {
             let res
             if(this.categoryPost.id === 0) {
                 res = await this.$axios.post("/admin/addCategory", this.categoryPost);
-                console.log(res);
             } else {
                 res = await this.$axios.put("/admin/updateCategory", this.categoryPost)
-                console.log(res);
             }
 
             if (res.data.status === 101) {

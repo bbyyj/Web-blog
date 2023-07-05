@@ -5,19 +5,15 @@ import (
 	"github.com/spf13/viper"
 )
 
-var logg *logger.Logger
+var logInstance *logger.Logger
 
 func Logger() *logger.Logger {
-	return logg
+	return logInstance
 }
 
 func CreateLogger() {
-	if viper.GetBool("log.toFile") {
-		logg = logger.NewFileLogger(viper.GetString("log.filepath"),
-			viper.GetString("log.filename"),
-			viper.GetString("log.level"),
-		)
-	} else {
-		logg = logger.NewLogger(viper.GetString("log.level"))
-	}
+	logInstance = logger.NewFileLogger(viper.GetString("log.filepath"),
+		viper.GetString("log.filename"),
+		viper.GetString("log.level"),
+	)
 }

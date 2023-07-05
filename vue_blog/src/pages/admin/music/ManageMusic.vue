@@ -6,10 +6,10 @@
             </el-row>
             <el-table :data="musicList" border stripe>
                 <el-table-column type="index"></el-table-column>
-                <el-table-column label="name" prop="name" width="300px"></el-table-column>
-                <el-table-column label="artist" prop="artist"></el-table-column>
-                <el-table-column label="url" prop="url" width="180px"></el-table-column>
-                <el-table-column label="cover" prop="cover"></el-table-column>
+                <el-table-column label="音乐名" prop="name" width="300px"></el-table-column>
+                <el-table-column label="艺术家" prop="artist"></el-table-column>
+                <el-table-column label="音乐url" prop="url" width="180px"></el-table-column>
+                <el-table-column label="音乐封面" prop="cover"></el-table-column>
                 <el-table-column>
                     <template slot-scope="scope">
                         <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
@@ -24,16 +24,16 @@
 
             <el-dialog title="新的音乐信息" :visible.sync="dialogFormVisible">
                 <el-form label-width="80px">
-                    <el-form-item label="name:">
+                    <el-form-item label="音乐名:">
                         <el-input v-model="postInfo.name" autocomplete="off" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="artist:">
+                    <el-form-item label="艺术家:">
                         <el-input v-model="postInfo.artist" autocomplete="off" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="url:">
+                    <el-form-item label="音乐url:">
                         <el-input v-model="postInfo.url" autocomplete="off" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="cover:">
+                    <el-form-item label="音乐封面:">
                         <el-input v-model="postInfo.cover" autocomplete="off" clearable></el-input>
                     </el-form-item>
                 </el-form>

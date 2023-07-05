@@ -22,25 +22,25 @@ func (e *ElectionController) ElectionList(ctx *gin.Context) *response.Response {
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionDao.FindAllElection(classification, pageNum, pageSize)
 	if response.CheckError(err, "Get Election List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 func (e *ElectionController) ElectionListNoClass(ctx *gin.Context) *response.Response {
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pageSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionDao.FindAllElectionNoClass(pageNum, pageSize)
 	if response.CheckError(err, "Get Election List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 
 func (e *ElectionController) ElectionDetailedList(ctx *gin.Context) *response.Response {
 	subjectId := ctx.Query("subject_id")
 	essays, err := e.electionDao.FindDetailedElection(subjectId)
 	if response.CheckError(err, "Get ElectionDetailed List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays)
+	return response.RQuerySuccess(essays)
 }

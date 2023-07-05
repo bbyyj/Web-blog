@@ -29,26 +29,26 @@ func (l *LinksController) LinksList(ctx *gin.Context) *response.Response {
 
 	links, err := l.linkService.GetLimitedLinks(pageNum, pageSize)
 	if response.CheckError(err, "Get links error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	categories, err := l.linkService.GetAllCategory()
 	if response.CheckError(err, "Get categories error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
 	count, _ := l.linkService.GetLinkCount()
 
-	return response.ResponseQuerySuccess(links, categories, count)
+	return response.RQuerySuccess(links, categories, count)
 }
 
 func (l *LinksController) DeleteLink(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	err := l.linkService.DeleteLink(id)
 	if response.CheckError(err, "Delete link error") {
-		return response.ResponseDeleteFailed()
+		return response.RDeleteFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 func (l *LinksController) UpdateLink(ctx *gin.Context) *response.Response {
@@ -61,10 +61,10 @@ func (l *LinksController) UpdateLink(ctx *gin.Context) *response.Response {
 
 	err = l.linkService.UpdateLink(&link)
 	if response.CheckError(err, "Update link error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) AddLink(ctx *gin.Context) *response.Response {
@@ -77,29 +77,29 @@ func (l *LinksController) AddLink(ctx *gin.Context) *response.Response {
 
 	err = l.linkService.AddLink(&link)
 	if response.CheckError(err, "Add link error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) Categories(ctx *gin.Context) *response.Response {
 	categories, err := l.linkService.GetAllCategory()
 	if response.CheckError(err, "Get categories error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 
-	return response.ResponseQuerySuccess(categories)
+	return response.RQuerySuccess(categories)
 }
 
 func (l *LinksController) DeleteCategory(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	err := l.linkService.DeleteCategory(id)
 	if response.CheckError(err, "Delete category error") {
-		return response.ResponseDeleteFailed()
+		return response.RDeleteFailed()
 	}
 
-	return response.ResponseDeleteSuccess()
+	return response.RDeleteSuccess()
 }
 
 func (l *LinksController) UpdateCategory(ctx *gin.Context) *response.Response {
@@ -112,10 +112,10 @@ func (l *LinksController) UpdateCategory(ctx *gin.Context) *response.Response {
 
 	err = l.linkService.UpdateCategory(&category)
 	if response.CheckError(err, "Update category error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) AddCategory(ctx *gin.Context) *response.Response {
@@ -128,10 +128,10 @@ func (l *LinksController) AddCategory(ctx *gin.Context) *response.Response {
 
 	err = l.linkService.AddCategory(&category)
 	if response.CheckError(err, "Add category error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) ResourceList(ctx *gin.Context) *response.Response {
@@ -143,14 +143,14 @@ func (l *LinksController) ResourceList(ctx *gin.Context) *response.Response {
 	fmt.Println(pageSize)
 	links, count, err := l.linkService.GetLimitedResource(pageNum, pageSize)
 	if response.CheckError(err, "Get Resource error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
 	categories, err := l.linkService.GetAllCategory()
 	/*if response.CheckError(err, "Get categories error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}*/
 
-	return response.ResponseGetResourceSuccess(links, categories, count)
+	return response.RGetResourceSuccess(links, categories, count)
 }
 
 func (l *LinksController) ResourceCheckList(ctx *gin.Context) *response.Response {
@@ -162,13 +162,13 @@ func (l *LinksController) ResourceCheckList(ctx *gin.Context) *response.Response
 	fmt.Println(pageSize)
 	links, count, err := l.linkService.GetLimitedResourceCheck(pageNum, pageSize)
 	if response.CheckError(err, "Get Resource error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
 	categories, err := l.linkService.GetAllCategory()
 	/*if response.CheckError(err, "Get categories error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}*/
-	return response.ResponseGetResourceSuccess(links, categories, count)
+	return response.RGetResourceSuccess(links, categories, count)
 }
 func (l *LinksController) UpdateResource(ctx *gin.Context) *response.Response {
 	var resource model.ResourceManage
@@ -184,7 +184,7 @@ func (l *LinksController) UpdateResource(ctx *gin.Context) *response.Response {
 	if resource.Name != "" {
 		err = l.linkService.CheckResourceName(resource.ID, resource.Name)
 		if response.CheckError(err, "change name failed") {
-			return response.ResponseOperateFailed()
+			return response.ROperateFailed()
 		}
 		//fmt.Println("不重名")
 		/*newPath := "D:/Go project/Go_UPandDownload/downloads/" + resource.Name
@@ -195,10 +195,10 @@ func (l *LinksController) UpdateResource(ctx *gin.Context) *response.Response {
 	err = l.linkService.UpdateResource(&resource)
 	if response.CheckError(err, "Update link error") {
 		//fmt.Println("更新失败")
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	//fmt.Println("更新成功")
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) UploadResource(ctx *gin.Context) {
@@ -242,7 +242,7 @@ func (l *LinksController) AddResource(ctx *gin.Context) *response.Response {
 	err = l.linkService.CheckResourceName(resource.ID, resource.Name)
 	if response.CheckError(err, "find same name") {
 		fmt.Println(err)
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	resource.DownloadNum = 0
 	//resource.Url = "D:/Go project/Go_UPandDownload/downloads/" + resource.Name
@@ -251,9 +251,9 @@ func (l *LinksController) AddResource(ctx *gin.Context) *response.Response {
 	err = l.linkService.AddResource(&resource)
 	if response.CheckError(err, "Add Resource error") {
 		fmt.Println(err)
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) DeleteResource(ctx *gin.Context) *response.Response {
@@ -264,10 +264,10 @@ func (l *LinksController) DeleteResource(ctx *gin.Context) *response.Response {
 	err := os.Remove(url.Url)
 	err = l.linkService.DeleteResource(id)
 	if response.CheckError(err, "Get Resource error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) GetResourceLikeName(ctx *gin.Context) *response.Response {
@@ -277,10 +277,10 @@ func (l *LinksController) GetResourceLikeName(ctx *gin.Context) *response.Respon
 	pagesize := utils.QueryInt(ctx, "pagesize")
 	resource, count, err := l.linkService.GetResourceLikeName(name, pagenum, pagesize)
 	if response.CheckError(err, "Get Resource error") {
-		return response.ResponseGetResourceFailed()
+		return response.RGetResourceFailed()
 	}
 
-	return response.ResponseGetResourceSuccess(resource, count)
+	return response.RGetResourceSuccess(resource, count)
 }
 
 func (l *LinksController) ReUploadResource(ctx *gin.Context) {
@@ -330,19 +330,19 @@ func (l *LinksController) CheckSucceededAddToResource(ctx *gin.Context) *respons
 	c := l.linkService.GetCheckResourceById(id)
 	fmt.Println(c)
 	if c.ID == 0 {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	c.ID = 0
 	err = l.linkService.AddResource(c)
 	if response.CheckError(err, "add resource error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	err = l.linkService.DeleteResourceCheck(id)
 	if response.CheckError(err, "delete resourcecheck error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (l *LinksController) CheckFailedResource(ctx *gin.Context) *response.Response {
@@ -351,13 +351,13 @@ func (l *LinksController) CheckFailedResource(ctx *gin.Context) *response.Respon
 	id := uint(Id)
 	c := l.linkService.GetCheckResourceById(id)
 	if c.ID == 0 {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	err := os.Remove(c.Url)
 	err = l.linkService.DeleteResourceCheck(id)
 	if response.CheckError(err, "Delete Check Resource error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

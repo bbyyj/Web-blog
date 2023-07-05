@@ -24,9 +24,9 @@ func (e *ElectionCommentController) ElectionCommentList(ctx *gin.Context) *respo
 	pegeSize := utils.QueryInt(ctx, "pageSize")
 	essays, count, err := e.electionCommentDao.FindElectionComment(subject_id, pageNum, pegeSize)
 	if response.CheckError(err, "Get Election Comment List") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(essays, count)
+	return response.RQuerySuccess(essays, count)
 }
 func (e *ElectionCommentController) AddElectionComment(ctx *gin.Context) *response.Response {
 	var comment model.ElectionComment
@@ -37,7 +37,7 @@ func (e *ElectionCommentController) AddElectionComment(ctx *gin.Context) *respon
 	}
 	err = e.electionCommentDao.AddElectionComment(&comment)
 	if response.CheckError(err, "Add Election Comment error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }

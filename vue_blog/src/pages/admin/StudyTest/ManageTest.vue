@@ -204,7 +204,6 @@ export default {
                 try {
                     // 发送delete HTTP请求来删除题目/admin/deleteExam
                     const { data: res } = await this.$axios.delete("/admin/deleteExam", { params: { id: index } });
-                    console.log(index)
                     if (res.status === 401) {
                         // 显示成功消息
                         window.alert('删除成功!');
@@ -255,7 +254,6 @@ export default {
                     fourth_answer: this.postInfo.selection4,
                     correct_answer: this.postInfo.answer
                 });
-                console.log(this.selectedChapter)
                 if (res.status === 101) {
                     // 显示成功消息
                     window.alert('新增成功!');

@@ -65,78 +65,71 @@ export default {
                 {
                     id: "1",
                     icon: "el-icon-edit",
-                    name: "博客管理",
+                    name: " 博客管理",
                     submenus: [
-                        { id: "11", index: "/listBlogs", icon: "el-icon-menu", name: "查看博客" },
-                        { id: "12", index: "/addBlog", icon: "el-icon-plus", name: "新增博客" },
+                        { id: "11", index: "/listBlogs", icon: "el-icon-view", name: " 查看博客" },
+                        { id: "12", index: "/addBlog", icon: "el-icon-plus", name: " 新增博客" },
                     ]
                 },
                 {
                     id: "2",
-                    icon: "el-icon-notebook-2",
-                    name: "分类管理",
+                    icon: "el-icon-guide",
+                    name: " 分类管理",
                     submenus: [
-                        { id: "21", index: "/ListTypes", icon: "el-icon-menu", name: "查看分类" },
+                        { id: "21", index: "/ListTypes", icon: "el-icon-view", name: " 查看分类" },
                     ]
                 },
                 {
                     id: "3",
                     icon: "el-icon-paperclip",
-                    name: "标签管理",
+                    name: " 标签管理",
                     submenus: [
-                        { id: "31", index: "/ListTags", icon: "el-icon-menu", name: "查看标签" },
+                        { id: "31", index: "/ListTags", icon: "el-icon-view", name: " 查看标签" },
                     ]
                 },
                 {
-                    id: "5",
-                    icon: "el-icon-notebook-1",
-                    name: "音乐管理",
+                    id: "4",
+                    icon: "el-icon-headset",
+                    name: " 音乐管理",
                     submenus: [
-                        { id: "51", index: "/manageMusic", icon: "el-icon-menu", name: "管理音乐" },
+                        { id: "51", index: "/manageMusic", icon: "el-icon-magic-stick", name: " 管理音乐" },
+                    ]
+                },
+
+                {
+                    id: "5",
+                    icon: "el-icon-files",
+                    name: " 资源库管理",
+                    submenus: [
+                        { id: "71", index: "/manageLink", icon: "el-icon-folder-checked", name: " 管理文件" },
+                        { id: "72", index: "/manageResourse", icon: "el-icon-finished", name: " 审核文件"},                    
                     ]
                 },
                 {
                     id: "6",
-                    icon: "el-icon-chat-line-square",
-                    name: "留言管理",
+                    icon: "el-icon-collection",
+                    name: " 题库管理",
                     submenus: [
-                        { id: "61", index: "/manageMsg", icon: "el-icon-menu", name: "管理留言" },
+                        { id: "81", index: "/manageTest", icon: "el-icon-document", name: " 管理题库" },
+                        { id: "82", index: "/manageSubjectsAndChapters", icon: "el-icon-notebook-1", name: " 管理科目和章节" },
                     ]
                 },
                 {
                     id: "7",
-                    icon: "el-icon-star-off",
-                    name: "资源库管理",
+                    icon: "el-icon-message",
+                    name: " 提问箱管理",
                     submenus: [
-                        { id: "71", index: "/manageLink", icon: "el-icon-menu", name: "管理文件" },
-                        { id: "72", index: "/manageResourse", icon: "el-icon-menu", name: "审核文件"},                    
+                        { id: "91", index: "/ManagehaveAsked", icon: "el-icon-chat-line-round", name: " 已回答问题" },
+                        { id: "92", index: "/ManagenoAsk", icon: "el-icon-chat-round", name: " 未回答问题" },
                     ]
                 },
                 {
                     id: "8",
-                    icon: "el-icon-star-off",
-                    name: "题库管理",
+                    icon: "el-icon-school",
+                    name: " 选课通管理",
                     submenus: [
-                        { id: "81", index: "/manageTest", icon: "el-icon-menu", name: "管理题库" },
-                        { id: "82", index: "/manageSubjectsAndChapters", icon: "el-icon-menu", name: "管理科目和章节" },
-                    ]
-                },
-                {
-                    id: "9",
-                    icon: "el-icon-star-off",
-                    name: "提问箱管理",
-                    submenus: [
-                        { id: "91", index: "/ManagehaveAsked", icon: "el-icon-menu", name: "已回答问题" },
-                        { id: "92", index: "/ManagenoAsk", icon: "el-icon-menu", name: "未回答问题" },
-                    ]
-                },
-                {
-                    id: "10",
-                    icon: "el-icon-star-off",
-                    name: "选课通管理",
-                    submenus: [
-                        { id: "101", index: "/ManageComments", icon: "el-icon-menu", name: "学科评论" },
-                        { id: "102", index: "/ManageSubjects", icon: "el-icon-menu", name: "学科信息" },
+                        { id: "101", index: "/ManageComments", icon: "el-icon-star-off", name: " 学科评论" },
+                        { id: "102", index: "/ManageSubjects", icon: "el-icon-reading", name: " 学科信息" },
                     ]
                 }
             ]

@@ -76,7 +76,7 @@ export default {
 .box .blog-box {
     float: left;
     width: 450px;
-    height: 190px;
+    height: 120px;
     padding-left: 20px;
 }
 
@@ -120,7 +120,7 @@ export default {
     text-align: center;
     font-size: 30px;
     margin-bottom: 10px;
-    font-family: HYYueXiChuKaiJ-2;
+    font-family: NotoSerifSC-Regular;
     font-weight: bolder;
 }
 
@@ -168,7 +168,7 @@ export default {
         line-height: 2;
         color: #3d3952;
         max-height: 100px;
-        font-family: HYYueXiChuKaiJ-2;
+        font-family: NotoSerifSC-Regular;
     }
 }
 
@@ -182,7 +182,7 @@ export default {
         font-size: 14px;
         font-weight: 700;
         color: #696eae;
-        font-family: HYYueXiChuKaiJ-2;
+        font-family: NotoSerifSC-Regular;
     }
 
     i {
@@ -202,7 +202,7 @@ export default {
         padding: 4px;
         border-radius: 3px;
         color: #696eae;
-        font-family: HYYueXiChuKaiJ-2;
+        font-family: NotoSerifSC-Regular;
         font-weight:bold;
     }
 }

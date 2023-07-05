@@ -22,9 +22,9 @@ func NewAskboxFrontRouter() *AskBoxFrontController {
 func (a *AskBoxFrontController) GetAnsweredQA(ctx *gin.Context) *response.Response {
 	askboxs, count, err := a.askBoxService.GetAnsweredQA()
 	if response.CheckError(err, "Get AnsweredQA error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(askboxs, count)
+	return response.RQuerySuccess(askboxs, count)
 }
 
 func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Response {
@@ -38,7 +38,7 @@ func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Respo
 
 	maxParentQuestionID, err := a.askBoxService.GetMaxParentQuestionId()
 	if response.CheckError(err, "Get MaxParentQuestionId error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	askbox.ParentId = maxParentQuestionID + 1
 
@@ -50,9 +50,9 @@ func (a *AskBoxFrontController) AddNewQuestion(ctx *gin.Context) *response.Respo
 	err = a.askBoxService.AddNewQuestion(&askbox)
 
 	if response.CheckError(err, "Add NewQuestion error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (a *AskBoxFrontController) AppendOldQuestion(ctx *gin.Context) *response.Response {
@@ -71,22 +71,22 @@ func (a *AskBoxFrontController) AppendOldQuestion(ctx *gin.Context) *response.Re
 	err = a.askBoxService.AddNewQuestion(&askbox)
 
 	if response.CheckError(err, "Append OldQuestion error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
 
 func (a *AskBoxFrontController) ClickLikes(ctx *gin.Context) *response.Response {
 	var askbox model.Askbox
 	if err := ctx.ShouldBind(&askbox); err != nil {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
 	println(askbox.Likes)
 	//askbox.Likes += 1
 	err := a.askBoxService.ClickLikes(askbox.Likes, askbox.ParentId, askbox.ChildId)
 
 	if response.CheckError(err, "Click Likes error") {
-		return response.ResponseOperateFailed()
+		return response.ROperateFailed()
 	}
-	return response.ResponseOperateSuccess()
+	return response.ROperateSuccess()
 }
