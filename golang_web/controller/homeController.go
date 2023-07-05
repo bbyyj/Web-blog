@@ -70,3 +70,20 @@ func (h *HomeController) SearchBlog(ctx *gin.Context) *response.Response {
 
 	return response.ResponseQuerySuccess(blogs)
 }
+
+// 根据TagId获取分页博客列表
+func (h *HomeController) GetAllBlogByTags(ctx *gin.Context) *response.Response {
+	pageNum := utils.QueryInt(ctx, "pageNum")
+	pageSize := utils.QueryInt(ctx, "pageSize")
+	tagId := utils.QueryInt(ctx, "tagId")
+	utils.Logger().Debug("pageNum:%v, pageSize:%v", pageNum, pageSize)
+
+	if pageNum <= 0 || pageSize <= 0 {
+		return response.ResponseQueryFailed()
+	}
+	blogs, count, err := h.blogService.GetBlogsByTagId(tagId, pageNum, pageSize)
+	if response.CheckError(err, "Get Blogs error") {
+		return response.ResponseQueryFailed()
+	}
+	return response.ResponseQuerySuccess(blogs, count)
+}
