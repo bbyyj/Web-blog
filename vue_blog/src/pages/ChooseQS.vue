@@ -157,7 +157,7 @@ export default {
     background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax, 110vmax 110vmax, 90vmax 90vmax;
     background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax, -30vmax -10vmax, 50vmax 50vmax;
     animation: 7s move linear infinite;
-    font-family: HYYueXiChuKaiJ-2;
+    font-family: NotoSerifSC-Regular;
 
 }
 // 通过修改background的参数形成动画
@@ -310,6 +310,6 @@ ul,li {
     .el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
         margin: 5px;
     }
-	font-family: HYYueXiChuKaiJ-2;
+	font-family: NotoSerifSC-Regular;
 }
 </style>

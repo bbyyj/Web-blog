@@ -15,7 +15,7 @@
                     <div @mouseleave="showResult = false; keyWord = ''" v-show="showResult" class="search-result">
                         <div class="search-content">
                             <ul>
-                                <li>{{ total ? '共' + total + '条记录！' : '没有找到记录！' }}</li>
+                                <!-- <li>{{total ? '共' + total + '条记录！' : '没有找到记录！' }}</li> -->
                                 <li :key="item.id" v-for="item in searchResult">
                                     <a @click="blogDetail(item.id)">{{ item.title }}</a>
                                 </li>
@@ -72,7 +72,7 @@ export default {
             siteName: "中山大学",
             activeRoute: "/home",
             searchResult: [],
-            total: 0,
+            // total: 0,
             showResult: false
         }
     },
@@ -228,7 +228,7 @@ p {
     height: 60px;
     position: fixed;
     background: rgba(252, 252, 252, 0.35);
-    font-family: GEETYPEQingKongPaoPaoTi-Shan-XiTi;
+    font-family: NotoSerifSC-Regular;
     font-weight: normal;
     font-size: 18px;
 }

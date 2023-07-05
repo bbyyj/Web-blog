@@ -39,7 +39,7 @@ a {
     transition: all 0.3s linear;
     outline: none;
     text-decoration: none;
-    font-family: HYYueXiChuKaiJ-2;
+    font-family: NotoSerifSC-Regular;
 
 }
 

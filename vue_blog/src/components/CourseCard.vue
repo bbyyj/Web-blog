@@ -9,10 +9,7 @@
             </div>
             <!--课程名称-->
             <div class="course-info">
-                {{ courseName }}
-            </div>
-            <!--教师名称-->
-            <div class="teacher-info">
+                {{ courseName }}  - 
                 {{ teacher }}
             </div>
         </div>
@@ -33,7 +30,6 @@ export default {
 </script>
 
 <style scoped>
-/* 这里我仅保留了一部分的CSS样式，并进行了一些修改 */
 .box {
     background-color: #d9dbeb;
     width: 840px;
@@ -76,8 +72,7 @@ export default {
     color: #7c80b8;
 }
 
-.box .course-box .course-info,
-.box .course-box .teacher-info {
+.box .course-box .course-info{
     height: 25px;
     text-align: center;
     margin-top: 5px;

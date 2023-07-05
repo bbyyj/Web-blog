@@ -118,7 +118,7 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: HYYueXiChuKaiJ-2;
+    font-family: NotoSerifSC-Regular;
 }
 .box{
     margin-left: 180px;
@@ -132,7 +132,7 @@ export default {
     background-color: #eff1f6;
     border-radius: 10px;
     padding: 15px 20px 15px 20px;
-    font-family: HYYueXiChuKaiJ-2;
+    font-family: NotoSerifSC-Regular;
 }
 /deep/ .el-dropdown-menu__item:hover{
     background-color:#e0e5ed;
