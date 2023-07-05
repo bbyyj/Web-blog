@@ -10,7 +10,8 @@
                     <template slot-scope="scope">
                         <!--回复和删除按钮-->
                         <el-button class="edt" size="mini" @click="handleResponse(scope.$index)">回复</el-button>
-                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除</el-button>
+                        <el-button class="del" size="mini" type="danger"
+                            @click="handleDelete(scope.row.parent_id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -21,7 +22,7 @@
             </el-pagination>
 
             <el-dialog title="问答信息" :visible.sync="dialogFormVisible">
-                <el-form label-width="80px">
+                <el-form label-width="100px">
                     <el-form-item label="你的回复：">
                         <el-input v-model="postInfo.answer" autocomplete="off" clearable></el-input>
                     </el-form-item>
