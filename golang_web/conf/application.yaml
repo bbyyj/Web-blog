@@ -1,7 +1,6 @@
 server:
   host: "0.0.0.0"
   port: 8080
-  imagePath: "./"              # 图片保存路径，如果使用阿里云OSS，这个就没用了
   imageBaseUrl: "http://localhost:8080"   # 图片的网络访问基路径
 
 mysql:
