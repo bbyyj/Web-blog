@@ -79,11 +79,11 @@ func (h *HomeController) GetAllBlogByTags(ctx *gin.Context) *response.Response {
 	utils.Logger().Debug("pageNum:%v, pageSize:%v", pageNum, pageSize)
 
 	if pageNum <= 0 || pageSize <= 0 {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
 	blogs, count, err := h.blogService.GetBlogsByTagId(tagId, pageNum, pageSize)
 	if response.CheckError(err, "Get Blogs error") {
-		return response.ResponseQueryFailed()
+		return response.RQueryFailed()
 	}
-	return response.ResponseQuerySuccess(blogs, count)
+	return response.RQuerySuccess(blogs, count)
 }
