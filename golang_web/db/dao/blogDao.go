@@ -54,11 +54,6 @@ func NewBlogDao() *BlogDao {
 			`SELECT COUNT(*) FROM blog b, user u, type t WHERE
 			b.user_id = u.id AND b.type_id = t.id AND b.published = 1 AND b.id in (
             SELECT blog_id FROM blog_tags WHERE tag_id = ?)`,
-			// 9、查询时间线
-			`SELECT DISTINCT DATE_FORMAT(blog.create_time, '%Y') ut FROM blog ORDER BY ut DESC;`,
-			// 10、根据某年查询该年发布的博客
-			`SELECT b.title, b.create_time, b.id, b.flag
-        	FROM blog b WHERE DATE_FORMAT(b.create_time, "%Y") = ? ORDER BY b.create_time DESC;`,
 			// 根据标题或内容搜索
 			`SELECT id, title
 			FROM blog WHERE title LIKE ? OR content LIKE ?
@@ -144,34 +139,19 @@ func (b *BlogDao) GetBlogCountByTagId(id int) (count int, err error) {
 	return
 }
 
-// 9、获取去重后的博客发布时间
-func (b *BlogDao) GetAllBlogPublishYear() (years []string, err error) {
-	err = sqldb.Select(&years, b.sql[9])
-	return
-}
-
-// 10、根据%Y类型的时间获取博客
-func (b *BlogDao) GetBlogByFormatedYear(year string) (blogs []model.Blog, err error) {
-	err = sqldb.Select(&blogs, b.sql[10], year)
-	return
-}
-
-// 11、根据关键词查询博客
 func (b *BlogDao) FindBlogsByKeyWord(keyWord string) (blogs []model.BlogSection, err error) {
-	err = sqldb.Select(&blogs, b.sql[11], keyWord, keyWord)
+	err = sqldb.Select(&blogs, b.sql[9], keyWord, keyWord)
 	return
 }
 
-// 12、根据关键词查询博客数量
 func (b *BlogDao) GetBlogCountByKeyWord(keyWord string) (count int, err error) {
-	err = sqldb.Get(&count, b.sql[12], keyWord, keyWord)
+	err = sqldb.Get(&count, b.sql[10], keyWord, keyWord)
 	return
 }
 
-// 13、根据三个关键字的组合来获取博客，分别为博客标题、博客类型以及是否推荐
 func (b *BlogDao) FindBlogsByTitleOrTypeOrRecommend(pageStart, pageSize int, title string, typeId int, recommend string) (blogs []model.BlogUserType, count int, err error) {
-	sq1 := b.sql[13]
-	sq2 := b.sql[14]
+	sq1 := b.sql[11]
+	sq2 := b.sql[12]
 	param := make([]interface{}, 0, 5)
 	// `SELECT b.id, b.title, b.create_time, b.recommend, b.published, b.type_id, t.name typename
 	//		FROM blog b ,type t WHERE  b.type_id = t.id`, 尾部拼接
@@ -217,29 +197,25 @@ func (b *BlogDao) FindBlogsByTitleOrTypeOrRecommend(pageStart, pageSize int, tit
 	return
 }
 
-// 15、根据id删除博客
 func (b *BlogDao) DeleteById(id int) error {
-	_, err := sqldb.Exec(b.sql[15], id)
+	_, err := sqldb.Exec(b.sql[13], id)
 	return err
 }
 
-// 16、博客编辑页获取博客完整信息
 func (b *BlogDao) FindFullBlog(id int) (*model.BlogUserType, error) {
 	var blog model.BlogUserType
-	err := sqldb.Get(&blog, b.sql[16], id)
+	err := sqldb.Get(&blog, b.sql[14], id)
 	return &blog, err
 }
 
-// 17、更新博客
 func (b *BlogDao) UpdateBlog(tx *sqlx.Tx, blog *model.FullBlog) error {
-	_, err := tx.Exec(b.sql[17], blog.Title, blog.Content, blog.FirstPicture, blog.Flag, blog.Appreciation, blog.ShareStatement,
+	_, err := tx.Exec(b.sql[15], blog.Title, blog.Content, blog.FirstPicture, blog.Flag, blog.Appreciation, blog.ShareStatement,
 		blog.Commentabled, blog.Published, blog.Recommend, blog.UpdateTime, blog.TypeId, blog.UserId, blog.Description, blog.Id)
 	return err
 }
 
-// 18、新增博客
 func (b *BlogDao) AddBlog(tx *sqlx.Tx, blog *model.FullBlog) (int, error) {
-	result, err := tx.Exec(b.sql[18], blog.Title, blog.Content, blog.FirstPicture, blog.Flag, blog.Views,
+	result, err := tx.Exec(b.sql[16], blog.Title, blog.Content, blog.FirstPicture, blog.Flag, blog.Views,
 		blog.Appreciation, blog.ShareStatement, blog.Commentabled, blog.Published, blog.Recommend,
 		blog.CreateTime, blog.UpdateTime, blog.TypeId, blog.UserId, blog.Description)
 	if err != nil {
@@ -253,20 +229,17 @@ func (b *BlogDao) AddBlog(tx *sqlx.Tx, blog *model.FullBlog) (int, error) {
 	return int(id), nil
 }
 
-// 19、添加博客标签
 func (b *BlogDao) InsertIntoBlogTags(tx *sqlx.Tx, bt []model.BlogTag) error {
-	_, err := tx.NamedExec(b.sql[19], bt)
+	_, err := tx.NamedExec(b.sql[17], bt)
 	return err
 }
 
-// 20、删除博客标签
 func (b *BlogDao) DeleteBlogTagsByBlogId(tx *sqlx.Tx, id int) error {
-	_, err := tx.Exec(b.sql[20], id)
+	_, err := tx.Exec(b.sql[18], id)
 	return err
 }
 
-// 21、根据博客类型对博客分组、计算每个分组的数量
 func (b *BlogDao) FindTypeAndBlogCount() (types []model.TheType, err error) {
-	err = sqldb.Select(&types, b.sql[21])
+	err = sqldb.Select(&types, b.sql[19])
 	return
 }
