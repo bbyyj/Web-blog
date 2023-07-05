@@ -12,10 +12,13 @@
 * 后台管理
 
 ## 部分图片展示
-
+* Blog首页
 ![首页展示](./README.assets/home1.png)
 ![首页展示](./README.assets/home2.png)
+* 提问箱功能
 ![部分功能展示](./README.assets/%E6%8F%90%E9%97%AE%E7%AE%B1.png)
+*资源库功能
 ![部分功能展示](./README.assets/%E8%B5%84%E6%BA%90%E5%BA%93.png)
+*后台管理
 ![后台展示](./README.assets/%E5%90%8E%E5%8F%B01.png)
 ![后台展示](./README.assets/%E5%90%8E%E5%8F%B02.png)
