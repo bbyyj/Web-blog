@@ -229,6 +229,7 @@ export default {
                 if (res.status === 401) {
                     this.$message.success("删除科目成功");
                     this.getSubjectsList();  //刷新科目列表
+                    this.deleteSubjectForm.name = "" //清空已选项目
                 } else {
                     this.$message.error("删除科目失败");
                 }
@@ -270,6 +271,8 @@ export default {
                 if (res.status === 401) {
                     this.$message.success("删除章节成功");
                     this.getChaptersList(this.deleteChapterForm.subject);  //刷新章节列表
+                    this.deleteChapterForm.subject = "";  //清空对应部分的内容
+                    this.deleteChapterForm.chapter = "";
                 } else {
                     this.$message.error("删除章节失败");
                 }
