@@ -33,7 +33,7 @@
 import dayjs from "dayjs";
 
 export default {
-    name: "ManageMessage",
+    name: "ManageResourse",
     data() {
         return {
             //接收到的数据

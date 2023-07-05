@@ -19,8 +19,6 @@ import BackToTop from "../components/BackToTop";
 import "jquery"
 
 import "animate.css"
-// import "../assets/js/sakura"
-// import "../assets/js/love"
 
 export default {
     components: { NavigationBar, BackToTop },

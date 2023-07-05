@@ -112,48 +112,12 @@ export default {
                 id: 2,
                 title: "博客系统开发",
                 description: "本章主要介绍博客系统的开发工作...",
-                firstPicture: img2,
-                createTime: "2021-03-29",
-                views: 1024,
-                nickname: "Jack Ma",
-                typename: "框架底层原理"
-            },
-            {
-                id: 3,
-                title: "博客系统开发",
-                description: "本章主要介绍博客系统的开发工作...",
                 firstPicture: img3,
                 createTime: "2021-03-29",
                 views: 1024,
                 nickname: "Jack Ma",
                 typename: "框架底层原理"
             }],
-            newRecommend: {
-                title: "最新推荐",
-                icon: "icon-zuixingengxin",
-                list: [
-                    { id: 1, title: "MarkDownit使用" },
-                    { id: 2, title: "Vue日期格式化过滤器" },
-                    { id: 3, title: "前后端分离登录验证" },
-                    { id: 4, title: "MavonEditor上传图片" },
-                    { id: 5, title: "Springboot中PageHelper 分页查询使用方法" },
-                    { id: 6, title: "mybatis根据日期查询、查询日期并返回" },
-                    { id: 7, title: "maven中静态资源的过滤" }
-                ]
-            },
-            hotBlogs: {
-                title: "热门推荐",
-                icon: "icon-fire",
-                list: [
-                    { id: 1, title: "MarkDownit使用" },
-                    { id: 2, title: "Vue日期格式化过滤器" },
-                    { id: 3, title: "前后端分离登录验证" },
-                    { id: 4, title: "MavonEditor上传图片" },
-                    { id: 5, title: "Springboot中PageHelper 分页查询使用方法" },
-                    { id: 6, title: "mybatis根据日期查询、查询日期并返回" },
-                    { id: 7, title: "maven中静态资源的过滤" }
-                ]
-            },
             //获得歌单
             musicList: [],
             //博客的标签_通过函数获取全部标签
@@ -167,9 +131,7 @@ export default {
     },
     created() {
         this.getBlogLists();
-        this.getNewBlogs()
-        this.getHotBlogs()
-        this.getmusicList()
+        this.getmusicList();
 
     },
     mounted() {
@@ -244,24 +206,7 @@ export default {
                 }
             }
         },
-        // 获取最新推荐博客
-        async getNewBlogs() {
-            const { data: res } = await this.$axios.get("/myblog/newBlogs", { params: { countLimit: 10 } });
-            if (res.status === 1) {
-                this.newRecommend.list = res.data.length > 0 ? res.data[0] : this.newRecommend.list;
-            } else {
-                this.$message.warning("获取最新推荐失败！")
-            }
-        },
-        // 获取热门推荐博客
-        async getHotBlogs() {
-            const { data: res } = await this.$axios.get("/myblog/hotBlogs", { params: { countLimit: 10 } });
-            if (res.status === 1) {
-                this.hotBlogs.list = res.data.length > 0 ? res.data[0] : this.hotBlogs.list;
-            } else {
-                this.$message.warning("获取热门推荐失败！")
-            }
-        },
+        
         // 进入博客内容页面
         blogDetail(id) {
             this.$router.push({
@@ -271,6 +216,8 @@ export default {
                 }
             });
         },
+
+        //页面相关
         jumpPage(pageNum) {
             this.queryInfo.pageNum = pageNum;
             this.getBlogLists();
@@ -284,7 +231,7 @@ export default {
         },
 
         createConsoleText() {
-            var words = ['Hello World.', '不知道写什么', '也不知道选什么颜色', '字体换好了:)', '先意思一下', '不过紫色还蛮好看'];
+            var words = ['白云山高', '珠江水长', '吾校矗立', '蔚为国光'];
             var colors = ['#9990bc', '#8a84b7', '#7b79b1', "#6c6dac", "#5d62a7"];
 
             var visible = true;
