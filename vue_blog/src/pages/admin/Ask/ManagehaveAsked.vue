@@ -9,7 +9,8 @@
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button class="edt" size="mini" @click="handleEdit(scope.$index)">编辑回答</el-button>
-                        <el-button class="del" size="mini" type="danger" @click="handleDelete(scope.row.parent_id)">删除该条</el-button>
+                        <el-button class="del" size="mini" type="danger"
+                            @click="handleDelete(scope.row.parent_id)">删除该条</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -20,7 +21,7 @@
             </el-pagination>
 
             <el-dialog title="问答信息" :visible.sync="dialogFormVisible">
-                <el-form label-width="80px">
+                <el-form label-width="100px">
                     <el-form-item label="新的答案：">
                         <el-input v-model="postInfo.answer" autocomplete="off" clearable></el-input>
                     </el-form-item>
@@ -178,5 +179,4 @@ export default {
     color: #fff;
     border-color: #f67272ac;
 }
-
 </style>
