@@ -19,7 +19,8 @@ const Welcome = () => import("../pages/admin/Welcome.vue");
 const ListBlogs = () => import("../pages/admin/blogs/ListBlogs.vue");
 const AddBlog = () => import("../pages/admin/blogs/AddBlog.vue");
 const ManageResLink = () => import("../pages/admin/resourecLink/manageResLink");
-const ManageResourse = () => import("../pages/admin/resourecLink/ManageResourse");
+const ManageResourse = () =>
+  import("../pages/admin/resourecLink/ManageResourse");
 const ManageMusic = () => import("../pages/admin/music/ManageMusic");
 const ManageTest = () => import("../pages/admin/StudyTest/ManageTest");
 const ManageSandC = () => import("../pages/admin/StudyTest/ManageSandC");
@@ -74,7 +75,11 @@ const routes = [
       { path: "/listBlogs", component: ListBlogs, meta: { auth: true } },
       { path: "/addBlog", component: AddBlog, meta: { auth: true } },
       { path: "/manageLink", component: ManageResLink, meta: { auth: true } },
-      { path: "/manageResourse", component: ManageResourse, meta: {auth: true}},
+      {
+        path: "/manageResourse",
+        component: ManageResourse,
+        meta: { auth: true },
+      },
       { path: "/manageMusic", component: ManageMusic, meta: { auth: true } },
       { path: "/manageTest", component: ManageTest, meta: { auth: true } },
       {
@@ -115,7 +120,7 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
-/*
+
 //挂载路由导航守卫,此守卫是用来拦截页面访问的，如果没有token，则不能会被重定向到登录页
 // 访问博客页面不需要token，直接放行
 // 在登陆时不需要token，直接放行
@@ -134,6 +139,5 @@ router.beforeEach((to, from, next) => {
   if (!tokenStr) return next("/login");
   next();
 });
-*/
 
 export default router;
