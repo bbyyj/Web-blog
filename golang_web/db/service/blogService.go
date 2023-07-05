@@ -17,18 +17,15 @@ func NewBlogService() *BlogService {
 	}
 }
 
-// 获取主页的博客列表，根据pageNum和pageSize进行分页
 func (b *BlogService) GetHomePageBlogs(pageNum, pageSize int) ([]model.BlogUserType, error) {
 	pageStart := (pageNum - 1) * pageSize
 	return b.blogDao.GetConciseBlogs(pageStart, pageSize)
 }
 
-// 获取所有博客的数量
-func (b *BlogService) GetBolgCount() (int, error) {
-	return b.blogDao.GetBolgCount()
+func (b *BlogService) GetBlogCount() (int, error) {
+	return b.blogDao.GetBlogCount()
 }
 
-// 获取博客详情，也就是浏览博客
 func (b *BlogService) GetDetailedBlog(id int) (*model.DetailedBlog, []model.Tag, error) {
 	b.blogDao.UpdateViews(id)
 	blog, err := b.blogDao.FindDetailedBlog(id)
@@ -40,12 +37,10 @@ func (b *BlogService) GetDetailedBlog(id int) (*model.DetailedBlog, []model.Tag,
 	return blog, tags, nil
 }
 
-// 获取所有的博客类型
 func (b *BlogService) GetAllTypes() ([]int, error) {
 	return b.blogDao.FindAllTypes()
 }
 
-// 根据博客类型ID获取博客列表
 func (b *BlogService) GetBlogListByTypeId(typeid, pageNum, pageSize int) ([]model.BlogUserType, int, error) {
 	pageStart := (pageNum - 1) * pageSize
 	blogs, err := b.blogDao.FindByTypeId(typeid, pageStart, pageSize)
@@ -61,7 +56,6 @@ func (b *BlogService) GetBlogListByTypeId(typeid, pageNum, pageSize int) ([]mode
 	return blogs, count, nil
 }
 
-// 根据标签ID获取博客列表
 func (b *BlogService) GetBlogsByTagId(id, pageNum, pageSize int) ([]model.BlogUserType, int, error) {
 	pageStart := (pageNum - 1) * pageSize
 	blogs, err := b.blogDao.FindBlogsByTagId(id, pageStart, pageSize)
@@ -77,26 +71,6 @@ func (b *BlogService) GetBlogsByTagId(id, pageNum, pageSize int) ([]model.BlogUs
 	return blogs, count, nil
 }
 
-// 获取时间线页面的博客列表
-func (b *BlogService) GetTimeLineBlogs() ([][]model.Blog, error) {
-	years, err := b.blogDao.GetAllBlogPublishYear()
-	if err != nil {
-		return nil, err
-	}
-
-	groupBlogs := make([][]model.Blog, 0, 1)
-	for _, year := range years {
-		blogs, err := b.blogDao.GetBlogByFormatedYear(year)
-		if err != nil {
-			return nil, err
-		}
-		groupBlogs = append(groupBlogs, blogs)
-	}
-
-	return groupBlogs, nil
-}
-
-// 根据关键词查询博客列表
 func (b *BlogService) GetBlogsByKeyWord(keyWord string) ([]model.BlogSection, error) {
 	keyWord = "%" + keyWord + "%"
 	blogs, err := b.blogDao.FindBlogsByKeyWord(keyWord)
@@ -107,7 +81,6 @@ func (b *BlogService) GetBlogsByKeyWord(keyWord string) ([]model.BlogSection, er
 	return blogs, nil
 }
 
-// 根据title、type、recommend来筛选博客
 func (b *BlogService) GetBlogsByTitleOrTypeOrRecommend(pageNum, pageSize int, title string, typeId int,
 	recommend string) ([]model.BlogUserType, int, error) {
 	pageStart := (pageNum - 1) * pageSize
@@ -138,6 +111,7 @@ func (b *BlogService) GetFullBlog(id int) (*model.BlogUserType, []model.Tag, err
 }
 
 func (b *BlogService) UpdateBlog(blog *model.FullBlog) error {
+	// 和addBlog事务操作类似
 	tx, err := dao.Sqldb.Beginx()
 	if err != nil {
 		return err
@@ -149,21 +123,21 @@ func (b *BlogService) UpdateBlog(blog *model.FullBlog) error {
 		}
 	}()
 
-	//  从t_blog_tags表中删除原来的数据
+	//  blog_tags表 删除原本数据
 	err = b.blogDao.DeleteBlogTagsByBlogId(tx, blog.Id)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	// 更新t_blog表
+	// blog表 修改
 	err = b.blogDao.UpdateBlog(tx, blog)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
 
-	// 更新t_blog_tags表
+	// blog_tags表 插入
 	blogTags := make([]model.BlogTag, len(blog.TagIds))
 	for i, tid := range blog.TagIds {
 		blogTags[i].TagId = tid
@@ -181,6 +155,8 @@ func (b *BlogService) UpdateBlog(blog *model.FullBlog) error {
 }
 
 func (b *BlogService) AddBlog(blog *model.FullBlog) error {
+
+	// 多个表操作 开启一个数据库事务 出错则回滚全部撤销
 	tx, err := dao.Sqldb.Beginx()
 	if err != nil {
 		return err
@@ -192,13 +168,13 @@ func (b *BlogService) AddBlog(blog *model.FullBlog) error {
 		}
 	}()
 
-	// 更新t_blog表
+	// blog表
 	id, err := b.blogDao.AddBlog(tx, blog)
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
-	// 更新t_blog_tags表
+	// blog_tags表
 	blogTags := make([]model.BlogTag, len(blog.TagIds))
 	for i, tid := range blog.TagIds {
 		blogTags[i].TagId = tid
@@ -210,12 +186,12 @@ func (b *BlogService) AddBlog(blog *model.FullBlog) error {
 		return err
 	}
 
+	// 提交一个数据库事务
 	tx.Commit()
 
 	return nil
 }
 
-// 获取每个类型以及该类型下的博客数量
 func (b *BlogService) GetTypeAndBlogCount() ([]model.TheType, error) {
 	return b.blogDao.FindTypeAndBlogCount()
 }

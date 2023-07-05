@@ -19,7 +19,7 @@ func NewHomeRouter() *HomeController {
 	}
 }
 
-// 主页博客展示
+// 显示主页的文章 不包含文章内容
 func (h *HomeController) HomeListBlogs(ctx *gin.Context) *response.Response {
 	pageNum := utils.QueryInt(ctx, "pageNum")
 	pageSize := utils.QueryInt(ctx, "pageSize")
@@ -32,7 +32,7 @@ func (h *HomeController) HomeListBlogs(ctx *gin.Context) *response.Response {
 	if response.CheckError(err, "Get Blogs error") {
 		return response.ResponseQueryFailed()
 	}
-	count, err := h.blogService.GetBolgCount()
+	count, err := h.blogService.GetBlogCount()
 	if response.CheckError(err, "Get Blogs error") {
 		return response.ResponseQueryFailed()
 	}
@@ -40,6 +40,7 @@ func (h *HomeController) HomeListBlogs(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(blogs, count)
 }
 
+// 使用user服务 显示用户名和头像
 func (h *HomeController) GetHomePageUInfo(ctx *gin.Context) *response.Response {
 	user, tagn, err := h.userService.GetInfo()
 	if response.CheckError(err, "Get Userinfo error") {
@@ -49,7 +50,7 @@ func (h *HomeController) GetHomePageUInfo(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(user, tagn)
 }
 
-// 浏览博客详情
+// 点进具体的一篇文章 包括文章内容 并刷新浏览次数
 func (h *HomeController) GetDetailedBlog(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	blog, tags, err := h.blogService.GetDetailedBlog(id)
@@ -60,7 +61,7 @@ func (h *HomeController) GetDetailedBlog(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(blog, tags)
 }
 
-// 搜索博客
+// 搜索标题或正文里含有关键字的文章（模糊匹配）
 func (h *HomeController) SearchBlog(ctx *gin.Context) *response.Response {
 	keyWord := ctx.Query("keyWord")
 	blogs, err := h.blogService.GetBlogsByKeyWord(keyWord)

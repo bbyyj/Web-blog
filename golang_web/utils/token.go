@@ -34,10 +34,7 @@ func CreateToken(id uint32, username string, expireDuration time.Duration) (stri
 }
 
 func VerifyToken(token string) (string, uint32, bool) {
-	if token == "" {
-		return "", 0, false
-	}
-
+	// 传入自定义回调函数
 	tok, err := jwt.ParseWithClaims(token, &Claim{}, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
@@ -46,11 +43,11 @@ func VerifyToken(token string) (string, uint32, bool) {
 		return "", 0, false
 	}
 
+	// 断言：接口转结构体
 	if claims, ok := tok.Claims.(*Claim); ok && tok.Valid {
 		return claims.Username, claims.UserId, true
 	} else {
 		Logger().Warning("%v", err)
 		return "", 0, false
 	}
-
 }

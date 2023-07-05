@@ -20,6 +20,7 @@ func NewBlogRouter() *BlogController {
 	}
 }
 
+// 提供三种交叉分类的方法来后台管理文章
 func (b *BlogController) SearchBlogs(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "5")
@@ -45,6 +46,7 @@ func (b *BlogController) DeleteBlog(ctx *gin.Context) *response.Response {
 	return response.ResponseDeleteSuccess()
 }
 
+// 包括文章正文内容的 并使用tag服务里的操作返回一串tag
 func (b *BlogController) GetFullBlog(ctx *gin.Context) *response.Response {
 	id := utils.QueryInt(ctx, "id")
 	blogs, tags, err := b.blogService.GetFullBlog(id)
@@ -70,12 +72,13 @@ func (b *BlogController) AddBlog(ctx *gin.Context) *response.Response {
 	}
 	blog.UpdateTime = tm
 
-	if blog.Id == 0 { // 新增博客
+	// 新的记录插入前id为0，插入到数据库时自动更新
+	if blog.Id == 0 { // 新记录插入
 		err = b.blogService.AddBlog(&blog)
 		if response.CheckError(err, "Add blog error") {
 			return response.ResponseOperateFailed()
 		}
-	} else { // 更新博客
+	} else { // 旧记录更新
 		err = b.blogService.UpdateBlog(&blog)
 		if response.CheckError(err, "Update blog error") {
 			return response.ResponseOperateFailed()

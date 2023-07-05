@@ -19,7 +19,7 @@ func NewTagListRouter() *TagListController {
 	}
 }
 
-// 标签页获取所有的标签
+// 使用同后台一样的操作
 func (t *TagListController) GetTagList(ctx *gin.Context) *response.Response {
 	tags, err := t.tagService.GetAllTags()
 	if response.CheckError(err, "Get tags error") {
@@ -28,7 +28,7 @@ func (t *TagListController) GetTagList(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(tags)
 }
 
-// 标签页根据标签ID获取博客
+// 使用blog里面的操作
 func (t *TagListController) GetBlogListByTagId(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "8")

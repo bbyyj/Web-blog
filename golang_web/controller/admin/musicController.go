@@ -37,8 +37,6 @@ func (m *MusicController) AddMusic(ctx *gin.Context) *response.Response {
 	var music model.Music
 
 	err := ctx.ShouldBind(&music)
-	println(music.Url)
-	println(music.Name)
 
 	if response.CheckError(err, "Bind param error") {
 		ctx.Status(http.StatusInternalServerError)

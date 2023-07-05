@@ -6,6 +6,7 @@ type Tag struct {
 	count int    `db:"count" json:"count"`
 }
 
+// 多对多 关联表
 type BlogTag struct {
 	BlogId int `db:"blog_id"`
 	TagId  int `db:"tag_id"`

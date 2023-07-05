@@ -9,8 +9,10 @@ type TagDao struct {
 func NewTagDao() *TagDao {
 	return &TagDao{
 		sql: []string{
+			// FROM blog_tags bt JOIN tag t ON t.id = bt.tag_id
+			// blog_tags表与tag表通过它们之间的tag_id和id字段进行连接 （一个博客有多个标签）
 			`SELECT t.id, t.name FROM blog_tags bt JOIN tag t ON t.id = bt.tag_id WHERE bt.blog_id = ?;`,
-			`SELECT * FROM tag ORDER BY id ASC;`,
+			`SELECT * FROM tag ;`,
 			`SELECT * FROM tag LIMIT ?, ?;`,
 			`SELECT * FROM tag WHERE name = ?;`,
 			`DELETE FROM tag WHERE id = ?;`,
@@ -21,13 +23,11 @@ func NewTagDao() *TagDao {
 	}
 }
 
-// 根据博客ID获取所有的标签
 func (t *TagDao) GetTagsByBlogId(id int) (tags []model.Tag, err error) {
 	err = sqldb.Select(&tags, t.sql[0], id)
 	return
 }
 
-// 查询所有标签
 func (t *TagDao) FindAllTags() (tags []model.Tag, err error) {
 	err = sqldb.Select(&tags, t.sql[1])
 	return

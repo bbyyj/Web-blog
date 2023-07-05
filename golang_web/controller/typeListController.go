@@ -20,7 +20,7 @@ func NewTypeListRouter() *TypeListController {
 	}
 }
 
-// 博客类型页面获取所有博客类型
+// 分类和标签的写法一模一样
 func (t *TypeListController) GetTypeList(ctx *gin.Context) *response.Response {
 	allTypes, err := t.typeService.FindAll()
 	if response.CheckError(err, "Get all types error") {
@@ -42,7 +42,6 @@ func (t *TypeListController) GetTypeList(ctx *gin.Context) *response.Response {
 	return response.ResponseQuerySuccess(allTypes)
 }
 
-// 博客类型页面根据博客类型ID获取博客
 func (t *TypeListController) GetBlogListByTypeid(ctx *gin.Context) *response.Response {
 	pageNum := utils.DefaultQueryInt(ctx, "pageNum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pageSize", "8")

@@ -20,14 +20,11 @@ func NewLoginRouter() *LoginController {
 	}
 }
 
-// 博客后台登录的router
+// 登录时携带token
 func (l *LoginController) Login(ctx *gin.Context) *response.Response {
 	var u model.User
 	err := ctx.ShouldBind(&u)
 	if response.CheckError(err, "Bind param error") {
-		return response.NewResponseOkND(response.LoginFailed)
-	}
-	if u.Username == "" || u.Password == "" {
 		return response.NewResponseOkND(response.LoginFailed)
 	}
 
@@ -47,8 +44,10 @@ func (l *LoginController) Login(ctx *gin.Context) *response.Response {
 
 func LoginAuthenticationMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		// 解析Authorization头部里的token
 		token := ctx.GetHeader("Authorization")
 		if token == "" {
+			// 说明跳过了上面的Login函数，直接由url跳转
 			utils.Logger().Warning("未获得授权, ip:%s", ctx.Request.RemoteAddr)
 			ctx.JSON(http.StatusOK, &(response.NewResponseOkND(response.Unauthorized).R))
 			ctx.Abort()
@@ -57,10 +56,11 @@ func LoginAuthenticationMiddleware() gin.HandlerFunc {
 
 		if _, _, ok := utils.VerifyToken(token); !ok {
 			ctx.JSON(http.StatusOK, &(response.NewResponseOkND(response.Unauthorized).R))
+			// 停止执行当前请求的剩余中间件和处理程序函数
 			ctx.Abort()
 			return
 		}
-
+		// 继续执行链中的下一个中间件或处理程序函数
 		ctx.Next()
 	}
 }

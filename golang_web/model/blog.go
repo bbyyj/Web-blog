@@ -32,7 +32,7 @@ type BlogUserType struct {
 	Typename string `db:"typename" json:"typename"`
 }
 
-// 带用户名和点击量的blog
+// 带用户名和点击量的blog（首页用）
 type DetailedBlog struct {
 	Blog
 	Nickname string `db:"nickname" json:"nickname"`
@@ -40,7 +40,7 @@ type DetailedBlog struct {
 	Views    int    `db:"views" json:"views"`
 }
 
-// 带用户名和tag组合的blog
+// 带用户名和tag组合的blog（具体一页用）
 type FullBlog struct {
 	BlogUserType
 	TagIds []int `json:"tagIds"`
