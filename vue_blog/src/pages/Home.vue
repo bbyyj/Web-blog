@@ -164,7 +164,6 @@ export default {
         async getmusicList() {
             const { data: res } = await this.$axios.get("/myblog/getAllMusic")
             if (res.status === 1) {
-                console.log(res.data[0])
                 this.musicList = res.data[0];
             }
             else {
@@ -293,8 +292,6 @@ export default {
             if (res.status === 1) {
                 this.blogDetails = res.data.length > 0 ? res.data[0] : this.blogDetails
                 this.blogCount = res.data.length > 1 ? res.data[1] : this.blogCount
-                console.log("test")
-                console.log(data[0])
                 this.pages = Math.ceil(this.blogCount / this.queryInfo.pageSize)
                 if (this.pages <= 0) {
                     this.pages = 1

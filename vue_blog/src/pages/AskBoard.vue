@@ -67,7 +67,6 @@ export default {
                     this.$message.error("网络出了点小问题,获取提问失败！")
                     return
                 }
-                console.log("test")
                 this.total = res.data[1];
                 this.messages = res.data[0].map(item => ({
                     myself: item.find(m => m.is_parent === true),

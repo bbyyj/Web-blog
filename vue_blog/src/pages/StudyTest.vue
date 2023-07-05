@@ -92,7 +92,6 @@ export default {
             const { data: res } = await this.$axios.get("/myblog/examList", { params: { typename: typename, title: title } });
             if (res.status === 1) {
                 this.questions = res.data[0];
-                console.log(res.data[0]);
             }
             else {
                 print("fail")

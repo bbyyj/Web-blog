@@ -109,8 +109,6 @@ export default {
             const { data: res } = await this.$axios.get("/myblog/electionDetailedList", {
                 params: { subject_id: subject_id },
             });
-            console.log(res.data[0])
-            console.log(subject_id)
             this.courseInfo = res.data[0][0];
         } catch (error) {
             console.error(error);
@@ -139,7 +137,6 @@ export default {
                 comment: this.comment.content,
             });
 
-            console.log(this.comment.content)
             if (res.status === 101) {
                 this.getCommentList();
                 this.comment.content = "";

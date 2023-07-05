@@ -198,7 +198,6 @@ export default {
         },
         //获取对应类别下的课程
         async getCourses() {
-            console.log(this.selectedCategory)
             if (this.selectedCategory === "") {
                 this.getALLCourses()
                 return
@@ -206,7 +205,7 @@ export default {
             const { data: res } = await this.$axios.get("/admin/electionByClass", { params: { classification: this.selectedCategory, pageNum: this.queryInfo.pageNum, pageSize: this.queryInfo.pageSize } });
             if (res.status === 1) {
                 //进行赋值
-                console.log(res.data[0])
+
                 this.courses = res.data[0]
                 this.total = res.data[1]
             }

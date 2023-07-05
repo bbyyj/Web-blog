@@ -26,7 +26,6 @@ export default {
     methods: {
         navigateToCourseDetail() {
             //这里你可以导航到课程的详细信息页面
-            console.log(this.courseCode)
             this.$router.push({ path: '/CourseDetail', query: { subject_id: this.courseCode } });
         }
     }

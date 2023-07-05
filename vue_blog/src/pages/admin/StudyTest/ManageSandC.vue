@@ -198,7 +198,6 @@ export default {
                 const { data: res } = await this.$axios.post("/admin/addSubject", {
                     name: this.newSubjectForm.name, //假设你的新科目名称存在这个变量里
                 });
-                console.log(this.newSubjectForm.name)
                 if (res.status === 101) {
                     this.$message.success("新增科目成功");
                     this.getSubjectsList();  //刷新科目列表
@@ -260,7 +259,6 @@ export default {
                 if (res.status === 401) {
                     this.$message.success("删除章节成功");
                     this.getChaptersList(this.deleteChapterForm.subject);  //刷新章节列表
-                    console.log(this.deleteChapterForm.subject)
                 } else {
                     this.$message.error("删除章节失败");
                 }

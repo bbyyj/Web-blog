@@ -88,11 +88,7 @@ export default {
 
         //提交新的子问题  点击确定按钮
         submitAppendDialog(child_id) {
-            console.log(child_id)
             child_id += 1
-            console.log()
-            console.log(this.newQuestion)
-            console.log(this.newQuestionRainbow)
             //提交子问题的操作   参数已经获取到了
             this.appendOldQuestion(child_id, this.newQuestion, this.newQuestionRainbow);
             this.closeAppendDialog();
@@ -101,7 +97,6 @@ export default {
         async appendOldQuestion(child_id, question, rainbow) {
             // const parent_id = this.groupMsg.myself.id;
             const parent_id = this.groupMsg.myself.parent_id;
-            console.log(parent_id)
             try {
                 const { data: res } = await this.$axios.post("/myblog/appendOldQuestion", {
                     parent_id,
@@ -126,10 +121,6 @@ export default {
             // const parent_id = this.groupMsg.myself.id;
             const parent_id = this.groupMsg.myself.parent_id;
             const likes = temple.likes += 1;
-            console.log(temple.likes)
-            console.log(likes)
-            console.log(child_id)
-            console.log(parent_id)
             try {
                 const { data: res } = await this.$axios.put("/myblog/clickLikes", {
                     likes,

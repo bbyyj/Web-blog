@@ -52,7 +52,6 @@ export default {
     methods: {
         async getMessageList() {
             const {data:res} = await this.$axios.get("/admin/t/pageresourcecheck", {params: this.queryInfo});
-            console.log(res);
             if(res.status !== 563) {
                 this.$message.error("获取列表失败，请重试！")
                 return
@@ -84,7 +83,6 @@ export default {
 
         async handleStatus(id, status) {
             let res
-            console.log(id);
             if (status==1) {
                 res = await this.$axios.put("/admin/t/checksucceeded", {id: id});
             } else {
