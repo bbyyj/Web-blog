@@ -47,11 +47,6 @@
             <el-input class="textarea" type="textarea" :rows="5" placeholder="博客描述..." v-model="postInfo.description">
             </el-input>
 
-            <!-- <el-checkbox v-model="postInfo.appreciation" label="赞赏"></el-checkbox>
-            <el-checkbox v-model="postInfo.commentabled" label="评论"></el-checkbox> -->
-            <el-checkbox v-model="postInfo.recommend" label="推荐"></el-checkbox>
-            <!-- <el-checkbox v-model="postInfo.shareStatement" label="转载"></el-checkbox> -->
-
             <el-row class="endbtns" type="flex" justify="end">
                 <el-button type="primary" plain @click="saveBlog(false)" class="add">保存</el-button>
                 <el-button type="success" plain @click="publishBlog">发布</el-button>
