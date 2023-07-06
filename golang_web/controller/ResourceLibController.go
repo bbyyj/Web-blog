@@ -39,8 +39,6 @@ func (r *ResourceLibController) LinkList(ctx *gin.Context) *response.Response {
 }
 
 func (r *ResourceLibController) GetALLResource(ctx *gin.Context) *response.Response {
-	//pagestart := utils.StrconvAtoiParm(ctx, "pagestart")
-	//pagesize := utils.StrconvAtoiParm(ctx, "pagesize")
 	pagestart := utils.DefaultQueryInt(ctx, "pagenum", "1")
 	pagesize := utils.DefaultQueryInt(ctx, "pagesize", "10")
 	//resource, err := r.linkService.GetAllResource(pagestart, pagesize)
@@ -53,9 +51,6 @@ func (r *ResourceLibController) GetALLResource(ctx *gin.Context) *response.Respo
 }
 
 func (r *ResourceLibController) GetALLResourceByCategoryId(ctx *gin.Context) *response.Response {
-	//categoryId := utils.StrconvAtoiParm(ctx, "categoryId")
-	//pageStart := utils.StrconvAtoiParm(ctx, "pageStart")
-	//pageSize := utils.StrconvAtoiParm(ctx, "pageSize")
 	categoryId := utils.DefaultQueryInt(ctx, "categoryid", "1")
 	pageStart := utils.DefaultQueryInt(ctx, "pagenum", "1")
 	pageSize := utils.DefaultQueryInt(ctx, "pagesize", "10")
@@ -67,7 +62,6 @@ func (r *ResourceLibController) GetALLResourceByCategoryId(ctx *gin.Context) *re
 }
 
 func (r *ResourceLibController) GetAllResourceLikeName(ctx *gin.Context) *response.Response {
-	//name := ctx.Param("name")
 	name := ctx.Query("name")
 	pagenum := utils.QueryInt(ctx, "pagenum")
 	pagesize := utils.QueryInt(ctx, "pagesize")
@@ -80,11 +74,8 @@ func (r *ResourceLibController) GetAllResourceLikeName(ctx *gin.Context) *respon
 
 }
 
-func (r *ResourceLibController) DownloadReasourceService(ctx *gin.Context) {
-	//name := ctx.Param("name")
-	//fmt.Println("准备下载，来拿名字")
+func (r *ResourceLibController) DownloadResourceService(ctx *gin.Context) {
 	name := ctx.Query("name")
-	//fmt.Printf("名字拿到咯，是：%s\n来拿地址", name)
 	url, err := r.linkService.GetDownloadUrl(name)
 	filePath := url.Url
 	if response.CheckError(err, "Get DownloadUrl error") {
@@ -92,14 +83,12 @@ func (r *ResourceLibController) DownloadReasourceService(ctx *gin.Context) {
 			nil, 565, "获取资源失败",
 		})
 	} else {
-		//fmt.Printf("地址拿到咯，是：%s\n准备更新下载次数", filePath)
 		err = r.linkService.UpdateResourceDownloadNumByName(name)
 		fileInfo, err := os.Stat(filePath)
 		if err != nil {
 			ctx.JSON(http.StatusNotFound, "File not found")
 			return
 		}
-
 		if response.CheckError(err, "Get DownloadUrl error") {
 			ctx.JSON(http.StatusOK, model.ResResult{
 				nil, 565, "获取资源失败",
@@ -111,11 +100,9 @@ func (r *ResourceLibController) DownloadReasourceService(ctx *gin.Context) {
 		ctx.Writer.Header().Set("Content-Length", strconv.FormatInt(fileInfo.Size(), 10))
 		ctx.File(filePath)
 	}
-
 }
 
 func (r *ResourceLibController) GetResourceDetailByName(ctx *gin.Context) *response.Response {
-	//name := ctx.Param("name")
 	name := ctx.Query("name")
 	resource, err := r.linkService.GetAllResourceByName(name)
 	if response.CheckError(err, "Get AllResourceLikeName error") {
@@ -149,7 +136,6 @@ func (l *ResourceLibController) AddReasourceCheckService(ctx *gin.Context) *resp
 		return response.ROperateFailed()
 	}
 	resource.DownloadNum = 0
-	//resource.Url = "D:/Go project/Go_UPandDownload/downloads/" + resource.Name
 	resource.FileSize, err = utils.GetFileSize(resource.Url)
 
 	err = l.linkService.AddResourceCheck(&resource)
@@ -171,7 +157,7 @@ func (l *ResourceLibController) UploadReasourceCheckService(ctx *gin.Context) {
 	}
 	now := time.Now().Unix()
 	fp, suf := utils.FileSuffixSplit(file.Filename)
-	filename := fmt.Sprintf("%s_%d%s", fp, now, suf) // filename: bg_156435453.jpg
+	filename := fmt.Sprintf("%s_%d%s", fp, now, suf)
 
 	log.Println(filename)
 	dst := fmt.Sprintf(model.FileRoot, filename)

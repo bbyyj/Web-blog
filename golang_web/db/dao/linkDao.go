@@ -106,7 +106,7 @@ func (l *LinkDao) FindAllResourceLikeName(name string, pagestart, pagesize int) 
 	fmt.Println(pagestart)
 	fmt.Println(pagesize)
 	err = Db.Table("resource_manages").Select("`name`,`desc`,`category_id`,`download_num`,`file_size`,`created_at`").Where("name LIKE ?", name).Count(&count).Offset(pagestart).Limit(pagesize).Find(&links).Error
-	//err = Db.Table("links").Where("name LIKE ?", name).Find(&links).Offset(-1).Limit(-1).Count(&count).Error
+
 	fmt.Println(links)
 	if len(links) == 0 {
 		err = errors.New("No matching records found")
@@ -150,26 +150,22 @@ func (l *LinkDao) FindAllCategory() (category []model.LinkCategory, err error) {
 
 // admin
 func (l *LinkDao) FindLimitedResource(pageStart, pageSize int) (links []model.ResourceManage, count int, err error) {
-	//err = Db.Table("resource_manages").Offset(pageStart).Limit(pageSize).Select("`name`,`desc`,`category_id`,`download_num`,`file_size`,`created_at`").Find(&links).Error
-	fmt.Println(pageStart)
-	fmt.Println(pageSize)
+	//fmt.Println(pageStart)
+	//fmt.Println(pageSize)
 	var link []model.ResourceManage
 	Db.Table("resource_manages").Find(&link).Count(&count)
 	if pageStart < count {
 		err = Db.Table("resource_manages").Offset(pageStart).Limit(pageSize).Find(&links).Error
 	}
-	//err = Db.Table("resource_manages").Offset(pageStart).Limit(pageSize).Find(&links).Error
 
 	if len(links) == 0 {
 		err = errors.New("No matching records found")
 	}
 	fmt.Println(err)
-	//fmt.Println(links)
 	return
 }
 
 func (l *LinkDao) FindLimitedResourceCheck(pageStart, pageSize int) (links []model.ResourceManage, count int, err error) {
-	//err = Db.Table("resource_manages").Offset(pageStart).Limit(pageSize).Select("`name`,`desc`,`category_id`,`download_num`,`file_size`,`created_at`").Find(&links).Error
 	fmt.Println(pageStart)
 	fmt.Println(pageSize)
 	var link []model.ResourceManage
@@ -177,13 +173,7 @@ func (l *LinkDao) FindLimitedResourceCheck(pageStart, pageSize int) (links []mod
 	if pageStart < count {
 		err = Db.Table("resource_manage_checks").Offset(pageStart).Limit(pageSize).Find(&links).Error
 	}
-	//err = Db.Table("resource_manages").Offset(pageStart).Limit(pageSize).Find(&links).Error
-
-	//if len(links) == 0 {
-	//	err = errors.New("No matching records found")
-	//}
 	fmt.Println(err)
-	//fmt.Println(links)
 	return
 }
 
@@ -201,90 +191,64 @@ func (l *LinkDao) UpdateResource(link *model.ResourceManage) error {
 func (l *LinkDao) CheckResourceName(id uint, name string) error {
 	var u []model.ResourceManage
 	err := Db.Table("resource_manages").Where("name = ? AND id <> ?", name, id).Find(&u).Error
-	//err = Db.Table("links").Where("name LIKE ?", name).Find(&links).Offset(-1).Limit(-1).Count(&count).Error
-	//fmt.Println(u)
 	if len(u) != 0 {
 		return errors.New("Find same name!")
 	}
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) CheckResourceCheckName(id uint, name string) error {
 	var u []model.ResourceManage
 	err := Db.Table("resource_manage_checks").Where("name = ? AND id <> ?", name, id).Find(&u).Error
-	//err = Db.Table("links").Where("name LIKE ?", name).Find(&links).Offset(-1).Limit(-1).Count(&count).Error
-	//fmt.Println(u)
 	if len(u) != 0 {
 		return errors.New("Find same name!")
 	}
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) AddResource(resource *model.ResourceManage) error {
 	var err error
 	err = Db.Table("resource_manages").Create(&resource).Error
-	//fmt.Println(u)
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) AddResourceCheck(resource *model.ResourceManage) error {
 	var err error
 	err = Db.Table("resource_manage_checks").Create(&resource).Error
-	//fmt.Println(u)
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) DeleteResource(id uint) error {
 	var err error
 	err = Db.Table("resource_manages").Where("id = ?", id).Unscoped().Delete(model.ResourceManage{}).Error
-	//fmt.Println(u)
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) DeleteResourceCheck(id uint) error {
 	var err error
 	err = Db.Table("resource_manage_checks").Where("id = ?", id).Unscoped().Delete(model.ResourceManage{}).Error
-	//fmt.Println(u)
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) GetResourceLikeName(name string, pagestart, pagesize int) (resource []model.ResourceManage, count int, err error) {
 	name = ("%" + name + "%")
 	err = Db.Table("resource_manages").Where("name LIKE ?", name).Count(&count).Offset(pagestart).Limit(pagesize).Find(&resource).Error
-	//fmt.Println(u)
-	//fmt.Println(err)
 	return
 }
 
 func (l *LinkDao) ReUploadUpdateTime(name string) error {
 	err := Db.Table("resource_manages").Where("name = ?", name).UpdateColumn("updated_at", time.Now()).Error
-	//fmt.Println(u)
-	//fmt.Println(err)
 	return err
 }
 
 func (l *LinkDao) GetResourceUrl(id uint) *model.ResourceUrl {
 	var url model.ResourceUrl
 	Db.Table("resource_manages").Select("name,url").Where("id = ?", id).Find(&url)
-	//err = Db.Table("links").Where("name LIKE ?", name).Find(&links).Offset(-1).Limit(-1).Count(&count).Error
-	//fmt.Println(url)
-	//fmt.Println(err)
-	//fmt.Println(count)
 	return &url
 }
 
 func (l *LinkDao) GetCheckResourceById(id uint) *model.ResourceManage {
 	var u model.ResourceManage
 	Db.Table("resource_manage_checks").Where("id = ?", id).Find(&u)
-	//err = Db.Table("links").Where("name LIKE ?", name).Find(&links).Offset(-1).Limit(-1).Count(&count).Error
-	//fmt.Println(url)
-	//fmt.Println(err)
-	//fmt.Println(count)
 	return &u
 }
